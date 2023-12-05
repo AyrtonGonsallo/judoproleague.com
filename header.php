@@ -468,7 +468,11 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                                 <img src="/wp-content/uploads/2023/07/logo-sgs-judo_rouge-mini.png" class="nv-img">
                                 <span class="nv-score">06/01</span>
                             </div>
-                            <div class="nv-team nv-team-final4"><span class="nv-name-final4">Vainqueur QF 3</span><span class="nv-score">19h30</span></div>
+                            <div class="nv-team nv-team" >
+                                <span class="nv-name">ESBM</span>
+                                <img src="/wp-content/uploads/2022/11/ESBM-1.png" class="nv-img">
+                                <span class="nv-score">19h30</span>
+                            </div>
                         </div>
                         <div class="flip-card-back">
                             <a href="" class="nv-all-info">Toutes les infos</a>

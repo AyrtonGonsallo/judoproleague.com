@@ -160,9 +160,9 @@ function display($rencontres){?>
                                             <img src="/wp-content/uploads/2023/07/logo-sgs-judo_rouge-mini.png">
                                             <h3 class="cal-res-poule-eqp-tp">Sainte-Geneviève Sports Judo</h3>
                                         </div>
-                                        <div class="cal-res-poule-team  brd-none">
-                                            <h3 class="cal-res-poule-eqp-tp ">Vainqueur quart de finale 3</h3>
-                                            <span class="cal-res-poule-rs"></span>
+                                        <div class="cal-res-poule-team ">
+                                            <img src="/wp-content/uploads/2022/11/ESBM-1.png">
+                                            <h3 class="cal-res-poule-eqp-tp">ES Blanc Mesnil Judo</h3>
                                         </div>
                                     </div>
                                     <div>
