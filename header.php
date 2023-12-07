@@ -459,50 +459,7 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                 </li>
                 <?php 
                         endforeach ?>
-                <li class="rencontre flip-card splide__slide" style="margin:20px !important;">
-                    <div class="flip-card-inner splide__slide__container">
-                        <div class="flip-card-front">
-                            <div class="nv-header-rencontre"><span>Demi-finale 1</span><span class="nv-staut">  à venir  <img src="/wp-content/uploads/2023/07/icon-rencontre-a-venir.png" class="nv-img-statut"></span></div>
-                            <div class="nv-team nv-team" >
-                                <span class="nv-name">SGS</span>
-                                <img src="/wp-content/uploads/2023/07/logo-sgs-judo_rouge-mini.png" class="nv-img">
-                                <span class="nv-score">06/01</span>
-                            </div>
-                            <div class="nv-team nv-team" >
-                                <span class="nv-name">ESBM</span>
-                                <img src="/wp-content/uploads/2022/11/ESBM-1.png" class="nv-img">
-                                <span class="nv-score">19h30</span>
-                            </div>
-                        </div>
-                        <div class="flip-card-back">
-                            <a href="" class="nv-all-info">Toutes les infos</a>
-                            <?php 
-                                echo '<div class="brd-sep"></div>';
-                                echo '<a href="" target="_blank" class="nv-all-info">Billetterie</a>';
-                            ?>
-                        </div>
-                    </div>
-                </li>
-                <li class="rencontre flip-card splide__slide" style="margin:20px !important;">
-                    <div class="flip-card-inner splide__slide__container">
-                        <div class="flip-card-front">
-                            <div class="nv-header-rencontre"><span>Demi-finale 2</span><span class="nv-staut">  à venir  <img src="/wp-content/uploads/2023/07/icon-rencontre-a-venir.png" class="nv-img-statut"></span></div>
-                            <div class="nv-team nv-team" >
-                                <span class="nv-name">ASN</span>
-                                <img src="/wp-content/uploads/2023/07/logo-AM-ASNIERES-JUDO-92-mini.png" class="nv-img">
-                                <span class="nv-score">06/01</span>
-                            </div>                            
-                            <div class="nv-team nv-team-final4"><span class="nv-name-final4">Vainqueur QF 4</span><span class="nv-score">19h30</span></div>
-                        </div>
-                        <div class="flip-card-back">
-                            <a href="" class="nv-all-info">Toutes les infos</a>
-                            <?php 
-                                echo '<div class="brd-sep"></div>';
-                                echo '<a href="" target="_blank" class="nv-all-info">Billetterie</a>';
-                            ?>
-                        </div>
-                    </div>
-                </li>
+                
                 <li class="rencontre flip-card splide__slide" style="margin:20px !important;">
                     <div class="flip-card-inner splide__slide__container">
                         <div class="flip-card-front">

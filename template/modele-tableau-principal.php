@@ -23,6 +23,25 @@ $args_quarts = array(
 );
 
 $rencontres_quarts= get_posts($args_quarts);
+
+$args_demies = array(		
+    'post_type'=> 'rencontre',		
+    'posts_per_page' => -1,
+    'meta_query'     => 
+    array(  
+        'relation' => 'and',   
+        array(      
+            'key'        => 'niveau',      
+            'compare'    => '=',      
+            'value'      => 'Final four (Demi-finale)'
+            ),
+	),		
+    'meta_key' => 'date_de_debut',		
+    'orderby' => 'meta_value_num',		
+    'order' => 'DESC',			
+);
+
+$rencontres_demies= get_posts($args_demies);
 ?>
 <?php
 function display($rencontres){?>
@@ -147,61 +166,7 @@ function display($rencontres){?>
                 </div>
                 <div class="tp-3x-grid-content">
                     <div class="tp-2y-grid">
-                        <div class="tp-2y-grid-content">
-                            <div class="cal-res-poule-blc">
-                                <div class="header-cal-res-poule">
-                                    <span class="cal-res-poule-title"> </span>
-                                    <span class="cal-res-poule-stat-tp avenir">à venir</span>
-                                </div>
-                                <div class="horaire-jr-tp">
-                                    <div>
-                                        
-                                        <div class="cal-res-poule-team ">
-                                            <img src="/wp-content/uploads/2023/07/logo-sgs-judo_rouge-mini.png">
-                                            <h3 class="cal-res-poule-eqp-tp">Sainte-Geneviève Sports Judo</h3>
-                                        </div>
-                                        <div class="cal-res-poule-team ">
-                                            <img src="/wp-content/uploads/2022/11/ESBM-1.png">
-                                            <h3 class="cal-res-poule-eqp-tp">ES Blanc Mesnil Judo</h3>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="cal-res-poule-title">06/01</span>
-                                        <span class="cal-res-poule-title">19:30</span>
-                                    </div>
-                                </div>
-                                <div class="cal-res-poule-link link-2" style="grid-template-columns: repeat(1,1fr) !important;">
-                                                            <a href="/rencontre/2023/quart-1/" class="nv-link-crt">Détails</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tp-2y-grid-content">
-                        <div class="cal-res-poule-blc">
-                                <div class="header-cal-res-poule">
-                                    <span class="cal-res-poule-title"> </span>
-                                    <span class="cal-res-poule-stat-tp avenir">à venir</span>
-                                </div>
-                                <div class="horaire-jr-tp">
-                                    <div>
-                                        <div class="cal-res-poule-team ">
-                                            <img src="/wp-content/uploads/2023/07/logo-AM-ASNIERES-JUDO-92-mini.png">
-                                            <h3 class="cal-res-poule-eqp-tp">AM Asnières Judo 92</h3>
-                                        </div>
-                                        <div class="cal-res-poule-team  brd-none">
-                                            <h3 class="cal-res-poule-eqp-tp ">Vainqueur quart de finale 4</h3>
-                                            <span class="cal-res-poule-rs"></span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="cal-res-poule-title">06/01</span>
-                                        <span class="cal-res-poule-title">19:30</span>
-                                    </div>
-                                </div>
-                                <div class="cal-res-poule-link link-2" style="grid-template-columns: repeat(1,1fr) !important;">
-                                                            <a href="/rencontre/2023/quart-1/" class="nv-link-crt">Détails</a>
-                                </div>
-                            </div>
-                        </div>
+                        <?php display($rencontres_demies);?>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
