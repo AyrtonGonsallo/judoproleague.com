@@ -84,7 +84,8 @@ $rencontres_demies = get_posts($args_f4);
                                 $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
 
                                 $rencontre_permalink = get_the_permalink($rencontre->ID);
-
+                                
+                                $niveau=(get_field('niveau', $rencontre->ID));
                                 $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'][0];
 
                                 $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];
@@ -165,7 +166,7 @@ $rencontres_demies = get_posts($args_f4);
                                             </div>
                                             <div>
                                                 <span class="cal-res-poule-title"><?php echo substr($date_debut,8,2).'/'.substr($date_debut,5,2);?></span>
-                                                <span class="cal-res-poule-title"><?php echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);?></span>
+                                                <span class="cal-res-poule-title"><?php if($niveau=="Final four (Demi-finale)"){echo 'TBD';}else{echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);}?></span>
                                             </div>
                                         </div>
 
@@ -213,7 +214,7 @@ $rencontres_demies = get_posts($args_f4);
                             </div>
                             <div>
                                 <span class="cal-res-poule-title">06/01</span>
-                                <span class="cal-res-poule-title">20h00</span>
+                                <span class="cal-res-poule-title">TBD</span>
                             </div>
                         </div>
                         <div class="cal-res-poule-link link-2" style="grid-template-columns: repeat(1,1fr) !important;">

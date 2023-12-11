@@ -61,6 +61,7 @@ function display($rencontres){?>
             $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):$equipe1->post_title;
             $abreviation2=(get_field('abreviation', $equipe2->ID))?get_field('abreviation', $equipe2->ID):$equipe2->post_title;
             $statut=get_field('statut', $rencontre->ID)['label'];
+            $niveau=(get_field('niveau', $rencontre->ID));
             if($statut=='en cours'){
                 $class_status='encours';
                 $equipe_gagnante =  'inconnue';
@@ -103,7 +104,7 @@ function display($rencontres){?>
                         </div>
                         <div <?php if($texte_status=='terminé'){?>style="display:none !important;"<?php }?>>
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,8,2).'/'.substr($date_debut,5,2);?></span>
-                            <span class="cal-res-poule-title"><?php echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);?></span>
+                            <span class="cal-res-poule-title"><?php  if($niveau=="Final four (Demi-finale)"){echo 'TBD';}else{echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);}?></span>
                         </div>
                     </div>
                     <div class="cal-res-poule-link <?php echo $class_reservation;?>" <?php if(!$lien_live_ou_billet){?> style="grid-template-columns: repeat(1,1fr) !important;" <?php } ?> >
@@ -190,7 +191,7 @@ function display($rencontres){?>
                                     </div>
                                     <div>
                                         <span class="cal-res-poule-title">06/01</span>
-                                        <span class="cal-res-poule-title">20h00</span>
+                                        <span class="cal-res-poule-title">TBD</span>
                                     </div>
                                 </div>
                                 <div class="cal-res-poule-link link-2" style="grid-template-columns: repeat(1,1fr) !important;">
