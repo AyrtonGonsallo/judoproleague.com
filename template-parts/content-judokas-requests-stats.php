@@ -196,8 +196,8 @@ function array_msort($array, $cols)
 						$results['total'][$judoka2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
 						$results['total'][$judoka1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
 					}
-					$results['total'][$judoka2->post_title][0]["points_judoka"]+=$match['points_judoka_2'];
-					$results['total'][$judoka1->post_title][0]["points_judoka"]+=$match['points_judoka_1'];
+					$results['total'][$judoka2->post_title][0]["points_judoka"]+=($match['points_judoka_2'])?$match['points_judoka_2']:0;
+					$results['total'][$judoka1->post_title][0]["points_judoka"]+=($match['points_judoka_1'])?$match['points_judoka_1']:0;
 					$i++;
 					$results['total'][$judoka1->post_title][0]["step"]='total';
 					$results['total'][$judoka2->post_title][0]["step"]='total';

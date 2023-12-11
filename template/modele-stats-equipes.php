@@ -54,7 +54,8 @@ get_header();
                     <tbody>
                     <?php
                        
-                        foreach ($classement as $d) {?>
+                        foreach ($classement as $d) {
+                            if($d[0]['nom']){?>
                             <tr>
                                 <td  class="align-photo-nom-vertically"><img width="24px" height="24px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['victoires'])?$d[0]['combats_gagnés']:0?></td>
@@ -63,6 +64,7 @@ get_header();
                                 <td class="wp-caption-text"><?php echo ($d[0]['points_marqués'])?$d[0]['points_marqués']:0?></td>
                             </tr>
                         <?php
+                            }
                         } ?>
                     </tbody>
                 </table>
