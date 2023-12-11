@@ -502,7 +502,7 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                 if($actif){?>
                     <a href="<?php echo $lien;?>" target="_blank" class="nv-btn"><img src="/wp-content/uploads/2023/07/youtube.png">Suivre le direct</a>
                 <?php }?>
-                <a href="/calendrier-resultats-2023/" class="nv-btn"><img src="/wp-content/uploads/2023/07/plus.png">Toutes les rencontres</a>
+                <a href="/calendrier-resultats-2023/final4/" class="nv-btn"><img src="/wp-content/uploads/2023/07/plus.png">Toutes les rencontres</a>
             </div>
         </div>
     </div>

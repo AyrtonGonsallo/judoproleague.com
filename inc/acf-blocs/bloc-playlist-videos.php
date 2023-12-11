@@ -2,8 +2,7 @@
     query_posts(array(
         'post_type'=> 'video_youtube',
         'posts_per_page' => 4,
-        'meta_key' => 'date_dajout',
-        'orderby' => 'meta_value',
+        'orderby' => 'date',
             'order' => 'DESC'
         ));
         ?>
