@@ -314,9 +314,25 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
                   
                     <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
 
-                   
+                    <div class="nv-header-lang">
+                        <?php
 
-                </div>
+                        wp_nav_menu(
+
+                        array(
+
+                            'theme_location' => 'langues',
+
+                            'menu_id'        => 'langues-menu',
+
+                            'conatiner' => false,
+
+                            'menu_class' => 'navbar-nav',
+
+                        )
+
+                        ); ?>
+                    </div>
 
 			</div>
 
@@ -447,7 +463,7 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                         <div class="flip-card-front">
                             <div class="nv-header-rencontre"><span><?php echo get_field('phase', $rencontre->ID)[0]->post_title.' '.get_field('journee', $rencontre->ID); ?></span><span class="nv-staut"> <?php echo $status ;?> <img src="/wp-content/uploads/2023/07/<?php echo $icone_status;?>" class="nv-img-statut"></span></div>
                             <div class="nv-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>" ><span class="nv-name"><?php echo $abreviation1;?></span><img src="<?php echo $image1_url; ?>" class="nv-img"><span class="nv-score"><?php echo (($status!='à venir')?$score_equipe1:(substr($date_debut,8,2).'/'.substr($date_debut,5,2)));?></span></div>
-                            <div class="nv-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>"><span class="nv-name"><?php echo $abreviation2;?></span><img src="<?php echo $image2_url; ?>" class="nv-img"><span class="nv-score"><?php if($status!='à venir'){echo $score_equipe2;}else{if($niveau=="Final four (Demi-finale)"){echo 'TBD';}else{echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);}}?></span></div>
+                            <div class="nv-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>"><span class="nv-name"><?php echo $abreviation2;?></span><img src="<?php echo $image2_url; ?>" class="nv-img"><span class="nv-score"><?php if($status!='à venir'){echo $score_equipe2;}else{echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);}?></span></div>
                         </div>
                         <div class="flip-card-back">
                             <a href="<?php echo $lien;?>" class="nv-all-info">Toutes les infos</a>
@@ -466,7 +482,7 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                         <div class="flip-card-front">
                             <div class="nv-header-rencontre"><span>Finale</span><span class="nv-staut">  à venir  <img src="/wp-content/uploads/2023/07/icon-rencontre-a-venir.png" class="nv-img-statut"></span></div>
                             <div class="nv-team nv-team-final4" ><span class="nv-name-final4">Vainqueur DF 1</span><span class="nv-score">06/01</span></div>
-                            <div class="nv-team nv-team-final4"><span class="nv-name-final4">Vainqueur DF 2</span><span class="nv-score">TBD</span></div>
+                            <div class="nv-team nv-team-final4"><span class="nv-name-final4">Vainqueur DF 2</span><span class="nv-score">18h30 </span></div>
                         </div>
                         <div class="flip-card-back">
                             <a href="" class="nv-all-info">Toutes les infos</a>

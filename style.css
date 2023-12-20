@@ -627,7 +627,7 @@ textarea {
 }
 .nv-header-lang {
     position: absolute;
-    right: -60%;
+    right: -88%;
 }
 .nv-header-lang a {
     font-family: 'Grtsk Regular';
@@ -1223,6 +1223,10 @@ section.section-presentation:after {
     max-width: 50%;
     margin: 0 auto;
 	position: relative;
+}
+.menu-langues-container ul{
+	display: flex;
+
 }
 .presentation-equipes {
     max-width: 100%;
@@ -3956,6 +3960,16 @@ cal-res-poule-stat {
 	}
 }
 @media screen and (max-width: 1099px) {
+	.nv-header-lang {
+		position: relative;
+		right: -44%;
+	}
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	  }
+	  
 	.news-2-col {
 		max-width: 900px;
 		gap: 0 25px;
@@ -5933,6 +5947,10 @@ a {
 }
 
 @media (min-width:1235px) and (max-width:1588px){
+	.nv-header-lang {
+		top: 16px ;
+		right: 0px;
+	}
 	#navbar-menu .navbar-nav>li>a {
 		font-size: 20px !important;
 	}
@@ -5941,6 +5959,10 @@ a {
 	}
 }
 @media (min-width:1098px) and (max-width:1234px){
+	.nv-header-lang {
+		top: 20px ;
+		right: 0px;
+	}
 	#navbar-menu .navbar-nav>li>a {
 		font-size: 19px !important;
 	}
