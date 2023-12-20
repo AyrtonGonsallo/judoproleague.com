@@ -519,8 +519,16 @@ a:focus {
 a:hover,
 a:active {
 	outline: 0;
+	color: #060e95;
 }
-
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover,
+h6:hover{
+	color: #060e95;
+}
 /* Forms
 --------------------------------------------- */
 button,
@@ -1227,6 +1235,16 @@ section.section-presentation:after {
 .menu-langues-container ul{
 	display: flex;
 
+}
+/*
+#langues-menu li.current-language-menu-item a{
+	color: #0026ff !important;
+	}*/
+#langues-menu li.current-language-menu-item a:after {
+	transform: scaleX(1) !important;
+}
+.trp-language-switcher-container{
+	padding: 0px !important;
 }
 .presentation-equipes {
     max-width: 100%;
@@ -4987,7 +5005,7 @@ background-color: #eeeeee;
 		  margin: 0;
 		  padding: 0;
 	  }
-	  #navbar-menu .navbar-nav > li{
+	  #primary-menu.navbar-nav > li{
 		  padding: 0 10px !important;
 	  }
 	  ul {

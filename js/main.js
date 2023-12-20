@@ -37,7 +37,7 @@ function getCurrentURL () {
     }
 
 
-    return window.location.href.split(".com/")
+    return window.location.href.split(".fr/")
 
 
   }
@@ -56,25 +56,33 @@ function load_functions_of_page() {
 
 
    const regex_resultats = new RegExp(/judo_pro_league\/.*/);
+   const regex_anglais = new RegExp(/en\/.*/);
 
 
 	const regex_resultats2 = new RegExp(/en\/.*/);
 
 
-    urlparts = getCurrentURL(), console.log(urlparts), (urlparts.length < 1 || "#" == urlparts[1]  || "" == urlparts[1]) && (load_french_counter())
+    //urlparts = getCurrentURL(), console.log(urlparts), (urlparts.length < 1 || "#" == urlparts[1]  || "" == urlparts[1]) && (load_french_counter())
 
 
-	urlparts = getCurrentURL(), console.log(urlparts), ("en/" == urlparts[1]) && (load_english_counter())
+	//urlparts = getCurrentURL(), console.log(urlparts), ("en/" == urlparts[1]) && (load_english_counter())
 
-
+    urlparts = getCurrentURL()
     if("admin-videos/" == urlparts[1]){
 
 
         loadClient().then(execute)
 
-
     }
-
+    if(regex_anglais.test(urlparts[1])){
+        elem=document.querySelector("#langues-menu .menu-item-1678 > a")
+        console.log("page en anglais",elem)
+		elem.style.color = "blue";
+    }else{
+        elem2=document.querySelector("#langues-menu .menu-item-1679 > a")
+        console.log("page en francais",elem2)
+		elem2.classList.add("souligne")
+    }
 
     if(regex_resultats.test(urlparts[1])){
 
