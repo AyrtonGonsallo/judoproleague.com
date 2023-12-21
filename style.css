@@ -515,20 +515,15 @@ a {
 a:focus {
 	outline: thin dotted;
 }
-
+.single-post article.post a{
+	color: #060e95;
+}
 a:hover,
 a:active {
 	outline: 0;
 	color: #060e95;
 }
-h1:hover,
-h2:hover,
-h3:hover,
-h4:hover,
-h5:hover,
-h6:hover{
-	color: #060e95;
-}
+
 /* Forms
 --------------------------------------------- */
 button,
@@ -641,7 +636,7 @@ textarea {
     font-family: 'Grtsk Regular';
     color: #000;
     font-size: 22px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 
@@ -3982,6 +3977,9 @@ cal-res-poule-stat {
 		position: relative;
 		right: -44%;
 	}
+	.menu-item-1679{
+		border-right: #ffffff solid 1px !important;
+	}
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -5817,7 +5815,11 @@ a {
 	display:none;
 }*/
 .trp-ls-language-name{
-	font-size:12px;
+	font-size:16px;
+}
+
+.menu-item-1678{
+	margin-left: 5px !important;
 }
 .souligne{
     border-bottom: 2px solid #060e95 !important;
