@@ -9,27 +9,22 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
+<article id="post-<?php the_ID(); ?>" <?php post_class('resultat-recherche display-news-2-col'); ?>>
+	<? if(get_the_post_thumbnail_url(get_the_ID(),'thumbnail')){?>	
+		<div class="news-img-2-col" style="background-image: url(<?= the_post_thumbnail_url(get_the_ID(),'thumbnail');?>);"></div>
+	<?}else{?>
+		<div class="news-img-2-col" style="background-color: #000;"><? echo get_the_post_thumbnail_url(get_the_ID(),'thumbnail');?></div>
+	<?}?>
+	
+	<div class="nv-right-content">
 		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-
 		<?php if ( 'post' === get_post_type() ) : ?>
-		<div class="entry-meta">
-			<?php
-			pro_league_posted_on();
-			pro_league_posted_by();
-			?>
-		</div><!-- .entry-meta -->
+			<div class="entry-meta">
+				<?php
+				pro_league_posted_on();
+				pro_league_posted_by();
+				?>
+			</div><!-- .entry-meta -->
 		<?php endif; ?>
-	</header><!-- .entry-header -->
-
-	<?php pro_league_post_thumbnail(); ?>
-
-	<div class="entry-summary">
-		<?php the_excerpt(); ?>
-	</div><!-- .entry-summary -->
-
-	<footer class="entry-footer">
-		<?php pro_league_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
-</article><!-- #post-<?php the_ID(); ?> -->
+	</div>
+</article>

@@ -481,7 +481,8 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                     <div class="flip-card-inner splide__slide__container">
                         <div class="flip-card-front">
                             <div class="nv-header-rencontre"><span>Finale</span><span class="nv-staut">  à venir  <img src="/wp-content/uploads/2023/07/icon-rencontre-a-venir.png" class="nv-img-statut"></span></div>
-                            <div class="nv-team nv-team-final4" ><span class="nv-name-final4">Vainqueur DF 1</span><span class="nv-score">06/01</span></div>
+                            <div class="nv-team" ><span class="nv-name">SGS</span><img src="https://judoproleague.com/wp-content/uploads/2023/07/logo-sgs-judo_rouge-mini.png" class="nv-img"><span class="nv-score">06/01</span></div>
+                            
                             <div class="nv-team nv-team-final4"><span class="nv-name-final4">Vainqueur DF 2</span><span class="nv-score">18h30 </span></div>
                         </div>
                         <div class="flip-card-back">
@@ -555,12 +556,15 @@ splide.mount();
 			
 
 </header>
+<div id="recherche-box">
+	 <?php echo do_shortcode( '[search_form]' ); ?>
+</div>
 
 <?php 
 
 $post_type=get_post_type();
 
-if($post_type=='post'){
+if($post_type=='post' && !$_GET['s']){
 
 	echo '<h1 class="result-h1 fs-65">Actualités de la Judo Pro League</h1>';
 

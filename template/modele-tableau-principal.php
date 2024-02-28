@@ -42,6 +42,25 @@ $args_demies = array(
 );
 
 $rencontres_demies= get_posts($args_demies);
+
+$args_f = array(		
+    'post_type'=> 'rencontre',		
+    'posts_per_page' => -1,
+    'meta_query'     => 
+    array(  
+        'relation' => 'and',   
+        array(      
+            'key'        => 'niveau',      
+            'compare'    => '=',      
+            'value'      => 'Final four (Finale)'
+            ),
+	),		
+    'meta_key' => 'date_de_debut',		
+    'orderby' => 'meta_value_num',		
+    'order' => 'DESC',			
+);
+
+$rencontre_f= get_posts($args_f);
 ?>
 <?php
 function display($rencontres){?>
@@ -172,35 +191,10 @@ function display($rencontres){?>
                 </div>
                 <div class="tp-3x-grid-content">
                     <div class="tp-y-grid">
-                        <div class="tp-y-grid-content">
-                        <div class="cal-res-poule-blc">
-                                <div class="header-cal-res-poule">
-                                    <span class="cal-res-poule-title"> </span>
-                                    <span class="cal-res-poule-stat-tp avenir">à venir</span>
-                                </div>
-                                <div class="horaire-jr-tp">
-                                    <div>
-                                        <div class="cal-res-poule-team ">
-                                            <h3 class="cal-res-poule-eqp-tp">Vainqueur demi-finale 1</h3>
-                                            <span class="cal-res-poule-rs"></span>
-                                        </div>
-                                        <div class="cal-res-poule-team  brd-none">
-                                            <h3 class="cal-res-poule-eqp-tp ">Vainqueur demi-finale 2</h3>
-                                            <span class="cal-res-poule-rs"></span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span class="cal-res-poule-title">06/01</span>
-                                        <span class="cal-res-poule-title">18h30 </span>
-                                    </div>
-                                </div>
-                                <div class="cal-res-poule-link link-2" style="grid-template-columns: repeat(1,1fr) !important;">
-                                                            <a href="/rencontre/2023/quart-1/" class="nv-link-crt">Détails</a>
-                                </div>
-                            </div>
-                        </div>
+                        <?php display($rencontre_f);?>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>

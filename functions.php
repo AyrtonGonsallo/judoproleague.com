@@ -241,8 +241,15 @@ function register_widget_areas() {
 		
 	  ));
 	
+	
   }
-  
+  add_shortcode( 'search_form', function() {
+    ob_start();
+
+    get_search_form();
+
+    return ob_get_clean();
+} );
   add_action( 'widgets_init', 'register_widget_areas' );
 
   function my_acf_admin_head() {
