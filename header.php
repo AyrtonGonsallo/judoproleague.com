@@ -17,43 +17,18 @@
  * @package inox
 
  */
-
 $equipes = get_posts(array(
-
-
-
-
-
-    'numberposts'   => -1,
-
-
-
-
-
-    'post_type'     => 'equipes',
-
-
-
-
-
-	'orderby' => 'title',
-
-
-
-
-
-	'order' => 'ASC'
-
-
-
-
-
-    
-
-
-
-
-
+    'numberposts' => -1,
+    'post_type'   => 'equipes',
+    'orderby'     => 'title',
+    'order'       => 'ASC',
+    'meta_query'  => array(
+        array(
+            'key'     => 'saisons',
+            'compare' => 'LIKE',
+            'value'   => '2023-2024'
+        )
+    )
 ));
 
 ?>
@@ -126,7 +101,7 @@ $equipes = get_posts(array(
 
 	  $( function() {
         if( $('.tabs-poules').length ){
-            $( "#tabs" ).tabs( { active: 5 } );
+            $( "#tabs" ).tabs( { active: 0 } );
             console.log("poules")
         }else if($('.tabs-quarts').length){
             //$( "#tabs" ).tabs( { active: 0 });

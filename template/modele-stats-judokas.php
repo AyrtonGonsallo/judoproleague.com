@@ -4,8 +4,28 @@
  * Template Name: Modèle stats Judokas
  */
  get_header();
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+
  ?>
+ 
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
  <main id="primary" class="site-main home page-stats-judokas">
+
+ <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
      <section>
      <div class="judo_pro_league  mt-5p">
         <h1 class="result-h1 mtb-0">Statistiques Judo Pro League 2023</h1>
@@ -26,7 +46,7 @@
          <div class="judo_pro_league ">
             <?php 
                 require_once (THEMEDIR.'template-parts/content-judokas-requests-stats.php');
-                $classement_total=get_classement();
+                $classement_total=get_classement( $saison_value);
             ?>  
             <?php
                 if($classement_total['total']){

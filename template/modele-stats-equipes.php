@@ -5,19 +5,37 @@
  */
 
 get_header();
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 ?>
+
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 <main id="primary" class="site-main home page-stats-equipes">
+<div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
     <section>
         <div class="judo_pro_league mt-5p">
         <h1 class="result-h1 mtb-0">Statistiques Judo Pro League 2023</h1>
             <div class="phases-cl2">
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="statistiques-equipes-judo-pro-league-2023/">
+                    <a href="../statistiques-equipes-judo-pro-league-2023/">
                         Équipes
                     </a>
                 </h2>
                 <h2 class="tab-phase fs-30">
-                    <a href="statistiques-judokas-judo-pro-league-2023/">
+                    <a href="../statistiques-judokas-judo-pro-league-2023/">
                         Judokas
                     </a>
                 </h2>
@@ -29,6 +47,14 @@ get_header();
                 $args=array(
                     'post_type'=> 'rencontre',
                     'posts_per_page' => -1,
+                    'meta_query'     => 
+                    array(  
+                        array(
+                            'key'        => 'saisons',
+                            'compare'    => 'LIKE',
+                            'value'      => $saison_value
+                        )
+                    ),		
                     'meta_key' => 'date_de_debut',
                     'orderby' => 'meta_value_num',
                     'order' => 'DESC',

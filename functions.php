@@ -443,3 +443,49 @@ function fsp_rel_canonical3()
 	echo '<link rel="canonical" href="'.$link.'" />';
 }
 require THEMEDIR.'inc/fiche_rencontre.php';
+
+
+
+function add_acf_columns ( $columns ) {
+	return array_merge ( $columns, array (
+	  'saisons' => __ ( 'Saisons Jouées' ),
+	) );
+ }
+ function add_equipe_judokas ( $columns ) {
+	return array_merge ( $columns, array (
+	  'equipe_judoka' => __ ( 'Equipe Judoka' ),
+	) );
+ }
+ add_filter ( 'manage_equipes_posts_columns', 'add_acf_columns' );
+ add_filter ( 'manage_judoka_posts_columns', 'add_acf_columns' );
+ add_filter ( 'manage_judoka_posts_columns', 'add_equipe_judokas' );
+ add_filter ( 'manage_rencontre_posts_columns', 'add_acf_columns' );
+ 
+ // Populate the custom columns with the ACF data
+ function custom_column ( $column, $post_id ) {
+	switch ( $column ) {
+		case 'saisons':
+			foreach ( get_post_meta ( $post_id, 'saisons', true ) as $metakey ){
+				echo $metakey." ";
+				// Similarly for all the fields you want to print
+			}
+			break;
+		case 'equipe_judoka':
+			echo  get_the_title(get_post_meta ( $post_id, 'equipe_judoka', true)[0]);
+			break;
+ 
+	}
+ }
+
+ function custom_column_single_choice ( $column, $post_id ) {
+	switch ( $column ) {
+		case 'saisons':
+			echo get_post_meta ( $post_id, 'saisons', true );
+		
+ 
+	}
+ }
+
+ add_action ( 'manage_equipes_posts_custom_column', 'custom_column', 10, 2 );
+ add_action ( 'manage_judoka_posts_custom_column', 'custom_column', 10, 2 );
+ add_action ( 'manage_rencontre_posts_custom_column', 'custom_column_single_choice', 10, 2 );

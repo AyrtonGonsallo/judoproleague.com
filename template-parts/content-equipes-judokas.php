@@ -154,6 +154,7 @@ $site = get_field('site_web');
 
 
 
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 
 
 
@@ -391,32 +392,13 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -431,7 +413,6 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 <header class="nv.team-header">
-
 
 
 
@@ -577,6 +558,11 @@ $team_permalink = get_the_permalink($post->ID);
     'compare' => 'LIKE'
     ),
     array(
+        'key'        => 'saisons',
+        'compare'    => 'LIKE',
+        'value'      => $saison_value
+    ),
+    array(
         'key' => 'sexe', // recherche sur le champ équipe de type relation
         'value' => 'féminin', // id de l'équipe
         'compare' => 'LIKE'
@@ -597,6 +583,11 @@ $args_hommes=array(
         'key' => 'equipe_judoka', // recherche sur le champ équipe de type relation
         'value' => '"' . get_the_ID() . '"', // id de l'équipe
         'compare' => 'LIKE'
+        ),
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
         ),
         array(
             'key' => 'sexe', // recherche sur le champ équipe de type relation
@@ -625,6 +616,15 @@ $judokas=array_merge($judokas_f,$judokas_h);
 
 
 		<section class="nv-title-grade">
+        <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
 
 
 

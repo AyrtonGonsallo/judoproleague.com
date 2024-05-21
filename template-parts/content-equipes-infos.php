@@ -12,7 +12,7 @@ date_default_timezone_set('Europe/Paris');
 
 get_header();
 
-
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 
 $titlebar   = get_field('header_de_la_page');
 
@@ -388,12 +388,11 @@ $args4=array(
 
 
 
-    'orderby' => 'post_date', 
-
-
-
+    'meta_key' => 'date_de_debut', // Spécifiez la clé meta par laquelle vous souhaitez trier
+    'orderby' => array(
+        'meta_value' => 'DESC', // Tri par la valeur du champ meta
+    ),
     'order' => 'DESC',
-
     'meta_query' => array(
         'relation' => 'AND',
         array(
@@ -487,7 +486,13 @@ $prochaine_rencontre=get_posts($args5);
 <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
 
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 
 <main id="primary" class="site-main home">
 
@@ -688,10 +693,18 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-
     <section class="nv-liste-judoka bg-gt">
 
 
+    <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
 
         <div class="container">
 
@@ -851,7 +864,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-            		$classement_total=get_classement();
+            		$classement_total=get_classement( $saison_value);
                     //var_dump($classement_total);exit(-1);
 
 

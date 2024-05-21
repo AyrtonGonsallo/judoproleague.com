@@ -1,4 +1,7 @@
 <?php  
+
+
+
 function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     ?>
 <?php if ($rencontres_j2_pouleB): ?><div class="judo_pro_league">    
@@ -84,10 +87,10 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
 
 $now=date('Y/m/d H:i:s');
 get_header();
-
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
 $page_permalink = get_the_permalink($post->ID);
 
-function get_rencontres($poule_id,$journee){
+function get_rencontres($poule_id,$journee,$saison_value){
     $args = array(		
         'post_type'=> 'rencontre',		
         'posts_per_page' => -1,
@@ -104,6 +107,11 @@ function get_rencontres($poule_id,$journee){
                 'value' => '"' . $poule_id . '"',  
             ),
             array(
+                'key'        => 'saisons',
+                'compare'    => 'LIKE',
+                'value'      => $saison_value
+            ),
+            array(
                 'key'        => 'journee',      
                 'compare'    => 'LIKE',      
                 'value'      => 'Journée '.$journee, 
@@ -116,35 +124,35 @@ function get_rencontres($poule_id,$journee){
     return get_posts($args);
 }
 
-$rencontres_j1_pouleA =get_rencontres(488,'1');
-$rencontres_j1_pouleB = get_rencontres(426,'1');
-$rencontres_j1_pouleC = get_rencontres(555,'1');
-$rencontres_j1_pouleD = get_rencontres(600,'1');
+$rencontres_j1_pouleA =get_rencontres(488,'1',$saison_value);
+$rencontres_j1_pouleB = get_rencontres(426,'1',$saison_value);
+$rencontres_j1_pouleC = get_rencontres(555,'1',$saison_value);
+$rencontres_j1_pouleD = get_rencontres(600,'1',$saison_value);
 
-$rencontres_j2_pouleA =get_rencontres(488,'2');
-$rencontres_j2_pouleB = get_rencontres(426,'2');
-$rencontres_j2_pouleC = get_rencontres(555,'2');
-$rencontres_j2_pouleD = get_rencontres(600,'2');
+$rencontres_j2_pouleA =get_rencontres(488,'2',$saison_value);
+$rencontres_j2_pouleB = get_rencontres(426,'2',$saison_value);
+$rencontres_j2_pouleC = get_rencontres(555,'2',$saison_value);
+$rencontres_j2_pouleD = get_rencontres(600,'2',$saison_value);
 
-$rencontres_j3_pouleA =get_rencontres(488,'3');
-$rencontres_j3_pouleB = get_rencontres(426,'3');
-$rencontres_j3_pouleC = get_rencontres(555,'3');
-$rencontres_j3_pouleD = get_rencontres(600,'3');
+$rencontres_j3_pouleA =get_rencontres(488,'3',$saison_value);
+$rencontres_j3_pouleB = get_rencontres(426,'3',$saison_value);
+$rencontres_j3_pouleC = get_rencontres(555,'3',$saison_value);
+$rencontres_j3_pouleD = get_rencontres(600,'3',$saison_value);
 
-$rencontres_j4_pouleA =get_rencontres(488,'4');
-$rencontres_j4_pouleB = get_rencontres(426,'4');
-$rencontres_j4_pouleC = get_rencontres(555,'4');
-$rencontres_j4_pouleD = get_rencontres(600,'4');
+$rencontres_j4_pouleA =get_rencontres(488,'4',$saison_value);
+$rencontres_j4_pouleB = get_rencontres(426,'4',$saison_value);
+$rencontres_j4_pouleC = get_rencontres(555,'4',$saison_value);
+$rencontres_j4_pouleD = get_rencontres(600,'4',$saison_value);
 
-$rencontres_j5_pouleA =get_rencontres(488,'5');
-$rencontres_j5_pouleB = get_rencontres(426,'5');
-$rencontres_j5_pouleC = get_rencontres(555,'5');
-$rencontres_j5_pouleD = get_rencontres(600,'5');
+$rencontres_j5_pouleA =get_rencontres(488,'5',$saison_value);
+$rencontres_j5_pouleB = get_rencontres(426,'5',$saison_value);
+$rencontres_j5_pouleC = get_rencontres(555,'5',$saison_value);
+$rencontres_j5_pouleD = get_rencontres(600,'5',$saison_value);
 
-$rencontres_j6_pouleA =get_rencontres(488,'6');
-$rencontres_j6_pouleB = get_rencontres(426,'6');
-$rencontres_j6_pouleC = get_rencontres(555,'6');
-$rencontres_j6_pouleD = get_rencontres(600,'6');
+$rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
+$rencontres_j6_pouleB = get_rencontres(426,'6',$saison_value);
+$rencontres_j6_pouleC = get_rencontres(555,'6',$saison_value);
+$rencontres_j6_pouleD = get_rencontres(600,'6',$saison_value);
 
 // ---------  fin - journée
 
@@ -152,14 +160,28 @@ $rencontres_j6_pouleD = get_rencontres(600,'6');
 
 ?>
 
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 
 <main id="primary" class="site-main home">
 
 
 
     <section>
-
+        <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
 
 
         <div class="judo_pro_league">

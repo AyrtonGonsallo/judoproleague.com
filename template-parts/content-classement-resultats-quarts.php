@@ -84,7 +84,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
 
 $now=date('Y/m/d H:i:s');
 
-
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
 
 
 
@@ -101,120 +101,68 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 $args_quart_1 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-
-
-
-
-
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
 		array(      
-
-
-
-
-
 			'key'        => 'phase',      'compare'    => 'LIKE',      
-
-
-
-
-
 			'value' => '"' . 1667 . '"',  
-
-
-
-
-
-        ) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
+        ) ),		
+        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
 
 
 
 
 
 $args_quart_2 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-
-
-
-
-
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
 		array(      
-
-
-
-
-
-			'key'        => 'phase',      'compare'    => 'LIKE',      
-
-
-
-
-
+			'key'        => 'phase',      
+            'compare'    => 'LIKE',      
 			'value' => '"' . 1668 . '"',  
-
-
-
-
-
-        ) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
+        ) ),		
+        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			
+    );
 
 
 
 
 
 $args_quart_3 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-
-
-
-
-
-		array(      
-
-
-
-
-
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
+        array(      
 			'key'        => 'phase',      'compare'    => 'LIKE',      
-
-
-
-
-
 			'value' => '"' . 1669 . '"',  
-
-
-
-
-
-        ) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
+        ) ),		
+        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			
+    );
 
 
 
 
 
 $args_quart_4 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-
-
-
-
-
-		array(      
-
-
-
-
-
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
+        array(      
 			'key'        => 'phase',      'compare'    => 'LIKE',      
-
-
-
-
-
 			'value' => '"' . 1670 . '"',  
-
-
-
-
-
-        ) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
+        ) ),		
+        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			
+    );
 
 
 
@@ -251,8 +199,24 @@ $rencontres_quart_4= get_posts($args_quart_4);
 
 
 ?>
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 <main id="primary" class="site-main home">
     <section>
+        <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
         <div class="judo_pro_league">
             <div class="phases">
                 <h2 class="tab-phase fs-30"><a href="<?php echo $team_permalink;?>poules">PHASE éliminatoire</a></h2>

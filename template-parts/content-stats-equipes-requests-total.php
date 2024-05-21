@@ -177,7 +177,7 @@ function array_msort($array, $cols)
 
 
 
-<?php  function get_classement(){
+<?php  function get_classement( $saison_value){
 
 	$args = array(
 
@@ -190,7 +190,14 @@ function array_msort($array, $cols)
 		'orderby' => 'meta_value_num',
 
 		'order' => 'DESC',
-
+		'meta_query'     => 
+		array(  
+			array(
+				'key'        => 'saisons',
+				'compare'    => 'LIKE',
+				'value'      => $saison_value
+			)
+		),	
 	);
 
 	$rencontres = new WP_Query( $args );

@@ -49,7 +49,7 @@
 $site = get_field('site_web');
 
 
-
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 
 
 $description = get_field('presentation'); 
@@ -126,6 +126,11 @@ $team_permalink = get_the_permalink($post->ID);
 
 $args_poules = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Phase de poules'    ),
 array(
+    'key'        => 'saisons',
+    'compare'    => 'LIKE',
+    'value'      => $saison_value
+),
+array(
     'relation' => 'OR',
     array(
         'key' => 'equipe_1', // recherche sur le champ équipe de type relation
@@ -139,6 +144,11 @@ array(
     )
 ) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
 $args_quarts = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
+array(
+    'key'        => 'saisons',
+    'compare'    => 'LIKE',
+    'value'      => $saison_value
+),
 array(
     'relation' => 'OR',
     array(
@@ -155,6 +165,11 @@ array(
 
 $args_f4 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   
 array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Final four'    ),
+array(
+    'key'        => 'saisons',
+    'compare'    => 'LIKE',
+    'value'      => $saison_value
+),
 array(
     'relation' => 'OR',
     array(
@@ -178,7 +193,13 @@ $matchs_poules=get_posts($args_poules);
 
 
 
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 
 
 
@@ -273,7 +294,15 @@ $matchs_poules=get_posts($args_poules);
 
 		<div id="">
 
-			
+        <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
 
   
 

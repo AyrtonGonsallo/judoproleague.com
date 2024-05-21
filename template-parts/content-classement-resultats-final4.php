@@ -5,31 +5,70 @@ get_header();
 $now=date('Y/m/d H:i:s');
 
 $team_permalink = get_the_permalink($post->ID);
-
-$args_f4 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   
-
-array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Final four (Demi-finale)'    ),
-
-		
-
-		  ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
+$args_f4 = array(		
+    'post_type'=> 'rencontre',		
+    'posts_per_page' => -1,
+    'meta_query'     => array(  
+        'relation' => 'and',   
+            array(      
+                'key'        => 'niveau',
+                'compare'    => '=',
+                'value'      => 'Final four (Demi-finale)'    
+            ),
+            array(
+                'key'        => 'saisons',
+                'compare'    => 'LIKE',
+                'value'      => $saison_value
+            )),		
+    'meta_key' => 'date_de_debut',		
+    'orderby' => 'meta_value_num',		
+    'order' => 'DESC',			
+);
 $rencontres_demies = get_posts($args_f4);
 
-$args_f4f = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   
-
-array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Final four (Finale)'    ),
-
-		
-
-		  ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
+$args_f4f = array(		
+    'post_type'=> 'rencontre',		
+    'posts_per_page' => -1,
+    'meta_query'     => array(  
+        'relation' => 'and',   
+            array(      
+                'key'        => 'niveau',
+                    'compare'    => '=',      
+                    'value'      => 'Final four (Finale)'   
+                    ),
+            array(
+                'key'        => 'saisons',
+                'compare'    => 'LIKE',
+                'value'      => $saison_value
+            ),
+		  ),		
+    'meta_key' => 'date_de_debut',		
+    'orderby' => 'meta_value_num',		
+    'order' => 'DESC',			
+);
 $rencontre_f = get_posts($args_f4f);
 
 ?>
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 <main id="primary" class="site-main home">
 
     <section>
-
+        <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
         <div class="judo_pro_league">
 
             <div class="phases">

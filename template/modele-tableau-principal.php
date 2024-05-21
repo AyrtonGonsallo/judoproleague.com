@@ -5,6 +5,7 @@
 
  */
 get_header();
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 $args_quarts = array(		
     'post_type'=> 'rencontre',		
     'posts_per_page' => -1,
@@ -16,6 +17,11 @@ $args_quarts = array(
             'compare'    => '=',      
             'value'      => 'Quart de finale'
             ),
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
 	),		
     'meta_key' => 'date_de_debut',		
     'orderby' => 'meta_value_num',		
@@ -35,6 +41,11 @@ $args_demies = array(
             'compare'    => '=',      
             'value'      => 'Final four (Demi-finale)'
             ),
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
 	),		
     'meta_key' => 'date_de_debut',		
     'orderby' => 'meta_value_num',		
@@ -54,6 +65,11 @@ $args_f = array(
             'compare'    => '=',      
             'value'      => 'Final four (Finale)'
             ),
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
 	),		
     'meta_key' => 'date_de_debut',		
     'orderby' => 'meta_value_num',		
@@ -137,9 +153,25 @@ function display($rencontres){?>
 }?>
 
 
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 
 <main id="primary" class="site-main home">
     <section class="pd-5">
+    <div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
         <div class="judo_pro_league  mt-5p">
             <div class="phases-cl">
                 <h2 class="tab-phase fs-30">

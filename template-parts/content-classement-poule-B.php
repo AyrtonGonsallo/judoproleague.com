@@ -78,7 +78,7 @@ function display($rencontres_j1,$titre_journee){?>
 <?php 
 
 get_header();
-
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 $pouleID=426;
 
 $team_permalink = get_the_permalink($post->ID);
@@ -91,7 +91,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			'value' => '"' . $pouleID . '"',  
 
         ),
-
+        array('key'        => 'saisons','compare'    => 'LIKE','value'      => $saison_value),
 		array(
 
 		    'key'        => 'journee',      'compare'    => 'LIKE',      
@@ -109,7 +109,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			'value' => '"' . $pouleID . '"',  
 
         ),
-
+        array('key'        => 'saisons','compare'    => 'LIKE','value'      => $saison_value),
 		array(
 
 		    'key'        => 'journee',      'compare'    => 'LIKE',      
@@ -127,7 +127,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			'value' => '"' . $pouleID . '"',  
 
         ),
-
+        array('key'        => 'saisons','compare'    => 'LIKE','value'      => $saison_value),
 		array(
 
 		    'key'        => 'journee',      'compare'    => 'LIKE',      
@@ -145,7 +145,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			'value' => '"' . $pouleID . '"',  
 
         ),
-
+        array('key'        => 'saisons','compare'    => 'LIKE','value'      => $saison_value),
 		array(
 
 		    'key'        => 'journee',      'compare'    => 'LIKE',      
@@ -163,7 +163,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			'value' => '"' . $pouleID . '"',  
 
         ),
-
+        array('key'        => 'saisons','compare'    => 'LIKE','value'      => $saison_value),
 		array(
 
 		    'key'        => 'journee',      'compare'    => 'LIKE',      
@@ -181,7 +181,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			'value' => '"' . $pouleID . '"',  
 
         ),
-
+        array('key'        => 'saisons','compare'    => 'LIKE','value'      => $saison_value),
 		array(
 
 		    'key'        => 'journee',      'compare'    => 'LIKE',      
@@ -195,7 +195,25 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         $rencontres_j4 = get_posts($args_j4);
         $rencontres_j5 = get_posts($args_j5);
         $rencontres_j6 = get_posts($args_j6);
-?><main id="primary" class="site-main home">
+?>
+
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
+<main id="primary" class="site-main home">
+<div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
     <section class="pd-5">
         <div class="judo_pro_league">
             <div class="phases-cl">
@@ -248,13 +266,19 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
                     'key' => 'phase', // recherche sur le champ équipe de type relation
                     'value' => '"' . $pouleID . '"', // id de l'équipe
                     'compare' => 'LIKE'
-                    )
+                    ),
+                    array(
+                        'key'        => 'saisons',
+                        'compare'    => 'LIKE',
+                        'value'      => $saison_value
+                    ),
             ),
         );
         $rencontres=get_posts($args);
+        //var_dump($rencontres);exit(-1);
             require_once (THEMEDIR.'template-parts/content-pro-league2-requests.php');
             $classement=get_classement($rencontres);
-            //prettyPrint($classement);
+            //prettyPrint($classement);exit(-1);
         ?>
     <?php  if($classement):?>
 
