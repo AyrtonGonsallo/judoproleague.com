@@ -54,8 +54,8 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 						<span class="jr-nv-1"><?php echo strftime('%A %d %B %Y - %Hh%M',strtotime(get_field( "date_de_debut",false,false)));?></span>
 					</div>
 					<div class="nv-rencontre-equipe" id="stickyrct">
-						<div class="nv-equip-1">
-							<a class="nv-renc-equip-link <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>" href="<?php echo get_the_permalink($equipe1->ID  );?>">
+						<div class="nv-equip-1 flex1">
+							<a class="nv-renc-equip-link 2 <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>" href="<?php echo get_the_permalink($equipe1->ID  );?>">
 								<img src="<?php echo $logo1; ?>" class="logo-eqi">
 								<span class="nv-equip-name"><?php echo get_the_title($equipe1->ID ); ?></span>
 							</a>
@@ -72,7 +72,7 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 								</div>
 							</div>
 						</div>
-						<div class="nv-equip-1">
+						<div class="nv-equip-1 flex2">
 							<a class="nv-renc-equip-link <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>" href="<?php echo get_the_permalink($equipe2->ID  );?>">
 								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?></span>
 								<img src="<?php echo $logo2; ?>" class="logo-eqi">

@@ -30,7 +30,6 @@ $equipes = get_posts(array(
         )
     )
 ));
-
 ?>
 
 <!doctype html>
@@ -38,7 +37,6 @@ $equipes = get_posts(array(
 <html <?php language_attributes(); ?>>
 
 <head>
-
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -533,6 +531,7 @@ splide.mount();
 </header>
 <div id="recherche-box">
 	 <?php echo do_shortcode( '[search_form]' ); ?>
+<!-- 	 <?php echo do_shortcode( '[ays_survey id="2"]' ); ?> -->
 </div>
 
 <?php 

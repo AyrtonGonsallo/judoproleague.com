@@ -31,6 +31,15 @@ recuperer_video_live();
             require_once (THEMEDIR.'inc/acf-blocs/bloc-une.php');
             $section=bloc_une();
             break;
+            case 'bloc_classement':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-classement.php');
+                break;
+            case 'bloc_rencontres':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-rencontres.php');
+                break;
+            case 'bloc_stat':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-stat.php');
+                break;
     
             case 'articles':
             require_once (THEMEDIR.'inc/acf-blocs/bloc-articles.php');
@@ -51,13 +60,17 @@ recuperer_video_live();
             require_once (THEMEDIR.'inc/acf-blocs/bloc-reservation-billets.php');
             $section=bloc_reservation();
             break;
-
+            
+            case 'bloc_playlist':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-playlist-videos.php');
+                break;
+            case 'bloc_sondage':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-sondage.php');
+                break;
            case 'bloc_presentation':
-			require_once (THEMEDIR.'inc/acf-blocs/bloc-playlist-videos.php');
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-presentation.php');
-            $section=bloc_presentation();
-			
-            break;
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-presentation.php');
+                $section=bloc_presentation();
+                break;
     
             case 'liste_des_equipes':
             require_once (THEMEDIR.'inc/acf-blocs/bloc-equipe.php');

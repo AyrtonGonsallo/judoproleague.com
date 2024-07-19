@@ -252,6 +252,10 @@ function register_widget_areas() {
 } );
   add_action( 'widgets_init', 'register_widget_areas' );
 
+
+
+
+
   function my_acf_admin_head() {
 	?>
 	<style type="text/css">
@@ -446,23 +450,22 @@ require THEMEDIR.'inc/fiche_rencontre.php';
 
 
 
-function add_acf_columns ( $columns ) {
+function add_eps_acf_columns ( $columns ) {
 	return array_merge ( $columns, array (
-	  'saisons' => __ ( 'Saisons Jouées' ),
+	  'equipes_par_saisons' => __ ( 'Équipes par saisons' ),
 	) );
  }
- function add_equipe_judokas ( $columns ) {
+ function add_sj_acf_columns ( $columns ) {
 	return array_merge ( $columns, array (
-	  'equipe_judoka' => __ ( 'Equipe Judoka' ),
+	  'saisons' => __ ( 'Saisons' ),
 	) );
  }
- add_filter ( 'manage_equipes_posts_columns', 'add_acf_columns' );
- add_filter ( 'manage_judoka_posts_columns', 'add_acf_columns' );
- add_filter ( 'manage_judoka_posts_columns', 'add_equipe_judokas' );
- add_filter ( 'manage_rencontre_posts_columns', 'add_acf_columns' );
+
+ add_filter ( 'manage_equipes_posts_columns', 'add_sj_acf_columns' );
+ add_filter ( 'manage_judoka_posts_columns', 'add_eps_acf_columns' );
+ add_filter ( 'manage_rencontre_posts_columns', 'add_sj_acf_columns' );
  
- // Populate the custom columns with the ACF data
- function custom_column ( $column, $post_id ) {
+ function custom_column2 ( $column, $post_id ) {
 	switch ( $column ) {
 		case 'saisons':
 			foreach ( get_post_meta ( $post_id, 'saisons', true ) as $metakey ){
@@ -476,6 +479,50 @@ function add_acf_columns ( $columns ) {
  
 	}
  }
+ // Populate the custom columns with the ACF data
+ function custom_column($column, $post_id) {
+    switch ($column) {
+        case 'equipes_par_saisons':
+            $equipes_par_saisons = get_field('equipes_par_saisons', $post_id);
+
+            if ($equipes_par_saisons) {
+                foreach ($equipes_par_saisons as $equipe) {
+                    // Obtenir et afficher le titre de l'équipe
+                    if (isset($equipe['equipe_judoka'])) {
+                        $equipe_judoka_posts = $equipe['equipe_judoka'];
+                        if (is_array($equipe_judoka_posts)) {
+                            foreach ($equipe_judoka_posts as $post) {
+                                if ($post instanceof WP_Post) {
+                                    echo get_the_title($post->ID) . ' ';
+                                }
+                            }
+                        } else {
+                            if ($equipe_judoka_posts instanceof WP_Post) {
+                                echo get_the_title($equipe_judoka_posts->ID) . ' ';
+                            }
+                        }
+                    } else {
+                        echo 'N/A ';
+                    }
+
+                    // Obtenir et afficher la saison
+                    if (isset($equipe['saisons'])) {
+                        $saison = $equipe['saisons'];
+                        if (is_array($saison)) {
+                            echo implode(', ', $saison) . ' ';
+                        } else {
+                            echo $saison . ' ';
+                        }
+                    } else {
+                        echo 'N/A ';
+                    }
+
+                    echo '<br>';
+                }
+            }
+            break;
+    }
+}
 
  function custom_column_single_choice ( $column, $post_id ) {
 	switch ( $column ) {
@@ -485,7 +532,77 @@ function add_acf_columns ( $columns ) {
  
 	}
  }
+function custom_rewrite_rules() {
+    add_rewrite_rule(
+        '^rencontre/([0-9]{4}-[0-9]{4})/([^/]+)/?$',
+        'index.php?post_type=rencontre&saisons=$matches[1]&name=$matches[2]',
+        'top'
+    );
+}
+add_action( 'init', 'custom_rewrite_rules' );
+add_filter('post_type_link', 'replace_custom_post_type_permalink', 10, 2);
 
- add_action ( 'manage_equipes_posts_custom_column', 'custom_column', 10, 2 );
+function replace_custom_post_type_permalink($post_link, $post) {
+    if ('rencontre' === $post->post_type) {
+        $saisons = get_field('saisons', $post->ID);
+        if ($saisons) {
+            $post_link = str_replace('%saisons%', $saisons, $post_link);
+        }
+    }
+    return $post_link;
+}
+
+ add_action ( 'manage_equipes_posts_custom_column', 'custom_column2', 10, 2 );
  add_action ( 'manage_judoka_posts_custom_column', 'custom_column', 10, 2 );
  add_action ( 'manage_rencontre_posts_custom_column', 'custom_column_single_choice', 10, 2 );
+
+/************************************* back-office-rencontre*********************************************/
+function custom_admin_css() {
+    echo '<style>
+       .post-type-rencontre .acf-field.acf-field-repeater{
+            overflow: scroll ;
+        }
+		.post-type-rencontre .acf-table{
+            width: 200% ;
+        }
+		.post-type-rencontre .acf-table td, .post-type-rencontre .acf-table th{
+            width: 5% !important;
+        }
+		.post-type-rencontre .acf-table td:first-child, .post-type-rencontre .acf-table th:first-child, .post-type-rencontre .acf-table td:last-child, .post-type-rencontre .acf-table th:last-child{
+            width: 0% !important;
+        }
+		.post-type-rencontre .selection {
+    display: flex;
+    flex-direction: column;
+}
+.post-type-rencontre .acf-table .selection .choices ul {
+    width: 184% !important;
+    max-width: 237% !important;
+}
+.postbox-header {
+    border-bottom: 2px solid #060E95;
+    background-color: #060e9521;
+}
+.acf-field .acf-label label {    
+      color: #060e95;font-weight:600;
+}
+
+.inside.acf-fields-top{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+
+
+	
+	
+	
+    </style>';
+}
+add_action('admin_head', 'custom_admin_css');
+/***********************************************************************************************************/

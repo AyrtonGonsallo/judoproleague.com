@@ -81,9 +81,9 @@
                     <tbody>
                     <?php
                        foreach ($datas as $d) {?>
-                            <tr>
+                            <tr class="tr-stat">
                                 <!--<td><?php //echo $i;?></td>-->
-                                <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
+                                <td class="align-photo-nom-vertically "><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
 
                                 

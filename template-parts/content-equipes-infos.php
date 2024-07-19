@@ -586,11 +586,11 @@ $prochaine_rencontre=get_posts($args5);
                     <div class="splide splide5 nv-decalage-bandeau nv-sllide"  aria-label="Slide Container Example">
                         <div class="splide__track carte-slide-partenaires">
                             <ul class="splide__list ul-style-eqp">
-                        
+                                <?php if($prochaine_rencontre):?>
                                 <li class="rencontre-1 flip-card splide__slide" style="margin:0px !important;">
                                                     
                                                     
-                                <?php if($prochaine_rencontre):
+                                <?php 
                                     $rencontre=$prochaine_rencontre[0];
                                     $niveau = get_field('niveau',$prochaine_rencontre[0]->ID);
                                     $journee = get_field('journee',$prochaine_rencontre[0]->ID); 
@@ -631,10 +631,12 @@ $prochaine_rencontre=get_posts($args5);
                                         </div>
                                         <div class="center"><a href="<?php echo $lien;?>" class="btn-tts">Tout savoir</a></div>
                                     </div>
-                                <?php endif;?>
-                                </li>
+                                
+                                </li><?php endif;
+                                if($derniere_rencontre):
+                                ?>
                                 <li class="rencontre-1 flip-card splide__slide" style="margin:0px !important;">
-                                <?php if($derniere_rencontre):
+                                <?php 
                                 $rencontre=$derniere_rencontre[0];
                                 $niveau = get_field('niveau',$derniere_rencontre[0]->ID);
                                 $journee = get_field('journee',$derniere_rencontre[0]->ID); 
@@ -675,10 +677,10 @@ $prochaine_rencontre=get_posts($args5);
                                     </div>
                                     <div class="center"><a href="<?php echo $lien;?>" class="btn-tts">Tout savoir</a></div>
                                 </div>
-                                <?php endif;?>
+                               
 
                                 </li>
-
+                            <?php endif;?>
                             </ul>
                         </div> 
                     </div>

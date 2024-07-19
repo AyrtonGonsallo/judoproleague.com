@@ -10,7 +10,7 @@ function bloc_partenaires() {
         if ( $partenaires_loop->have_posts() ) :
             ?>
             <section class="logo-partenaire">
-                <h3 class="titre-partners">Partenaires</h3>
+                <h2 class="titre-partners">Partenaires de Judo Pro League</h2>
                 <div class="logos-partners">
                     <?php
                     while ( $partenaires_loop->have_posts() ) : $partenaires_loop->the_post();

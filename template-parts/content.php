@@ -63,10 +63,7 @@
 
 
 		<header class="entry-header news-content">
-
-
-
-			
+		
 
 
 

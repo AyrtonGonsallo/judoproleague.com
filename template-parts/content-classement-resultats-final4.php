@@ -222,7 +222,7 @@ $rencontre_f = get_posts($args_f4f);
 
                                             <?php echo $lien_live_ou_billet;?>
 
-                                            <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                                            <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
 
                                         </div>
 
@@ -349,7 +349,7 @@ $rencontre_f = get_posts($args_f4f);
 
                                         <?php echo $lien_live_ou_billet;?>
 
-                                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
 
                                     </div>
 

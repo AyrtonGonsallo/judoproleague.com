@@ -62,11 +62,11 @@ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
                 );
                 $rencontres=get_posts($args);
                     require_once (THEMEDIR.'template-parts/content-pro-league2-requests-stats.php');
-                    $classement=get_classement($rencontres);
-                    //prettyPrint($classement);
+                    $classement=get_classement($rencontres,$saison_value);
+                   // var_dump($classement);exit(-1);
                 ?>
             <?php  if($classement): 
-                //prettyPrint($classement);?>
+               // prettyPrint($classement);?>
                 <table id="tableauEquipes" data-page-length='25' class="display">
                     <thead>
                         <tr>
@@ -81,13 +81,13 @@ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
                     <?php
                        
                         foreach ($classement as $d) {
-                            if($d[0]['nom']){?>
-                            <tr>
+                            if($d[0]['nom']){?>                 
+                            <tr class="tr-stat">
                                 <td  class="align-photo-nom-vertically"><img width="24px" height="24px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></td>
-                                <td class="wp-caption-text"><?php echo ($d[0]['victoires'])?$d[0]['combats_gagnés']:0?></td>
-                                <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
-                                <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
-                                <td class="wp-caption-text"><?php echo ($d[0]['points_marqués'])?$d[0]['points_marqués']:0?></td>
+                                <td class="wp-caption-text sorting_1"><?php echo ($d[0]['combats_gagnés'])?$d[0]['combats_gagnés']:0?></td>
+                                <td class="wp-caption-text sorting_1"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
+                                <td class="wp-caption-text sorting_1"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                <td class="wp-caption-text sorting_1"><?php echo ($d[0]['points_marqués'])?$d[0]['points_marqués']:0?></td>
                             </tr>
                         <?php
                             }

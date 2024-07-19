@@ -60,13 +60,30 @@
 
 
 
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
 
+//$equipe=get_field('equipe_judoka',$post->ID)[0];
+$equipe=null;
+$equipes_par_saisons =get_field('equipes_par_saisons',$post->ID);
+//var_dump($equipes_par_saisons);
+if ($equipes_par_saisons) {
+	foreach ($equipes_par_saisons as $equipe1) {
+		// Obtenir et afficher le titre de l'équipe
+		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons']) ) {
+			//var_dump($equipe1['saisons'][0]);
+				
+				if( $equipe1['saisons'][0]== $saison_value){
+					$equipe = $equipe1['equipe_judoka'][0];
+				}
+				
+			
+		}
+		
 
-$equipe=get_field('equipe_judoka',$post->ID)[0];
+	}
+}
 
-
-
-
+//var_dump($equipe);
 
 
 $site = get_field('site_web',$equipe->ID);
@@ -150,7 +167,13 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 
 
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 
 
 
@@ -315,7 +338,15 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 	<section class="nv-details-judoka">
 
 
-
+	<div class="season-selector-box">
+			<form Method="GET" ACTION="" class="season-selector-form">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+				</select>
+			</form>
+		</div>
 
 
 
@@ -624,7 +655,7 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 		<?php 
 			require_once (THEMEDIR.'template-parts/content-judokas-requests-total.php');
-            $classement_total=get_classement();
+            $classement_total=get_classement( $saison_value);
 			if($classement_total['total'][$judoka->post_title]){
 				$datas=$classement_total['total'][$judoka->post_title][0];
 				//prettyPrint($datas);exit(-1);?>

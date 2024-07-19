@@ -33,13 +33,21 @@ function array_msort($array, $cols)
 ?>
 
 
-<?php  function get_classement(){
+<?php  function get_classement( $saison_value){
 	$args = array(
 		'post_type'=> 'rencontre',
 		'posts_per_page' => -1,
 		'meta_key' => 'date_de_debut',
 		'orderby' => 'meta_value_num',
 		'order' => 'DESC',
+		'meta_query' => array(
+			
+				array(
+					'key'        => 'saisons',
+					'compare'    => 'LIKE',
+					'value'      => $saison_value
+				),
+		),
 	);
 	$rencontres = new WP_Query( $args );
 	//prettyPrint($rencontres->posts);exit(-1);

@@ -1,3 +1,40 @@
+const searchField = document.querySelector('.search-field');
+searchField.placeholder = ' ';
+
+        // Select the button using its class name
+        const button = document.querySelector('.ays-survey-section-button.ays-survey-finish-button');
+        // Change the text of the button
+        button.value = 'Voter';
+
+
+
+// $(document).ready(function() {
+//   var maxHeight = 0;
+//   // Find the maximum height
+//   $('.thumb-article').each(function() {
+//     if ($(this).height() > maxHeight) {
+//       maxHeight = $(this).height();
+//     }
+//   });
+//   // Apply the maximum height to each element
+//   $('.thumb-article').height(maxHeight);
+// });
+
+$(document).ready(function() {
+  var maxHeight = 0;
+
+  // Find the maximum height
+  $('.thumb-article, .nv-title-news-3-col, .titile-stat').each(function() {
+    if ($(this).height() > maxHeight) {
+      maxHeight = $(this).height();
+    }
+  });
+
+  // Apply the maximum height
+  $('.thumb-article, .nv-title-news-3-col, .titile-stat').height(maxHeight);
+});
+
+/*******************************************/
 (function ($) {
 	$("#navbar .navbar-toggler").on("click", () => {
 		$("div#navbar-menu").toggleClass("active");

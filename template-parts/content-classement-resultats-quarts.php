@@ -66,7 +66,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
                     </div>
                     <div class="cal-res-poule-link <?php echo $class_reservation;?>">
                         <?php echo $lien_live_ou_billet;?>
-                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                     </div>
                 </div>
         <?php endforeach; ?>

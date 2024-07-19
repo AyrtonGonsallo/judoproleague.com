@@ -35,7 +35,7 @@ $liste_des_partenaires = get_field('liste_des_partenaires','widget_'.$args['widg
         if ( $liste_des_partenaires ) :
             ?>
             <section class="logo-partenaire">
-                <h3 class="titre-partners">Partenaires</h3>
+            <h2 class="titre-partners">Partenaires de Judo Pro League</h2>
                 <div class="logos-partners">
                     <?php
                    foreach ( $liste_des_partenaires as $partenaire ) :

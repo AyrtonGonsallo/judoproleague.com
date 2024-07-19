@@ -6,6 +6,8 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     ?>
 <?php if ($rencontres_j2_pouleB): ?><div class="judo_pro_league">    
     <h2 class="crt-title">Poule <?php echo $poule?></h2>    
+    <a href="/classement-judo-pro-league-2023/phase-eliminatoire/poule-<?php echo $poule?>/" class="more-classement">Classement Poule <?php echo $poule?> <i class="fa-solid fa-arrow-right-long"></i> </a>
+
     <?php $count=count($rencontres_j2_pouleB);?>
     <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" <?php }?>>        
     <?php foreach ($rencontres_j2_pouleB as $rencontre):            
@@ -44,6 +46,7 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
         $lien_live_ou_billet=(get_field("lien_de_reservation", $rencontre->ID))?'<a href="'.get_field("lien_de_reservation", $rencontre->ID).'" target="_blank" class="nv-link-crt brd-right">Billetterie</a>':'';
     }
             ?>
+
                 <div class="cal-res-poule-blc">
                     <div class="header-cal-res-poule">
                         <span class="cal-res-poule-title"><?php echo $lieu;?></span>
@@ -69,13 +72,12 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
                     </div>
                     <div class="cal-res-poule-link <?php echo $class_reservation;?>">
                         <?php echo $lien_live_ou_billet;?>
-                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                     </div>
                 </div>
         <?php endforeach; ?>
     </div>
     <div>
-        <a href="/classement-judo-pro-league-2023/phase-eliminatoire/poule-<?php echo $poule?>/" class="more-classement">Classement Poule <?php echo $poule?></a>
     </div>
 </div>
 <?php endif;  ?>

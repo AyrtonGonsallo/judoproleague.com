@@ -66,7 +66,7 @@ function display($rencontres_j1,$titre_journee){?>
                                         </div>
                                 <div class="cal-res-poule-link <?php echo $class_reservation;?>" <?php if(!$lien_live_ou_billet){?> style="grid-template-columns: repeat(1,1fr) !important;" <?php } ?> >
                                     <?php echo $lien_live_ou_billet;?>
-                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                                 </div>
                             </div>
                     <?php endforeach; ?>
@@ -277,7 +277,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         );
         $rencontres=get_posts($args);
             require_once (THEMEDIR.'template-parts/content-pro-league2-requests.php');
-            $classement=get_classement($rencontres);
+            $classement=get_classement($rencontres,$saison_value);
             //prettyPrint($classement);
         ?>
     <?php  if($classement):?>

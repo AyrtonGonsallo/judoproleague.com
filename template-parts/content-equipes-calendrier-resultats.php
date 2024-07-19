@@ -164,7 +164,7 @@ array(
 ) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
 
 $args_f4 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   
-array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Final four'    ),
+array(      'key'        => 'niveau',      'compare'    => 'Like',      'value'      => 'Final four'    ),
 array(
     'key'        => 'saisons',
     'compare'    => 'LIKE',
@@ -384,7 +384,7 @@ $matchs_poules=get_posts($args_poules);
                     <?php endforeach; ?>
                 </div>
                 <div>
-                    <a href="../../../nouvelle-page-calendrier-resultat/poules/" class="more-classement">Classement Poules</a>
+                    <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules</a>
                 </div>
             </div>
     </section>
@@ -461,7 +461,7 @@ $matchs_poules=get_posts($args_poules);
                     <?php endforeach; ?>
                 </div>
                 <div>
-                    <a href="../../../nouvelle-page-calendrier-resultat/quarts/" class="more-classement">Classement Quarts</a>
+                    <a href="../../../calendrier-resultats-2023/quarts/" class="more-classement">Classement Quarts</a>
                 </div>
             </div>
     </section>
@@ -538,7 +538,7 @@ $matchs_poules=get_posts($args_poules);
                     <?php endforeach; ?>
                 </div>
                 <div>
-                    <a href="../../../nouvelle-page-calendrier-resultat/final4/" class="more-classement">Classement Final Four</a>
+                    <a href="../../../calendrier-resultats-2023/final4/" class="more-classement">Classement Final Four</a>
                 </div>
             </div>
     </section>

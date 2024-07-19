@@ -144,7 +144,7 @@ function display($rencontres){?>
                     </div>
                     <div class="cal-res-poule-link <?php echo $class_reservation;?>" <?php if(!$lien_live_ou_billet){?> style="grid-template-columns: repeat(1,1fr) !important;" <?php } ?> >
                         <?php echo $lien_live_ou_billet;?>
-                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                     </div>
                 </div>
             </div>

@@ -20,21 +20,39 @@
 
 $equipes = get_posts(array(
 
+
+
+
+
     'numberposts'   => -1,
+
+
+
+
 
     'post_type'     => 'equipes',
 
+
+
+
+
 	'orderby' => 'title',
 
-	'order' => 'ASC',
 
-    'meta_query'     => array(	
-        
-            'key'        => 'saisons',
-            'compare'    => 'LIKE',
-            'value'      => "2023-2024"
-        
-    )
+
+
+
+	'order' => 'ASC'
+
+
+
+
+
+    
+
+
+
+
 
 ));
 

@@ -31,7 +31,7 @@ function array_msort($array, $cols)
 ?>
 
 
-<?php  function get_classement($rencontres){
+<?php  function get_classement($rencontres,$saison_value){
 	foreach($rencontres as $rencontre){
 		//prettyPrint(get_field('les_combat')[0]['combats'][0]);exit(-1); 
 		$matchs_liste=get_field('les_combat',$rencontre->ID);
@@ -51,8 +51,46 @@ function array_msort($array, $cols)
 				foreach($matchs['combats'] as $match){
 					$judoka1=$match['judoka_equipe_1'][0];
 					$judoka2=$match['judoka_equipe_2'][0];
-					$equipe1=get_field( 'equipe_judoka',$judoka1->ID )[0];
-					$equipe2=get_field( 'equipe_judoka',$judoka2->ID )[0];
+					
+					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
+					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
+					$equipe1=null;
+					$equipe2=null;
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_1) {
+						foreach ($equipes_par_saisons_1 as $eq1) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
+								//var_dump($eq1['saisons'][0]);
+									
+									if( $eq1['saisons'][0]== $saison_value){
+										$equipe1 = $eq1['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
+
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_2) {
+						foreach ($equipes_par_saisons_2 as $eq2) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
+								//var_dump($equipe1['saisons'][0]);
+									
+									if( $eq2['saisons'][0]== $saison_value){
+										$equipe2 = $eq2['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
 					/**if(!$equipe1 || !$equipe2){
 						echo 'erreur';
 						prettyPrint($match);exit(-1); 
@@ -88,58 +126,95 @@ function array_msort($array, $cols)
 			$results[$equipe1->post_title][0]["bonus"]+=($matchs_liste[0]['bonus_equipe_1'])?intval($matchs_liste[0]['bonus_equipe_1']):0;
 			$results[$equipe2->post_title][0]["bonus"]+=($matchs_liste[0]['bonus_equipe_2'])?intval($matchs_liste[0]['bonus_equipe_2']):0;
 			foreach($matchs_liste as $matchs){
-				
+				$equipej1=null;
+				$equipej2=null;
 				
 				$winner= $matchs['equipe_gagnante'];
 				foreach($matchs['combats'] as $match){
 					//prettyPrint($match);exit(-1);
 					$judoka1=$match['judoka_equipe_1'][0];
 					$judoka2=$match['judoka_equipe_2'][0];
-					$equipe1=get_field( 'equipe_judoka',$judoka1->ID )[0];
-					$equipe2=get_field( 'equipe_judoka',$judoka2->ID )[0];
+					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
+					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
+					
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_1) {
+						foreach ($equipes_par_saisons_1 as $eq1) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
+								//var_dump($eq1['saisons'][0]);
+									
+									if( $eq1['saisons'][0]== $saison_value){
+										$equipej1 = $eq1['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
+
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_2) {
+						foreach ($equipes_par_saisons_2 as $eq2) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
+								//var_dump($equipe1['saisons'][0]);
+									
+									if( $eq2['saisons'][0]== $saison_value){
+										$equipej2 = $eq2['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
 					$judoka_gagnant = $match['judoka_gagnant'];
-					$results[$equipe1->post_title][0]["error"]=$rencontre->ID.' : '.$judoka1->ID.' : '.$judoka1->post_title;
-					$results[$equipe2->post_title][0]["error"]=$rencontre->ID.' : '.$judoka2->ID.' : '.$judoka2->post_title;
+					$results[$equipej1->post_title][0]["error"]=$rencontre->ID.' : '.$judoka1->ID.' : '.$judoka1->post_title;
+					$results[$equipej2->post_title][0]["error"]=$rencontre->ID.' : '.$judoka2->ID.' : '.$judoka2->post_title;
 					//echo($mode_de_calcul_classement)exit(-1);
 					if($mode_de_calcul_classement=="auto"){
 						//lire les ippons(ippon1,ippon2) du fichier pour le classement
-						$results[$equipe1->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_1'];
-						$results[$equipe2->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_1'];
-						$results[$equipe2->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_2'];
-						$results[$equipe1->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_2'];
+						$results[$equipej1->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_1'];
+						$results[$equipej2->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_1'];
+						$results[$equipej2->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_2'];
+						$results[$equipej1->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_2'];
 					}else if($mode_de_calcul_classement=="manual"){	
 						
 						if (($match['valeur_ippon_judoka_1']>=1)){
 							if((is_numeric($match['valeurs_shidos_judoka_2']['value']))){
 								//si il y 0,1,2 shidos en face
-								$results[$equipe1->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_1'];
-								$results[$equipe2->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_1'];
+								$results[$equipej1->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_1'];
+								$results[$equipej2->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_1'];
 							}else if(!(is_numeric($match['valeurs_shidos_judoka_2']['value']))){
 								//si il y a penalité H,X,A,F,M en face
-								$results[$equipe1->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_1']-1);
-								$results[$equipe2->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_1']-1);
+								$results[$equipej1->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_1']-1);
+								$results[$equipej2->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_1']-1);
 							}
 							
 						}
 						if (($match['valeur_ippon_judoka_2']>=1)){
 							if((is_numeric($match['valeurs_shidos_judoka_1']['value']))){
 								//si il y 0,1,2 shidos en face
-								$results[$equipe2->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_2'];
-								$results[$equipe1->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_2'];
+								$results[$equipej2->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_2'];
+								$results[$equipej1->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_2'];
 							}else if(!(is_numeric($match['valeurs_shidos_judoka_1']['value']))){
 								//si il y a penalité H,X,A,F,M en face
-								$results[$equipe2->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_2']-1);
-								$results[$equipe1->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_2']-1);
+								$results[$equipej2->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_2']-1);
+								$results[$equipej1->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_2']-1);
 							}
 						}
 					}
 					if ($match['valeur_wazari__judoka_1']>=1){
-						$results[$equipe1->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_1'];
-						$results[$equipe2->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_1'];
+						$results[$equipej1->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_1'];
+						$results[$equipej2->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_1'];
 					}
 					if ($match['valeur_wazari__judoka_2']>=1){
-						$results[$equipe2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
-						$results[$equipe1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
+						$results[$equipej2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
+						$results[$equipej1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
 					}
 					
 				}

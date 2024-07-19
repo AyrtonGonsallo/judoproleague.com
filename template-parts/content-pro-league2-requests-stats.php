@@ -31,7 +31,7 @@ function array_msort($array, $cols)
 ?>
 
 
-<?php  function get_classement($rencontres){
+<?php  function get_classement($rencontres,$saison_value){
 	foreach($rencontres as $rencontre){
 		//prettyPrint(get_field('les_combat')[0]['combats'][0]);exit(-1); 
 		$matchs_liste=get_field('les_combat',$rencontre->ID);
@@ -51,14 +51,54 @@ function array_msort($array, $cols)
 				foreach($matchs['combats'] as $match){
 					$judoka1=$match['judoka_equipe_1'][0];
 					$judoka2=$match['judoka_equipe_2'][0];
-					$equipe1=get_field( 'equipe_judoka',$judoka1->ID )[0];
-					$equipe2=get_field( 'equipe_judoka',$judoka2->ID )[0];
+					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
+					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
+					$equipe1=null;
+					$equipe2=null;
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_1) {
+						foreach ($equipes_par_saisons_1 as $eq1) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
+								//var_dump($eq1['saisons'][0]);
+									
+									if( $eq1['saisons'][0]== $saison_value){
+										$equipe1 = $eq1['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
+
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_2) {
+						foreach ($equipes_par_saisons_2 as $eq2) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
+								//var_dump($equipe1['saisons'][0]);
+									
+									if( $eq2['saisons'][0]== $saison_value){
+										$equipe2 = $eq2['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
 					/**if(!$equipe1 || !$equipe2){
 						echo 'erreur';
 						prettyPrint($match);exit(-1); 
 					}**/
 					$results[$equipe1->post_title]=[array("nom"=>$equipe1->post_title)];
 					$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
+					$results[$equipe1->post_title][0]["conference"]=get_field('conference',$equipe1->ID);
+					$results[$equipe2->post_title][0]["conference"]=get_field('conference',$equipe2->ID);
+
 					$results[$equipe1->post_title][0]["points"]=0;
 					$results[$equipe2->post_title][0]["points"]=0;
 				}
@@ -101,11 +141,48 @@ function array_msort($array, $cols)
 				
 				$winner= $matchs['equipe_gagnante'];
 				foreach($matchs['combats'] as $match){
-					//prettyPrint($match);exit(-1);
+					//prettyPrint($match);//exit(-1);
 					$judoka1=$match['judoka_equipe_1'][0];
 					$judoka2=$match['judoka_equipe_2'][0];
-					$equipe1=get_field( 'equipe_judoka',$judoka1->ID )[0];
-					$equipe2=get_field( 'equipe_judoka',$judoka2->ID )[0];
+					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
+					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
+					$equipe1=null;
+					$equipe2=null;
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_1) {
+						foreach ($equipes_par_saisons_1 as $eq1) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
+								//var_dump($eq1['saisons'][0]);
+									
+									if( $eq1['saisons'][0]== $saison_value){
+										$equipe1 = $eq1['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
+
+					//var_dump($equipes_par_saisons);
+					if ($equipes_par_saisons_2) {
+						foreach ($equipes_par_saisons_2 as $eq2) {
+							// Obtenir et afficher le titre de l'équipe
+							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
+								//var_dump($equipe1['saisons'][0]);
+									
+									if( $eq2['saisons'][0]== $saison_value){
+										$equipe2 = $eq2['equipe_judoka'][0];
+									}
+									
+								
+							}
+							
+
+						}
+					}
 					$judoka_gagnant = $match['judoka_gagnant'];
 					if($judoka_gagnant!=null && $judoka_gagnant==1){
 						$results[$equipe1->post_title][0]["combats_gagnés"]+=1;
@@ -117,6 +194,8 @@ function array_msort($array, $cols)
 						$results[$equipe1->post_title][0]["combats_nuls"]+=1;
 						$results[$equipe2->post_title][0]["combats_nuls"]+=1;
 					}
+					$results[$equipe1->post_title][0]["combats_j"]+=1;
+						$results[$equipe2->post_title][0]["combats_j"]+=1;
 					$results[$equipe1->post_title][0]["error"]=$rencontre->ID.' : '.$judoka1->ID.' : '.$judoka1->post_title;
 					$results[$equipe2->post_title][0]["error"]=$rencontre->ID.' : '.$judoka2->ID.' : '.$judoka2->post_title;
 					//echo($mode_de_calcul_classement)exit(-1);
