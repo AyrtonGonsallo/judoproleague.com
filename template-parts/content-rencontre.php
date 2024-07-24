@@ -27,10 +27,10 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 //$equipe_gagnante = $matchs_liste[0]['equipe_gagnante'];
 ?>
 
-<main id="primary" class="site-main home">
+<main id="primary" class="site-main home rencntr-main">
 
 	<div class="jpl-sep"></div>
-    <section style="padding: 50px 0 0 0;">
+    <section class="sec-rencontre">
 		<div class="judo_pro_league ">
 		<?php if($texte_descriptif!=null){ ?>
 			<div class="nv-txt-desc"><p> <?php echo $texte_descriptif; ?></p></div>

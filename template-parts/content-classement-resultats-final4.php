@@ -62,10 +62,11 @@ $rencontre_f = get_posts($args_f4f);
     <section>
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
-				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                <select name="saison_value" id="saison_value" class="season-selector-select">
+					<option value="2021-2022" >2021-2022</option>
+					<option value="2022-2023" >2022-2023</option>
+					<option value="2023-2024" >2023-2024</option>
+                    <option value="2024-2025" selected>2024-2025</option>
 				</select>
 			</form>
 		</div>

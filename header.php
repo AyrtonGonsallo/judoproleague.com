@@ -82,7 +82,7 @@ $equipes = get_posts(array(
 	<?php } ?>
 	<?php
 
-		if(( $post->post_title=="Calendrier résultat Judo Pro League 2023")){
+		if(( $post->post_title=="Calendrier résultat Judo Pro League 2023" || $post->post_title=="Calendrier résultat Judo Pro League 2024")){
            
 
 		?>

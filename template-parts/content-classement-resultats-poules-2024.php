@@ -1,11 +1,16 @@
 <?php  
-function display_rencontre_quarts($rencontres_quart_2,$quart){
+
+
+
+function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     ?>
-<?php if ($rencontres_quart_2): ?><div class="judo_pro_league">    
-    <h2 class="crt-title"> Quart <?php echo $quart?></h2>    
-    <?php $count=count($rencontres_quart_2);?>
+<?php if ($rencontres_j2_pouleB): ?><div class="judo_pro_league">    
+    <h2 class="crt-title">Poule <?php echo $poule?></h2>    
+    <a href="/classement-judo-pro-league-2023/phase-eliminatoire/poule-<?php echo $poule?>/" class="more-classement">Classement Poule <?php echo $poule?> <i class="fa-solid fa-arrow-right-long"></i> </a>
+
+    <?php $count=count($rencontres_j2_pouleB);?>
     <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" <?php }?>>        
-    <?php foreach ($rencontres_quart_2 as $rencontre):            
+    <?php foreach ($rencontres_j2_pouleB as $rencontre):            
     $combat=get_field('les_combat', $rencontre->ID)[0];            
     $lieu=get_field('lieu_rencontre', $rencontre->ID);            
     $equipe1 =get_field('equipe_1', $rencontre->ID)[0];            
@@ -41,6 +46,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
         $lien_live_ou_billet=(get_field("lien_de_reservation", $rencontre->ID))?'<a href="'.get_field("lien_de_reservation", $rencontre->ID).'" target="_blank" class="nv-link-crt brd-right">Billetterie</a>':'';
     }
             ?>
+
                 <div class="cal-res-poule-blc">
                     <div class="header-cal-res-poule">
                         <span class="cal-res-poule-title"><?php echo $lieu;?></span>
@@ -71,134 +77,69 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
                 </div>
         <?php endforeach; ?>
     </div>
+    <div>
+    </div>
 </div>
 <?php endif;  ?>
     <?php 
 }
 ?>
 
-
 <?php
 
-
-
 $now=date('Y/m/d H:i:s');
-
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
-
-
-
 get_header();
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+$page_permalink = get_the_permalink($post->ID);
 
-
-
-
-
-$team_permalink = get_the_permalink($post->ID);
-
-
-
-
-
-$args_quart_1 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-        array(
-            'key'        => 'saisons',
-            'compare'    => 'LIKE',
-            'value'      => $saison_value
-        ),
-		array(      
-			'key'        => 'phase',      'compare'    => 'LIKE',      
-			'value' => '"' . 1667 . '"',  
-        ) ),		
-        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			);
-
-
-
-
-
-$args_quart_2 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-        array(
-            'key'        => 'saisons',
-            'compare'    => 'LIKE',
-            'value'      => $saison_value
-        ),
-		array(      
-			'key'        => 'phase',      
-            'compare'    => 'LIKE',      
-			'value' => '"' . 1668 . '"',  
-        ) ),		
-        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			
+function get_rencontres($poule_id,$journee,$saison_value){
+    $args = array(		
+        'post_type'=> 'rencontre',		
+        'posts_per_page' => -1,
+        'meta_query'     => array(  
+            'relation' => 'and',   
+            array(      
+                'key'        => 'niveau',      
+                'compare'    => '=',      
+                'value'      => 'Phase de poules'
+                ),
+           
+            array(
+                'key'        => 'saisons',
+                'compare'    => 'LIKE',
+                'value'      => $saison_value
+            ),
+            array(
+                'key'        => 'journee',      
+                'compare'    => 'LIKE',      
+                'value'      => 'Journée '.$journee, 
+            )  
+        ),		
+        'meta_key' => 'date_de_debut',		
+        'orderby' => 'meta_value_num',		
+        'order' => 'DESC',			
     );
+    return get_posts($args);
+}
 
+$rencontres_j1_pouleA =get_rencontres(488,'1',$saison_value);
 
+$rencontres_j2_pouleA =get_rencontres(488,'2',$saison_value);
 
+$rencontres_j3_pouleA =get_rencontres(488,'3',$saison_value);
 
+$rencontres_j4_pouleA =get_rencontres(488,'4',$saison_value);
 
-$args_quart_3 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-        array(
-            'key'        => 'saisons',
-            'compare'    => 'LIKE',
-            'value'      => $saison_value
-        ),
-        array(      
-			'key'        => 'phase',      'compare'    => 'LIKE',      
-			'value' => '"' . 1669 . '"',  
-        ) ),		
-        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			
-    );
+$rencontres_j5_pouleA =get_rencontres(488,'5',$saison_value);
 
+$rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
 
-
-
-
-$args_quart_4 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
-        array(
-            'key'        => 'saisons',
-            'compare'    => 'LIKE',
-            'value'      => $saison_value
-        ),
-        array(      
-			'key'        => 'phase',      'compare'    => 'LIKE',      
-			'value' => '"' . 1670 . '"',  
-        ) ),		
-        'meta_key' => 'date_de_debut',		'orderby' => 'meta_value_num',		'order' => 'DESC',			
-    );
-
-
-
-
-
-
-
-
-
-
-
-$rencontres_quart_1= get_posts($args_quart_1);
-
-
-
-
-
-$rencontres_quart_2= get_posts($args_quart_2);
-
-
-
-
-
-$rencontres_quart_3= get_posts($args_quart_3);
-
-
-
-
-
-$rencontres_quart_4= get_posts($args_quart_4);
-
-
+// ---------  fin - journée
 
 
 
 ?>
+
 <script>
         $(document).ready(function() {
             $('#saison_value').change(function() {
@@ -206,49 +147,175 @@ $rencontres_quart_4= get_posts($args_quart_4);
             });
         });
     </script>
+
 <main id="primary" class="site-main home">
+
+
+
     <section>
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
-            <select name="saison_value" id="saison_value" class="season-selector-select">
+				<select name="saison_value" id="saison_value" class="season-selector-select">
 					<option value="2021-2022" >2021-2022</option>
 					<option value="2022-2023" >2022-2023</option>
 					<option value="2023-2024" >2023-2024</option>
-                    <option value="2024-2025" selected>2024-2025</option>
+                    <option value="2023-2024" selected>2024-2025</option>
 				</select>
 			</form>
 		</div>
+
+
         <div class="judo_pro_league">
+
+
+
             <div class="phases">
-                <h2 class="tab-phase fs-30"><a href="<?php echo $team_permalink;?>poules">PHASE éliminatoire</a></h2>
-                <h2 class="tab-phase fs-30 tab-act"><a href="<?php echo $team_permalink;?>quarts">quarts de finale</a></h2>
-                <h2 class="tab-phase fs-30"><a href="<?php echo $team_permalink;?>final4">FINAL FOUR</a></h2>
+
+
+
+                <h2 class="tab-phase tab-act">
+
+
+
+                <a href="<?php echo $page_permalink;?>poules" class="fs-30">
+
+
+
+                    PHASE éliminatoire 
+
+
+
+                </a>
+
+
+
+                </h2>
+
+
+
+                <h2 class="tab-phase">
+
+
+
+                <a href="<?php echo $page_permalink;?>quarts" class="fs-30">
+
+
+
+                    quarts de finale
+
+
+
+                </a>
+
+
+
+                </h2>
+
+
+
+                <h2 class="tab-phase">
+
+
+
+                <a href="<?php echo $page_permalink;?>final4" class="fs-30">
+
+
+
+                    FINAL FOUR
+
+
+
+                </a>
+
+
+
+                </h2>
+
+
+
             </div>
+
+
+
         </div>
-        <div id="tabs" class="tabs-quarts">
-            <ul style="display:none">
-                <li><a href="#tabs-1" class="nv-journee">Q1</a></li>
-                <li><a href="#tabs-2" class="nv-journee">Q2</a></li>
-                <li><a href="#tabs-3" class="nv-journee">Q3</a></li>
-                <li><a href="#tabs-4" class="nv-journee">Q4</a></li>
+
+
+
+        <div id="tabs" class="tabs-poules">
+
+
+
+            <ul>
+
+
+
+                <li><a href="#tabs-1" class="nv-journee">J1</a></li>
+
+
+
+                <li><a href="#tabs-2" class="nv-journee">J2</a></li>
+
+
+
+                <li><a href="#tabs-3" class="nv-journee">J3</a></li>
+
+
+
+                <li><a href="#tabs-4" class="nv-journee">J4</a></li>
+
+
+
+                <li><a href="#tabs-5" class="nv-journee">J5</a></li>
+
+
+
+                <li><a href="#tabs-6" class="nv-journee">J6</a></li>
+
+
+
             </ul>
+
+
+
             <div id="tabs-1">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_1,'1');?>
+                <?php display_rencontre_journee_poule($rencontres_j1_pouleA,'A');?>
             </div>
             <div id="tabs-2">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_2,'2');?>
+                <?php display_rencontre_journee_poule($rencontres_j2_pouleA,'A');?>
             </div>
             <div id="tabs-3">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_3,'3');?>
+                <?php display_rencontre_journee_poule($rencontres_j3_pouleA,'A');?>
             </div>
             <div id="tabs-4">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_4,'4');?>
+                <?php display_rencontre_journee_poule($rencontres_j4_pouleA,'A');?>
+            </div>
+            <div id="tabs-5">
+                <?php display_rencontre_journee_poule($rencontres_j5_pouleA,'A');?>
+            </div>
+            <div id="tabs-6">
+                <?php display_rencontre_journee_poule($rencontres_j6_pouleA,'A');?>
+               
             </div>
         </div>
+
+
+
+</div>
+
+
+
     </section>
+
+
+
+
+
+
 <?php
+
+
+
 get_footer();
+
+
+

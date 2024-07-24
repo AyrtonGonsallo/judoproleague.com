@@ -52,7 +52,7 @@ $directeur = get_field('directeur');
 
 
 
-
+$saisons = get_field('saisons'); 
 
 
 
@@ -494,7 +494,7 @@ $prochaine_rencontre=get_posts($args5);
         });
     </script>
 
-<main id="primary" class="site-main home">
+<main id="primary" class="site-main home main-info-eq">
 
 
 
@@ -578,7 +578,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-<section class="pdt-30 pdb-30" style="height: 315px; position: relative;">
+<section class="pdt-30 pdb-30" style="min-height: 410px; position: relative;">
            <div class="container">
             <div class="">
                 <div class="">
@@ -629,7 +629,7 @@ $prochaine_rencontre=get_posts($args5);
                                                 <img src="<?php echo $image2_url;?>" class="logo-eqi">
                                             </div>
                                         </div>
-                                        <div class="center"><a href="<?php echo $lien;?>" class="btn-tts">Tout savoir</a></div>
+                                        <div class="center"><a href="<?php echo $lien;?>" class="btn-tts"> <span>Tout savoir</span> <i class="fa-solid fa-arrow-right-long"></i></a></div>
                                     </div>
                                 
                                 </li><?php endif;
@@ -671,11 +671,12 @@ $prochaine_rencontre=get_posts($args5);
                                             <span class="nv-number"><?php echo $score_equipe1;?></span><span class="nv-number">-</span><span class="nv-number"><?php echo $score_equipe2;?></span>                  </div>
                                         </div>
                                         <div class="nv-equip-1 <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>">
-                                            <span class="nv-equip-name"><?php echo $equipe2->post_title;?></span>
                                             <img src="<?php echo $image2_url;?>" class="logo-eqi">
+                                            <span class="nv-equip-name"><?php echo $equipe2->post_title;?></span>
+                                            
                                         </div>
                                     </div>
-                                    <div class="center"><a href="<?php echo $lien;?>" class="btn-tts">Tout savoir</a></div>
+                                    <div class="center"><a href="<?php echo $lien;?>" class="btn-tts">Tout savoir <i class="fa-solid fa-arrow-right-long"></i></a></div>
                                 </div>
                                
 
@@ -695,15 +696,17 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-    <section class="nv-liste-judoka bg-gt">
+    <section class="nv-liste-judoka bg-gt bg-clss-season">
 
 
     <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                    <?php foreach ($saisons as $saison) {?>
+                        <option value="<?php echo $saison;?>" <?php echo ($saison_value==$saison)?"selected":"";?>><?php echo $saison;?></option>
+
+                    <?php }?>
+					
 				</select>
 			</form>
 		</div>
@@ -714,7 +717,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                <div class="">
+                <div class="div-jdk-tabs">
 
 
 
@@ -1074,11 +1077,11 @@ $prochaine_rencontre=get_posts($args5);
 
     <?php if($description):?>
 
-        <section class="nv-liste-judoka bg-gt">
+        <section class="nv-liste-judoka bg-gt bg-presenta" style="background-image: url(http://www.rimo0631.odns.fr/wp-content/uploads/2024/07/bg-presentation-equipe.jpg);background-size:cover;background-repeat:no-repeat; background-position:center;">
 
             <div class="container">
 
-                <h2 class="nv-title-clsm" style='text-transform: uppercase'>Présentation de <?php echo $title;?></h2>
+                <h2 class="nv-title-clsm-presenta" style='text-transform: uppercase'>Présentation de <?php echo $title;?></h2>
 
                 <div class="presentation-equipes" style='text-align:center;margin-top:0px !important'>
                     <p><?php echo $description;?></p>
@@ -1442,22 +1445,24 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-        <section class="nv-liste-judoka bg-gt">
+        <section class="nv-liste-judoka bg-gt bg-galerie">
 
 
 
             <div class="container">
 
 
-
+             <div class="div-flx-nv">
                 <h2 class="nv-title-clsm">GALERIES</h2>
-
-
+                <div style='text-align:center;margin-top:0px !important'>
+                    <a href="<?php echo $team_permalink;?>photos" class="more-actu"> <span>Toutes les photos</span>  <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
+             </div>
 
                 <div class=""><div class="liste-images-galerie" >
 
 
-
+ 
                 <?php  //var_dump($images);exit(-1);
 
 
@@ -1551,9 +1556,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
                 <?php endforeach;?></div></div>
-                <div style='text-align:center;margin-top:0px !important'>
-                    <a href="<?php echo $team_permalink;?>photos" class="more-actu">Toutes les photos</a>
-                </div>
+                
 
 
             </div>

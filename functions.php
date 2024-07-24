@@ -240,6 +240,7 @@ function register_widget_areas() {
 		'description'   => 'Les rencontres du header',
 		
 	  ));
+	  
 	
 	
   }
@@ -353,6 +354,7 @@ $my_fake_pages2 = array(
     );
       
     add_filter('rewrite_rules_array', 'fsp_insertrules2');
+	add_filter('rewrite_rules_array', 'fsp_insertrules22');
     add_filter('query_vars', 'fsp_insertqv2');
       
     // Adding fake pages' rewrite rules
@@ -363,8 +365,19 @@ $my_fake_pages2 = array(
         $newrules2 = array();
         foreach ($my_fake_pages2 as $slug => $title)
             $newrules2['calendrier-resultats-2023/' . $slug . '/?$'] = 'index.php?pagename=calendrier-resultats-2023&fpage=' . $slug;
-      
+
         return $newrules2 + $rules;
+    }
+	// Adding fake pages' rewrite rules
+    function fsp_insertrules22($rules)
+    {
+        global $my_fake_pages2;
+      
+        $newrules22 = array();
+        foreach ($my_fake_pages2 as $slug => $title)
+			$newrules22['calendrier-resultat-judo-pro-league-2024/' . $slug . '/?$'] = 'index.php?pagename=calendrier-resultat-judo-pro-league-2024&fpage=' . $slug;
+
+        return $newrules22 + $rules;
     }
       
     // Tell WordPress to accept our custom query variable

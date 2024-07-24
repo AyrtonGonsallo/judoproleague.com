@@ -170,7 +170,7 @@ $description = get_field('presentation');
 
 
 
-
+$saisons = get_field('saisons'); 
 
 
 
@@ -686,10 +686,12 @@ $judokas=array_merge($judokas_f,$judokas_f_2,$judokas_h,$judokas_h_2);
 		<section class="nv-title-grade">
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
-				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                <select name="saison_value" id="saison_value" class="season-selector-select">
+                    <?php foreach ($saisons as $saison) {?>
+                        <option value="<?php echo $saison;?>" <?php echo ($saison_value==$saison)?"selected":"";?>><?php echo $saison;?></option>
+
+                    <?php }?>
+					
 				</select>
 			</form>
 		</div>

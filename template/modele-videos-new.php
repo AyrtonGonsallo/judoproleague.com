@@ -32,16 +32,19 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
             ?>
 
             <?php if ( have_posts() ) :
-
+              $i=0;
             ?>
 
                 <div class="videos-container" id="videoscontainer">
 
-                    <?php while ( have_posts() ) : the_post();?>
+                    <?php while ( have_posts() ) : the_post();  
+                        
+                        $image_url=($i==0)?str_replace("hq","maxres",get_field('image')):get_field('image');
+                        ?>
 
                         <div class="videos-container-element">
 
-                            <div class="video-preview" style="background-image: url(<?php echo get_field('image')?>);">
+                            <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
 
                                 <div class="button-play-video button-play-video-grande-taille" >
 
@@ -61,11 +64,13 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
 
                         </div>
 
-                    <?php endwhile;?> 
+                    <?php 
+                    $i+=1;
+                endwhile;?> 
 
                 <?php else: ?>
 
-                    <p>Aucun résultat :(</p>
+                    <p>Aucun résultat.</p>
 
                                     
 

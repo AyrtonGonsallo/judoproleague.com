@@ -62,7 +62,7 @@ $directeur = get_field('directeur');
 
 
 
-
+$saisons = get_field('saisons'); 
 
 $couleur1 = get_field('couleur1'); 
 
@@ -296,10 +296,12 @@ $matchs_poules=get_posts($args_poules);
 
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
-				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                <select name="saison_value" id="saison_value" class="season-selector-select">
+                    <?php foreach ($saisons as $saison) {?>
+                        <option value="<?php echo $saison;?>" <?php echo ($saison_value==$saison)?"selected":"";?>><?php echo $saison;?></option>
+
+                    <?php }?>
+					
 				</select>
 			</form>
 		</div>
@@ -313,9 +315,12 @@ $matchs_poules=get_posts($args_poules);
 		
 
     <?php if($matchs_poules):?>
-        <section class="pd-5">
+        <section class="pd-5 eq-reslt-div">
             <div class="judo_pro_league">
-                <h2 class="crt-title">Phase de poules</h2>
+                <div class="eq-reslt-flx">
+                     <h2 class="crt-title">Phase de poules</h2>
+                     <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_poules as $rencontre):
                         $combat=get_field('les_combat', $rencontre->ID)[0];
@@ -378,22 +383,24 @@ $matchs_poules=get_posts($args_poules);
                                 </div>
                                 <div class="cal-res-poule-link <?php echo $class_reservation;?>">
                                     <?php echo $lien_live_ou_billet;?>
-                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                                 </div>
                             </div>
                     <?php endforeach; ?>
                 </div>
                 <div>
-                    <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules</a>
                 </div>
             </div>
     </section>
     <?php endif;?>
 
     <?php if($matchs_quarts):?>
-        <section class="pd-5">
+        <section class="pd-5 eq-reslt-div">
             <div class="judo_pro_league">
-                <h2 class="crt-title">Quarts</h2>
+                 <div class="eq-reslt-flx">
+                     <h2 class="crt-title">Quarts</h2>
+                     <a href="../../../calendrier-resultats-2023/quarts/" class="more-classement">Classement Quarts <i class="fa-solid fa-arrow-right-long"></i></a>
+                  </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_quarts as $rencontre):
                         $combat=get_field('les_combat', $rencontre->ID)[0];
@@ -455,22 +462,24 @@ $matchs_poules=get_posts($args_poules);
                                 </div>
                                 <div class="cal-res-poule-link <?php echo $class_reservation;?>">
                                     <?php echo $lien_live_ou_billet;?>
-                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                                 </div>
                             </div>
                     <?php endforeach; ?>
                 </div>
                 <div>
-                    <a href="../../../calendrier-resultats-2023/quarts/" class="more-classement">Classement Quarts</a>
                 </div>
             </div>
     </section>
     <?php endif;?>
 
     <?php if($matchs_f4):?>
-        <section class="pd-5">
+        <section class="pd-5 eq-reslt-div">
             <div class="judo_pro_league">
-                <h2 class="crt-title">Final Four</h2>
+                <div class="eq-reslt-flx">
+                     <h2 class="crt-title">Final Four</h2>
+                     <a href="../../../calendrier-resultats-2023/final4/" class="more-classement">Classement Final Four <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_f4 as $rencontre):
                         $combat=get_field('les_combat', $rencontre->ID)[0];
@@ -532,13 +541,13 @@ $matchs_poules=get_posts($args_poules);
                                 </div>
                                 <div class="cal-res-poule-link <?php echo $class_reservation;?>">
                                     <?php echo $lien_live_ou_billet;?>
-                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails</a>
+                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
                                 </div>
                             </div>
                     <?php endforeach; ?>
                 </div>
                 <div>
-                    <a href="../../../calendrier-resultats-2023/final4/" class="more-classement">Classement Final Four</a>
+
                 </div>
             </div>
     </section>
