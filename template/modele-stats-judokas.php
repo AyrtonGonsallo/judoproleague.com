@@ -5,7 +5,15 @@
  */
  get_header();
  $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
-
+ $equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
+ $categorie_value=($_GET["categorie_value"])?$_GET["categorie_value"]:"0";
+ $args_teams=array(
+     'post_type'=> 'equipes',
+     'posts_per_page' => -1,
+     'orderby' => 'title',
+     'order' => 'ASC',
+     );
+ $equipes=get_posts($args_teams);
  ?>
  
 <script>
@@ -13,7 +21,28 @@
             $('#saison_value').change(function() {
                 $('.season-selector-form').submit();
             });
+            $('#equipe_value').change(function() {
+                var selectedCategory=$('#categorie_value').val();
+                var selectedEquipe = $(this).val(); // Obtenez la valeur sélectionnée
+                var search_val=selectedCategory+" "+selectedEquipe;
+                $('#tableauAll_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+            });
+            $('#categorie_value').change(function() {
+                var selectedEquipe=$('#equipe_value').val();
+                var selectedCategory = $(this).val(); // Obtenez la valeur sélectionnée
+                var search_val=selectedCategory+" "+selectedEquipe;
+                $('#tableauAll_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+            });
         });
+        
     </script>
  <main id="primary" class="site-main home page-stats-judokas">
 
@@ -60,13 +89,40 @@
                     <option value="-hu23-">Masculins U23</option>
                     <option value="-fu23-">Féminines U23</option>
                 </select>
+                <form Method="GET" ACTION="" class="cat-equipes-selector-form">
+                    <select name="categorie_value" id="categorie_value" class="season-selector-select">
+                        <option value="0" <?php echo ($categorie_value=="0")?"selected":"";?>>Toutes les catégories</option>
+                        <option value="-52" <?php echo ($categorie_value=="-52")?"selected":"";?>>-52</option>
+                        <option value="-57" <?php echo ($categorie_value=="-57")?"selected":"";?>>-57</option>
+                        <option value="-63" <?php echo ($categorie_value=="-63")?"selected":"";?>>-63</option>
+                        <option value="-70" <?php echo ($categorie_value=="-70")?"selected":"";?>>-70</option>
+                        <option value="+70" <?php echo ($categorie_value=="+70")?"selected":"";?>>+70</option>
+                        <option value="-75" <?php echo ($categorie_value=="-75")?"selected":"";?>>-75</option>
+                        <option value="-85" <?php echo ($categorie_value=="-85")?"selected":"";?>>-85</option>
+                        <option value="-95" <?php echo ($categorie_value=="-95")?"selected":"";?>>-95</option>
+                        <option value="+95" <?php echo ($categorie_value=="+95")?"selected":"";?>>+95</option>
+
+                    </select>
+                    <select name="equipe_value" id="equipe_value" class="team-selector-select">
+                    <option value="0">Toutes les équipes</option>
+
+                    <?php foreach ($equipes as $equipe) {
+                        $title=get_the_title($equipe->ID);
+                        ?>
+                        
+                                <option value="<?php echo $title;?>" ><?php echo $title;?></option>
+
+                            <?php }?>
+                        
+                    </select>
+                </form>
                 <table id="tableauAll" data-page-length='25' class="display">
                     <thead>
                         <tr>
                         <!--<th style="text-transform: capitalize;">Rang</th>-->
                             <th style="text-transform: capitalize;">nom</th>
                             <th class="text-end" style="text-transform: capitalize;">Age</th>
-                            
+                            <th class="text-end" style="text-transform: capitalize;">Categorie</th>
                             <th class="text-end" style="text-transform: capitalize;">V</th>
                             <th class="text-end" style="text-transform: capitalize;">N</th>
                             <th class="text-end" style="text-transform: capitalize;">D</th>
@@ -85,7 +141,7 @@
                                 <!--<td><?php //echo $i;?></td>-->
                                 <td class="align-photo-nom-vertically "><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></a></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-
+                                <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
                                 
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
@@ -104,7 +160,7 @@
                         <!--<th style="text-transform: capitalize;">Rang</th>-->
                             <th style="text-transform: capitalize;">nom</th>
                             <th class="text-end" style="text-transform: capitalize;">Age</th>
-                            
+                            <th class="text-end" style="text-transform: capitalize;">Categorie</th>
                             <th class="text-end" style="text-transform: capitalize;">V</th>
                             <th class="text-end" style="text-transform: capitalize;">N</th>
                             <th class="text-end" style="text-transform: capitalize;">D</th>
@@ -123,6 +179,7 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
 
                                     
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
@@ -145,7 +202,7 @@
                         <!--<th style="text-transform: capitalize;">Rang</th>-->
                             <th style="text-transform: capitalize;">nom</th>
                             <th class="text-end" style="text-transform: capitalize;">Age</th>
-                            
+                            <th class="text-end" style="text-transform: capitalize;">Categorie</th>
                             <th class="text-end" style="text-transform: capitalize;">V</th>
                             <th class="text-end" style="text-transform: capitalize;">N</th>
                             <th class="text-end" style="text-transform: capitalize;">D</th>
@@ -164,7 +221,8 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
@@ -184,7 +242,7 @@
                         <!--<th style="text-transform: capitalize;">Rang</th>-->
                             <th style="text-transform: capitalize;">nom</th>
                             <th class="text-end" style="text-transform: capitalize;">Age</th>
-                            
+                            <th class="text-end" style="text-transform: capitalize;">Categorie</th>
                             <th class="text-end" style="text-transform: capitalize;">V</th>
                             <th class="text-end" style="text-transform: capitalize;">N</th>
                             <th class="text-end" style="text-transform: capitalize;">D</th>
@@ -203,7 +261,8 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
@@ -223,7 +282,7 @@
                         <!--<th style="text-transform: capitalize;">Rang</th>-->
                             <th style="text-transform: capitalize;">nom</th>
                             <th class="text-end" style="text-transform: capitalize;">Age</th>
-                            
+                            <th class="text-end" style="text-transform: capitalize;">Categorie</th>
                             <th class="text-end" style="text-transform: capitalize;">V</th>
                             <th class="text-end" style="text-transform: capitalize;">N</th>
                             <th class="text-end" style="text-transform: capitalize;">D</th>
@@ -242,7 +301,8 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
@@ -290,7 +350,7 @@
                         sortDescending: ": activer pour trier la colonne par ordre décroissant"
                     }
                 },
-                 order: [[2, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
+                 order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
         } );
             $('#tableauHommes').DataTable( {
                 language: {
@@ -320,7 +380,7 @@
                         sortDescending: ": activer pour trier la colonne par ordre décroissant"
                     }
                 },
-                 order: [[2, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
+                 order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
         } );
         $('#tableauFemmes').DataTable( {
             language: {
@@ -350,7 +410,7 @@
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
             },
-            order: [[2, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
+            order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
         } );
         $('#tableauHommesU23').DataTable( {
                 language: {
@@ -380,7 +440,7 @@
                         sortDescending: ": activer pour trier la colonne par ordre décroissant"
                     }
                 },
-                 order: [[2, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
+                 order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
         } );
         $('#tableauFemmesU23').DataTable( {
             language: {
@@ -410,7 +470,7 @@
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
             },
-            order: [[2, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
+            order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']]
         } );
         $('#tableauHommes_wrapper').hide()
         $('#tableauFemmes_wrapper').hide()

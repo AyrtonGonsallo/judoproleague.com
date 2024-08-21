@@ -44,7 +44,7 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
 
             </select>
             <select name="equipe_value" id="equipe_value" class="team-selector-select">
-            <option value="0">Toutes</option>
+            <option value="0">Toutes les équipes</option>
 
             <?php foreach ($equipes as $equipe) {
                 $title=get_the_title($equipe->ID);

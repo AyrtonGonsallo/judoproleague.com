@@ -159,6 +159,9 @@ function array_msort($array, $cols)
 					}
 					$results['total'][$judoka1->post_title][0]["categorie_dage"]=get_field('categorie_dage',$judoka1->ID);
 					$results['total'][$judoka2->post_title][0]["categorie_dage"]=get_field('categorie_dage',$judoka2->ID);
+					
+					$results['total'][$judoka1->post_title][0]["categorie_de_poids"]=get_field('categorie_de_poids',$judoka1->ID);
+					$results['total'][$judoka2->post_title][0]["categorie_de_poids"]=get_field('categorie_de_poids',$judoka2->ID);
 					$results['total'][$judoka1->post_title][0]["image"]=get_the_post_thumbnail_url($judoka1->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka1->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
 					$results['total'][$judoka2->post_title][0]["image"]=get_the_post_thumbnail_url($judoka2->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka2->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
 					
