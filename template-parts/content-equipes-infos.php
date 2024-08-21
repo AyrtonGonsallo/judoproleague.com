@@ -12,7 +12,7 @@ date_default_timezone_set('Europe/Paris');
 
 get_header();
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 
 $titlebar   = get_field('header_de_la_page');
 
@@ -486,13 +486,7 @@ $prochaine_rencontre=get_posts($args5);
 <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
 
-<script>
-        $(document).ready(function() {
-            $('#saison_value').change(function() {
-                $('.season-selector-form').submit();
-            });
-        });
-    </script>
+
 
 <main id="primary" class="site-main home main-info-eq">
 
@@ -699,17 +693,7 @@ $prochaine_rencontre=get_posts($args5);
     <section class="nv-liste-judoka bg-gt bg-clss-season">
 
 
-    <div class="season-selector-box">
-			<form Method="GET" ACTION="" class="season-selector-form">
-				<select name="saison_value" id="saison_value" class="season-selector-select">
-                    <?php foreach ($saisons as $saison) {?>
-                        <option value="<?php echo $saison;?>" <?php echo ($saison_value==$saison)?"selected":"";?>><?php echo $saison;?></option>
-
-                    <?php }?>
-					
-				</select>
-			</form>
-		</div>
+   
 
         <div class="container">
 
@@ -1102,11 +1086,11 @@ $prochaine_rencontre=get_posts($args5);
 
 
             <div class="container">
-
-
-
+                <div class="div-flx-nv">
                 <h2 class="nv-title-clsm">ACTUALITES</h2>
-
+                <div style='text-align:center;margin-top:0px !important'>
+                    <a href="<?php echo $team_permalink;?>actus" class="more-actu"><span>Toutes les actualités</span><i class="fa-solid fa-arrow-right-long"></i></a>
+                </div></div>
 
 
                 <div class="liste-images-galerie" id="videoscontainer">
@@ -1424,9 +1408,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
                 </div>
-                <div style='text-align:center;margin-top:0px !important'>
-                    <a href="<?php echo $team_permalink;?>actus" class="more-actu">Toutes les actualités</a>
-                </div>
+                
 
 
             </div>
@@ -1582,10 +1564,12 @@ $prochaine_rencontre=get_posts($args5);
             <div class="container">
 
 
-
+            <div class="div-flx-nv">
                 <h2 class="nv-title-clsm">VIDEOS</h2>
-
-
+                <div style='text-align:center;margin-top:0px !important'>
+                    <a href="<?php echo $team_permalink;?>videos" class="more-actu"><span>Toutes les vidéos</span><i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
+            </div>
 
             
 
@@ -1680,9 +1664,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
                 </div>
-                <div style='text-align:center;margin-top:0px !important'>
-                    <a href="<?php echo $team_permalink;?>videos" class="more-actu">Toutes les vidéos</a>
-                </div>
+                
 
 
             </div>

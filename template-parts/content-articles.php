@@ -49,7 +49,7 @@
 	<div class="content-article">
 
 
-		<header class="entry-header news-content">
+		<header class="entry-header news-content test">
 
 
 		<?php

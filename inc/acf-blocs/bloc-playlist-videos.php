@@ -50,7 +50,7 @@
        ?>
         <div class="videos-container2" id="videoscontainer">
                 <div class="videos-container-element">
-                    <div class="video-preview" style="background-image: url(<?php echo get_field('image',$videos_desktop_1[0]->ID)?>);">
+                    <div class="video-preview" style="background-image: url(<?php echo str_replace("hq","maxres",get_field('image',$videos_desktop_1[0]->ID))?>);">
                         <div class="button-play-video button-play-video-grande-taille" >
                             <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$videos_desktop_1[0]->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                         </div>
@@ -85,12 +85,9 @@
     <?php endif; wp_reset_query();?>
     
         
-	<!-- <a href="liste-videos/"  class="more">
-        <img src="/wp-content/uploads/2023/07/play-button.png" class="nv-img-v">
-        Toutes les vidéos
-    </a> -->
- </div>	
+ </div>
      
+<a href="liste-videos/" class="btn-classmnt btn-mobile center">Toutes les vidéos</a>
 </section>
 
 

@@ -83,7 +83,7 @@ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
                         foreach ($classement as $d) {
                             if($d[0]['nom']){?>                 
                             <tr class="tr-stat">
-                                <td  class="align-photo-nom-vertically"><img width="24px" height="24px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></td>
+                                <td  class="align-photo-nom-vertically"><img width="24px" height="24px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></td>
                                 <td class="wp-caption-text sorting_1"><?php echo ($d[0]['combats_gagnés'])?$d[0]['combats_gagnés']:0?></td>
                                 <td class="wp-caption-text sorting_1"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                 <td class="wp-caption-text sorting_1"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>

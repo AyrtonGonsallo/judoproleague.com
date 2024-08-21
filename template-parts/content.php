@@ -62,7 +62,7 @@
 
 
 
-		<header class="entry-header news-content">
+		<header class="entry-header news-content test2">
 		
 
 

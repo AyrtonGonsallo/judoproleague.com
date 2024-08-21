@@ -569,6 +569,14 @@ function replace_custom_post_type_permalink($post_link, $post) {
  add_action ( 'manage_judoka_posts_custom_column', 'custom_column', 10, 2 );
  add_action ( 'manage_rencontre_posts_custom_column', 'custom_column_single_choice', 10, 2 );
 
+
+/********************************/
+
+
+
+
+
+
 /************************************* back-office-rencontre*********************************************/
 function custom_admin_css() {
     echo '<style>

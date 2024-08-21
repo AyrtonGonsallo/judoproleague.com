@@ -17,7 +17,7 @@ $args=array(
 );
 $rencontres=get_posts($args);
 require_once (THEMEDIR.'template-parts/content-judokas-requests-stats-home.php');
-$classement_equipes=get_classement($rencontres,$saison_value,5);
+$classement_equipes=get_classement($rencontres,$saison_value,50);
    //var_dump($classement);exit(-1);
    $classement_judokas=get_classement_judokas_home($saison_value,5)['total'];
        //var_dump($classement_judokas);exit(-1);      
@@ -31,39 +31,55 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
 
    <h2 class="clssmnt-title">CLASSEMENT DE LA PHASE DE POULE</h2>
 
-       <div class="clssmnt-content">
-           <!-- <div class="clssmnt-div-ttl"> <h3 class="clssmnt-h3">Poules</h3></div> -->
-<?php for ($i1 = 1; $i1 <= 10; $i1++) {
-                    }
-                    ?>
+   <div class="clssmnt-content">
+    <?php 
+    $i = 0;
+    foreach ($classement_equipes as $d) { 
+        $isHidden = $i >= 5 ? 'style="display:none;"' : ''; // Cacher les éléments au-delà des 5 premiers
+    ?>
+    <div class="col-d-v-pts" <?php echo $isHidden; ?> id="item-<?php echo $i; ?>">
+        <div class="clss-eq"> 
+            <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
+            <?php echo ($i + 1) . "-" . $d[0]['nom'];?>
+        </div>
+        <span class="left"><?php echo ($d[0]['defaites']) ? $d[0]['defaites'] : 0; ?> D</span>
+        <span class="left"><?php echo ($d[0]['victoires']) ? $d[0]['victoires'] : 0; ?> V</span>
+        <span class="left"><?php echo $d[0]['points_marqués']; ?> Pts</span>
+    </div>
+    <?php 
+        $i++;
+    } 
+    ?>
 
-           <?php $i=0;
-                                foreach ($classement_equipes as $d){ 
-                                if($i>=5){
-                                    continue;
-                                }
-                            ?>
-              <div class="col-d-v-pts">
-                    <div class="clss-eq"> 
-                    
-                        <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
-                        <?php echo $i1 . "-" .$d[0]['nom'];?>
-                    </div>
-
-                    <span class="left"><?php echo ($d[0]['defaites'])?$d[0]['defaites']:0?> D</span>
-                    <span class="left"><?php echo ($d[0]['victoires'])?$d[0]['victoires']:0?> V</span>
-                    <span class="left"><?php echo $d[0]['points_marqués'];?> Pts</span>
-
-
-              </div>
-              <?php 
-                $i+=1;
-                    }
-                ?>
+   <!-- Bouton avec icône pour afficher/masquer les éléments -->
+   <button id="toggle-items" onclick="toggleItems()" style="background-color: #D015A0; color: white; border: none; padding: 10px; cursor: pointer;">
+        <i id="toggle-icon" class="fa-solid fa-chevron-down"></i>
+    </button>
+</div>
 
 
-       </div>
-         <a href="https://www.rimo0631.odns.fr/tableau-principal-judo-pro-league-2023/" class="btn-classmnt center">Classement complet</a>
+<script>
+    function toggleItems() {
+        var totalItems = <?php echo count($classement_equipes); ?>;
+        var isHidden = document.getElementById('item-5').style.display === 'none';
+
+        for (var i = 5; i < totalItems; i++) {
+            document.getElementById('item-' + i).style.display = isHidden ? 'grid' : 'none';
+        }
+
+        // Changer l'icône de flèche en fonction de l'état
+        var toggleIcon = document.getElementById('toggle-icon');
+        if (isHidden) {
+            toggleIcon.className = 'fa-solid fa-chevron-up'; // Flèche vers le haut
+        } else {
+            toggleIcon.className = 'fa-solid fa-chevron-down'; // Flèche vers le bas
+        }
+    }
+</script>
+
+
+
+         <!-- <a href="https://www.rimo0631.odns.fr/tableau-principal-judo-pro-league-2023/" class="btn-classmnt center">Classement complet</a> -->
 
 
 

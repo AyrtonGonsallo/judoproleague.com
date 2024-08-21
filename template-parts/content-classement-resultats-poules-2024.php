@@ -5,8 +5,8 @@
 function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     ?>
 <?php if ($rencontres_j2_pouleB): ?><div class="judo_pro_league">    
-    <h2 class="crt-title">Poule <?php echo $poule?></h2>    
-    <a href="/classement-judo-pro-league-2023/phase-eliminatoire/poule-<?php echo $poule?>/" class="more-classement">Classement Poule <?php echo $poule?> <i class="fa-solid fa-arrow-right-long"></i> </a>
+    <!-- <h2 class="crt-title">Poule <?php echo $poule?></h2>     -->
+    <a href="/classement-judo-pro-league-2023/phase-eliminatoire/poule-<?php echo $poule?>/" class="more-classement">Classement <i class="fa-solid fa-arrow-right-long"></i> </a>
 
     <?php $count=count($rencontres_j2_pouleB);?>
     <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" <?php }?>>        
@@ -148,7 +148,7 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
         });
     </script>
 
-<main id="primary" class="site-main home">
+<main id="primary" class="site-main home result-24">
 
 
 

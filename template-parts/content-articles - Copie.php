@@ -28,7 +28,7 @@
 ?>
 
 
-<div>
+<div class="actus-page">
 
 
 <article id="myarticles post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -168,18 +168,12 @@
 
 						wp_kses_post( get_the_title() )
 
-
 					)
-
 
 				);
 
 
 			}
-
-
-			
-
 
 			?>
 

@@ -237,13 +237,19 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 		<div class="container">
 
 			<?php the_custom_logo(); ?>
+    
+   <div class="mob-icon">
+    <!-- Search Icon -->
+          <div class="search-icon">
+              <i class="fa fa-search"></i>
+          </div>
 
 			<button aria-label="Open navigation" class="navbar-toggler">
 
 				<img src="<?php echo get_site_url();?>/wp-content/uploads/2022/11/menu-burger.webp">
 
 			</button>
-
+    </div>
 			<div id="navbar-menu" class="">
 
 				<div id="navbar-mobile-header">
@@ -286,6 +292,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
                   
                     <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
+    
 
                     <div class="nv-header-lang">
                         <?php
@@ -310,39 +317,107 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 			</div>
 
 			<div class="nv-header-right">
+    <div class="nv-header-lang">
 
+        <?php
+
+    wp_nav_menu(
+
+        array(
+
+            'theme_location' => 'langues',
+
+            'menu_id'        => 'langues-menu',
+
+            'conatiner' => false,
+
+            'menu_class' => 'navbar-nav',
+
+
+
+        )
+
+    ); ?>
+
+    </div>
 				<div class="nv-header-rs">
+    
+    <!-- Search Icon -->
+          <div class="search-icon">
+              <i class="fa fa-search"></i>
+          </div>
 
-					<a href="https://www.youtube.com/@francejudo_/playlists" target="_blank"><i class="fa-brands fa-youtube" ></i></a>
+    <!-- Search Popup -->
+    <div id="search-popup" class="search-popup">
+        <div class="search-popup-content">
+            <span class="close">&times;</span>
+           
+            <form id="search-form" role="search" method="get" action="<?php echo home_url('/'); ?>">
+               
+                    <input type="text" name="s" class="search-field"  value="<?php the_search_query(); ?>">
+                    <button type="submit" class="search-submit">Chercher <i class="fa-solid fa-arrow-right-long"></i></button>
+                
+            </form>
+        </div>
+    </div>
+    
+    <script>
+    jQuery(document).ready(function($) {
+        // Function to show the popup
+        function showPopup() {
+            $('#search-popup').fadeIn();
+        }
+
+        // Function to hide the popup
+        function hidePopup() {
+            $('#search-popup').fadeOut();
+        }
+
+        // Event listener for search icon click
+        $(document).on('click', '.search-icon', function() {
+            showPopup();
+        });
+
+        // Event listener for close button click
+        $(document).on('click', '.close', function() {
+            hidePopup();
+        });
+
+        // Close the popup when clicking outside the content area
+        $(document).on('click', function(event) {
+            if ($(event.target).closest('.search-popup-content, .search-icon').length === 0) {
+                hidePopup();
+            }
+        });
+
+        // Prevent event propagation for clicks inside the popup content
+        $(document).on('click', '.search-popup-content', function(event) {
+            event.stopPropagation();
+        });
+
+        
+    });
+
+
+    </script>
+    <?php
+    function enqueue_custom_scripts() {
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), null, true);
+    }
+
+    add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
+
+    ?>
+    
+    <!-- <a href="https://www.youtube.com/@francejudo_/playlists" target="_blank"><i class="fa-brands fa-youtube" ></i></a>
                     <a href="https://www.facebook.com/judoproleague" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://twitter.com/proleaguejudo" target="_blank"><i class="fa-brands fa-twitter" ></i></a>
-                    <a href="https://www.instagram.com/proleaguejudo/" target="_blank"><i class="fa-brands fa-instagram" ></i></a>
+                    <a href="https://www.instagram.com/proleaguejudo/" target="_blank"><i class="fa-brands fa-instagram" ></i></a>-->
 
 				</div>
 
-				<div class="nv-header-lang">
 
-					<?php
-
-				wp_nav_menu(
-
-					array(
-
-						'theme_location' => 'langues',
-
-						'menu_id'        => 'langues-menu',
-
-						'conatiner' => false,
-
-						'menu_class' => 'navbar-nav',
-
-
-
-					)
-
-				); ?>
-
-				</div>
 
 				</div>
 
@@ -412,12 +487,14 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                     if($statut=='en cours'){
                         $status='en cours';
                         $lien=get_the_permalink($rencontre->ID);
-                        $lien2=null;
+                        $lien_live=get_field('video_live', $rencontre->ID);
+                        $lien_billets=null;
                         $icone_status='icon-rencontre-encours-1.png';
                     }else if($statut=='terminé'){
                         $status='terminé';
                         $lien=get_the_permalink($rencontre->ID);
-                        $lien2=null;
+                        $lien_billets=null;
+                        $lien_live=null;
                         $icone_status='icon-rencontre-termine-1.png';
                         /*if((strtotime($now)-strtotime($date_fin))>=86400){
                             continue;
@@ -427,11 +504,12 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                         $status='à venir';
                         $icone_status='icon-rencontre-a-venir.png';
                         $lien=get_the_permalink($rencontre->ID);
-                        $lien2=get_field('lien_de_reservation', $rencontre->ID);
+                        $lien_live=null;
+                        $lien_billets=get_field('lien_de_reservation', $rencontre->ID);
                     }
                     //var_dump($equipe1);exit(-1);
                 ?>
-                <li class="rencontre flip-card splide__slide" style="margin:20px !important;">
+                <li class="rencontre-element flip-card splide__slide" style="margin:20px !important;">
                     <div class="flip-card-inner splide__slide__container">
                         <div class="flip-card-front">
                             <div class="nv-header-rencontre"><span><?php echo get_field('phase', $rencontre->ID)[0]->post_title.' '.get_field('journee', $rencontre->ID); ?></span><span class="nv-staut"> <?php echo $status ;?> <img src="/wp-content/uploads/2023/07/<?php echo $icone_status;?>" class="nv-img-statut"></span></div>
@@ -440,9 +518,13 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                         </div>
                         <div class="flip-card-back">
                             <a href="<?php echo $lien;?>" class="nv-all-info">Toutes les infos</a>
-                            <?php if($lien2){
+                            <?php if($lien_billets){
                                 echo '<div class="brd-sep"></div>';
-                                echo '<a href="'.$lien2.'" target="_blank" class="nv-all-info">Billetterie</a>';
+                                echo '<a href="'.$lien_billets.'" target="_blank" class="nv-all-info">Billetterie</a>';
+                            }?>
+                            <?php if($lien_live){
+                                echo '<div class="brd-sep"></div>';
+                                echo '<a href="'.$lien_live.'" target="_blank" class="nv-all-info">Suivre le live</a>';
                             }?>
                         </div>
                     </div>
@@ -459,11 +541,15 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                             <div class="nv-team nv-team-final4"><span class="nv-name-final4">Vainqueur DF 2</span><span class="nv-score">18h30 </span></div>
                         </div>
                         <div class="flip-card-back">
-                            <a href="" class="nv-all-info">Toutes les infos</a>
-                            <?php 
+                        <a href="<?php echo $lien;?>" class="nv-all-info">Toutes les infos</a>
+                            <?php if($lien_billets){
                                 echo '<div class="brd-sep"></div>';
-                                echo '<a href="" target="_blank" class="nv-all-info">Billetterie</a>';
-                            ?>
+                                echo '<a href="'.$lien_billets.'" target="_blank" class="nv-all-info">Billetterie</a>';
+                            }?>
+                            <?php if($lien_live){
+                                echo '<div class="brd-sep"></div>';
+                                echo '<a href="'.$lien_live.'" target="_blank" class="nv-all-info">Suivre le live</a>';
+                            }?>
                         </div>
                     </div>
                 </li>

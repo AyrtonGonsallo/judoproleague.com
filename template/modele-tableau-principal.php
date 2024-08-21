@@ -187,29 +187,13 @@ function display($rencontres){?>
                 </h2>
             </div>
         </div>
-        <div class="judo_pro_league">
-            <div class="phases-finales">
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        QUARTS DE FINALE
-                    
-                </h3>
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        DEMI-FINALES
-                    
-                </h3>
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        FINALE
-                    
-                </h3>
-                
-            </div>
-        </div>
-        <div class="judo_pro_league mtop-5">
+
+        <div class="judo_pro_league mtop-5 tab-princ-23">
             <div class="tp-3x-grid">
+
                 <div class="tp-3x-grid-content">
+<h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">QUARTS DE FINALE</h3>
+
                     <div class="tp-4y-grid">
                         
                         <?php display($rencontres_quarts);?>
@@ -218,11 +202,15 @@ function display($rencontres){?>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
+<h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">DEMI-FINALES</h3>
+
                     <div class="tp-2y-grid">
                         <?php display($rencontres_demies);?>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
+<h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">FINALE </h3>
+
                     <div class="tp-y-grid">
                         <?php display($rencontre_f);?>
                     </div>

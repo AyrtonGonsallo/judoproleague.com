@@ -49,7 +49,7 @@ function bloc_articles() {
                 <?php endforeach; ?>
             <?php endif; ?>        
         </div>
-        <a href="/actualites-judo-pro-league/" class="more-actu">Toutes les actualités</a>
+        <a href="/actualites-judo-pro-league/" class="more-actu">Toutes les actualités <i class="fa-solid fa-arrow-right-long"></i></a>
     </section>
 <?php
 }

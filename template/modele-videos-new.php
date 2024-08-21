@@ -11,23 +11,101 @@
 
 
 get_header();
-
-
-
+$equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$args_teams=array(
+    'post_type'=> 'equipes',
+    'posts_per_page' => -1,
+    'orderby' => 'title',
+    'order' => 'ASC',
+    );
+$equipes=get_posts($args_teams);
 $img="/wp-content/uploads/2022/12/image00011.webp";
 
 ?>
-
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+            $('#equipe_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+        });
+    </script>
 <main id="primary" class="blog site-main liste-videos">
+    <div class="season-selector-box">
+        <form Method="GET" ACTION="" class="season-selector-form">
+            <select name="saison_value" id="saison_value" class="season-selector-select">
+                <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+                <option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+                <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
+            </select>
+            <select name="equipe_value" id="equipe_value" class="team-selector-select">
+            <option value="0">Toutes</option>
+
+            <?php foreach ($equipes as $equipe) {
+                $title=get_the_title($equipe->ID);
+                ?>
+                
+                        <option value="<?php echo $equipe->ID;?>" <?php echo ($equipe_value==$equipe->ID)?"selected":"";?>><?php echo $title;?></option>
+
+                    <?php }?>
+                
+            </select>
+        </form>
+    </div>
+
+    
     <section class="nv-liste-judoka pd-5">
 
         <div class="container">
 
             <?php //recuperer les dernieres series
+                if($equipe_value!=0){
+                    query_posts(
+                        array(
+                            'post_type'=> 'video_youtube',
+                            'posts_per_page' => -1,
+                            'order' => 'DESC',
+                            'orderby' => 'date',
+                            'meta_query'     => array(		
+                                'relation' => 'AND',				
+                                array(
+                                    'key'        => 'equipe1',
+                                    'compare'    => 'LIKE',
+                                    'value'   => '"' . $equipe_value . '"'
+                                ),
+                                array(
+                                    'key'        => 'saison',
+                                    'compare'    => 'LIKE',
+                                    'value'      => $saison_value
+                                )
+                            )
+                        )
+                    );
+                }else{
+                    query_posts(
+                        array(
+                            'post_type'=> 'video_youtube',
+                            'posts_per_page' => -1,
+                            'order' => 'DESC',
+                            'orderby' => 'date',
+                            'meta_query'     => array(		
+                                'relation' => 'AND',				
+                                array(
+                                    'key'        => 'saison',
+                                    'compare'    => 'LIKE',
+                                    'value'      => $saison_value
+                                )
+                            )
+                        )
+                    );
+                }
 
-                query_posts(array('post_type'=> 'video_youtube','posts_per_page' => -1,'order' => 'DESC','orderby' => 'date',		)
-
-                );
+                
 
             ?>
 

@@ -176,7 +176,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
     </script>
 
 
-<main id="primary" class="site-main home">
+<main id="primary" class="site-main home classmnt-24">
 <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
@@ -188,7 +188,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 			</form>
 		</div>
     <section class="pd-5">
-        <div class="judo_pro_league">
+        <div class="judo_pro_league tab-24">
             <div class="phases-cl">
                 <h2 class="tab-phase tab-act fs-30">
                     <a href="/classement-judo-pro-league-2023/">
@@ -202,7 +202,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
                 </h2>
             </div>
         </div>
-        <div class="judo_pro_league">
+        <div class="judo_pro_league poules-col">
             <div class="journees">
                 <h3 class="nv-journee-cl nv-jr-active">
                     <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-A">
@@ -254,7 +254,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         ?>
     <?php  if($classement):?>
 
-    <div class="classement-23 judo_pro_league">
+    <div class="classement-23 judo_pro_league classement-24">
 
         <h1 class="result-h1">Classement</h1>
         <div class="table-cl">
@@ -339,7 +339,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
     <?php  endif;?>
 </section>
 
-    <section class="pd-5">
+    <section class="pd-5 class-jours">
     <?php display($rencontres_j1,'J1')?>
     <?php display($rencontres_j2,'J2')?>
     <?php display($rencontres_j3,'J3')?>

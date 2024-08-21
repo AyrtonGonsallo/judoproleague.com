@@ -27,10 +27,7 @@ recuperer_video_live();
         switch($style)
         {
 
-            case 'article_a_la_une':
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-une.php');
-            $section=bloc_une();
-            break;
+           
             case 'bloc_classement':
                 require_once (THEMEDIR.'inc/acf-blocs/bloc-classement.php');
                 break;
@@ -41,20 +38,14 @@ recuperer_video_live();
                 require_once (THEMEDIR.'inc/acf-blocs/bloc-stat.php');
                 break;
     
-            case 'articles':
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-articles.php');
-            $section=bloc_articles();
-            break;
+            
 
             case 'evenement':
             require_once (THEMEDIR.'inc/acf-blocs/bloc-event.php');
             $section=bloc_event();
             break;
 
-            case 'bloc_des_articles':
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-articles-nv.php');
-            $section=bloc_articles_nv();
-            break;
+           
 
             case 'reservations':
             require_once (THEMEDIR.'inc/acf-blocs/bloc-reservation-billets.php');

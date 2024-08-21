@@ -321,7 +321,19 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 			<div class="nv-header-right">
 
 				<div class="nv-header-rs">
+    <button id="searchBtn" class="search-btn">
+        <i class="fa fa-search"></i>
+    </button>
 
+    <!-- Popup de recherche -->
+    <div id="searchPopup" class="search-popup">
+        <div class="search-popup-content">
+            <span id="closeSearchPopup" class="close">&times;</span>
+            <h2>Rechercher</h2>
+            <input type="text" id="searchInput" placeholder="Rechercher...">
+            <button id="searchSubmit">Chercher</button>
+        </div>
+    </div>
 					<a href="https://www.youtube.com/channel/UC1f3LEmw3KiLiLmejqt2I2g" target="_blank"><i class="fa-brands fa-youtube" ></i></a>
 
                     <a href="https://twitter.com/francejudo_" target="_blank"><i class="fa-brands fa-twitter" ></i></a>
@@ -354,6 +366,35 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
 				</div>
 
+    
+    <script>
+    jQuery(document).ready(function($) {
+        // Obtenez les éléments
+        var searchBtn = document.getElementById("searchBtn");
+        var searchPopup = document.getElementById("searchPopup");
+        var closeSearchPopup = document.getElementById("closeSearchPopup");
+
+        // Ouvrir la popup lorsque le bouton de recherche est cliqué
+        searchBtn.onclick = function() {
+            searchPopup.style.display = "block";
+        }
+
+        // Fermer la popup lorsque le "X" est cliqué
+        closeSearchPopup.onclick = function() {
+            searchPopup.style.display = "none";
+        }
+
+        // Fermer la popup lorsque l'utilisateur clique en dehors de la popup
+        window.onclick = function(event) {
+            if (event.target == searchPopup) {
+                searchPopup.style.display = "none";
+            }
+        }
+    });
+    </script>
+
+    
+    
 				</div>
 
 			</div>
