@@ -68,11 +68,3 @@ $ npm install
 Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
 
 Good luck!
-
-
-
-/*------------------------------*/
-
-Pour modifier les titre des reponses aux questions dans le plugin des sondages editer le plugin survey-maker
-Aller dans le fichier judo-pro-league\wp-content\plugins\survey-maker\public\class-survey-maker-public.php
-a la ligne 987  if( $this->options[ $this->name_prefix . 'allow_html_in_answers' ] === false )

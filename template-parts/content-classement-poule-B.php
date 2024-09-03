@@ -79,6 +79,10 @@ function display($rencontres_j1,$titre_journee){?>
 
 get_header();
 $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+if ($saison_value == "2024-2025") {
+    header("Location: /classement-judo-pro-league-2024/?saison_value=2024-2025");
+    exit(); // It's a good practice to call exit() after sending a Location header
+}
 $pouleID=426;
 
 $team_permalink = get_the_permalink($post->ID);
@@ -208,9 +212,9 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                    <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
 				</select>
 			</form>
 		</div>
@@ -232,7 +236,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         <div class="judo_pro_league">
             <div class="journees">
                 <h3 class="nv-journee-cl">
-                    <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-A">
+                    <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-A?saison_value=<?php echo $saison_value;?>">
                         Poule A
                     </a>
                 </h3>
@@ -242,12 +246,12 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
                     </a>
                 </h3>
                 <h3 class="nv-journee-cl">
-                    <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-C">
+                    <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-C?saison_value=<?php echo $saison_value;?>">
                         Poule C
                     </a>
                 </h3>
                 <h3 class="nv-journee-cl">
-                    <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-D">
+                    <a href="<?php echo $team_permalink;?>phase-eliminatoire/poule-D?saison_value=<?php echo $saison_value;?>">
                         Poule D
                     </a>
                 </h3>

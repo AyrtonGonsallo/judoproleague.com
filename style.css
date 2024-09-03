@@ -3829,6 +3829,21 @@ body .nv-duree-jdk{
     border-radius: 8px !important;
 	border:2px solid #000 !important;
 }
+.page-id-2882 .paginate_button {
+    color: #000 !important;
+	cursor:pointer;
+    background: #fff !important;
+    border-radius: 8px !important;
+    padding: 5px 10px;
+    margin-inline: 5px;
+    border: 2px solid #000 !important;
+}
+.page-id-2882 div#tableauAll_info {  margin-bottom: 10px;}
+.page-id-2882 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #4E156F !important;
+    border-color: #4E156F !important;
+}
+
 body .dataTables_wrapper .dataTables_paginate .paginate_button:hover, body .dataTables_wrapper .dataTables_paginate .paginate_button.current{
     border-color: #4E156F !important;
 	background: #4E156F !important;
