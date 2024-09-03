@@ -21,7 +21,7 @@ function bloc_partenaires() {
                         if( $liste_des_partenaires ):
                             foreach( $liste_des_partenaires as $ldp ):?>
                                 <div class="logo-partner">
-                                    <a href="<?= $site_web; ?>" target="_blank"><img src="<?= $logo["url"]; ?>" /></a>
+                                    <a href="<?= $site_web; ?>" target="_blank"><img src="<?= str_replace('https://', 'http://', $logo["url"]); ?>" /></a>
                                 </div>
                                 
                             <?php endforeach; ?>

@@ -16,6 +16,97 @@
  */
 
 
+/*****************slide-rencontre-marge*********************/
+document.addEventListener("DOMContentLoaded", function() {
+    var splideSlides = document.querySelectorAll("#splide01-list .splide__slide");
+
+    function applyMargins() {
+        if (window.innerWidth >= 1283) {
+            splideSlides.forEach(function(slide) {
+                slide.style.marginLeft = "10px";
+                slide.style.marginRight = "10px";
+                slide.style.marginBottom = "0px";
+            });
+        } else {
+            splideSlides.forEach(function(slide) {
+                slide.style.marginLeft = "3px";
+                slide.style.marginRight = "3px";
+                slide.style.marginBottom = "0px";
+            });
+        }
+    }
+
+    // Apply margins on load
+    applyMargins();
+
+    // Re-apply margins when the window is resized
+    window.addEventListener('resize', applyMargins);
+});
+/*********************************changement du message de vote **********************************************/
+document.addEventListener("DOMContentLoaded", function() {
+    var intervalId = setInterval(function() {
+        var thankYouMessage = document.querySelector(".ays-survey-thank-you-page p");
+        if (thankYouMessage) {
+            thankYouMessage.textContent = "Merci, votre vote a bien été enregistré !";
+            clearInterval(intervalId); // Stop checking once the message is found and updated
+        }
+    }, 100); // Check every 100ms
+});
+
+
+/****** Equal (min-height) for textes,titles, exc in inline blocs *****/
+        var max_heightTxt =(classes)=>{
+            var max_height_txt = jQuery(classes).map(function (){return jQuery(this).height();}).get();
+            minHeightTxt = Math.max.apply(null, max_height_txt);
+            jQuery(classes).css( "min-height",minHeightTxt );
+        }
+   setTimeout(() => {
+        //dupliquer le code suivant ou cas de besoin d'autres element de méme hauteur !
+        max_heightTxt('.div-eq.premier .div-num-conf');
+        max_heightTxt('.nom-premier');
+}, "100");
+
+
+/*************************************************/
+
+$(document).ready(function() {
+    // Obtenez l'URL actuelle
+    var currentUrl = window.location.href;
+
+    // Sélectionnez l'élément <li> du lien Classement
+    var classementLink = $('#menu-item-2890');
+
+    // Vérifiez si l'URL contient "/classement"
+    if (currentUrl.includes("/quarts") || currentUrl.includes("/poules") || currentUrl.includes("/final4")) {
+        // Ajoutez la classe 'active' pour ajouter le border-bottom
+        classementLink.addClass('active');
+    }
+    
+});
+$(document).ready(function() {
+    // Obtenez l'URL actuelle
+    var currentUrl = window.location.href;
+
+    // Sélectionnez l'élément <li> du lien Classement
+    var classementLink = $('#menu-item-2891');
+
+    // Vérifiez si l'URL contient "/classement"
+    if (currentUrl.includes("/classement-judo-pro-league-2023") || currentUrl.includes("/tableau-principal-judo-pro-league-2023")) {
+        // Ajoutez la classe 'active' pour ajouter le border-bottom
+        classementLink.addClass('active');
+    }
+    
+});
+
+
+
+
+
+
+
+
+
+
 function getCurrentURL () {
 
 

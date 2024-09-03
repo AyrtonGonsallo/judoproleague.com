@@ -4,7 +4,7 @@
  * Template Name: Modèle equipe JPL
  */
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 $argsA=array(
 			'post_type'=> 'equipes',
 			'posts_per_page' => -1,
@@ -67,14 +67,16 @@ $count_C=count($equipes_poule_C);
 					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
 		<div class="judo_pro_league ">
-			<h1 class="result-h1">Les équipes de la Judo Pro League</h1>
+			<h1 class="result-h1">Les équipes de la Judo Pro League <?php echo $saison_value;?></h1>
 			<div class="regions">
 				<div>
-					<h2 class="jpl-region">Conférence Ouest</h2>
+					<!-- <h2 class="jpl-region">Conférence Ouest</h2> -->
 					<div class="jpl-sep"></div>
 					<div class="jpl-poules">
 						<div class="jpl-team">
@@ -108,12 +110,6 @@ $count_C=count($equipes_poule_C);
 							}
 							?>
 						</div>
-					</div>
-				</div>
-				<div>
-					<h2 class="jpl-region">Conférence Est</h2>
-					<div class="jpl-sep"></div>
-					<div class="jpl-poules">
 						<div class="jpl-team">
 							<?php
 							for ($x = 0; $x < 3; $x++) {
@@ -146,6 +142,13 @@ $count_C=count($equipes_poule_C);
 							?>
 						</div>
 					</div>
+				</div>
+				<div>
+					<!-- <h2 class="jpl-region">Conférence Est</h2> -->
+					<!-- <div class="jpl-sep"></div> -->
+					<!-- <div class="jpl-poules">
+						
+					</div> -->
 				</div>
 			</div>
         </div>

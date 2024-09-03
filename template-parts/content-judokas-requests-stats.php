@@ -320,10 +320,70 @@ function array_msort($array, $cols)
 	//prettyPrint($results);
 	//exit(-1);
 	
+
+	if(sizeof($results['total'])>1){
+		return $results;
+	}else{
+		$last_season_value="2023-2024";
+		$args_judokas=array(
+			'post_type'=> 'judoka',
+			'posts_per_page' => -1,
+			'meta_key'      => 'prenom_judoka',
+			'orderby' => 'meta_value',
+			'order' => 'ASC',
+			'meta_query'     => array(
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'equipes_par_saisons_1_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+						'value'   => $last_season_value, // Valeur de la saison
+						'compare' => 'LIKE'
+					),
+					array(
+						'key'     => 'equipes_par_saisons_0_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+						'value'   => $last_season_value, // Valeur de la saison
+						'compare' => 'LIKE'
+					),
+					array(
+						'key'     => 'equipes_par_saisons_2_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+						'value'   => $last_season_value, // Valeur de la saison
+						'compare' => 'LIKE'
+					)
+				)
+			)
+		);
 	
 	
+		$judokas=get_posts($args_judokas);
+		$results2=array();
+		foreach ($judokas as $judoka) {
+			$equipes_par_saisons =get_field('equipes_par_saisons',$judoka->ID);
+			$equipe=null;
+			if ($equipes_par_saisons) {
+				foreach ($equipes_par_saisons as $eq) {
+					// Obtenir et afficher le titre de l'équipe
+					if (isset($eq['equipe_judoka']) && isset($eq['saisons']) ) {
+						//var_dump($eq1['saisons'][0]);
+							
+							if( $eq['saisons'][0]== $last_season_value){
+								$equipe = $eq['equipe_judoka'][0];
+							}
+							
+						
+					}
+					
+
+				}
+			}
+			$club=($equipe->post_title)?' ('.$equipe->post_title.') ':'';
+			$results2['total'][$judoka->post_title][0]["nom"]=get_field( 'prenom_judoka',$judoka->ID ).' '.get_field( 'nom_judoka',$judoka->ID ).''.$club;
+			$results2['total'][$judoka->post_title][0]["image"]=get_the_post_thumbnail_url($judoka1->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka1->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
+		}
+					//var_dump($results2['total']);
+		return $results2;
+	}
 	
-	return $results;
+	
 }
 
 	?>

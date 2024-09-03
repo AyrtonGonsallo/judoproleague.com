@@ -5,7 +5,7 @@
 
  */
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 $args_quarts = array(		
     'post_type'=> 'rencontre',		
     'posts_per_page' => -1,
@@ -169,24 +169,28 @@ function display($rencontres){?>
 					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                    <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
         <div class="judo_pro_league  mt-5p">
             <div class="phases-cl">
                 <h2 class="tab-phase fs-30">
-                    <a href="classement-judo-pro-league-2023/">
+                    <a href="/classement-judo-pro-league-2024/">
                         PHASE éliminatoire
                     </a>
                 </h2>
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="tableau-principal-judo-pro-league-2023/">
+                    <a href="/tableau-principal-judo-pro-league-2024/">
                         tableau principal
                     </a>
                 </h2>
             </div>
         </div>
         <div class="judo_pro_league">
+        <h1 class="result-h1">Tableau principal <?php echo $saison_value;?></h1>
+
             <div class="phases-finales">
                 <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
                     

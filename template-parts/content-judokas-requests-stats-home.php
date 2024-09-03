@@ -105,13 +105,15 @@ function array_msort($array, $cols)
 
 						}
 					}
+					$sigle_club1=' ('.get_field( 'abreviation',$equipe1->ID ).') ';
+					$sigle_club2=' ('.get_field( 'abreviation',$equipe2->ID ).') ';
 					$club1=($equipe1->post_title)?' ('.$equipe1->post_title.') ':'';
 					$club2=($equipe2->post_title)?' ('.$equipe2->post_title.') ':'';
 					
 					//$club1=(get_field( 'club_actuel',$judoka1->ID ))?' ('.get_field( 'club_actuel',$judoka1->ID ).') ':'';
 					//$club2=(get_field( 'club_actuel',$judoka2->ID ))?' ('.get_field( 'club_actuel',$judoka2->ID ).') ':'';
-					$results['total'][$judoka1->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka1->ID ).' '.get_field( 'nom_judoka',$judoka1->ID ).''.$club1)];
-					$results['total'][$judoka2->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka2->ID ).' '.get_field( 'nom_judoka',$judoka2->ID ).''.$club2)];
+					$results['total'][$judoka1->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka1->ID ).' '.get_field( 'nom_judoka',$judoka1->ID ).''.$sigle_club1)];
+					$results['total'][$judoka2->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka2->ID ).' '.get_field( 'nom_judoka',$judoka2->ID ).''.$sigle_club2)];
 					
 				}
 			}

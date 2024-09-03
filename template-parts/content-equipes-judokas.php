@@ -154,7 +154,7 @@ $site = get_field('site_web');
 
 
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 
 
 

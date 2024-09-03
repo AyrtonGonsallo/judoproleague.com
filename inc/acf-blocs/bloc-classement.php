@@ -39,8 +39,9 @@ $classement_equipes=get_classement($rencontres,$saison_value,50);
     ?>
     <div class="col-d-v-pts" <?php echo $isHidden; ?> id="item-<?php echo $i; ?>">
         <div class="clss-eq"> 
+            <span><?php echo ($i + 1) ;?></span>
             <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
-            <?php echo ($i + 1) . "-" . $d[0]['nom'];?>
+            <?php echo $d[0]['nom'];?>
         </div>
         <span class="left"><?php echo ($d[0]['defaites']) ? $d[0]['defaites'] : 0; ?> D</span>
         <span class="left"><?php echo ($d[0]['victoires']) ? $d[0]['victoires'] : 0; ?> V</span>
@@ -59,22 +60,30 @@ $classement_equipes=get_classement($rencontres,$saison_value,50);
 
 
 <script>
-    function toggleItems() {
-        var totalItems = <?php echo count($classement_equipes); ?>;
-        var isHidden = document.getElementById('item-5').style.display === 'none';
+function toggleItems() {
+    var totalItems = <?php echo count($classement_equipes); ?>;
+    var isHidden = document.getElementById('item-5').style.display === 'none';
 
+    var content = document.querySelector('.clssmnt-content'); // Select the container
+
+    if (isHidden) {
+        // Show all hidden items and add slide-in class
         for (var i = 5; i < totalItems; i++) {
-            document.getElementById('item-' + i).style.display = isHidden ? 'grid' : 'none';
+            document.getElementById('item-' + i).style.display = 'grid';
         }
-
-        // Changer l'icône de flèche en fonction de l'état
-        var toggleIcon = document.getElementById('toggle-icon');
-        if (isHidden) {
-            toggleIcon.className = 'fa-solid fa-chevron-up'; // Flèche vers le haut
-        } else {
-            toggleIcon.className = 'fa-solid fa-chevron-down'; // Flèche vers le bas
+        content.classList.add('slide-in');
+    } else {
+        // Hide all items and remove slide-in class
+        for (var i = 5; i < totalItems; i++) {
+            document.getElementById('item-' + i).style.display = 'none';
         }
+        content.classList.remove('slide-in');
     }
+
+    // Change the arrow icon based on the state
+    var toggleIcon = document.getElementById('toggle-icon');
+    toggleIcon.className = isHidden ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
+}
 </script>
 
 

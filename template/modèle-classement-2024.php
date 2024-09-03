@@ -87,7 +87,7 @@ function display($rencontres_j1,$titre_journee){?>
 <?php 
 
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 $pouleID=488;
 
 $team_permalink = get_the_permalink($post->ID);
@@ -180,10 +180,11 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" >2021-2022</option>
-					<option value="2022-2023" >2022-2023</option>
-					<option value="2023-2024" >2023-2024</option>
-                    <option value="2024-2025" selected>2024-2025</option>
+                    <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
@@ -191,12 +192,12 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         <div class="judo_pro_league tab-24">
             <div class="phases-cl">
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="/classement-judo-pro-league-2023/">
+                    <a href="/classement-judo-pro-league-2024/">
                         PHASE éliminatoire
                     </a>
                 </h2>
                 <h2 class="tab-phase  fs-30">
-                    <a href="/tableau-principal-judo-pro-league-2023/">
+                    <a href="/tableau-principal-judo-pro-league-2024/">
                         Tableau principal
                     </a>
                 </h2>
@@ -256,7 +257,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 
     <div class="classement-23 judo_pro_league classement-24">
 
-        <h1 class="result-h1">Classement</h1>
+        <h1 class="result-h1">Classement <?php echo $saison_value;?></h1>
         <div class="table-cl">
         <div class="table-23">
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>

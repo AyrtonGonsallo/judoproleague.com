@@ -4,7 +4,7 @@
  * Template Name: Modèle stats Judokas
  */
  get_header();
- $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
  $equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
  $categorie_value=($_GET["categorie_value"])?$_GET["categorie_value"]:"0";
  $args_teams=array(
@@ -52,21 +52,23 @@
 					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
-				</select>
+                    <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
+                </select>
 			</form>
 		</div>
      <section>
      <div class="judo_pro_league  mt-5p">
-        <h1 class="result-h1 mtb-0">Statistiques Judo Pro League 2023</h1>
+        <h1 class="result-h1 mtb-0">Statistiques Judo Pro League <?php echo $saison_value;?></h1>
 
             <div class="phases-cl2">
                 <h2 class="tab-phase fs-30">
-                    <a href="statistiques-equipes-judo-pro-league-2023/">
+                    <a href="statistiques-equipes-judo-pro-league/">
                         Équipes
                     </a>
                 </h2>
                 <h2 class="tab-phase tab-act  fs-30">
-                    <a href="statistiques-judokas-judo-pro-league-2023/">
+                    <a href="statistiques-judokas-judo-pro-league/">
                         Judokas
                     </a>
                 </h2>
@@ -82,6 +84,8 @@
                     $datas=$classement_total['total'];
 				    //prettyPrint($datas);exit(-1);
             ?>
+                
+                <form Method="GET" ACTION="" class="cat-equipes-selector-form">
                 <select id="categorie" style="height:34px">  
                     <option value="-all-">Tous les judokas</option>
                     <option value="-h-">Masculins</option>
@@ -89,7 +93,6 @@
                     <option value="-hu23-">Masculins U23</option>
                     <option value="-fu23-">Féminines U23</option>
                 </select>
-                <form Method="GET" ACTION="" class="cat-equipes-selector-form">
                     <select name="categorie_value" id="categorie_value" class="season-selector-select">
                         <option value="0" <?php echo ($categorie_value=="0")?"selected":"";?>>Toutes les catégories</option>
                         <option value="-52" <?php echo ($categorie_value=="-52")?"selected":"";?>>-52</option>
@@ -137,6 +140,7 @@
                     <tbody>
                     <?php
                        foreach ($datas as $d) {?>
+                       
                             <tr class="tr-stat">
                                 <!--<td><?php //echo $i;?></td>-->
                                 <td class="align-photo-nom-vertically "><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></a></td>

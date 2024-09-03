@@ -21,7 +21,7 @@ $args_articles=array(
 );
 $news=get_posts($args_articles);
 $news_part1=array_slice($news,0,3);
-$news_part2=array_slice($news,3,4);
+$news_part2=array_slice($news,3,2);
 ?>
 
 <?php 
@@ -36,8 +36,20 @@ $news_part2=array_slice($news,3,4);
     <div class="section-header" style="">
     
         <div class="col-rcntr" style="">
-<h3 class="title-rcntr">LES RENCONTRES</h3>
-            <ul class="sides-rencontres-grid">
+            <h3 class="title-rcntr">LES RENCONTRES</h3>
+            
+            <?php 
+        // Extraire les informations de la première rencontre
+        if (!empty($rencontres)) {
+            $premiere_rencontre = $rencontres[0];
+            $journee = get_field('phase', $premiere_rencontre->ID)[0]->post_title . ' ' . get_field('journee', $premiere_rencontre->ID);
+            // Afficher la journée une seule fois ici
+            echo '<div class="journee-div">';
+            echo '<span>' . $journee . '</span>';
+            echo '</div>';
+        }
+             ?>
+        <ul class="sides-rencontres-grid">
             <?php 
                 $last_date_rencontre="";
                 foreach ($rencontres as $rencontre):
@@ -83,15 +95,19 @@ $news_part2=array_slice($news,3,4);
                     }
                     //var_dump($equipe1);exit(-1);
                     $nouvelledate=($last_date_rencontre!=$date_rencontre);
+                   
+                
                 ?>
+              
                 <li class="side-rencontre-card <?php echo ($nouvelledate)?'first-mb':'mb';?>  flip-card splide__slide" >
                     <?php if($nouvelledate){?>
                         <div class="side-rencontre-date"><?php echo $date_rencontre;?></div>
                     <?php }?>
                     
                     <div class="flip-card-inner side-rencontre-mb-20">
+                                
                         <div class="side-rencontres-flip-card-front">
-                           
+                               
                             <div class="side-rencontres-affiche" >
                                 <span class="nv-name">
                                     <?php echo $abreviation1;?>
@@ -118,11 +134,11 @@ $news_part2=array_slice($news,3,4);
                                 </span>
                             </div>
                             <div class="side-rencontres-details">
-                                <div>
+                            <!-- <div class="journee-div">
                                     <span>
-                                        <?php echo get_field('phase', $rencontre->ID)[0]->post_title.' '.get_field('journee', $rencontre->ID); ?>
+                                      <?php echo get_field('phase', $rencontre->ID)[0]->post_title.' '.get_field('journee', $rencontre->ID); ?>
                                     </span>
-                                </div>
+                                </div> -->
                                 <div>
                                     <span class="nv-staut"> 
                                         <img src="/wp-content/uploads/2023/07/<?php echo $icone_status;?>" class="side-rencontres-img-statut">

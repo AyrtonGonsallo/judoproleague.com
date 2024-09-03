@@ -62,7 +62,7 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
     <section class="nv-liste-judoka pd-5">
 
         <div class="container">
-
+        <h1 class="result-h1">Vidéos Judo Pro League <?php echo $saison_value;?></h1>
             <?php //recuperer les dernieres series
                 if($equipe_value!=0){
                     query_posts(

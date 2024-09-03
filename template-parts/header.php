@@ -18,43 +18,28 @@
 
  */
 
-$equipes = get_posts(array(
-
-
-
-
-
-    'numberposts'   => -1,
-
-
-
-
-
-    'post_type'     => 'equipes',
-
-
-
-
-
-	'orderby' => 'title',
-
-
-
-
-
-	'order' => 'ASC'
-
-
-
-
-
-    
-
-
-
-
-
-));
+$equipes = get_posts(
+    array(
+        'numberposts'   => -1,
+        'post_type'     => 'equipes',
+        'orderby' => 'title',
+        'order' => 'ASC',
+        'meta_query'     => 
+            array(	
+                'relation' => 'AND',			
+                array(
+                    'key'        => 'conference',
+                    'compare'    => '=',
+                    'value'      => 'Conférence Ouest'
+                ),
+                array(
+                    'key'        => 'saisons',
+                    'compare'    => 'LIKE',
+                    'value'      => "2024-2025"
+                )
+            )
+    )
+);
 
 ?>
 

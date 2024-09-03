@@ -5,7 +5,7 @@ get_header();
 $now=date('Y/m/d H:i:s');
 
 $team_permalink = get_the_permalink($post->ID);
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 $args_f4 = array(		
     'post_type'=> 'rencontre',		
     'posts_per_page' => -1,
@@ -63,15 +63,16 @@ $rencontre_f = get_posts($args_f4f);
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
                 <select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" >2021-2022</option>
-					<option value="2022-2023" >2022-2023</option>
-					<option value="2023-2024" >2023-2024</option>
-                    <option value="2024-2025" selected>2024-2025</option>
+                    <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
         <div class="judo_pro_league">
-
+            <h1 class="result-h1">Calendrier final 4 <?php echo $saison_value;?></h1>
             <div class="phases">
 
                 <h2 class="tab-phase fs-30">

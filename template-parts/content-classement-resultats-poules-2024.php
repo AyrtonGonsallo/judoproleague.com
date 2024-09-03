@@ -89,7 +89,7 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
 
 $now=date('Y/m/d H:i:s');
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 $page_permalink = get_the_permalink($post->ID);
 
 function get_rencontres($poule_id,$journee,$saison_value){
@@ -156,10 +156,11 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" >2021-2022</option>
-					<option value="2022-2023" >2022-2023</option>
-					<option value="2023-2024" >2023-2024</option>
-                    <option value="2023-2024" selected>2024-2025</option>
+                <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
@@ -167,7 +168,7 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
 
         <div class="judo_pro_league">
 
-
+        <h1 class="result-h1">Calendrier phase éliminatoire <?php echo $saison_value;?></h1>
 
             <div class="phases">
 

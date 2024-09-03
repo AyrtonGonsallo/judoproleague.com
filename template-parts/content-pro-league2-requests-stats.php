@@ -43,6 +43,8 @@ function array_msort($array, $cols)
 			//prettyPrint($equipe1);exit(-1); 
 			$results[$equipe1->post_title]=[array("nom"=>$equipe1->post_title)];
 			$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
+			$results[$equipe1->post_title][0]["image"]=get_field('logo_circle', $equipe1->ID);
+			$results[$equipe2->post_title][0]["image"]=get_field('logo_circle', $equipe2->ID);
 		}else{
 			foreach($matchs_liste as $matchs){
 			

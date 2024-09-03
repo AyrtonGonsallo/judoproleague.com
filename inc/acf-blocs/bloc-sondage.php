@@ -4,7 +4,7 @@
    <div class="flex-sondg">
        <div class="jdk-sdg-w"><?php echo do_shortcode( '[ays_survey id="2"]' ); ?></div>
        <div class="jdk-mois" style="background-image: url(/wp-content/uploads/2024/07/bg-jdk-mois.png);background-size:cover;background-repeat:no-repeat; background-position:center;">
-            <h2 class="jdk-ttl">Judoka de la semaine dernière</h2>
+            <h4 class="jdk-ttl">Judoka de la semaine dernière</h4>
               <div class="ttle-jdk-m">
                    <img class="img-jdk-m" src="/wp-content/uploads/2023/09/Fadila-Ouahlima-70kg.webp" alt="">
                    <p class="mg0 fs18">Léa METROT</p>

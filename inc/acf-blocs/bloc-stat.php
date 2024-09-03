@@ -99,11 +99,13 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                                 <div class="div-content-eq">
                                     <div class="div-num-conf">
                                          <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
-                                         <span class="conf-premier">
-                                            Age: <?php echo ($d[0]['age'])?$d[0]['age']:0?><br>
-                                            Poids: <?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:""?><br>
-                                         </span>
-                                        <span class="nom-premier"><?php echo $d[0]['nom'];?></span>
+                                         <div>
+                                         <span class="nom-premier"><?php echo $d[0]['nom'];?></span>
+                                         <div class="conf-premier">
+                                            <span>Age: <?php echo ($d[0]['age'])?$d[0]['age']:0?></span><br>
+                                            <span>Poids: <?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:""?></span><br>
+                                         </div>
+                                        </div>
                                      </div>
                                         <span class="num-eq"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></span>
                                 </div>
@@ -123,11 +125,13 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                                 <div class="div-content-eq">
                                     <div class="div-num-conf">
                                         <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
-                                        <span class="conf-premier">
-                                           Age: <?php echo ($d[0]['age'])?$d[0]['age']:0?><br>
-                                           Poids: <?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:""?><br>
-                                        </span>
+                                        <div>
                                         <span class="nom-premier"><?php echo $d[0]['nom'];?></span>
+                                        <div class="conf-premier">
+                                           <span>Age: <?php echo ($d[0]['age'])?$d[0]['age']:0?></span><br>
+                                           <span>Poids: <?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:""?></span><br>
+                                        </div>
+                                        </div>
                                     </div>
                                     <span class="num-eq"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></span>
                                 </div>

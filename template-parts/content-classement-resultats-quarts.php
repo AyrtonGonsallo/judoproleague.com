@@ -84,7 +84,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
 
 $now=date('Y/m/d H:i:s');
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 
 
 
@@ -211,14 +211,16 @@ $rencontres_quart_4= get_posts($args_quart_4);
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
             <select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" >2021-2022</option>
-					<option value="2022-2023" >2022-2023</option>
-					<option value="2023-2024" >2023-2024</option>
-                    <option value="2024-2025" selected>2024-2025</option>
+                <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
         <div class="judo_pro_league">
+        <h1 class="result-h1">Calendrier quarts de finale <?php echo $saison_value;?></h1>
             <div class="phases">
                 <h2 class="tab-phase fs-30"><a href="<?php echo $team_permalink;?>poules">PHASE éliminatoire</a></h2>
                 <h2 class="tab-phase fs-30 tab-act"><a href="<?php echo $team_permalink;?>quarts">quarts de finale</a></h2>
