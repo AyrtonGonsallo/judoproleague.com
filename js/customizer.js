@@ -3,8 +3,11 @@ searchField.placeholder = ' ';
 
         // Select the button using its class name
         const button = document.querySelector('.ays-survey-section-button.ays-survey-finish-button');
-        // Change the text of the button
+        if(button){
+         // Change the text of the button
         button.value = 'Voter';
+        }
+        
 
 
 

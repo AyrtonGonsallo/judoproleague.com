@@ -59,7 +59,7 @@
 		</div>
      <section>
      <div class="judo_pro_league  mt-5p">
-        <h1 class="result-h1 mtb-0">Statistiques Judo Pro League <?php echo $saison_value;?></h1>
+        <h1 class="result-h1 mtb-0">Statistiques judokas Judo Pro League <?php echo $saison_value;?></h1>
 
             <div class="phases-cl2">
                 <h2 class="tab-phase fs-30">
@@ -78,6 +78,7 @@
             <?php 
                 require_once (THEMEDIR.'template-parts/content-judokas-requests-stats.php');
                 $classement_total=get_classement( $saison_value);
+                //var_dump($classement_total);exit();
             ?>  
             <?php
                 if($classement_total['total']){
@@ -133,7 +134,8 @@
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
                             
-                           
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
+
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -151,6 +153,7 @@
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                             </tr>
                         <?php
@@ -170,7 +173,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                           
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -190,6 +193,7 @@
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php
@@ -212,7 +216,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                         
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -231,6 +235,7 @@
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php
@@ -252,7 +257,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                         
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -271,6 +276,7 @@
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php
@@ -292,7 +298,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                         
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -311,6 +317,7 @@
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php

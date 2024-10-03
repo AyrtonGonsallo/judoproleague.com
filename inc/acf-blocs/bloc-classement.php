@@ -1,5 +1,5 @@
 <?php 
-$saison_value="2023-2024";
+$saison_value="2024-2025";
 $args=array(
     'post_type'=> 'rencontre',
     'posts_per_page' => -1,
@@ -43,8 +43,9 @@ $classement_equipes=get_classement($rencontres,$saison_value,50);
             <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
             <?php echo $d[0]['nom'];?>
         </div>
-        <span class="left"><?php echo ($d[0]['defaites']) ? $d[0]['defaites'] : 0; ?> D</span>
         <span class="left"><?php echo ($d[0]['victoires']) ? $d[0]['victoires'] : 0; ?> V</span>
+        <span class="left"><?php echo ($d[0]['defaites']) ? $d[0]['defaites'] : 0; ?> D</span>
+        
         <span class="left"><?php echo $d[0]['points_marqués']; ?> Pts</span>
     </div>
     <?php 

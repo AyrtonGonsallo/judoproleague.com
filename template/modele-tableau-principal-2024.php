@@ -166,7 +166,6 @@ function display($rencontres){?>
     <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                     <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
@@ -174,45 +173,30 @@ function display($rencontres){?>
 				</select>
 			</form>
 		</div>
+
+
         <div class="judo_pro_league  mt-5p">
             <div class="phases-cl">
                 <h2 class="tab-phase fs-30">
-                    <a href="/classement-judo-pro-league-2024/">
+                    <a href="classement-judo-pro-league-2024/">
                         PHASE éliminatoire
                     </a>
                 </h2>
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="/tableau-principal-judo-pro-league-2024/">
+                    <a href="tableau-principal-judo-pro-league-2024/">
                         tableau principal
                     </a>
                 </h2>
             </div>
         </div>
-        <div class="judo_pro_league">
-        <h1 class="result-h1">Tableau principal <?php echo $saison_value;?></h1>
 
-            <div class="phases-finales">
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        QUARTS DE FINALE
-                    
-                </h3>
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        DEMI-FINALES
-                    
-                </h3>
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        FINALE
-                    
-                </h3>
-                
-            </div>
-        </div>
-        <div class="judo_pro_league mtop-5">
+        <div class="judo_pro_league mtop-5 tab-princ-23">
+            <h1 class="result-h1">tableau principal Judo Pro League <?php echo $saison_value;?></h1>
             <div class="tp-3x-grid">
+
                 <div class="tp-3x-grid-content">
+                    <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">QUARTS DE FINALE</h3>
+
                     <div class="tp-4y-grid">
                         
                         <?php display($rencontres_quarts);?>
@@ -221,11 +205,15 @@ function display($rencontres){?>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
+                    <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">DEMI-FINALES</h3>
+
                     <div class="tp-2y-grid">
                         <?php display($rencontres_demies);?>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
+                    <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">FINALE </h3>
+
                     <div class="tp-y-grid">
                         <?php display($rencontre_f);?>
                     </div>
@@ -233,6 +221,13 @@ function display($rencontres){?>
                 
             </div>
         </div>
+
+
+
+
+
+
+
     </section>
 <?php
  get_footer();

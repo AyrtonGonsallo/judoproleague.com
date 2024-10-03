@@ -630,13 +630,74 @@ $args_hommes=array(
         )
     
     );
-   
+    $args_femmes_2=array(
+        'post_type'=> 'judoka',
+        'posts_per_page' => -1,
+        'meta_key'      => 'categorie_de_poids',
+        'orderby' => 'meta_value',
+        'order' => 'ASC',
+        'meta_query'     => array(
+        'relation' => 'AND',
+        array(
+            'relation' => 'AND',
+            array(
+                'key'     => 'equipes_par_saisons_1_equipe_judoka', // Interroger le sous-champ 'equipe_judoka' du répéteur 'equipes_par_saisons'
+                'value'   => '"' . get_the_ID() . '"', // ID de l'équipe
+                'compare' => 'LIKE'
+            ),
+            array(
+                'key'     => 'equipes_par_saisons_1_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+                'value'   => $saison_value, // Valeur de la saison
+                'compare' => 'LIKE'
+            )
+        ),
+        array(
+            'key' => 'sexe', // recherche sur le champ équipe de type relation
+            'value' => 'féminin', // id de l'équipe
+            'compare' => 'LIKE'
+            )
+        
+        )
+    
+    );
+    $args_hommes_2=array(
+        'post_type'=> 'judoka',
+        'posts_per_page' => -1,
+        'meta_key'      => 'categorie_de_poids',
+        'orderby' => 'meta_value',
+        'order' => 'ASC',
+        'meta_query'     => array(
+            'relation' => 'AND',
+            array(
+                'relation' => 'AND',
+                array(
+                    'key'     => 'equipes_par_saisons_1_equipe_judoka', // Interroger le sous-champ 'equipe_judoka' du répéteur 'equipes_par_saisons'
+                    'value'   => '"' . get_the_ID() . '"', // ID de l'équipe
+                    'compare' => 'LIKE'
+                ),
+                array(
+                    'key'     => 'equipes_par_saisons_1_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+                    'value'   => $saison_value, // Valeur de la saison
+                    'compare' => 'LIKE'
+                )
+            ),
+            array(
+                'key' => 'sexe', // recherche sur le champ équipe de type relation
+                'value' => 'masculin', // id de l'équipe
+                'compare' => 'LIKE'
+                )
+            
+            )
+        
+        );
 
 
     $judokas_h=get_posts($args_hommes);
     $judokas_f=get_posts($args_femmes);
+    $judokas_h_2=get_posts($args_hommes_2);
+    $judokas_f_2=get_posts($args_femmes_2);
 
-$judokas=array_merge($judokas_f,$judokas_h);
+$judokas=array_merge($judokas_f,$judokas_f_2,$judokas_h,$judokas_h_2);
 
 
 

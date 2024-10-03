@@ -319,7 +319,7 @@ $matchs_poules=get_posts($args_poules);
             <div class="judo_pro_league">
                 <div class="eq-reslt-flx">
                      <h2 class="crt-title">Phase de poules</h2>
-                     <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a>
+                     <!-- <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a> -->
                 </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_poules as $rencontre):

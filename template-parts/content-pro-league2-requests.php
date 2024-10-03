@@ -63,7 +63,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipe1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -81,7 +81,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipe2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -144,7 +144,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipej1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -162,7 +162,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipej2 = $eq2['equipe_judoka'][0];
 									}
 									

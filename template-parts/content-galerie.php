@@ -102,7 +102,7 @@
 
 					<div class="galerie-images-resultat">
 
-					<div class="liste-images-galerie judo_pro_league" >
+					<div class="liste-images-galerie judo_pro_league page-eq-gal" >
 
 								<?php foreach($photos as $image){?>
 

@@ -98,11 +98,13 @@ $news_part2=array_slice($news,3,2);
                    
                 
                 ?>
-              
-                <li class="side-rencontre-card <?php echo ($nouvelledate)?'first-mb':'mb';?>  flip-card splide__slide" >
+
+            <div class="rnctr-div-li <?php echo ($nouvelledate)?'first-mb':'mb';?>">
                     <?php if($nouvelledate){?>
                         <div class="side-rencontre-date"><?php echo $date_rencontre;?></div>
                     <?php }?>
+                <li class="side-rencontre-card flip-card splide__slide" >
+                    
                     
                     <div class="flip-card-inner side-rencontre-mb-20">
                                 
@@ -161,7 +163,8 @@ $news_part2=array_slice($news,3,2);
                         </div>
                     </div>
                 </li>
-                <?php 
+            </div>
+                <?php
                 $last_date_rencontre=$date_rencontre;
                         endforeach ?>
                 
@@ -173,13 +176,7 @@ $news_part2=array_slice($news,3,2);
 
 
        <div class="col-actus">
-          <div class="flx-tle-but">
-                <h2 class="home-articles-title">NOS DERNIÈRES ACTUALITÉS</h2>
-
-                <a href="/actualites-judo-pro-league/" class="but-home-articles">Toutes les actualités <i class="fa-solid fa-arrow-right-long"></i></a>
-           </div>
-
-
+          
 
             <div class="news-1-2-3-col">
                 <?php if( $news_part1 ): 
@@ -275,7 +272,11 @@ $news_part2=array_slice($news,3,2);
                     <?php endforeach; ?>
                 <?php endif; ?>        
             </div>
-        
+            <div class="flx-tle-but">
+                <h2 class="home-articles-title">NOS DERNIÈRES ACTUALITÉS</h2>
+
+                <a href="/actualites-judo-pro-league/" class="but-home-articles">Toutes les actualités <i class="fa-solid fa-arrow-right-long"></i></a>
+           </div>
 <a href="/actualites-judo-pro-league/" class="btn-presenta btn-mobile center">En savoir plus</a>
 
 

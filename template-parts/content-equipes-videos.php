@@ -1007,7 +1007,7 @@ $team_permalink = get_the_permalink($post->ID);
 		<section class="section-bloc-articles">
 
 
-			<div  class="blog site-main liste-videos judo_pro_league">
+			<div  class="blog site-main liste-videos judo_pro_league page-eq-vid">
 
 
 
@@ -1034,7 +1034,7 @@ $team_permalink = get_the_permalink($post->ID);
                         $titre=get_field('titre', $video_object->ID);
 
 
-                        $image_url=(get_field('image', $video_object->ID))?get_field('image', $video_object->ID):$img;
+                        $image_url=get_the_post_thumbnail_url($video_object->ID)?get_the_post_thumbnail_url ($video_object->ID):('https://i.ytimg.com/vi/'.get_field('id',$video_object->ID).'/hqdefault.jpg');
 
 
                     ?>

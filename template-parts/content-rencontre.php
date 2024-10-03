@@ -89,9 +89,8 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 					-->
 						<div class="jr-rct-1">
 							<span class="jr-nv-1">
-								<?php echo (get_field( "journee"))?(get_field( "journee")):'';?>
-								<?php echo (get_field( "journee"))?',':'';?>
-								<?php echo get_the_title(get_field( "phase")[0]->ID);?></span>
+								
+								<?php echo get_field( "intitule");?></span>
 							<span class="rct-nv-1"><?php echo get_field( "lieu_rencontre");?></span>
 						</div>
 					</div>
@@ -150,34 +149,9 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 				'value' => '"' . get_the_ID() . '"', // id de la rencontre
 				'compare' => 'LIKE')
 				),
-
-
-
-
-
-
-
 			);
-
-
-
-
-
-
-
 			$galeries=get_posts($args);
-
-
-
-
-
-
-
-			?>
-
-
-
-
+		?>
 
 
 

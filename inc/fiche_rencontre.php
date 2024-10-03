@@ -121,7 +121,8 @@ function fiche_rencontre($result,$post_id=null)
 									$judoka_equipe_1         = get_sub_field('judoka_equipe_1' );
 									$valeur_ippon_judoka_1   = get_sub_field('valeur_ippon_judoka_1' );
 									$valeur_wazari__judoka_1 = get_sub_field('valeur_wazari__judoka_1');
-
+									$kinza_1   = get_sub_field('kinza_1' );
+									$kinza_2   = get_sub_field('kinza_2' );
 									$valeurs_shidos_judoka_1 = (get_sub_field('valeurs_shidos_judoka_1'))?get_sub_field('valeurs_shidos_judoka_1')['value']:0;
 									$valeurs_shidos_judoka_1_label = (get_sub_field('valeurs_shidos_judoka_1'))?get_sub_field('valeurs_shidos_judoka_1')['label']:'';
 									$points_judoka_1 = (get_sub_field('points_judoka_1'))?get_sub_field('points_judoka_1'):0;
@@ -184,6 +185,7 @@ function fiche_rencontre($result,$post_id=null)
 													else{
 														echo '<span><div class="motif-looser">'.$valeurs_shidos_judoka_1_label.'</div></span>';
 													}
+													echo '<div class="kinza">'.$kinza_1.'</div>';
 												?>
 											</div>
 										</div>
@@ -195,6 +197,7 @@ function fiche_rencontre($result,$post_id=null)
 										<div class="rgt-result-jdk">
 											<div class="rgt-result-jdk-1">
 											<?php
+											echo '<div class="kinza">'.$kinza_2.'</div>';
 												if(is_numeric($valeurs_shidos_judoka_2)){
 													echo '<div class="penalite ">';
 													if($valeurs_shidos_judoka_2==3){

@@ -77,7 +77,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipe1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -95,7 +95,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipe2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -176,7 +176,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipe1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -194,7 +194,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipe2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -277,6 +277,9 @@ function array_msort($array, $cols)
 						$results['total'][$judoka1->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_1'];
 						$results['total'][$judoka2->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_1'];
 					}
+					$results['total'][$judoka1->post_title][0]["kinza"]+=$match['kinza_1'];
+					$results['total'][$judoka2->post_title][0]["kinza"]+=$match['kinza_2'];
+							
 					if ($match['valeur_wazari__judoka_2']>=1){
 						$results['total'][$judoka2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
 						$results['total'][$judoka1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
@@ -332,20 +335,26 @@ function array_msort($array, $cols)
 			'orderby' => 'meta_value',
 			'order' => 'ASC',
 			'meta_query'     => array(
+				'relation' => 'AND', // Ajout de la condition AND avant le OR
 				array(
-					'relation' => 'OR',
+					'key'     => 'masquer', // Remplacer par la clé que vous voulez vérifier
+					'value'   => '0', // Remplacer par la valeur que vous voulez vérifier
+					'compare' => '=' // Ajuster l'opérateur si nécessaire
+				),
+				array(
+					'relation' => 'OR', // Le OR pour les équipes et saisons
 					array(
-						'key'     => 'equipes_par_saisons_1_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+						'key'     => 'equipes_par_saisons_1_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
 						'value'   => $last_season_value, // Valeur de la saison
 						'compare' => 'LIKE'
 					),
 					array(
-						'key'     => 'equipes_par_saisons_0_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+						'key'     => 'equipes_par_saisons_0_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
 						'value'   => $last_season_value, // Valeur de la saison
 						'compare' => 'LIKE'
 					),
 					array(
-						'key'     => 'equipes_par_saisons_2_saisons', // Interroger le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
+						'key'     => 'equipes_par_saisons_2_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
 						'value'   => $last_season_value, // Valeur de la saison
 						'compare' => 'LIKE'
 					)
@@ -365,7 +374,7 @@ function array_msort($array, $cols)
 					if (isset($eq['equipe_judoka']) && isset($eq['saisons']) ) {
 						//var_dump($eq1['saisons'][0]);
 							
-							if( $eq['saisons'][0]== $last_season_value){
+							if( $eq['saisons']== $last_season_value){
 								$equipe = $eq['equipe_judoka'][0];
 							}
 							
@@ -376,8 +385,18 @@ function array_msort($array, $cols)
 				}
 			}
 			$club=($equipe->post_title)?' ('.$equipe->post_title.') ':'';
+			$results2['total'][$judoka->post_title][0]["judoka_id"]=$judoka->ID;
 			$results2['total'][$judoka->post_title][0]["nom"]=get_field( 'prenom_judoka',$judoka->ID ).' '.get_field( 'nom_judoka',$judoka->ID ).''.$club;
-			$results2['total'][$judoka->post_title][0]["image"]=get_the_post_thumbnail_url($judoka1->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka1->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
+			$results2['total'][$judoka->post_title][0]["image"]=get_the_post_thumbnail_url($judoka->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
+			$results2['total'][$judoka->post_title][0]["sexe"]=get_field('sexe',$judoka->ID);
+			if(get_field('date_de_naissance',$judoka->ID)){
+				$birthDate = explode("/", get_field('date_de_naissance',$judoka->ID));
+				//get age from date or birthdate
+				$age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+				  ? ((date("Y") - $birthDate[2]))
+				  : (date("Y") - $birthDate[2]));
+				$results2['total'][$judoka->post_title][0]["age"]=$age;
+			}
 		}
 					//var_dump($results2['total']);
 		return $results2;

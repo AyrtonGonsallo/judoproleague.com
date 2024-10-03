@@ -17,7 +17,18 @@ recuperer_video_live();
 ?>
    
 <main id="primary" class="site-main home">
+
     <?php
+   
+    //require_once (THEMEDIR.'inc/acf-blocs/bloc-event.php');
+   // $section=bloc_event();
+    require_once (THEMEDIR.'inc/acf-blocs/bloc-rencontres.php'); 
+    require_once (THEMEDIR.'inc/acf-blocs/bloc-playlist-videos.php');
+    require_once (THEMEDIR.'inc/acf-blocs/bloc-classement.php');
+    require_once (THEMEDIR.'inc/acf-blocs/bloc-sondage.php');
+    require_once (THEMEDIR.'inc/acf-blocs/bloc-stat.php');
+    require_once (THEMEDIR.'inc/acf-blocs/bloc-presentation.php');
+    
     while ( have_rows('articles'))
     {
         the_row();
@@ -27,48 +38,12 @@ recuperer_video_live();
         switch($style)
         {
 
-           
-            case 'bloc_classement':
-                require_once (THEMEDIR.'inc/acf-blocs/bloc-classement.php');
-                break;
-            case 'bloc_rencontres':
-                require_once (THEMEDIR.'inc/acf-blocs/bloc-rencontres.php');
-                break;
-            case 'bloc_stat':
-                require_once (THEMEDIR.'inc/acf-blocs/bloc-stat.php');
-                break;
-    
-            
-
-            case 'evenement':
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-event.php');
-            $section=bloc_event();
-            break;
-
-           
-
-            case 'reservations':
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-reservation-billets.php');
-            $section=bloc_reservation();
-            break;
-            
-            case 'bloc_playlist':
-                require_once (THEMEDIR.'inc/acf-blocs/bloc-playlist-videos.php');
-                break;
-            case 'bloc_sondage':
-                require_once (THEMEDIR.'inc/acf-blocs/bloc-sondage.php');
-                break;
            case 'bloc_presentation':
                 require_once (THEMEDIR.'inc/acf-blocs/bloc-presentation.php');
                 $section=bloc_presentation();
                 break;
     
-            case 'liste_des_equipes':
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-equipe.php');
-            $section=bloc_equipe();
-            break;
         }
     }
-    
    
 get_footer();
