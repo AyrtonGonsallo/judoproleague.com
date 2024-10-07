@@ -20,8 +20,10 @@ $args_articles=array(
 	'order' => 'DESC',
 );
 $news=get_posts($args_articles);
-$news_part1=array_slice($news,0,3);
-$news_part2=array_slice($news,3,2);
+$news_part11 = array_slice($news,0,1);
+$news_part12 = array_slice($news,1,2);
+$news_part1 = array_merge($news_part12, $news_part11);
+$news_part2 = array_slice($news,3,2);
 ?>
 
 <?php 

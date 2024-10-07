@@ -115,3 +115,7 @@ flex-wrap: wrap;
 .block-liens-datas{
     padding: 15px;
 }
+.acf-gallery-toolbar .acf-hl{
+    min-width: 356px;
+    float: left;
+}

@@ -14,6 +14,34 @@
      'order' => 'ASC',
      );
  $equipes=get_posts($args_teams);
+ 
+
+function get_correct_categorie($saison_value,$cat){
+	if($saison_value=="2024-2025"){
+		switch ($cat) {
+			case '-65':
+				return '-66';
+				break;
+			case '-75':
+				return '-73';
+				break;
+			case '-85':
+				return '-81';
+				break;
+			case '-95':
+				return '-90';
+				break;
+			case '+95':
+				return '+90';
+				break;
+			default:
+				# code...
+				break;
+		}
+	}
+	return $cat;
+}
+
  ?>
  
 <script>
@@ -105,6 +133,11 @@
                         <option value="-85" <?php echo ($categorie_value=="-85")?"selected":"";?>>-85</option>
                         <option value="-95" <?php echo ($categorie_value=="-95")?"selected":"";?>>-95</option>
                         <option value="+95" <?php echo ($categorie_value=="+95")?"selected":"";?>>+95</option>
+                        <option value="-66" <?php echo ($categorie_value=="-66")?"selected":"";?>>-66</option>
+                        <option value="-73" <?php echo ($categorie_value=="-73")?"selected":"";?>>-73</option>
+                        <option value="-81" <?php echo ($categorie_value=="-81")?"selected":"";?>>-81</option>
+                        <option value="-90" <?php echo ($categorie_value=="-90")?"selected":"";?>>-90</option>
+                        <option value="+90" <?php echo ($categorie_value=="+90")?"selected":"";?>>+90</option>
 
                     </select>
                     <select name="equipe_value" id="equipe_value" class="team-selector-select">
@@ -146,7 +179,7 @@
                                 <!--<td><?php //echo $i;?></td>-->
                                 <td class="align-photo-nom-vertically "><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></a></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
                                 
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
@@ -185,7 +218,7 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
@@ -228,7 +261,7 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
@@ -269,7 +302,7 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
@@ -310,7 +343,7 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>

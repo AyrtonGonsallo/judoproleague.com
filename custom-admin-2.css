@@ -1,6 +1,9 @@
 /**********************************style-back-office**************************************/
 /******** page-home **********/
-.page-id14 #postimagediv{display:none !important;}
+.page-id14 .acf-relationship .selection { display: grid;grid-template-columns: 1fr 1fr;}
+.page-id14 .layout:nth-child(1) .acf-fields { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;}
+.page-id14 .layout:nth-child(4) .acf-fields { display: grid; grid-template-columns: 1fr 1fr 1fr;}
+.page-id14 #postimagediv, .post-type-video_youtube #postdivrich{display:none !important;}
 .page-id14 #poststuff #post-body.columns-2 #side-sortables, .post-type-galerie #side-sortables, .post-type-rencontre #side-sortables {
     width: 100% !important;
     display: grid !important;
@@ -11,24 +14,79 @@
 .postbox .handle-order-higher, .postbox .order-lower-indicator, .wp-admin .toggle-indicator {color: #ffffff !important;}
 .acf-flexible-content .layout .acf-fc-layout-handle { border-bottom: #e614aa solid 1px !important; background-color: #dddddd !important;}
 /************page-judokat**************/
-.post-type-judoka #wp-content-wrap{display:none !important;}
+.post-type-judoka #wp-content-wrap, .post-type-judoka #categorydiv{display:none !important;}
 .post-type-judoka #side-sortables{width: 100% !important;display: grid !important; grid-template-columns: 1fr 1fr 1fr !important;gap: 10px !important;}
 .post-type-equipes #side-sortables{width: 100% !important;display: grid !important; grid-template-columns: 1fr 1fr 1fr 1fr !important;gap: 10px !important;}
+.post-type-judoka .acf-field{ width: 25% !important;}
+.post-type-judoka .acf-field:nth-child(5), .post-type-judoka .acf-field:nth-child(6), .post-type-judoka .acf-field:nth-child(7){ width: 15% !important;}
+.post-type-judoka .acf-field:last-child{ width: 100% !important;}
+.post-type-judoka .inside.acf-fields.-top {display: flex; flex-wrap: wrap;}
+.post-type-judoka .acf-field:nth-child(6) ul{ 
+    column-count: 2;
+    column-gap: 11px;
+}
+.post-type-judoka .acf-bl:before, .post-type-judoka .acf-bl:after {display:none !important;}
+/************page-rencontre**************/
+.post-type-rencontre #postimagediv, .post-type-rencontre #postdivrich{display:none !important;}
+.new.block-acf.block-infos .block-infos-datas{display:flex !important; flex-wrap: wrap;gap:10px;}
+.new.block-acf.block-infos .acf-field{width:100% !important; margin: 0px 0 !important; min-height: auto !important;}
+.new.block-acf.block-infos .acf-field-64b020b56a893{min-height: auto !important;}
+.new.block-acf.block-infos .acf-field:nth-child(2), .new.block-acf.block-infos .acf-field:nth-child(3){width:48% !important;}
+.new.block-acf.block-infos, .new.block-acf.block-niveau{width:47% !important;}
+.new.block-acf.block-liens .block-liens-datas {display: grid !important; grid-template-columns: 1fr!important;  gap: 10px !important;}
+.block-niveau-datas, .block-infos-datas{ padding: 10px;}
+.post-type-rencontre .inside.acf-fields.-top { display: flex; flex-wrap: wrap;}
+.block-acf.block-liens, .post-type-rencontre .acf-field-64b020b56e31e{width:47% !important;}
 /************page-phases/page-partenaires**************/
 .post-type-partenaires .postarea.wp-editor-expand, .post-type-judo_pro_league .postarea.wp-editor-expand, .post-type-video_youtube .postarea.wp-editor-expand, .post-type-rencontre .postarea.wp-editor-expand, .post-type-galerie .postarea.wp-editor-expand, .post-type-equipes .postarea.wp-editor-expand{display:none !important;}
 .post-type-partenaires #side-sortables, .post-type-judo_pro_league #side-sortables, .post-type-video_youtube #side-sortables{width: 100% !important;display: grid !important; grid-template-columns: 1fr 1fr 1fr !important;gap: 10px !important;}
+/************page-video**************/
+.block-video-datas, .block-taggage-datas{ display: flex; flex-wrap: wrap;gap:20px;padding:10px;}
+.block-video-datas .acf-field {width:48%; margin: 0px 0 !important;}
+/************page-galerie**************/
+.post-type-galerie .acf-fields{ display: flex; flex-wrap: wrap;gap:20px;padding:10px;}
+.post-type-galerie .acf-field{width:48%; margin: 0px 0 !important;}
+.post-type-galerie .acf-field:last-child{width:100%;}
+.post-type-galerie .images-tagger-link{color: #ffffff !important; border-color: #e614aa !important;background: #e614aa !important;}
+.post-type-galerie .images-tagger-link:hover{ border-color: #000 !important;background: #000 !important;}
+
 /*****************************************************/
 .acf-relationship .list .acf-rel-item:hover, .acf-relationship .selection .values .acf-rel-item{ background: #9b05d6 !important;color:#fff !important;}
 .post-php input[type=radio]:checked::before { background-color: #060E95;}
 .post-php ul.acf-radio-list li input[type=radio]{ border-color: #060E95;  box-shadow: 0 0 0 1px #060E95;}
+/***********************************/
+.wp-admin h2{color: #fff !important;}
+.wp-core-ui .button-primary {background: #060e95 !important;border-color: #060e95 !important;}
+.wp-core-ui .button-primary:hover {background: #000 !important;border-color: #000 !important;}
+/**************************************/
+.acf-relationship .selection .values { height: 61px;}
+.block-acf {height:auto !important;}
 /*************************************** responsive ************************************************/
+@media only screen and (max-width:800px){
+.new.block-acf.block-infos .acf-field:nth-child(2), .new.block-acf.block-infos .acf-field:nth-child(3), .new.block-acf.block-infos, .new.block-acf.block-niveau, .block-acf.block-liens, .post-type-rencontre .acf-field-64b020b56e31e{width:100% !important;}
+.post-type-judoka .acf-field:nth-child(5), .post-type-judoka .acf-field:nth-child(6), .post-type-judoka .acf-field:nth-child(7) { width: 33% !important;}
+.post-type-judoka .acf-field {  width: 32% !important;}
+	
+}	
+	
 @media only screen and (max-width:600px){
-.page-id14 #poststuff #post-body.columns-2 #side-sortables, .post-type-judoka #side-sortables, .post-type-partenaires #side-sortables, .post-type-judo_pro_league #side-sortables, .post-type-equipes #side-sortables {grid-template-columns: 1fr !important;}
-
-	
-	
+.page-id14 #poststuff #post-body.columns-2 #side-sortables, .post-type-judoka #side-sortables, .post-type-partenaires #side-sortables, .post-type-judo_pro_league #side-sortables, .post-type-equipes #side-sortables, .page-id14 .acf-relationship .selection, .page-id14 .layout:nth-child(4) .acf-fields, .page-id14 .layout:nth-child(1) .acf-fields, .post-type-video_youtube #side-sortables{grid-template-columns: 1fr !important;}
+.post-type-rencontre .values .acf-field{ width: 45% !important;}
+.post-type-galerie .acf-field{ width: 100% !important;}
 	
 }
+
+@media only screen and (max-width:497px){
+.post-type-rencontre .values .acf-field, .galerie-un-tiers{ width: 100% !important;}
+.post-type-judoka .acf-field:nth-child(5), .post-type-judoka .acf-field:nth-child(6), .post-type-judoka .acf-field:nth-child(7), .post-type-judoka .acf-field, .block-video-datas .acf-field  { width: 100% !important;}
+	
+}
+
+
+
+
+
+
 
 
 

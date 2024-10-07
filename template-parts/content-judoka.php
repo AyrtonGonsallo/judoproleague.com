@@ -191,7 +191,31 @@ $images_par_judokas_et_saisons = get_posts($args);
 
 
 
-
+function get_correct_categorie($saison_value,$cat){
+	if($saison_value=="2024-2025"){
+		switch ($cat) {
+			case '-65':
+				return '-66';
+				break;
+			case '-75':
+				return '-73';
+				break;
+			case '-85':
+				return '-81';
+				break;
+			case '-95':
+				return '-90';
+				break;
+			case '+95':
+				return '+90';
+				break;
+			default:
+				# code...
+				break;
+		}
+	}
+	return $cat;
+}
 
 
 
@@ -577,7 +601,7 @@ $images_par_judokas_et_saisons = get_posts($args);
 
 								<span class="titile-1">Catégorie de poids</span>
 
-								<span class="info-1"><?php echo $cat_poids.' kg';?></span>
+								<span class="info-1"><?php echo get_correct_categorie($saison_value,$cat_poids).' kg';?></span>
 
 							</div>
 

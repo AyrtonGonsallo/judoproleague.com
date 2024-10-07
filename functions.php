@@ -694,8 +694,10 @@ function add_custom_editor_body_class($classes) {
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 // Ajoute un lien après le bouton "Mettre à jour"
-                $('#publishing-action').append('<a href="/wp-admin/admin.php?page=image-multi-selector&galerie=<? echo $post->ID;?>" target="_blank" class="button button-secondary" style="margin-left: 10px;">Taguer les images</a>');
-            });
+                $('#publishing-action').append('<a href="/wp-admin/admin.php?page=image-multi-selector&galerie=<? echo $post->ID;?>" target="_blank" class="button button-secondary images-tagger-link" style="margin-left: 10px;">Taguer les images</a>');
+				$('.acf-gallery-toolbar').append('<a href="/wp-admin/admin.php?page=image-multi-selector&galerie=<? echo $post->ID;?>" target="_blank" class="button button-secondary images-tagger-link" style="margin-left: 10px;">Taguer les images</a>');
+				
+			});
         </script>
         <?php
     }

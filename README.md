@@ -81,3 +81,4 @@ verifier les apis
 verifier indexation et page speed
 
 wget -O --q 'http://www.rimo0631.odns.fr/wp-content/themes/judo-pro-league-theme/template-parts/content-check-and-add-team-to-judokas.php'
+

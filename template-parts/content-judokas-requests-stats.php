@@ -386,6 +386,8 @@ function array_msort($array, $cols)
 			}
 			$club=($equipe->post_title)?' ('.$equipe->post_title.') ':'';
 			$results2['total'][$judoka->post_title][0]["judoka_id"]=$judoka->ID;
+			$results2['total'][$judoka->post_title][0]["categorie_de_poids"]=get_field('categorie_de_poids',$judoka->ID);
+
 			$results2['total'][$judoka->post_title][0]["nom"]=get_field( 'prenom_judoka',$judoka->ID ).' '.get_field( 'nom_judoka',$judoka->ID ).''.$club;
 			$results2['total'][$judoka->post_title][0]["image"]=get_the_post_thumbnail_url($judoka->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
 			$results2['total'][$judoka->post_title][0]["sexe"]=get_field('sexe',$judoka->ID);
