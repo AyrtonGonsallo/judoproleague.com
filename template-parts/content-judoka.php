@@ -60,7 +60,7 @@
 
 
 
- $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"";
  $saisons = array();
 // equipe de la saison en cours
  $found_equipe=null;
@@ -71,28 +71,49 @@ $equipe=null;
 $equipes_par_saisons =get_field('equipes_par_saisons',$post->ID);
 //var_dump($equipes_par_saisons);
 if ($equipes_par_saisons) {
+	$highest="";
 	foreach ($equipes_par_saisons as $equipe1) {
-		// Obtenir et afficher le titre de l'équipe
-		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons']) ) {
-			//var_dump($equipe1['saisons'][0]);
-			if (!in_array($equipe1['saisons'], $saisons)) {
-                $saisons[] = $equipe1['saisons'];
-            }
-			if( $equipe1['saisons']== $saison_value){
-				$found_equipe = $equipe1['equipe_judoka'][0];
-			}else{
-				$default_equipe=$equipe1['equipe_judoka'][0];
+		// prendre la derniere saison
+		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons'])) {
+			// Obtenir la saison actuelle
+			$current_saison = $equipe1['saisons'];
+			// Vérifier si c'est la première itération ou si la saison actuelle est supérieure à la plus élevée trouvée jusqu'à présent
+			if ($highest == "" || strcmp($current_saison, $highest) > 0) {
+				$highest = $current_saison; // Mettre à jour la saison la plus élevée
 			}
-				
-			
 		}
-		
-
+	}
+	//mettre a jour la derniere saison
+	if($saison_value=="" && $saison_value!=$highest){
+		$saison_value=$highest;
+	}
+	//prendre la derniere equipe
+	foreach ($equipes_par_saisons as $equipe1) {
+		// Vérifier si les clés 'equipe_judoka' et 'saisons' existent
+		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons'])) {
+			// Obtenir la saison actuelle
+			$current_saison = $equipe1['saisons'];
+	
+			// Si la saison actuelle n'est pas déjà dans le tableau $saisons, l'ajouter
+			if (!in_array($current_saison, $saisons)) {
+				$saisons[] = $current_saison;
+			}
+	
+			// Trouver l'équipe judoka en fonction de la saison
+			if ($current_saison == $saison_value) {
+				$found_equipe = $equipe1['equipe_judoka'][0];
+			} else {
+				$default_equipe = $equipe1['equipe_judoka'][0];
+			}
+		}
 	}
 }
+usort($saisons, function ($a, $b) {
+    return  strcmp($a, $b);
+});
 $equipe=($found_equipe)?$found_equipe:$default_equipe;
 //var_dump($equipe);
-
+//echo $highest;
 
 $site = get_field('site_web',$equipe->ID);
 
@@ -185,9 +206,25 @@ $args = array(
 		),
 	),
 );
-
 // Exécutez la requête
 $images_par_judokas_et_saisons = get_posts($args);
+
+$args1 = array(
+    'post_type'      => 'video_youtube',  // Type de publication
+    'posts_per_page' => -1,                 // Nombre de publications à récupérer
+    'order'          => 'ASC',              // Ordre de tri
+    'orderby'        => 'title',            // Critère de tri
+    'meta_query'     => array(
+        'relation' => 'AND',                // Relation entre les conditions
+        array(
+            'key'     => 'judoka',         // Champ de recherche
+            'value'   => '"' . get_the_ID() . '"', // ID de l'équipe
+            'compare' => 'LIKE'             // Type de comparaison
+        )
+    )
+);
+
+$videos = get_posts($args1);  // Récupérer les publications
 
 
 
@@ -725,7 +762,7 @@ function get_correct_categorie($saison_value,$cat){
 				<div class="results-cmba">
 					<div class="combat-judo">
 						<div class="header-tabl">
-							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"SANS ÉQUIPE").")";?> </h2>
+							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
 						</div>
 						<div class="resultat-combat">
 							<div class="col-1">
@@ -829,7 +866,7 @@ function get_correct_categorie($saison_value,$cat){
 				<div class="results-cmba">
 					<div class="combat-judo">
 						<div class="header-tabl">
-							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"SANS ÉQUIPE").")";?> </h2>
+							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
 						</div>
 						<div class="resultat-combat">
 							<div class="col-1">
@@ -951,7 +988,8 @@ function get_correct_categorie($saison_value,$cat){
 	<?php if ($images_par_judokas_et_saisons) {?>
 		<div class="galerie-images-resultat">
 
-			<div class="liste-images-galerie judo_pro_league page-eq-gal" >
+                <h2 class="nv-title-clsm">GALERIES</h2>
+			<div class="liste-images-galerie judo_pro_league page-eq-gal page-eq-gal-jdk" >
 
 				<?php foreach($images_par_judokas_et_saisons as $image){
 					$attachment_id = $image->ID; // ID de la pièce jointe
@@ -977,6 +1015,45 @@ function get_correct_categorie($saison_value,$cat){
 </section>	
 
 
+<?php if ($videos): ?>
+    <section class="nv-gal-equ bg-blanc">
+        <div class="galerie-images-resultat">
+          
+		<h2 class="nv-title-clsm">VIDÉOS</h2>
+            <div class="liste-images-galerie judo_pro_league page-eq-gal page-eq-gal-jdk"  id="videoscontainer">
+                <?php foreach ($videos as $video_object):
+                    $video      = get_field('video_url', $video_object->ID);
+                    $id         = get_field('id', $video_object->ID);
+                    $date_dajout = get_the_date('j F Y', $video_object->ID);
+                    $titre      = get_field('titre', $video_object->ID);
+                    $image_url  = get_the_post_thumbnail_url($video_object->ID) 
+                                  ? get_the_post_thumbnail_url($video_object->ID) 
+                                  : 'https://i.ytimg.com/vi/' . esc_attr($id) . '/hqdefault.jpg'; 
+                ?>
+                    <div class="liste-images-galerie-element">
+                        <div class="video-preview" style="background-image: url(<?php echo esc_url($image_url); ?>);">
+                            <?php 
+                                echo '<div class="button-play-video button-play-video-grande-taille">' . 
+                                     do_shortcode('[video_lightbox_youtube video_id="' . esc_attr($id) . '" width="640" height="480" anchor="' . esc_url(get_site_url() . '/wp-content/uploads/2022/11/play.webp') . '"]') . 
+                                     '</div>';
+                                echo '<div class="button-play-video button-play-video-mobile">' . 
+                                     do_shortcode('[video_lightbox_youtube video_id="' . esc_attr($id) . '" width="300" height="160" anchor="' . esc_url(get_site_url() . '/wp-content/uploads/2022/11/play.webp') . '"]') . 
+                                     '</div>';
+                            ?>
+                        </div>
+
+                        <div class="right-content">
+                            <a href="#" class="news-link-2-col">
+                                <h3 class="nv-title-news-3-col"><?php echo esc_html($titre); ?></h3>
+                            </a>
+                            <span class="nv-date"><?php echo esc_html($date_dajout); ?></span>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+<?php endif; ?>
 
 
 

@@ -736,3 +736,23 @@ function save_related_judokas() {
     wp_send_json_success();
 }
 add_action('wp_ajax_save_related_judokas', 'save_related_judokas');
+
+function filter_acf_rencontre_relationship_query( $args, $field, $post_id ) {
+    // Vérifier si le champ est celui qui concerne "rencontre"
+    if ( $field['name'] === 'rencontre' ) {
+        
+		// Filtrer par saison
+		$args['meta_query'][] = array(
+			'key'     => 'saisons', // Le nom de votre champ personnalisé qui stocke les saisons
+			'value'   => "2024-2025",
+			'compare' => 'LIKE'
+		);
+        
+        // Trier par date_de_debut (descendant)
+        $args['orderby'] = 'title'; // Trier par valeur numérique
+        $args['order'] = 'ASC'; // Trier dans l'ordre décroissant
+    }
+
+    return $args;
+}
+add_filter( 'acf/fields/relationship/query/name=rencontre', 'filter_acf_rencontre_relationship_query', 10, 3 );

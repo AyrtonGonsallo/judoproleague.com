@@ -3963,7 +3963,7 @@ body table.dataTable tbody td{
     float: left;
 }
 .align-photo-nom-vertically {
-	padding-top:10px;
+	padding-top:0px;
     display: table-cell !important;
 }
 .align-photo-nom-vertically .nom-stat-eq{font-size:26px;}
@@ -4779,7 +4779,7 @@ font-size: 32px!important;
 .single-post .entry-header .entry-title {
     margin-bottom: 20px !important;
     margin-top: 20px !important;
-    font-size: 30px !important;
+    font-size: 22px !important;
     line-height: 40px !important;
 
 }
@@ -8396,6 +8396,7 @@ body .col-rcntr .rnctr-div-li.mb{margin-bottom:0px !important;}
 
 /*responsive*/
 @media only screen and (max-width:1750px){
+.judoka-name {font-size: 21px;}
 .div-videos {gap: 20px;}
 .col-actus .nv-title-news-3-col {font-size: 19px;}
 	
@@ -8406,7 +8407,9 @@ body .col-rcntr .rnctr-div-li.mb{margin-bottom:0px !important;}
 
 }
 @media only screen and (max-width:1366px){
-	.col-rcntr .journee-div { font-size: 30px;}
+.equipes.type-equipes .container {  max-width: 94%;}
+	
+.col-rcntr .journee-div { font-size: 30px;}
 .col-actus .nv-title-news-3-col {  margin-top: 0px !important; }		
 .div-videos {gap: 24px;}
 .col-actus .nv-title-news-3-col {height: 52px;}
@@ -8414,7 +8417,15 @@ body .col-rcntr .rnctr-div-li.mb{margin-bottom:0px !important;}
 .col-actus .news-1-2-3-part2 a .news-img-2-col{ min-height: 380px!important;}
 .col-rcntr {height: 1567px;}
 }	
+
+@media only screen and (max-width:1162px){
+.equipes.type-equipes .nv-cat a { font-size: 15px;}
+}
 @media only screen and (max-width:1100px){
+	
+.equipes.type-equipes .judoka-name { font-size: 18px; }
+.equipes.type-equipes .nv-cat span { font-size: 20px;}
+.equipes.type-equipes .container {  max-width: 100%;}
 .section-side-rencontres{padding:0%;}
 h3.title-rcntr {font-size: 28px;}
 .col-rcntr .nv-name {font-size: 19px;}	
@@ -8437,6 +8448,8 @@ h3.title-rcntr {font-size: 28px;}
 }
 
 @media only screen and (max-width:800px){
+	.equipes.type-equipes .container {  max-width: 95%;}
+	
 	.tab-phase:hover, .tab-phase{
     display: flex;
     justify-content: center;
@@ -9036,7 +9049,7 @@ form.cat-equipes-selector-form {padding: 3px;}
 @media only screen and (min-width:1020px){
 .mob-icon .search-icon{display:none;}
 }
-/*************************************************/
+/*************************************************************************************************************************/
 .m-t-0{margin-top:0px !important;}
 .kinza {
     background-color: #315B31;
@@ -9048,10 +9061,65 @@ form.cat-equipes-selector-form {padding: 3px;}
     justify-content: center;
     align-items: center;
 }
-.rgt-result-jdk-1 { grid-template-columns: 20% 10% 60% !important;}
-.lft-result-jdk-1{ grid-template-columns: 60% 10% 20% !important;}
-.lft-result-jdk {grid-template-columns: 60% 40%;}
-.rgt-result-jdk{grid-template-columns: 40% 60%;}
+.article-respo{ height: auto !important;}
+.postid-3443 .nv-bloc-rencontre .container-iw {grid-template-columns: 1fr 2fr 1fr !important;}
+/**************************************************************************************************************************/
+/*****************************************************************/
+.nv-gal-equ.bg-blanc{background-color:#fff;}
+.page-eq-gal.page-eq-gal-jdk {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    align-content: center;
+}
+.page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 23%;}
+.nv-gal-equ.bg-blanc .video-preview{
+    height: 253px;
+    border-radius: 15px;
+}
+.judoka img { border-radius: 15px 15px 0px 0px;}
+.page-eq-gal .liste-images-element {background-size: 100% 100%;}
+/*********************************************************************/
+.rgt-result-jdk-1 { grid-template-columns: 17% 28% 50% !important;}
+.lft-result-jdk-1{ grid-template-columns: 50% 34% 17% !important;}
+.lft-result-jdk {grid-template-columns: 55% 45%;}
+.rgt-result-jdk{grid-template-columns: 45% 55%;}
+.nv-bloc-rencontre .container-iw {grid-template-columns: 1fr 1.9fr 1fr;}
+.nv-bloc-rencontre .div-span {gap: 52px;}
+.rencntr-main .result-jdk {grid-template-columns: 43% 14% 43% !important;}
+.iw-2 {grid-template-columns: 1fr 0.1fr;}
+.title-iw {grid-template-columns: 40% 18% 40% !important;}
+@media only screen and (max-width:1024px){
+.kinza{display:block !important; margin: auto !important;}
+.nv-rgt-result-jdk {grid-template-columns: 50% 50%;}
+.nv-rgt-result-jdk h3 {	font-size: 18px;}
+.rgt-result-jdk-1 {  grid-template-columns: 13% 34% 37% !important;}
+.flex-col { width: 90%;}    
+.result-jdk-mobile {grid-template-columns: 75% 25;}		
+.page-eq-gal.page-eq-gal-jdk { margin-top: 20px;}
+	
+}
+@media only screen and (max-width:800px){
+.kinza {padding: 1px 10px !important;}
+.nv-rgt-result-jdk h3 {font-size: 14px;}
+.rgt-result-jdk-1 {grid-template-columns: 23% 34% 37% !important;}
+.nv-iw-1 {grid-template-columns: 42% 46%;}	
+.judoka img {width: 30%; }	
+.page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 30%;}
+	
+	
+	
+}
+@media only screen and (max-width:497px){
+.nv-iw-1 { grid-template-columns: 63% 49%; }
+.page-eq-gal .liste-images-element{ max-height: 160px;}
+.page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 47%;}
+	
+	
+}
+
+
 
 
 

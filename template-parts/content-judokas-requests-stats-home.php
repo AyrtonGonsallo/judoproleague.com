@@ -290,10 +290,10 @@ function array_msort($array, $cols)
 					$results['total'][$judoka1->post_title][0]["judoka_id"]=$judoka1->ID;
 					$results['total'][$judoka2->post_title][0]["judoka_id"]=$judoka2->ID;
 				}
-				if($results['total'][$judoka1->post_title][0]["ippons_marqués"]>=6){
+				if($results['total'][$judoka1->post_title][0]["ippons_marqués"]>=5){
 					$results['total'][$judoka1->post_title][0]["bonus"]=1;
 				}
-				if($results['total'][$judoka2->post_title][0]["ippons_marqués"]>=6){
+				if($results['total'][$judoka2->post_title][0]["ippons_marqués"]>=5){
 					$results['total'][$judoka2->post_title][0]["bonus"]=1;
 				}
 				if ($winner=='équipe 1'){
@@ -666,10 +666,10 @@ function array_msort($array, $cols)
 	$sorted_result_ids=array();
 	
 	foreach($results as $result){
-		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
+		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"points_totaux"=>$result[0]["points"]+$result[0]["bonus"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
 	}
 	
-	$sorted_result_ids2=array_slice(array_msort($sorted_result_ids,array('points'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC)),0,$limit);
+	$sorted_result_ids2=array_slice(array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC)),0,$limit);
 	$i=0;
 	foreach($sorted_result_ids2 as $s2){
 		if($i<2){

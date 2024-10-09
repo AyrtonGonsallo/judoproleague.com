@@ -118,10 +118,10 @@ function array_msort($array, $cols)
 					$results[$phase->post_title][$equipe1->post_title][0]["equipe_id"]=$equipe1->ID;
 					$results[$phase->post_title][$equipe2->post_title][0]["equipe_id"]=$equipe2->ID;
 				}
-				if($results[$phase->post_title][$equipe1->post_title][0]["ippons_marqués"]>=6){
+				if($results[$phase->post_title][$equipe1->post_title][0]["ippons_marqués"]>=5){
 					$results[$phase->post_title][$equipe1->post_title][0]["bonus"]=1;
 				}
-				if($results[$phase->post_title][$equipe2->post_title][0]["ippons_marqués"]>=6){
+				if($results[$phase->post_title][$equipe2->post_title][0]["ippons_marqués"]>=5){
 					$results[$phase->post_title][$equipe2->post_title][0]["bonus"]=1;
 				}
 				if ($winner=='équipe 1'){

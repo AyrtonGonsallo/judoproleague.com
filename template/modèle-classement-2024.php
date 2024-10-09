@@ -241,6 +241,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
             'meta_key' => 'date_de_debut',
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
+           //'post__not_in'   => array(3304),
             'meta_query' => array(
                 'relation' => 'AND',
                 array(      
@@ -258,7 +259,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         $rencontres=get_posts($args);
             require_once (THEMEDIR.'template-parts/content-pro-league2-requests.php');
             $classement=get_classement($rencontres,$saison_value);
-            //prettyPrint($classement);
+            prettyPrint($classement);
         ?>
     <?php  if($classement):?>
 

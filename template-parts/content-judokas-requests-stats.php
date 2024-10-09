@@ -277,8 +277,8 @@ function array_msort($array, $cols)
 						$results['total'][$judoka1->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_1'];
 						$results['total'][$judoka2->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_1'];
 					}
-					$results['total'][$judoka1->post_title][0]["kinza"]+=$match['kinza_1'];
-					$results['total'][$judoka2->post_title][0]["kinza"]+=$match['kinza_2'];
+					$results['total'][$judoka1->post_title][0]["kinza"]+=($match['kinza_1'])?$match['kinza_1']:0;
+					$results['total'][$judoka2->post_title][0]["kinza"]+=($match['kinza_2'])?$match['kinza_2']:0;
 							
 					if ($match['valeur_wazari__judoka_2']>=1){
 						$results['total'][$judoka2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
@@ -292,10 +292,10 @@ function array_msort($array, $cols)
 					$results['total'][$judoka1->post_title][0]["judoka_id"]=$judoka1->ID;
 					$results['total'][$judoka2->post_title][0]["judoka_id"]=$judoka2->ID;
 				}
-				if($results['total'][$judoka1->post_title][0]["ippons_marqués"]>=6){
+				if($results['total'][$judoka1->post_title][0]["ippons_marqués"]>=5){
 					$results['total'][$judoka1->post_title][0]["bonus"]=1;
 				}
-				if($results['total'][$judoka2->post_title][0]["ippons_marqués"]>=6){
+				if($results['total'][$judoka2->post_title][0]["ippons_marqués"]>=5){
 					$results['total'][$judoka2->post_title][0]["bonus"]=1;
 				}
 				if ($winner=='équipe 1'){

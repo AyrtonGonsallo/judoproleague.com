@@ -345,13 +345,13 @@ $resultats_trouves=false;
 
 				}
 
-				if($results["total"][$equipe1->post_title][0]["ippons_marqués"]>=6){
+				if($results["total"][$equipe1->post_title][0]["ippons_marqués"]>=5){
 
 					$results["total"][$equipe1->post_title][0]["bonus"]=1;
 
 				}
 
-				if($results["total"][$equipe2->post_title][0]["ippons_marqués"]>=6){
+				if($results["total"][$equipe2->post_title][0]["ippons_marqués"]>=5){
 					$results["total"][$equipe2->post_title][0]["bonus"]=1;
 				}
 

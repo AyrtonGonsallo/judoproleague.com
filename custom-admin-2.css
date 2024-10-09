@@ -21,10 +21,8 @@
 .post-type-judoka .acf-field:nth-child(5), .post-type-judoka .acf-field:nth-child(6), .post-type-judoka .acf-field:nth-child(7){ width: 15% !important;}
 .post-type-judoka .acf-field:last-child{ width: 100% !important;}
 .post-type-judoka .inside.acf-fields.-top {display: flex; flex-wrap: wrap;}
-.post-type-judoka .acf-field:nth-child(6) ul{ 
-    column-count: 2;
-    column-gap: 11px;
-}
+.post-type-judoka .acf-field:nth-child(6) ul{ column-count: 2; /* Affiche 2 colonnes */
+    column-gap: 20px;}
 .post-type-judoka .acf-bl:before, .post-type-judoka .acf-bl:after {display:none !important;}
 /************page-rencontre**************/
 .post-type-rencontre #postimagediv, .post-type-rencontre #postdivrich{display:none !important;}
@@ -49,6 +47,9 @@
 .post-type-galerie .acf-field:last-child{width:100%;}
 .post-type-galerie .images-tagger-link{color: #ffffff !important; border-color: #e614aa !important;background: #e614aa !important;}
 .post-type-galerie .images-tagger-link:hover{ border-color: #000 !important;background: #000 !important;}
+/************page-article**************/
+.post-type-post div#side-sortables { display: grid; grid-template-columns: 1fr 1fr 1fr; width: 100% !important;   gap: 10px;}
+
 
 /*****************************************************/
 .acf-relationship .list .acf-rel-item:hover, .acf-relationship .selection .values .acf-rel-item{ background: #9b05d6 !important;color:#fff !important;}

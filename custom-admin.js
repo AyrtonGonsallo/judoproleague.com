@@ -45,31 +45,29 @@ jQuery(document).ready(function(jQuery) {
     /************************************************************************************************/
 	
 	// 1 section - "Video"
-    const headerDivNiveau = jQuery("<div class='block-acf-title block-video'>Vidéo</div>");
-    jQuery(headerDivNiveau).insertBefore(".acf-field-637ced16c9a12");  // Insérer avant le champ 
+    const headerDivVideo = jQuery("<div class='block-acf-title block-video'>Vidéo</div>");
+    jQuery(headerDivVideo).insertBefore(".acf-field-637ced16c9a12");  // Insérer avant le champ 
     
     // Regrouper les champs ACF sous la section "Video"
     jQuery(".acf-field-637ced16c9a12, .acf-field-637cecf8c9a11, .acf-field-637ced35c9a14, .acf-field-66c5b0d34a1f2").wrapAll("<div class='block-video-datas' />");
 
     // Envelopper la section "Video"
-    jQuery(".block-niveau, .block-video-datas").wrapAll("<div class='new block-acf block-video' />");
+    jQuery(".block-video, .block-video-datas").wrapAll("<div class='new block-acf block-video' />");
 	
 	/********************************************/
 	
     // 2 section - "Taggage"
-    const headerDivNiveau = jQuery("<div class='block-acf-title block-taggage'>Taggage</div>");
-    jQuery(headerDivNiveau).insertBefore(".acf-field-64c79eee47f63");  // Insérer avant le champ
+    const headerDivTaggage = jQuery("<div class='block-acf-title block-taggage'>Taggage</div>");
+    jQuery(headerDivTaggage).insertBefore(".acf-field-64c79eee47f63");  // Insérer avant le champ
     
     // Regrouper les champs ACF sous la section "Taggage"
     jQuery(".acf-field-64c79eee47f63 , .acf-field-64c79f0c47f64, .acf-field-66c5b0b64a1f1").wrapAll("<div class='block-taggage-datas' />");
 
     // Envelopper la section "Taggage"
-    jQuery(".block-niveau, .block-niveau-datas").wrapAll("<div class='new block-acf block-taggage' />");
+    jQuery(".block-taggage, .block-taggage-datas").wrapAll("<div class='new block-acf block-taggage' />");
     
  
 
 
 
 });
-
-
