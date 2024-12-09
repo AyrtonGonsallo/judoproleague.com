@@ -259,17 +259,24 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         $rencontres=get_posts($args);
             require_once (THEMEDIR.'template-parts/content-pro-league2-requests.php');
             $classement=get_classement($rencontres,$saison_value);
+<<<<<<< HEAD
            // prettyPrint($classement);
+=======
+            prettyPrint($classement);
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
         ?>
     <?php  if($classement):?>
 
     <div class="classement-23 judo_pro_league classement-24">
 
         <h1 class="result-h1">Classement Judo Pro League <?php echo $saison_value;?></h1>
+<<<<<<< HEAD
         <p class="page-result-desc">
             Le classement évolue en direct selon l’avancée des rencontres. Chaque match étant soumis à une procédure de vérification des scores, le classement n’est considéré comme définitif que deux heures après la fin des rencontres.
         </p>
         
+=======
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
         <div class="table-cl">
         <div class="table-23">
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>

@@ -156,7 +156,6 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
         <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-                <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
 					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
@@ -263,12 +262,21 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
 
 
                 <li><a href="#tabs-4" class="nv-journee">J4</a></li>
+                <?php if($saison_value!="2024-2025"){?>
+                    <li><a href="#tabs-5" class="nv-journee">J5</a></li>
 
+               
+                    <li><a href="#tabs-6" class="nv-journee">J6</a></li>
 
+<<<<<<< HEAD
                 <li><a href="#tabs-5" class="nv-journee">J5</a></li>
                
 
 
+=======
+                <?php } ?>
+                
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 
             </ul>
 

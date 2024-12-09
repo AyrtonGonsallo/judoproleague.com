@@ -2487,7 +2487,11 @@ p.p-palmares {
     color: #000;
     margin-inline: auto;
     text-align: center;
+<<<<<<< HEAD
     margin-bottom: 40px;
+=======
+    margin-bottom: 67px;
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 }
 .result-h1:before{
 	position:absolute;
@@ -9086,7 +9090,11 @@ form.cat-equipes-selector-form {padding: 3px;}
     border-radius: 15px;
 }
 .judoka img { border-radius: 15px 15px 0px 0px;}
+<<<<<<< HEAD
 .page-eq-gal .liste-images-element {background-size: cover;width: 100%;background-position: top center; }
+=======
+.page-eq-gal .liste-images-element {background-size: 100% 100%;}
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 /*********************************************************************/
 .rgt-result-jdk-1 { grid-template-columns: 17% 28% 50% !important;}
 .lft-result-jdk-1{ grid-template-columns: 50% 34% 17% !important;}
@@ -9122,6 +9130,7 @@ form.cat-equipes-selector-form {padding: 3px;}
 .nv-iw-1 { grid-template-columns: 63% 49%; }
 .page-eq-gal .liste-images-element{ max-height: 160px;}
 .page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 47%;}
+<<<<<<< HEAD
 
 .search-popup.active {opacity: 1 !important;}	
 	
@@ -9131,4 +9140,13 @@ form.cat-equipes-selector-form {padding: 3px;}
 .single-equipes .splide__pagination__page.is-active {background: #dd01fb !important;}
 .single-equipes .splide__arrow {background: #1a1caf !important;}
 .bg-clss-season .div-jdk-tabs:nth-child(3) .splide { visibility: visible !important;}	
+=======
+	
+	
+}
+
+
+
+
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 

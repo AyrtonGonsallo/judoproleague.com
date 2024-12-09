@@ -696,8 +696,13 @@ function add_custom_editor_body_class($classes) {
             jQuery(document).ready(function($) {
                 // Ajoute un lien après le bouton "Mettre à jour"
                 $('#publishing-action').append('<a href="/wp-admin/admin.php?page=image-multi-selector&galerie=<? echo $post->ID;?>" target="_blank" class="button button-secondary images-tagger-link" style="margin-left: 10px;">Taguer les images</a>');
+<<<<<<< HEAD
 				$('#delete-action').append('<div style="display:block;line-height: 19px;"> Les galeries doivent être publiées avant de pouvoir taguer leurs images.</div>');
 
+=======
+				$('.acf-gallery-toolbar').append('<a href="/wp-admin/admin.php?page=image-multi-selector&galerie=<? echo $post->ID;?>" target="_blank" class="button button-secondary images-tagger-link" style="margin-left: 10px;">Taguer les images</a>');
+				
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 			});
         </script>
         <?php
@@ -738,6 +743,7 @@ function save_related_judokas() {
 }
 add_action('wp_ajax_save_related_judokas', 'save_related_judokas');
 
+<<<<<<< HEAD
 /********************************************************hidding seo barre in acf pages***************************************************************************/
 function hide_yoast_seo_and_post_body_content_for_non_page_post_types() {
     ?>
@@ -755,6 +761,8 @@ add_action('admin_footer', 'hide_yoast_seo_and_post_body_content_for_non_page_po
 
 
 
+=======
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 function filter_acf_rencontre_relationship_query( $args, $field, $post_id ) {
     // Vérifier si le champ est celui qui concerne "rencontre"
     if ( $field['name'] === 'rencontre' ) {
@@ -774,6 +782,7 @@ function filter_acf_rencontre_relationship_query( $args, $field, $post_id ) {
     return $args;
 }
 add_filter( 'acf/fields/relationship/query/name=rencontre', 'filter_acf_rencontre_relationship_query', 10, 3 );
+<<<<<<< HEAD
 
 
 
@@ -781,3 +790,5 @@ add_filter( 'acf/fields/relationship/query/name=rencontre', 'filter_acf_rencontr
 
 
 
+=======
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367

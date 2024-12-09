@@ -56,8 +56,12 @@
 .post-php input[type=radio]:checked::before { background-color: #060E95;}
 .post-php ul.acf-radio-list li input[type=radio]{ border-color: #060E95;  box-shadow: 0 0 0 1px #060E95;}
 /***********************************/
+<<<<<<< HEAD
 .wp-admin h2{color: #d015a0 !important;}
 .postbox-header h2{color: #fff !important;}
+=======
+.wp-admin h2{color: #fff !important;}
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 .wp-core-ui .button-primary {background: #060e95 !important;border-color: #060e95 !important;}
 .wp-core-ui .button-primary:hover {background: #000 !important;border-color: #000 !important;}
 /**************************************/

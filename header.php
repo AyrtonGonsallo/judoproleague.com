@@ -336,7 +336,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
 			</div>
 
-			<div class="nv-header-right">
+			<div class="nv-header-right desk-menu-rs">
     <div class="nv-header-lang">
 
         <?php

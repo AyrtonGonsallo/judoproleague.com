@@ -8,6 +8,12 @@ searchField.placeholder = ' ';
         button.value = 'Voter';
         }
         
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 // $(document).ready(function() {
 //   var maxHeight = 0;
 //   // Find the maximum height

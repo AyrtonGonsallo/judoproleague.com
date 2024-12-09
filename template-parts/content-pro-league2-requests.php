@@ -94,7 +94,10 @@ function array_msort($array, $cols)
 					if(!$equipe1 || !$equipe2){
 						//echo 'erreur: '.$rencontre->post_title;
 						//prettyPrint($match);exit(-1); 
+<<<<<<< HEAD
 						//trouver judoka absent
+=======
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 					}
 					$results[$equipe1->post_title]=[array("nom"=>$equipe1->post_title)];
 					$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
@@ -263,10 +266,17 @@ function array_msort($array, $cols)
 	$sorted_result_ids=array();
 	
 	foreach($results as $result){
+<<<<<<< HEAD
 		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"matchs_v"=>$result[0]["matchs_v"],"points_totaux"=>$result[0]["points"]+$result[0]["bonus"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
 	}
 	
 	$sorted_result_ids2=array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'matchs_v'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC));
+=======
+		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"points_totaux"=>$result[0]["points"]+$result[0]["bonus"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
+	}
+	
+	$sorted_result_ids2=array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC));
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 	$i=0;
 	foreach($sorted_result_ids2 as $s2){
 		if($i<2){

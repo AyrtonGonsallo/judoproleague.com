@@ -241,8 +241,12 @@ $resultats_trouves=false;
 		$phase=get_field("phase",$rencontre->ID)[0];
 		$mode_de_calcul_classement=get_field("mode_de_calcul_classement",$rencontre->ID);
 		$matchs_liste=get_field('les_combat',$rencontre->ID);
+<<<<<<< HEAD
 		
 		
+=======
+		$winner= get_field('les_combat')[0]['equipe_gagnante'];
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 		if($matchs_liste[0]['combats'][0]){
 			$resultats_trouves=true;
 			//prettyPrint(get_field('les_combat')[0]['combats'][0]);exit(-1); 
@@ -261,6 +265,7 @@ $resultats_trouves=false;
 				$i=0;
 
 				$winner= $matchs['equipe_gagnante'];
+<<<<<<< HEAD
 				if ($winner=='équipe 1'){
 
 					$results["total"][$equipe1->post_title][0]["victoires"]+=1;
@@ -280,6 +285,9 @@ $resultats_trouves=false;
 					$results["total"][$equipe1->post_title][0]["points"]+=0;
 					$results["total"][$equipe2->post_title][0]["points"]+=3;
 				}
+=======
+				
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 				foreach($matchs['combats'] as $match){
 
 					//prettyPrint($match);exit(-1);
@@ -288,6 +296,7 @@ $resultats_trouves=false;
 
 					$judoka2=$match['judoka_equipe_2'][0];
 
+<<<<<<< HEAD
 					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
 					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
 					
@@ -344,22 +353,41 @@ $resultats_trouves=false;
 						$results["total"][$equipej1->post_title][0]["nombre_de_rencontres"]+=1;
 
 						$results["total"][$equipej2->post_title][0]["nombre_de_rencontres"]+=1;
+=======
+					$equipe1=get_field( 'equipe_judoka',$judoka1->ID )[0];
+
+					$equipe2=get_field( 'equipe_judoka',$judoka2->ID )[0];
+
+					if($i==0){
+
+						$results["total"][$equipe1->post_title][0]["nombre_de_rencontres"]+=1;
+
+						$results["total"][$equipe2->post_title][0]["nombre_de_rencontres"]+=1;
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 
 					}
 					
 					if($mode_de_calcul_classement=="auto"){
 							//lire les ippons(ippon1,ippon2) du fichier pour le classement
+<<<<<<< HEAD
 							$ippons_equ1+=$match['valeur_ippons_comptés_judoka_1'];
 							$ippons_equ2+=$match['valeur_ippons_comptés_judoka_2'];
 						$results["total"][$equipej1->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_1'];
 						$results["total"][$equipej2->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_1'];
 						$results["total"][$equipej2->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_2'];
 						$results["total"][$equipej1->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_2'];
+=======
+						$results["total"][$equipe1->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_1'];
+						$results["total"][$equipe2->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_1'];
+						$results["total"][$equipe2->post_title][0]["ippons_marqués"]+=$match['valeur_ippons_comptés_judoka_2'];
+						$results["total"][$equipe1->post_title][0]["ippons_concédés"]+=$match['valeur_ippons_comptés_judoka_2'];
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 					
 					}else if($mode_de_calcul_classement=="manual"){//manual : par analyse dans le code
 						if (($match['valeur_ippon_judoka_1']>=1)){
 							if((is_numeric($match['valeurs_shidos_judoka_2']['value']))){
 								//si il y 0,1,2 shidos en face
+<<<<<<< HEAD
 								$ippons_equ1+=$match['valeur_ippon_judoka_1'];
 								$results["total"][$equipej1->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_1'];
 								$results["total"][$equipej2->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_1'];
@@ -367,12 +395,21 @@ $resultats_trouves=false;
 								//si il y a penalité H,X,A,F,M en face
 								$results["total"][$equipej1->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_1']-1);
 								$results["total"][$equipej2->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_1']-1);
+=======
+								$results["total"][$equipe1->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_1'];
+								$results["total"][$equipe2->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_1'];
+							}else if(!(is_numeric($match['valeurs_shidos_judoka_2']['value']))){
+								//si il y a penalité H,X,A,F,M en face
+								$results["total"][$equipe1->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_1']-1);
+								$results["total"][$equipe2->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_1']-1);
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 							}
 							
 						}
 						if (($match['valeur_ippon_judoka_2']>=1)){
 							if((is_numeric($match['valeurs_shidos_judoka_1']['value']))){
 								//si il y 0,1,2 shidos en face
+<<<<<<< HEAD
 								$ippons_equ2+=$match['valeur_ippon_judoka_2'];
 
 								$results["total"][$equipej2->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_2'];
@@ -381,6 +418,14 @@ $resultats_trouves=false;
 								//si il y a penalité H,X,A,F,M en face
 								$results["total"][$equipej2->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_2']-1);
 								$results["total"][$equipej1->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_2']-1);
+=======
+								$results["total"][$equipe2->post_title][0]["ippons_marqués"]+=$match['valeur_ippon_judoka_2'];
+								$results["total"][$equipe1->post_title][0]["ippons_concédés"]+=$match['valeur_ippon_judoka_2'];
+							}else if(!(is_numeric($match['valeurs_shidos_judoka_1']['value']))){
+								//si il y a penalité H,X,A,F,M en face
+								$results["total"][$equipe2->post_title][0]["ippons_marqués"]+=($match['valeur_ippon_judoka_2']-1);
+								$results["total"][$equipe1->post_title][0]["ippons_concédés"]+=($match['valeur_ippon_judoka_2']-1);
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 							}
 						}
 					}
@@ -389,18 +434,31 @@ $resultats_trouves=false;
 					*/
 					if ($match['valeur_wazari__judoka_1']>=1){
 
+<<<<<<< HEAD
 						$results["total"][$equipej1->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_1'];
 
 
 						$results["total"][$equipej2->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_1'];
+=======
+						$results["total"][$equipe1->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_1'];
+
+
+						$results["total"][$equipe2->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_1'];
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 
 					}
 
 					if ($match['valeur_wazari__judoka_2']>=1){
 
+<<<<<<< HEAD
 						$results["total"][$equipej2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
 
 						$results["total"][$equipej1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
+=======
+						$results["total"][$equipe2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
+
+						$results["total"][$equipe1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 
 					}
 
@@ -410,6 +468,7 @@ $resultats_trouves=false;
 
 					$results["total"][$equipe2->post_title][0]["step"]=$phase->post_title;
 
+<<<<<<< HEAD
 					$results["total"][$equipej1->post_title][0]["equipe_id"]=$equipe1->ID;
 
 					$results["total"][$equipej2->post_title][0]["equipe_id"]=$equipe2->ID;
@@ -424,6 +483,22 @@ $resultats_trouves=false;
 
 				if($ippons_equ2>=5){
 					$results["total"][$equipej2->post_title][0]["bonus"]=1;
+=======
+					$results["total"][$equipe1->post_title][0]["equipe_id"]=$equipe1->ID;
+
+					$results["total"][$equipe2->post_title][0]["equipe_id"]=$equipe2->ID;
+
+				}
+
+				if($results["total"][$equipe1->post_title][0]["ippons_marqués"]>=5){
+
+					$results["total"][$equipe1->post_title][0]["bonus"]=1;
+
+				}
+
+				if($results["total"][$equipe2->post_title][0]["ippons_marqués"]>=5){
+					$results["total"][$equipe2->post_title][0]["bonus"]=1;
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 				}
 
 				
@@ -431,7 +506,29 @@ $resultats_trouves=false;
 
 		}
 
+<<<<<<< HEAD
 		
+=======
+		if ($winner=='équipe 1'){
+
+			$results["total"][$equipe1->post_title][0]["victoires"]+=1;
+			$results["total"][$equipe2->post_title][0]["defaites"]+=1;
+			$results["total"][$equipe1->post_title][0]["points"]+=3;
+			$results["total"][$equipe2->post_title][0]["points"]+=0;
+		}
+		if ($winner=='inconnue'){
+			$results["total"][$equipe1->post_title][0]["nuls"]+=1;
+			$results["total"][$equipe2->post_title][0]["nuls"]+=1;
+			$results["total"][$equipe1->post_title][0]["points"]+=1;
+			$results["total"][$equipe2->post_title][0]["points"]+=1;
+		}
+		if ($winner=='équipe 2'){
+			$results["total"][$equipe1->post_title][0]["defaites"]+=1;
+			$results["total"][$equipe2->post_title][0]["victoires"]+=1;
+			$results["total"][$equipe1->post_title][0]["points"]+=0;
+			$results["total"][$equipe2->post_title][0]["points"]+=3;
+		}
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 
 
 
@@ -445,10 +542,17 @@ $resultats_trouves=false;
 		foreach($result_by_equipe as $result_by_equipe_data){
 			//prettyPrint($result_by_equipe_data);
 			
+<<<<<<< HEAD
 			array_push($sorted_result_ids,array("id"=>$result_by_equipe_data["nom"],"matchs_v"=>$result_by_equipe_data["matchs_v"],"points_totaux"=>$result_by_equipe_data["points"]+$result_by_equipe_data["bonus"],"bonus"=>$result_by_equipe_data["bonus"],"points"=>$result_by_equipe_data["points"],"points_marqués"=>$result_by_equipe_data["points_marqués"],"ippons_marqués"=>$result_by_equipe_data["ippons_marqués"]));
 		}
 	}
 	$sorted_result_ids2=array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'matchs_v'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC));
+=======
+			array_push($sorted_result_ids,array("id"=>$result_by_equipe_data["nom"],"points"=>$result_by_equipe_data["points"],"points_marqués"=>$result_by_equipe_data["points_marqués"],"ippons_marqués"=>$result_by_equipe_data["ippons_marqués"]));
+		}
+	}
+	$sorted_result_ids2=array_msort($sorted_result_ids,array('points'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC));
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 	
 	//prettyPrint($sorted_result_ids);
 	//prettyPrint($sorted_result_ids2);

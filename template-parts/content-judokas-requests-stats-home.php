@@ -666,10 +666,17 @@ function array_msort($array, $cols)
 	$sorted_result_ids=array();
 	
 	foreach($results as $result){
+<<<<<<< HEAD
 		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"combats_gagnés"=>$result[0]["combats_gagnés"],"points_totaux"=>$result[0]["points"]+$result[0]["bonus"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
 	}
 	
 	$sorted_result_ids2=array_slice(array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'combats_gagnés'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC)),0,$limit);
+=======
+		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"points_totaux"=>$result[0]["points"]+$result[0]["bonus"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
+	}
+	
+	$sorted_result_ids2=array_slice(array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC)),0,$limit);
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 	$i=0;
 	foreach($sorted_result_ids2 as $s2){
 		if($i<2){

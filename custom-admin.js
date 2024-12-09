@@ -9,6 +9,7 @@
 
 //     $( ".block-liens,.block-liens-datas" ).wrapAll( "<div class='new block-acf' />");
 // });
+<<<<<<< HEAD
 
 jQuery(document).ready(function(jQuery) { 
 
@@ -31,6 +32,8 @@ jQuery(document).ready(function(jQuery) {
 
 
 
+=======
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 jQuery(document).ready(function(jQuery) {
     // Votre code JavaScript personnalisé ici
     console.log('Custom admin JS loaded!');
@@ -57,9 +60,15 @@ jQuery(document).ready(function(jQuery) {
     // Deuxième section - "Niveau"
     const headerDivNiveau = jQuery("<div class='block-acf-title block-niveau'>Niveau</div>");
     jQuery(headerDivNiveau).insertBefore(".acf-field-64b02109946c5");  // Insérer avant le champ "Niveau"
+<<<<<<< HEAD
    
     // Regrouper les champs ACF sous la section "Niveau"
     jQuery(".acf-field-64b1258ae733d, .acf-field-64b02109946c5, .acf-field-651acaba47511, .acf-field-64b149f2ef8ff").wrapAll("<div class='block-niveau-datas' />");
+=======
+    
+    // Regrouper les champs ACF sous la section "Niveau"
+    jQuery(".acf-field-64b1258ae733d, .acf-field-64b02109946c5, .acf-field-651acaba47511").wrapAll("<div class='block-niveau-datas' />");
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
 
     // Envelopper la section "Niveau"
     jQuery(".block-niveau, .block-niveau-datas").wrapAll("<div class='new block-acf block-niveau' />");

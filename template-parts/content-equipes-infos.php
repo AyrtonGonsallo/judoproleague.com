@@ -1026,7 +1026,11 @@ $prochaine_rencontre=get_posts($args5);
 
 
                         <div class="div-eff pd-0 ">
+<<<<<<< HEAD
                             <div class="splide splide2 nv-decalage-bandeau nv-sllide splide--loop splide--ltr splide--draggable is-active is-overflow is-initialized"  aria-label="Slide Container Example">
+=======
+                            <div class="splide splide2 nv-decalage-bandeau nv-sllide"  aria-label="Slide Container Example">
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
                                 <div class="splide__track carte-slide-partenaires">
                                     <ul class="splide__list" style="width:300px">
                                         <?php foreach ($partenaires as $partenaire):?>

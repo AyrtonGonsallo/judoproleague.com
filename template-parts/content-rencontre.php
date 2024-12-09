@@ -149,34 +149,9 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 				'value' => '"' . get_the_ID() . '"', // id de la rencontre
 				'compare' => 'LIKE')
 				),
-
-
-
-
-
-
-
 			);
-
-
-
-
-
-
-
 			$galeries=get_posts($args);
-
-
-
-
-
-
-
-			?>
-
-
-
-
+		?>
 
 
 

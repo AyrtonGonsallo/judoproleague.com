@@ -78,4 +78,18 @@ recupperer les videos
 verifier les urls des crons
 verifier le plugin des rencontres
 verifier les apis
+<<<<<<< HEAD
 verifier indexation et page speed
+=======
+verifier indexation et page speed
+
+wget -O --q 'http://www.rimo0631.odns.fr/wp-content/themes/judo-pro-league-theme/template-parts/content-check-and-add-team-to-judokas.php'
+
+on compte pas le bonus dans le classement
+les stats et le classement ne sont pas en adequation
+si il y a un saut dans le classemnent soit:
+un judoka n'a pas la bonne equipe lancer ce script pour corriger
+https://www.rimo0631.odns.fr/start-scripts-judokas-teams
+un combat n'a pas de judokas
+ouvrir content-pro-league2-requests ligne 94 if(!$equipe1 || !$equipe2) et afficher le message d'erreur
+>>>>>>> bb9a269b60d1b01722195fd603b0b6e6ebbf2367
