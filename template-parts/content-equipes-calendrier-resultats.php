@@ -319,7 +319,7 @@ $matchs_poules=get_posts($args_poules);
             <div class="judo_pro_league">
                 <div class="eq-reslt-flx">
                      <h2 class="crt-title">Phase de poules</h2>
-                     <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a>
+                     <!-- <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a> -->
                 </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_poules as $rencontre):
@@ -399,7 +399,7 @@ $matchs_poules=get_posts($args_poules);
             <div class="judo_pro_league">
                  <div class="eq-reslt-flx">
                      <h2 class="crt-title">Quarts</h2>
-                     <a href="../../../calendrier-resultats-2023/quarts/" class="more-classement">Classement Quarts <i class="fa-solid fa-arrow-right-long"></i></a>
+                     <a href="../../../calendrier-resultat-judo-pro-league-2024/quarts/?saison_value=<?php echo $saison_value;?>" class="more-classement">Classement Quarts <i class="fa-solid fa-arrow-right-long"></i></a>
                   </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_quarts as $rencontre):
@@ -478,7 +478,7 @@ $matchs_poules=get_posts($args_poules);
             <div class="judo_pro_league">
                 <div class="eq-reslt-flx">
                      <h2 class="crt-title">Final Four</h2>
-                     <a href="../../../calendrier-resultats-2023/final4/" class="more-classement">Classement Final Four <i class="fa-solid fa-arrow-right-long"></i></a>
+                     <a href="../../../calendrier-resultat-judo-pro-league-2024/final4/?saison_value=<?php echo $saison_value;?>" class="more-classement">Classement Final Four <i class="fa-solid fa-arrow-right-long"></i></a>
                 </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_f4 as $rencontre):

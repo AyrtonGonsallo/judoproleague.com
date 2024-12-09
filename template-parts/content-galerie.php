@@ -1,18 +1,27 @@
 <?php
-
+        $equipe_id=$_GET["equipeID"];
         $photos=get_field('photos');
         $credit_images = get_field('credit_images');
 		$titre = get_field('titre');
-        $equipe = get_field('equipes');
+        $equipes = get_field('equipes');
+        $current_equipe=null;
+        foreach($equipes as $equipe){
+            if($equipe->ID==$equipe_id){
+                $current_equipe=$equipe;
+            }
+        }
+        if($current_equipe==null){
+            $current_equipe =$equipes[0];
+        }
 		$date=get_the_date('j F Y', $my_post->ID );
-		$couleur1 = get_field('couleur1',$equipe[0]->ID);
-		$site = get_field('site_web',$equipe[0]->ID);
+		$couleur1 = get_field('couleur1',$current_equipe->ID);
+		$site = get_field('site_web',$current_equipe->ID);
 		$style_couleur1=($couleur1)?'style="background: '.$couleur1.';"':'style="background: #e5332a;"';
-		$image=get_field('logo_principal')?get_field('logo_principal'):get_the_post_thumbnail_url($equipe[0]->ID,"thumbnail");
-		$couleur2 = get_field('couleur2',$equipe[0]->ID); 
+		$image=get_field('logo_principal')?get_field('logo_principal'):get_the_post_thumbnail_url($current_equipe->ID,"thumbnail");
+		$couleur2 = get_field('couleur2',$current_equipe->ID); 
 		$style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="background: #990021;"';
-		$team_permalink = get_the_permalink($equipe[0]->ID);
-        $reseaux= get_field('reseaux_sociaux',$equipe[0]->ID);
+		$team_permalink = get_the_permalink($current_equipe->ID);
+        $reseaux= get_field('reseaux_sociaux',$current_equipe->ID);
 ?>
 
 
@@ -21,9 +30,9 @@
 <section class="nv-header-team" <?php echo $style_couleur1;?>>
     <div class="container">
 
-        <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal',$equipe[0]->ID))?get_field('logo_principal',$equipe[0]->ID):get_the_post_thumbnail_url($equipe[0]->ID)?>)">
+        <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal',$current_equipe->ID))?get_field('logo_principal',$current_equipe->ID):get_the_post_thumbnail_url($current_equipe->ID)?>)">
         </div>
-            <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title($equipe[0]->ID);?></h2> 
+            <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title($current_equipe->ID);?></h2> 
         <?php if($site){?><a class="site-team-blanc" href="<?php echo $site;?>"><?php echo str_replace("/","",str_replace("https://","",$site));?></a><?php }?> 
     </div>
 </section>
@@ -102,7 +111,7 @@
 
 					<div class="galerie-images-resultat">
 
-					<div class="liste-images-galerie judo_pro_league" >
+					<div class="liste-images-galerie judo_pro_league page-eq-gal" >
 
 								<?php foreach($photos as $image){?>
 

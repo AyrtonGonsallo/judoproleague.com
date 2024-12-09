@@ -31,6 +31,7 @@ function pro_league_setup() {
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
+	
 
 	/*
 		* Let WordPress manage the document title.
@@ -145,7 +146,7 @@ function pro_league_scripts() {
 	wp_enqueue_script( 'pro-league-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script('pro-league-main', get_template_directory_uri() . '/js/main.js', array(), _S_VERSION, true);
 	wp_enqueue_script('pro-league-customizer', get_template_directory_uri() . '/js/customizer.js', array(), _S_VERSION, true);
-	
+
 		
 	
 	wp_enqueue_script('flexslider-js', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array(), _S_VERSION, true);
@@ -158,6 +159,7 @@ function pro_league_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pro_league_scripts' );
+
 
 /**
  * Implement the Custom Header feature.
@@ -579,51 +581,203 @@ function replace_custom_post_type_permalink($post_link, $post) {
 
 /************************************* back-office-rencontre*********************************************/
 function custom_admin_css() {
-    echo '<style>
-       .post-type-rencontre .acf-field.acf-field-repeater{
-            overflow: scroll ;
-        }
-		.post-type-rencontre .acf-table{
-            width: 200% ;
-        }
-		.post-type-rencontre .acf-table td, .post-type-rencontre .acf-table th{
-            width: 5% !important;
-        }
-		.post-type-rencontre .acf-table td:first-child, .post-type-rencontre .acf-table th:first-child, .post-type-rencontre .acf-table td:last-child, .post-type-rencontre .acf-table th:last-child{
-            width: 0% !important;
-        }
-		.post-type-rencontre .selection {
-    display: flex;
-    flex-direction: column;
-}
-.post-type-rencontre .acf-table .selection .choices ul {
-    width: 184% !important;
-    max-width: 237% !important;
-}
-.postbox-header {
-    border-bottom: 2px solid #060E95;
-    background-color: #060e9521;
-}
-.acf-field .acf-label label {    
-      color: #060e95;font-weight:600;
-}
+	wp_enqueue_style('custom-admin-style', get_template_directory_uri() . '/custom-admin.css');
+	wp_enqueue_style('custom-admin-style-2', get_template_directory_uri() . '/custom-admin-2.css');
+	// Charger les fichiers JavaScript
+    wp_enqueue_script('custom-admin-script', get_template_directory_uri() . '/custom-admin.js', array('jquery'), null, true);
 
-.inside.acf-fields-top{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-
-
-
-
-
-
-
-	
-	
-	
-    </style>';
 }
 add_action('admin_head', 'custom_admin_css');
 /***********************************************************************************************************/
+
+
+// Ajouter le champ de recherche auto-complété dans l'admin des images
+function add_custom_image_fields_autocomplete($form_fields, $post) {
+    $related_judoka_1 = get_post_meta($post->ID, 'related_judoka_1', true);
+    $related_judoka_2 = get_post_meta($post->ID, 'related_judoka_2', true);
+    $related_saison = get_post_meta($post->ID, 'related_saison', true);
+    
+    // Tableau de saisons
+    $saisons = array(
+        '2023-2024' => '2023-2024',
+        '2024-2025' => '2024-2025',
+        // Ajoutez d'autres saisons si nécessaire
+    );
+
+    // Obtenir tous les judokas
+    $selected_judokas = get_posts(array('post_type' => 'judoka', 'numberposts' => -1)); 
+
+    // Champ de recherche pour sélectionner un judoka
+    ob_start(); ?>
+    <input type="text" id="judoka-search" placeholder="Rechercher un judoka">
+    <div id="judoka-results"></div>
+
+    <p>Judokas associés à cette image</p>
+    
+    <label for="judoka1-select">Sélectionnez le judoka 1:</label>
+    <select name="attachments[<?php echo $post->ID; ?>][related_judoka_1]" id="judoka1-select">
+        <option value="">Choisir un judoka</option>
+        <?php foreach ($selected_judokas as $judoka) : ?>
+            <option value="<?php echo esc_attr($judoka->ID); ?>" <?php selected($related_judoka_1, $judoka->ID); ?>>
+                <?php echo esc_html($judoka->post_title); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <label for="judoka2-select">Sélectionnez le judoka 2:</label>
+    <select name="attachments[<?php echo $post->ID; ?>][related_judoka_2]" id="judoka2-select">
+        <option value="">Choisir un judoka</option>
+        <?php foreach ($selected_judokas as $judoka) : ?>
+            <option value="<?php echo esc_attr($judoka->ID); ?>" <?php selected($related_judoka_2, $judoka->ID); ?>>
+                <?php echo esc_html($judoka->post_title); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <!-- Champ de sélection de saison -->
+    <label for="saison-select">Sélectionnez une saison :</label>
+    <select name="attachments[<?php echo $post->ID; ?>][related_saison]" id="saison-select">
+        <option value="">Choisir une saison</option>
+        <?php foreach ($saisons as $key => $value) : ?>
+            <option value="<?php echo esc_attr($key); ?>" <?php selected($related_saison, $key); ?>>
+                <?php echo esc_html($value); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <?php $field_html = ob_get_clean();
+
+    $form_fields['related_judokas_autocomplete'] = array(
+        'label' => 'Judokas associés',
+        'input' => 'html',
+        'html'  => $field_html,
+    );
+
+    return $form_fields;
+}
+add_filter('attachment_fields_to_edit', 'add_custom_image_fields_autocomplete', 10, 2);
+
+
+
+// Sauvegarder les judokas associés lors de la sauvegarde des métadonnées de l'image
+function save_related_judokas_meta($post, $attachment) {
+	error_log('attachement is : ' . print_r($attachment, true));
+        $judoka1_id = sanitize_text_field($attachment['related_judoka_1']);
+		$judoka2_id = sanitize_text_field($attachment['related_judoka_2']);
+		$saison = sanitize_text_field($attachment['related_saison']);
+        update_post_meta($post['ID'], 'related_judoka_1', $judoka1_id);
+		update_post_meta($post['ID'], 'related_judoka_2', $judoka2_id);
+		update_post_meta($post['ID'], 'related_saison', $saison);
+    
+    return $post;
+}
+add_filter('attachment_fields_to_save', 'save_related_judokas_meta', 10, 2);
+
+
+function hide_description_for_specific_post() {
+    global $pagenow, $post;
+    // Vérifie que nous sommes sur la page d'édition d'un post spécifique (ID 14)
+    if ( $pagenow == 'post.php' && isset($post->ID) && $post->ID == 14 ) {
+        echo '<style>
+            #postdivrich { display: none !important; }
+        </style>';
+    }
+}
+add_action('admin_head', 'hide_description_for_specific_post');
+function add_custom_editor_body_class($classes) {
+    global $post;
+    if ($post) {
+        $classes .= ' page-id' . $post->ID;
+    }
+	// Assurez-vous que vous êtes sur la page d'édition d'une galerie
+    if ( $post && get_post_type( $post ) == 'galerie' ) {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                // Ajoute un lien après le bouton "Mettre à jour"
+                $('#publishing-action').append('<a href="/wp-admin/admin.php?page=image-multi-selector&galerie=<? echo $post->ID;?>" target="_blank" class="button button-secondary images-tagger-link" style="margin-left: 10px;">Taguer les images</a>');
+				$('#delete-action').append('<div style="display:block;line-height: 19px;"> Les galeries doivent être publiées avant de pouvoir taguer leurs images.</div>');
+
+			});
+        </script>
+        <?php
+    }
+    return $classes;
+}
+add_filter('admin_body_class', 'add_custom_editor_body_class');
+
+
+// Enregistrer les judokas et la saison associés aux images sélectionnées
+function save_related_judokas() {
+    // Vérifier les permissions de l'utilisateur
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Vous n\'avez pas la permission d\'effectuer cette action.');
+        return;
+    }
+
+    // Récupérer les données envoyées via AJAX
+    $image_ids = isset($_POST['images']) ? $_POST['images'] : array();
+    $judoka1_id = sanitize_text_field($_POST['judoka1']);
+    $judoka2_id = sanitize_text_field($_POST['judoka2']);
+    $saison = sanitize_text_field($_POST['saison']);
+
+    // Vérifier qu'il y a des images sélectionnées
+    if (empty($image_ids)) {
+        wp_send_json_error('Aucune image sélectionnée.');
+        return;
+    }
+
+    // Parcourir chaque image et sauvegarder les métadonnées
+    foreach ($image_ids as $image_id) {
+        update_post_meta($image_id, 'related_judoka_1', $judoka1_id);
+        update_post_meta($image_id, 'related_judoka_2', $judoka2_id);
+        update_post_meta($image_id, 'related_saison', $saison);
+    }
+
+    wp_send_json_success();
+}
+add_action('wp_ajax_save_related_judokas', 'save_related_judokas');
+
+/********************************************************hidding seo barre in acf pages***************************************************************************/
+function hide_yoast_seo_and_post_body_content_for_non_page_post_types() {
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // Vérifier si le body a une classe qui commence par 'post-type-' mais qui n'est pas 'post-type-page'
+        if ($('body[class*="post-type-"]').length > 0 && !$('body').hasClass('post-type-page')) {
+            $('#wpseo_meta').hide(); // Cacher les deux éléments
+        }
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer', 'hide_yoast_seo_and_post_body_content_for_non_page_post_types');
+
+
+
+function filter_acf_rencontre_relationship_query( $args, $field, $post_id ) {
+    // Vérifier si le champ est celui qui concerne "rencontre"
+    if ( $field['name'] === 'rencontre' ) {
+        
+		// Filtrer par saison
+		$args['meta_query'][] = array(
+			'key'     => 'saisons', // Le nom de votre champ personnalisé qui stocke les saisons
+			'value'   => "2024-2025",
+			'compare' => 'LIKE'
+		);
+        
+        // Trier par date_de_debut (descendant)
+        $args['orderby'] = 'title'; // Trier par valeur numérique
+        $args['order'] = 'ASC'; // Trier dans l'ordre décroissant
+    }
+
+    return $args;
+}
+add_filter( 'acf/fields/relationship/query/name=rencontre', 'filter_acf_rencontre_relationship_query', 10, 3 );
+
+
+
+
+
+
+

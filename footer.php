@@ -16,7 +16,7 @@
 		<div class="site-info">
 
 			<div>
-                <img src="https://judoproleague.com/wp-content/uploads/2022/11/JPL-LOGO-light.webp">
+                <img src="/wp-content/uploads/2022/11/JPL-LOGO-light.webp">
             </div>
 
             
@@ -37,9 +37,9 @@
             <div class="footer-parts">
                  <p>Partenaires</p>
                  <a href="https://www.renault.fr/" target="_blank">
-                 <img class="img-1" src="http://www.rimo0631.odns.fr/wp-content/uploads/2023/06/R_RENAULT_EMBLEM_RGB_Black_v21.1-1-e1686913222796.webp" ></a>
+                 <img class="img-1" src="/wp-content/uploads/2023/06/R_RENAULT_EMBLEM_RGB_Black_v21.1-1-e1686913222796.webp" ></a>
                  <a href="https://ca-sportecoledevie.fr/" target="_blank">
-                 <img class="img-2" src="http://www.rimo0631.odns.fr/wp-content/uploads/2023/08/Credit-Agricole-e1688380056948.webp"></a>
+                 <img class="img-2" src="/wp-content/uploads/2023/08/Credit-Agricole-e1688380056948.webp"></a>
             </div>
 
                 <div>
@@ -56,7 +56,7 @@
             <div class="copyright">
 
 
-                <p>droit d'auteur 2023</p>
+            <p>droit d'auteur <?php echo date('Y'); ?></p>
 
                 <p><a href="https://www.ffjudo.com/mentions-legales" target="_blank">mentions légales</a></p>
 

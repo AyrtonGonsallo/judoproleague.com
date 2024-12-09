@@ -288,7 +288,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 
     <div class="classement-23 judo_pro_league">
 
-        <h1 class="result-h1">Classement <?php echo $saison_value;?></h1>
+        <h1 class="result-h1">Classement Judo Pro League <?php echo $saison_value;?></h1>
         <div class="table-cl">
         <div class="table-23">
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>

@@ -184,7 +184,7 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 
-$args1=array('post_type'=> 'video_youtube','posts_per_page' => 4,'order' => 'ASC','orderby' => 'title',	'meta_query' => array(
+$args1=array('post_type'=> 'video_youtube','posts_per_page' => 3,'order' => 'ASC','orderby' => 'title',	'meta_query' => array(
 
 
 
@@ -244,7 +244,7 @@ $args1=array('post_type'=> 'video_youtube','posts_per_page' => 4,'order' => 'ASC
 
 
 
-        'posts_per_page' => 4,
+        'posts_per_page' => 3,
 
 
 
@@ -316,7 +316,7 @@ $args3=array(
 
 
 
-        'posts_per_page' => 4,
+        'posts_per_page' => 3,
 
 
 
@@ -845,7 +845,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-					require_once (THEMEDIR.'template-parts/content-stats-equipes-requests-total.php');
+					require_once (THEMEDIR.'template-parts/content-stats-poules-equipes-requests-total.php');
 
 
 
@@ -873,7 +873,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                    //prettyPrint($datas);
+                   // prettyPrint($datas);
 
 
 
@@ -889,7 +889,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                <div class="">
+                <div class="div-jdk-tabs">
 
 
 
@@ -897,11 +897,11 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                        <h3 class="title-info">CLASSEMENT<span><?php echo get_field('poule');?> - <?php echo get_field('conference');?></span></h3>
+                        <h3 class="title-info">CLASSEMENT</h3>
 
 
 
-                        <span class="round" <?php echo $style_couleur2;?>><?php if($datas['classement']){echo $datas['classement'];if($datas['classement']==1){echo 'er';}else{echo 'eme';}}else{echo '';}?></span>
+                        <span class="round" <?php echo $style_couleur2;?>><?php if(isset($datas['classement'])){echo $datas['classement'];if($datas['classement']==1){echo 'er';}else{echo 'eme';}}else{echo '';}?></span>
 
 
 
@@ -1009,7 +1009,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                    <div class="">
+                    <div class="div-jdk-tabs">
 
 
 
@@ -1025,8 +1025,8 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                        <div class="div-eff pd-0">
-                            <div class="splide splide2 nv-decalage-bandeau nv-sllide"  aria-label="Slide Container Example">
+                        <div class="div-eff pd-0 ">
+                            <div class="splide splide2 nv-decalage-bandeau nv-sllide splide--loop splide--ltr splide--draggable is-active is-overflow is-initialized"  aria-label="Slide Container Example">
                                 <div class="splide__track carte-slide-partenaires">
                                     <ul class="splide__list" style="width:300px">
                                         <?php foreach ($partenaires as $partenaire):?>
@@ -1035,6 +1035,14 @@ $prochaine_rencontre=get_posts($args5);
                                             </li>
                                         <?php  endforeach; ?>
                                     </ul>
+<div class="splide__arrows">
+	<button class="splide__arrow splide__arrow--prev" type="button" aria-controls="splide01-track" aria-label="Go to last slide">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40"><path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path></svg>
+	</button>
+	<button class="splide__arrow splide__arrow--next" type="button" aria-controls="splide01-track" aria-label="Next slide">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40"><path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path></svg>
+	</button>
+</div>
                                 </div> 
                             </div>
                         </div>
@@ -1473,7 +1481,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                        $link=get_the_permalink($image_galerie->ID);
+                        $link=get_the_permalink($image_galerie->ID)."?equipeID=".get_the_ID();
 
 
 
@@ -1517,7 +1525,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                                            <?php echo $titre;?>
+                                            <?php echo $titre.' - '. get_the_date('Y', $image_galerie->ID);;?>
 
 
 
@@ -1599,8 +1607,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                            $image_url=(get_field('image', $video_object->ID))?get_field('image', $video_object->ID):$img;
-
+                            $image_url=get_the_post_thumbnail_url($video_object->ID)?get_the_post_thumbnail_url ($video_object->ID):('https://i.ytimg.com/vi/'.get_field('id',$video_object->ID).'/hqdefault.jpg');
 
 
                         ?>
@@ -1682,7 +1689,7 @@ $prochaine_rencontre=get_posts($args5);
 const splide2 = new Splide( '.splide2' , {
                 type: 'loop',
                 perPage: 1,
-                rewind: true,
+                rewind: false,
                 pagination:true,
                 perMove: 1,
                 breakpoints: {
@@ -1699,7 +1706,7 @@ const splide2 = new Splide( '.splide2' , {
             });
 
 
-splide2.mount();
+            splide2.mount();
 
 </script>
 
@@ -1727,8 +1734,15 @@ const splide5 = new Splide( '.splide5' , {
             splide5.mount();
 
 </script>
+<script>
+document.querySelector('.splide__arrow--prev').addEventListener('click', function() {
+    console.log('Previous clicked');
+});
 
-
+document.querySelector('.splide__arrow--next').addEventListener('click', function() {
+    console.log('Next clicked');
+});
+</script>
     <?php
 
 

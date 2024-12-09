@@ -1,5 +1,5 @@
 <?php 
-$saison_value="2023-2024";
+$saison_value="2024-2025";
 $args=array(
     'post_type'=> 'rencontre',
     'posts_per_page' => -1,
@@ -144,7 +144,7 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
         </div>
     </div>
 
-          <a href="/statistiques-equipes-judo-pro-league-2023/" class="btn-stat center">Voir toutes les statistiques</a>
+          <a href="/statistiques-equipes-judo-pro-league/" class="btn-stat center">Voir toutes les statistiques</a>
 
  </div>
 </section>

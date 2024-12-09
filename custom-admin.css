@@ -1,0 +1,121 @@
+.post-type-rencontre .acf-field.acf-field-repeater{
+    overflow: scroll ;
+}
+
+.post-type-rencontre .acf-table td, .post-type-rencontre .acf-table th{
+    width: 5% !important;
+}
+.post-type-rencontre .acf-table td:first-child, .post-type-rencontre .acf-table th:first-child, .post-type-rencontre .acf-table td:last-child, .post-type-rencontre .acf-table th:last-child{
+    width: 0% !important;
+}
+.post-type-rencontre .selection {
+display: flex;
+flex-direction: column;
+}
+
+.postbox-header {
+border-bottom: 2px solid #060E95;
+background-color: #060e9521;
+}
+.acf-field .acf-label label {    
+color: #060e95;font-weight:600;
+}
+
+.inside.acf-fields-top{
+display: flex;
+flex-wrap: wrap;
+}
+.acf-field.acf-field-relationship.acf-field-64cf53744db05{
+    width: 46%;
+    float: left;
+}
+.acf-field.acf-field-relationship.acf-field-64cf538a4db06{
+    width: 46%;
+    float: left;
+    clear: none;
+}
+.acf-relationship .selection .values {
+    width: 100%;
+    background-color: #060e9521;
+    float: left;
+    height: 39px;
+}
+.acf-relationship .selection .choices {
+    width: 100%;
+    background: #fff;
+    float: left;
+}
+.acf-field.acf-field-radio.acf-field-64b020bc8a3f5{
+    width: 20%;
+    float: left;
+    clear: none;
+}
+.infos_resultats_equipe1{
+    width: 26%;
+    float: left;
+    clear: none;
+}
+.infos_resultats_equipe2{
+    width: 26%;
+    float: left;
+    clear: none;
+}
+.combat-ipp{
+    width: 16%;
+    clear: none;
+    float: left;
+}
+.combats-judokas-equipe{
+    width: 50%;
+    float: left;
+    clear: none;
+}
+.combats-jg{
+    width: 26%;
+    float: left;
+    clear: none;
+}
+.combats-status{
+    width: 25%;
+    float: left;
+    clear: none;
+    height: 173px;
+}
+.combats-duree{
+    width: 40%;
+    float: left;
+    clear: none;
+}
+.combats-tr{
+    width: 40%;
+    float: left;
+    clear: none;
+}
+.galerie-un-tiers{
+    width: 30%;
+    float: left;
+    clear: none;
+}
+.galerie-un-demi{
+    width: 50%;
+    float: left;
+    clear: none;
+}
+.block-acf{
+    
+    margin: 13px;
+    border: 1px solid #ccd0d4;
+    height: 300px;
+}
+.block-acf-title{
+    border-bottom: #e614aa solid 1px !important;
+    background-color: #dddddd !important;
+    padding: 8px 10px;
+}
+.block-liens-datas{
+    padding: 15px;
+}
+.acf-gallery-toolbar .acf-hl{
+    min-width: 356px;
+    float: left;
+}

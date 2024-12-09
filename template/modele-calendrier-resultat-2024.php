@@ -5,7 +5,7 @@
 
 $current_fp = get_query_var('fpage');
  if (!$current_fp) {
-        get_template_part( 'template-parts/content-classement-resultats-poules-2024');
+        get_template_part( 'template-parts/content-classement-resultats-quarts');
     } else if ($current_fp == 'poules') {
         get_template_part( 'template-parts/content-classement-resultats-poules-2024' );
     } else if ($current_fp == 'quarts') {

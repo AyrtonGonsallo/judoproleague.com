@@ -68,3 +68,14 @@ $ npm install
 Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
 
 Good luck!
+
+
+
+//----------- mise en prod jpl
+
+recuperer les actus
+recupperer les videos
+verifier les urls des crons
+verifier le plugin des rencontres
+verifier les apis
+verifier indexation et page speed

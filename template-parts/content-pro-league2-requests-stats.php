@@ -45,6 +45,8 @@ function array_msort($array, $cols)
 			$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
 			$results[$equipe1->post_title][0]["image"]=get_field('logo_circle', $equipe1->ID);
 			$results[$equipe2->post_title][0]["image"]=get_field('logo_circle', $equipe2->ID);
+			$results[$equipe1->post_title][0]["id"]=$equipe1->ID;
+			$results[$equipe2->post_title][0]["id"]=$equipe2->ID;
 		}else{
 			foreach($matchs_liste as $matchs){
 			
@@ -55,8 +57,8 @@ function array_msort($array, $cols)
 					$judoka2=$match['judoka_equipe_2'][0];
 					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
 					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
-					$equipe1=null;
-					$equipe2=null;
+					$equipe1=get_field( 'equipe_1',$rencontre->ID)[0];
+					$equipe2=get_field( 'equipe_2',$rencontre->ID)[0];
 					//var_dump($equipes_par_saisons);
 					if ($equipes_par_saisons_1) {
 						foreach ($equipes_par_saisons_1 as $eq1) {
@@ -64,7 +66,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipe1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -82,7 +84,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipe2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -100,7 +102,7 @@ function array_msort($array, $cols)
 					$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
 					$results[$equipe1->post_title][0]["conference"]=get_field('conference',$equipe1->ID);
 					$results[$equipe2->post_title][0]["conference"]=get_field('conference',$equipe2->ID);
-
+					
 					$results[$equipe1->post_title][0]["points"]=0;
 					$results[$equipe2->post_title][0]["points"]=0;
 				}
@@ -148,8 +150,8 @@ function array_msort($array, $cols)
 					$judoka2=$match['judoka_equipe_2'][0];
 					$equipes_par_saisons_1 =get_field('equipes_par_saisons',$judoka1->ID);
 					$equipes_par_saisons_2 =get_field('equipes_par_saisons',$judoka2->ID);
-					$equipe1=null;
-					$equipe2=null;
+					$equipe1=get_field( 'equipe_1',$rencontre->ID)[0];
+					$equipe2=get_field( 'equipe_2',$rencontre->ID)[0];
 					//var_dump($equipes_par_saisons);
 					if ($equipes_par_saisons_1) {
 						foreach ($equipes_par_saisons_1 as $eq1) {
@@ -157,7 +159,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipe1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -175,7 +177,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipe2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -289,7 +291,7 @@ function array_msort($array, $cols)
 		$i++;
 		$sorted_results[$s2["id"]]=$results[$s2["id"]];
 	}
-	//prettyPrint($sorted_result_ids2);
+	//prettyPrint($sorted_results);
 	//exit(-1);
 	return $sorted_results;
 }

@@ -59,7 +59,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
                                 <span class="cal-res-poule-rs"><?php echo $score_equipe2;?></span>
                             </div>
                         </div>
-                        <div <?php if($texte_status=='terminé'){?>style="display:none !important;"<?php }?>>
+                        <div <?php if($texte_status=='terminé'  || empty($date_debut)){?>style="display:none !important;"<?php }?>>
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,8,2).'/'.substr($date_debut,5,2);?></span>
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);?></span>
                         </div>

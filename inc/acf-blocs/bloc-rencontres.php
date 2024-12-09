@@ -20,8 +20,10 @@ $args_articles=array(
 	'order' => 'DESC',
 );
 $news=get_posts($args_articles);
-$news_part1=array_slice($news,0,3);
-$news_part2=array_slice($news,3,2);
+$news_part11 = array_slice($news,0,1);
+$news_part12 = array_slice($news,1,2);
+$news_part1 = array_merge($news_part12, $news_part11);
+$news_part2 = array_slice($news,3,2);
 ?>
 
 <?php 
@@ -56,10 +58,10 @@ $news_part2=array_slice($news,3,2);
                     $combat=get_field('les_combat', $rencontre->ID)[0];
                     $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
                     $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
-                    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'][0];
+                    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'];
                     $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
                     $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
-                    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];
+                    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'];
                     $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
                     $date_fin=get_field('date_de_fin', $rencontre->ID, false, false);
                     $statut=get_field('statut', $rencontre->ID)['label'];
@@ -98,11 +100,13 @@ $news_part2=array_slice($news,3,2);
                    
                 
                 ?>
-              
-                <li class="side-rencontre-card <?php echo ($nouvelledate)?'first-mb':'mb';?>  flip-card splide__slide" >
+
+            <div class="rnctr-div-li <?php echo ($nouvelledate)?'first-mb':'mb';?>">
                     <?php if($nouvelledate){?>
                         <div class="side-rencontre-date"><?php echo $date_rencontre;?></div>
                     <?php }?>
+                <li class="side-rencontre-card flip-card splide__slide" >
+                    
                     
                     <div class="flip-card-inner side-rencontre-mb-20">
                                 
@@ -161,7 +165,8 @@ $news_part2=array_slice($news,3,2);
                         </div>
                     </div>
                 </li>
-                <?php 
+            </div>
+                <?php
                 $last_date_rencontre=$date_rencontre;
                         endforeach ?>
                 
@@ -173,13 +178,7 @@ $news_part2=array_slice($news,3,2);
 
 
        <div class="col-actus">
-          <div class="flx-tle-but">
-                <h2 class="home-articles-title">NOS DERNIÈRES ACTUALITÉS</h2>
-
-                <a href="/actualites-judo-pro-league/" class="but-home-articles">Toutes les actualités <i class="fa-solid fa-arrow-right-long"></i></a>
-           </div>
-
-
+          
 
             <div class="news-1-2-3-col">
                 <?php if( $news_part1 ): 
@@ -275,7 +274,11 @@ $news_part2=array_slice($news,3,2);
                     <?php endforeach; ?>
                 <?php endif; ?>        
             </div>
-        
+            <div class="flx-tle-but">
+                <h2 class="home-articles-title">NOS DERNIÈRES ACTUALITÉS</h2>
+
+                <a href="/actualites-judo-pro-league/" class="but-home-articles">Toutes les actualités <i class="fa-solid fa-arrow-right-long"></i></a>
+           </div>
 <a href="/actualites-judo-pro-league/" class="btn-presenta btn-mobile center">En savoir plus</a>
 
 

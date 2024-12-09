@@ -37,7 +37,7 @@
 
 
 
-	<div class="thumb-article">
+	<div class="thumb-article article-respo" style="height:auto !important;">
 
 
 		<img src="<?php the_post_thumbnail_url();?>">

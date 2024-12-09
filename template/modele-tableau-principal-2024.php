@@ -137,7 +137,7 @@ function display($rencontres){?>
                                 <span class="cal-res-poule-rs"><?php echo $score_equipe2;?></span>
                             </div>
                         </div>
-                        <div <?php if($texte_status=='terminé'){?>style="display:none !important;"<?php }?>>
+                        <div <?php if($texte_status=='terminé' || empty($date_debut)){?>style="display:none !important;"<?php }?>>
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,8,2).'/'.substr($date_debut,5,2);?></span>
                             <span class="cal-res-poule-title"><?php  echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);?></span>
                         </div>
@@ -166,7 +166,6 @@ function display($rencontres){?>
     <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                     <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
@@ -174,45 +173,30 @@ function display($rencontres){?>
 				</select>
 			</form>
 		</div>
+
+
         <div class="judo_pro_league  mt-5p">
             <div class="phases-cl">
                 <h2 class="tab-phase fs-30">
-                    <a href="/classement-judo-pro-league-2024/">
+                    <a href="classement-judo-pro-league-2024/">
                         PHASE éliminatoire
                     </a>
                 </h2>
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="/tableau-principal-judo-pro-league-2024/">
+                    <a href="tableau-principal-judo-pro-league-2024/">
                         tableau principal
                     </a>
                 </h2>
             </div>
         </div>
-        <div class="judo_pro_league">
-        <h1 class="result-h1">Tableau principal <?php echo $saison_value;?></h1>
 
-            <div class="phases-finales">
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        QUARTS DE FINALE
-                    
-                </h3>
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        DEMI-FINALES
-                    
-                </h3>
-                <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40">
-                    
-                        FINALE
-                    
-                </h3>
-                
-            </div>
-        </div>
-        <div class="judo_pro_league mtop-5">
+        <div class="judo_pro_league mtop-5 tab-princ-23">
+            <h1 class="result-h1">tableau principal Judo Pro League <?php echo $saison_value;?></h1>
             <div class="tp-3x-grid">
+
                 <div class="tp-3x-grid-content">
+                    <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">QUARTS DE FINALE</h3>
+
                     <div class="tp-4y-grid">
                         
                         <?php display($rencontres_quarts);?>
@@ -221,18 +205,115 @@ function display($rencontres){?>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
+                    <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">DEMI-FINALES</h3>
+
                     <div class="tp-2y-grid">
                         <?php display($rencontres_demies);?>
+                        <div class="tp-2y-grid-content">
+                            <div class="cal-res-poule-blc">
+                                <div class="header-cal-res-poule">
+                                    <span class="cal-res-poule-title"></span>
+                                    <span class="cal-res-poule-stat-tp avenir">à venir</span>
+                                </div>
+                                <div class="horaire-jr-tp">
+                                    <div>
+                                        <div class="cal-res-poule-team ">
+                                            <img src="https://judoproleague.com/wp-content/uploads/2024/08/unknown.png">
+                                            <h3 class="cal-res-poule-eqp-tp">Vainqueur QF 1</h3>
+                                            <span class="cal-res-poule-rs"></span>
+                                        </div>
+                                        <div class="cal-res-poule-team  brd-none">
+                                            <img src="https://judoproleague.com/wp-content/uploads/2024/08/unknown.png">
+                                            <h3 class="cal-res-poule-eqp-tp ">Vainqueur QF 3</h3>
+                                            <span class="cal-res-poule-rs"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="cal-res-poule-title"></span>
+                                        <span class="cal-res-poule-title"></span>
+                                    </div>
+                                </div>
+                                <div class="cal-res-poule-link link-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-2y-grid-content">
+                            <div class="cal-res-poule-blc">
+                                <div class="header-cal-res-poule">
+                                    <span class="cal-res-poule-title"></span>
+                                    <span class="cal-res-poule-stat-tp avenir">à venir</span>
+                                </div>
+                                <div class="horaire-jr-tp">
+                                    <div>
+                                        <div class="cal-res-poule-team ">
+                                            <img src="https://judoproleague.com/wp-content/uploads/2024/08/unknown.png">
+                                            <h3 class="cal-res-poule-eqp-tp">Vainqueur QF 2</h3>
+                                            <span class="cal-res-poule-rs"></span>
+                                        </div>
+                                        <div class="cal-res-poule-team  brd-none">
+                                            <img src="https://judoproleague.com/wp-content/uploads/2024/08/unknown.png">
+                                            <h3 class="cal-res-poule-eqp-tp ">Vainqueur QF 4</h3>
+                                            <span class="cal-res-poule-rs"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="cal-res-poule-title"></span>
+                                        <span class="cal-res-poule-title"></span>
+                                    </div>
+                                </div>
+                                <div class="cal-res-poule-link link-2">
+                                    
+                                </div>
+                        
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tp-3x-grid-content">
+                    <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">FINALE </h3>
+
                     <div class="tp-y-grid">
                         <?php display($rencontre_f);?>
+                        <div class="tp-2y-grid-content">
+                            <div class="cal-res-poule-blc">
+                                <div class="header-cal-res-poule">
+                                    <span class="cal-res-poule-title"></span>
+                                    <span class="cal-res-poule-stat-tp avenir">à venir</span>
+                                </div>
+                                <div class="horaire-jr-tp">
+                                    <div>
+                                        <div class="cal-res-poule-team ">
+                                            <img src="https://judoproleague.com/wp-content/uploads/2024/08/unknown.png">
+                                            <h3 class="cal-res-poule-eqp-tp">Vainqueur DF 1</h3>
+                                            <span class="cal-res-poule-rs"></span>
+                                        </div>
+                                        <div class="cal-res-poule-team  brd-none">
+                                            <img src="https://judoproleague.com/wp-content/uploads/2024/08/unknown.png">
+                                            <h3 class="cal-res-poule-eqp-tp ">Vainqueur DF 2</h3>
+                                            <span class="cal-res-poule-rs"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="cal-res-poule-title"></span>
+                                        <span class="cal-res-poule-title"></span>
+                                    </div>
+                                </div>
+                                <div class="cal-res-poule-link link-2">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
             </div>
         </div>
+
+
+
+
+
+
+
     </section>
 <?php
  get_footer();

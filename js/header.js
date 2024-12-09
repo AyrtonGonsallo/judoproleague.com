@@ -15,6 +15,38 @@
 })(jQuery);
 
 jQuery(document).ready(function($) {
+	
+/*********************************************************************************************************/	
+	// Fonction qui vérifie la taille de l'écran et ajoute l'événement de clic sur mobile uniquement
+function activateSearchPopupOnMobile() {
+  if (window.innerWidth <= 768) { // Vérifie si l'écran est de taille mobile
+    document.querySelector('.search-icon').addEventListener('click', function () {
+      document.querySelector('.search-popup').classList.toggle('active');
+    });
+  }
+}
+
+// Exécute la fonction au chargement de la page
+activateSearchPopupOnMobile();
+
+// Réexécute la fonction lors du redimensionnement de l'écran
+window.addEventListener('resize', function() {
+  // Supprime l'événement de clic pour éviter les duplications
+  document.querySelector('.search-icon').removeEventListener('click', activateSearchPopupOnMobile);
+  activateSearchPopupOnMobile();
+});
+/***************************************************************************************************************/	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
   $('#carouselExample').on('slide.bs.carousel', function (e) {
 
   

@@ -63,7 +63,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipe1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -81,7 +81,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipe2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -91,10 +91,11 @@ function array_msort($array, $cols)
 
 						}
 					}
-					/**if(!$equipe1 || !$equipe2){
-						echo 'erreur';
-						prettyPrint($match);exit(-1); 
-					}**/
+					if(!$equipe1 || !$equipe2){
+						//echo 'erreur: '.$rencontre->post_title;
+						//prettyPrint($match);exit(-1); 
+						//trouver judoka absent
+					}
 					$results[$equipe1->post_title]=[array("nom"=>$equipe1->post_title)];
 					$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
 					$results[$equipe1->post_title][0]["points"]=0;
@@ -144,7 +145,7 @@ function array_msort($array, $cols)
 							if (isset($eq1['equipe_judoka']) && isset($eq1['saisons']) ) {
 								//var_dump($eq1['saisons'][0]);
 									
-									if( $eq1['saisons'][0]== $saison_value){
+									if( $eq1['saisons']== $saison_value){
 										$equipej1 = $eq1['equipe_judoka'][0];
 									}
 									
@@ -162,7 +163,7 @@ function array_msort($array, $cols)
 							if (isset($eq2['equipe_judoka']) && isset($eq2['saisons']) ) {
 								//var_dump($equipe1['saisons'][0]);
 									
-									if( $eq2['saisons'][0]== $saison_value){
+									if( $eq2['saisons']== $saison_value){
 										$equipej2 = $eq2['equipe_judoka'][0];
 									}
 									
@@ -175,6 +176,18 @@ function array_msort($array, $cols)
 					$judoka_gagnant = $match['judoka_gagnant'];
 					$results[$equipej1->post_title][0]["error"]=$rencontre->ID.' : '.$judoka1->ID.' : '.$judoka1->post_title;
 					$results[$equipej2->post_title][0]["error"]=$rencontre->ID.' : '.$judoka2->ID.' : '.$judoka2->post_title;
+					if($judoka_gagnant!=null && $judoka_gagnant==1){
+						$results[$equipej1->post_title][0]["matchs_v"]+=1;
+						$results[$equipej2->post_title][0]["matchs_d"]+=1;
+						
+					}else if($judoka_gagnant!=null && $judoka_gagnant==2){
+						$results[$equipej1->post_title][0]["matchs_d"]+=1;
+						$results[$equipej2->post_title][0]["matchs_v"]+=1;
+					}else{
+						$results[$equipej1->post_title][0]["matchs_nuls"]+=1;
+						$results[$equipej2->post_title][0]["matchs_nuls"]+=1;
+					}
+					
 					//echo($mode_de_calcul_classement)exit(-1);
 					if($mode_de_calcul_classement=="auto"){
 						//lire les ippons(ippon1,ippon2) du fichier pour le classement
@@ -250,10 +263,10 @@ function array_msort($array, $cols)
 	$sorted_result_ids=array();
 	
 	foreach($results as $result){
-		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
+		array_push($sorted_result_ids,array("id"=>$result[0]["nom"],"matchs_v"=>$result[0]["matchs_v"],"points_totaux"=>$result[0]["points"]+$result[0]["bonus"],"points"=>$result[0]["points"],"points_marqués"=>$result[0]["points_marqués"],"ippons_marqués"=>$result[0]["ippons_marqués"]));
 	}
 	
-	$sorted_result_ids2=array_msort($sorted_result_ids,array('points'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC));
+	$sorted_result_ids2=array_msort($sorted_result_ids,array('points_totaux'=>SORT_DESC,'matchs_v'=>SORT_DESC,'points_marqués'=>SORT_DESC,'ippons_marqués'=>SORT_DESC,'id'=>SORT_ASC));
 	$i=0;
 	foreach($sorted_result_ids2 as $s2){
 		if($i<2){

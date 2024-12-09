@@ -241,6 +241,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
             'meta_key' => 'date_de_debut',
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
+           //'post__not_in'   => array(3304),
             'meta_query' => array(
                 'relation' => 'AND',
                 array(      
@@ -258,20 +259,24 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         $rencontres=get_posts($args);
             require_once (THEMEDIR.'template-parts/content-pro-league2-requests.php');
             $classement=get_classement($rencontres,$saison_value);
-            //prettyPrint($classement);
+           // prettyPrint($classement);
         ?>
     <?php  if($classement):?>
 
     <div class="classement-23 judo_pro_league classement-24">
 
-        <h1 class="result-h1">Classement <?php echo $saison_value;?></h1>
+        <h1 class="result-h1">Classement Judo Pro League <?php echo $saison_value;?></h1>
+        <p class="page-result-desc">
+            Le classement évolue en direct selon l’avancée des rencontres. Chaque match étant soumis à une procédure de vérification des scores, le classement n’est considéré comme définitif que deux heures après la fin des rencontres.
+        </p>
+        
         <div class="table-cl">
         <div class="table-23">
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>
         <div class="table-team" style="display: grid; grid-template-columns: 3fr 1fr;border:none !important;">
         <div class="header-table table-no-lb bb2">RENCONTRES</div>
-        <div class="header-table bb2 bleu-score background-score">SCORE</div>
+        <div class="header-table bb2 bleu-score background-score">Combats</div>
         </div>
         </div>
             <div class="table-23">
@@ -284,10 +289,13 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
                     <div class="header-table table-no-rb table-no-lb">N</div>
                     <div class="header-table table-no-rb table-no-lb">D</div>
                     <div class="header-table table-no-rb table-no-lb">Bonus</div>
+                    <div class="header-table table-no-lb desktop bleu-score background-score">Gagnés</div>
                     <div class="header-table table-no-rb desktop bleu-score background-score">Pts marqués</div>
-                    <div class="header-table table-no-lb desktop bleu-score background-score">Ippons</div>
+                    <!--<div class="header-table table-no-lb desktop bleu-score background-score">Ippons</div>-->
+                    <div class="header-table table-no-lb mobile bleu-score background-score">CG</div>
                     <div class="header-table table-no-rb mobile bleu-score background-score">Pts M<br/></div>
-                    <div class="header-table table-no-lb mobile bleu-score background-score">I++</div>
+                    <!--<div class="header-table table-no-lb mobile bleu-score background-score">I++</div>-->
+                   
                 </div>
 
             </div>
@@ -297,16 +305,20 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
             $points_prec=0;
             $points_m_prec=0;
             $ippons_m_prec=0;
-
+            $cg_prec=0;
             foreach($classement as $clt):
                 if(($pos>1) && (($clt[0]['points']+$clt[0]['bonus'])<$points_prec) ){
                     $rang++;
                 }else if(($pos>1) && (($clt[0]['points']+$clt[0]['bonus'])==$points_prec)){
-                    if((($clt[0]['points_marqués'])<$points_m_prec) ){
+                    if((($clt[0]['matchs_v'])<$cg_prec) ){
                         $rang++;
-                    }else if((($clt[0]['points_marqués'])==$points_m_prec) ){
-                        if((($clt[0]['ippons_marqués'])<$ippons_m_prec) ){
+                    }else if((($clt[0]['matchs_v'])==$cg_prec) ){
+                        if((($clt[0]['points_marqués'])<$points_m_prec) ){
                             $rang++;
+                        }else if((($clt[0]['points_marqués'])==$points_m_prec) ){
+                            if((($clt[0]['ippons_marqués'])<$ippons_m_prec) ){
+                                $rang++;
+                            }
                         }
                     }
                 }
@@ -327,8 +339,10 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
                         <div class="td-table table-no-rb table-no-lb"><?= ($clt[0]['nuls']?$clt[0]['nuls']:0);?></div>
                         <div class="td-table table-no-rb table-no-lb"><?= ($clt[0]['defaites']?$clt[0]['defaites']:0);?></div>
                         <div class="td-table table-no-rb table-no-lb"><?= ($clt[0]['bonus']?$clt[0]['bonus']:0);?></div>
+                        <div class="td-table table-no-rb table-no-lb background-score"><?= ($clt[0]['matchs_v']?$clt[0]['matchs_v']:0);?></div>
                         <div class="td-table table-no-lb table-no-rb background-score"><?= ($clt[0]['points_marqués']?$clt[0]['points_marqués']:0);?></div>
-                        <div class="td-table table-no-rb table-no-lb background-score"><?= ($clt[0]['ippons_marqués']?$clt[0]['ippons_marqués']:0);?></div>
+                       <!-- <div class="td-table table-no-rb table-no-lb background-score"><?php // echo ($clt[0]['ippons_marqués']?$clt[0]['ippons_marqués']:0);?></div>-->
+
                     </div>
 
                 </div>
@@ -339,6 +353,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
             $points_m_prec=($clt[0]['points_marqués']?$clt[0]['points_marqués']:0);
             $ippons_m_prec=($clt[0]['ippons_marqués']?$clt[0]['ippons_marqués']:0);
             $points_prec=$points+$bonus;
+            $cg_prec=($clt[0]['matchs_v']?$clt[0]['matchs_v']:0);
             $pos++;
                 endforeach; 
             ?>
@@ -348,12 +363,12 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 </section>
 
     <section class="pd-5 class-jours">
-    <?php display($rencontres_j1,'J1')?>
-    <?php display($rencontres_j2,'J2')?>
-    <?php display($rencontres_j3,'J3')?>
-    <?php display($rencontres_j4,'J4')?>
-    <?php display($rencontres_j5,'J5')?>
-    <?php display($rencontres_j6,'J6')?>
+    <?php //display($rencontres_j1,'J1')?>
+    <?php //display($rencontres_j2,'J2')?>
+    <?php //display($rencontres_j3,'J3')?>
+    <?php //display($rencontres_j4,'J4')?>
+    <?php //display($rencontres_j5,'J5')?>
+    <?php //display($rencontres_j6,'J6')?>
     </section>
 
 <?php
