@@ -4,7 +4,7 @@
  * Template Name: Modèle equipe JPL
  */
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 $argsA=array(
 			'post_type'=> 'equipes',
 			'posts_per_page' => -1,
@@ -67,8 +67,8 @@ $count_C=count($equipes_poule_C);
 					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
-
+					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+					<option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
 				</select>
 			</form>
 		</div>

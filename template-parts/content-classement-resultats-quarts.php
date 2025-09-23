@@ -59,7 +59,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
                                 <span class="cal-res-poule-rs"><?php echo $score_equipe2;?></span>
                             </div>
                         </div>
-                        <div <?php if($texte_status=='terminé'){?>style="display:none !important;"<?php }?>>
+                        <div <?php if($texte_status=='terminé'  || empty($date_debut)){?>style="display:none !important;"<?php }?>>
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,8,2).'/'.substr($date_debut,5,2);?></span>
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);?></span>
                         </div>
@@ -84,7 +84,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
 
 $now=date('Y/m/d H:i:s');
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 
 
 
@@ -215,6 +215,7 @@ $rencontres_quart_4= get_posts($args_quart_4);
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
 					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
 
 				</select>
 			</form>

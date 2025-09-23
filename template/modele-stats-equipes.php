@@ -5,7 +5,7 @@
  */
 
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 ?>
 
 <script>
@@ -23,13 +23,13 @@ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                     <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
-
+                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
                 </select>
 			</form>
 		</div>
     <section>
         <div class="judo_pro_league mt-5p">
-        <h1 class="result-h1 mtb-0">Statistiques Judo Pro League <?php echo $saison_value;?></h1>
+        <h1 class="result-h1 mtb-0">Statistiques équipes Judo Pro League <?php echo $saison_value;?></h1>
             <div class="phases-cl2">
                 <h2 class="tab-phase tab-act fs-30">
                     <a href="../statistiques-equipes-judo-pro-league/">
@@ -65,7 +65,7 @@ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
                 $rencontres=get_posts($args);
                     require_once (THEMEDIR.'template-parts/content-pro-league2-requests-stats.php');
                     $classement=get_classement($rencontres,$saison_value);
-                   // var_dump($classement);exit(-1);
+                   //var_dump($classement);exit(-1);
                 ?>
             <?php  if($classement): 
                // prettyPrint($classement);?>
@@ -85,7 +85,11 @@ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
                         foreach ($classement as $d) {
                             if($d[0]['nom']){?>                 
                             <tr class="tr-stat">
-                                <td  class="align-photo-nom-vertically"><img width="24px" height="24px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></td>
+                                <td  class="align-photo-nom-vertically"><img width="24px" height="24px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt="">
+                                    <a href="<?php echo get_the_permalink($d[0]['id']);?>">
+                                        <span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span>
+                                    </a>
+                                </td>
                                 <td class="wp-caption-text sorting_1"><?php echo ($d[0]['combats_gagnés'])?$d[0]['combats_gagnés']:0?></td>
                                 <td class="wp-caption-text sorting_1"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                 <td class="wp-caption-text sorting_1"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>

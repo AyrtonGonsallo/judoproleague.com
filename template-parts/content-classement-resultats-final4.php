@@ -5,7 +5,7 @@ get_header();
 $now=date('Y/m/d H:i:s');
 
 $team_permalink = get_the_permalink($post->ID);
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 $args_f4 = array(		
     'post_type'=> 'rencontre',		
     'posts_per_page' => -1,
@@ -67,6 +67,7 @@ $rencontre_f = get_posts($args_f4f);
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
 					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
 
 				</select>
 			</form>
@@ -115,10 +116,10 @@ $rencontre_f = get_posts($args_f4f);
 
     <section class="pd-5">
 
+        
         <?php if ($rencontres_demies): ?>
 
                     <div class="judo_pro_league">
-
                         <h2 class="crt-title"> Demi-Finales</h2>    
                  
                         <?php $count=count($rencontres_demies);?>
@@ -233,6 +234,8 @@ $rencontre_f = get_posts($args_f4f);
                             <?php endforeach; ?>
 
                         </div>
+
+
 
                         
 

@@ -23,9 +23,12 @@
     <?php if ( $videos) :
        ?>
         <div class="videos-container" id="videoscontainer">
-            <?php foreach ( $videos as $video ){?>
+            <?php foreach ( $videos as $video ){
+                $image_url=get_the_post_thumbnail_url($video->ID)?get_the_post_thumbnail_url ($video->ID):('https://i.ytimg.com/vi/'.get_field('id',$video->ID).'/maxresdefault.jpg');
+
+                ?>
                 <div class="videos-container-element">
-                    <div class="video-preview" style="background-image: url(<?php echo get_field('image',$video->ID)?>);">
+                    <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
                         <div class="button-play-video button-play-video-grande-taille" >
                             <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$video->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                         </div>
@@ -47,10 +50,12 @@
 
 
     <?php if ( $videos_desktop_2) :
+        $image_url=get_the_post_thumbnail_url($videos_desktop_1[0]->ID)?get_the_post_thumbnail_url ($videos_desktop_1[0]->ID):('https://i.ytimg.com/vi/'.get_field('id',$videos_desktop_1[0]->ID).'/maxresdefault.jpg');
+
        ?>
         <div class="videos-container2" id="videoscontainer">
                 <div class="videos-container-element">
-                    <div class="video-preview" style="background-image: url(<?php echo str_replace("hq","maxres",get_field('image',$videos_desktop_1[0]->ID))?>);">
+                    <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
                         <div class="button-play-video button-play-video-grande-taille" >
                             <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$videos_desktop_1[0]->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                         </div>
@@ -63,9 +68,12 @@
                     </div>
                 </div>
                 <div class="videos-3">
-                    <?php foreach ( $videos_desktop_2 as $video ){?>
+                    <?php foreach ( $videos_desktop_2 as $video ){
+                        $image_url=get_the_post_thumbnail_url($video->ID)?get_the_post_thumbnail_url ($video->ID):('https://i.ytimg.com/vi/'.get_field('id',$video->ID).'/hqdefault.jpg');
+
+                        ?>
                         <div class="videos-container-element">
-                            <div class="video-preview" style="background-image: url(<?php echo get_field('image',$video->ID)?>);">
+                            <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
                                 <div class="button-play-video button-play-video-grande-taille" >
                                     <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$video->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                                 </div>

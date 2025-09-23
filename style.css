@@ -22,6 +22,12 @@ Requires PHP: 5.6
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
  @font-face { 
+    font-family: 'futura';  
+    src: url('./fonts/Futura-Medium.ttf') format('opentype');
+	 font-weight:400 !important;
+	font-display: swap;
+}
+ @font-face { 
     font-family: 'Futura Condensed';  
     src: url('./fonts/Futura-Condensed.otf') format('opentype');
 	 font-weight:400 !important;
@@ -33,6 +39,7 @@ Requires PHP: 5.6
 	 font-weight:400 !important;
 	font-display: swap;
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 
 html {
@@ -653,7 +660,8 @@ body .splide__arrow svg{fill: #fff !important;}
 /*---bloc à la une
 --------------------------------------------------------------*/
 .rencontres-section{
-    background: linear-gradient(90deg, rgba(219, 2, 255, 1) 0%, rgba(151, 6, 211, 1) 100%);    
+/*     background: linear-gradient(90deg, rgba(219, 2, 255, 1) 0%, rgba(151, 6, 211, 1) 100%);     */
+	background: linear-gradient(90deg, #b3b3b3 0%, #575656 100%);
     min-height: 185px;
     display: grid;
     align-items: center;
@@ -690,7 +698,7 @@ width: 100%;
 .bloc-rencontres {
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(8,1fr);
+    grid-template-columns: repeat(7,1fr);
     min-height: 160px;
 	gap: 15px;
 }
@@ -703,7 +711,7 @@ width: 100%;
 }
 .splide5 img.logo-eqi {
     border-radius: 50%;
-    border: 1px solid #000;
+    border: 1px solid #e5e5e5;
 }
 .jr-rct-1{
 display: grid;
@@ -795,21 +803,24 @@ color:#000;
     color: #4de421;
     text-decoration:underline !important;
 }
+
 .nv-header-rencontre{
 	display: grid;
     align-items: center;
-    grid-template-columns: 65% 35%;
+	grid-template-columns: 65% 35%;
 	background-color: #dddddd00;
     border-radius: 5px 5px 0 0;
     padding: 5px 10px;
 	border-bottom: 1px solid #fff;
+}
+.translatepress-en_US .nv-header-rencontre{
+    grid-template-columns: 38% 62% !important;
 }
 .nv-header-rencontre span{
 	font-size: 15px;
     font-family: 'Futura Condensed';
 }
 .nv-staut {
-	text-transform: capitalize;
     position: relative;
     display: flex;
     align-items: center;
@@ -1151,7 +1162,7 @@ a.news-link-2-col {
 .news-2-col{
 	display: grid;
     grid-template-columns: repeat(2,1fr);
-    align-items: center;
+    align-items: start;
 	gap: 45px;
 	max-width: 1400px;
     margin: 0 auto;
@@ -1167,7 +1178,7 @@ a.news-link-2-col {
 	gap: 7px;
 }
 section.section-bloc-articles {
-    padding: 60px 0;
+    padding: 3% 0;
 	background: #fff;
 }
 .display-news-2-col .news-img-2-col{
@@ -1280,7 +1291,7 @@ padding:4%;
     bottom: 10%;
 } */
 .presentation {
-    max-width: 50%;
+    max-width: 52%;
     margin-right: 0;
     margin-left: 10%;
     position: relative;
@@ -1694,9 +1705,7 @@ display: none !important;
 		grid-template-columns: 70% 30%;
 		gap: 30px;
 	}
-.brd-header{
-display:none !important;
-}
+
 .jpl-team-name {
     font-size: 18px;
 }
@@ -1715,9 +1724,7 @@ display:none !important;
 	margin-left: 0px !important;
 	margin-bottom:20px;
 }
-.align-photo-nom-vertically{
-	
-}
+
 .px-0{
 	padding-left: 0 !important;
 	padding-right: 0 !important;
@@ -1731,9 +1738,7 @@ thead > tr > th:nth-child(1){
 table td{
 	padding: 0 !important;
 }
-.splide{
-display : none !important;
-}
+
 .single-equipes .splide{
 display : block !important;
 }
@@ -2173,11 +2178,12 @@ color: #fff;
     background-repeat: no-repeat;
     background-size: cover;
 }
+/*
 .splide__list{
     align-items: center !important;
 	justify-content: center !important;
 }
-
+*/
 .nv-name-clsm {
     color: #000;
     font-size: 25px;
@@ -2265,12 +2271,9 @@ color: #fff;
     text-align: left !important;
     padding: 5px 15px !important;
 }
-.classement-1 span{
-	/*font-size: 25px;
-    font-family: 'Futura Condensed';*/
-}
+
 .listes-equipes {
-    padding: 0px 10px 50px 10px;
+    padding: 4% 2% 4% 2% !important;
 }
 .h1-equipes{
 	text-align: center;
@@ -2474,17 +2477,22 @@ p.p-palmares {
 	text-align: center;
 }
 .result-h1 {
-	position:relative;
-	max-width: fit-content;
+    position: relative;
+    max-width: fit-content;
     font-family: "Futura Condensed";
     font-size: 45px;
     font-weight: 600;
     color: #000;
-    text-align: left;
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: 40px;
 }
 .result-h1:before{
 	position:absolute;
-	left:0;content:"";
+	left:0;
+	right:0;
+	margin:auto;
+	content:"";
 	top:-10px;
 	width:60%;
 	height:1px;
@@ -2493,7 +2501,8 @@ p.p-palmares {
 .result-h1:after{
 	position:absolute;
 	content:"";
-	left:0;
+	left:0;right:0;
+	margin:auto;
 	bottom: -10px;
 	width:60%;
 	height:1px;
@@ -2625,7 +2634,7 @@ padding-top: 0%;
 }
 .table-results {
     display: grid;
-    grid-template-columns: repeat(8,1fr);
+    grid-template-columns: repeat(7,1fr);
     align-items: center;
     justify-items: center;
 }
@@ -2684,7 +2693,7 @@ align-items: center;
     background-color: #dddddd;
     display: flex;
     align-items: stretch;
-    border-radius: 10px 10px 10px 0px;
+    border-radius: 10px 10px 0px 0px;
     align-content: center;
     justify-content: space-between;
 }
@@ -2710,7 +2719,7 @@ align-items: center;
     font-family: 'Futura Condensed';
     color: #fff;
 	text-align: center;
-    font-size: 14px;
+    font-size: 16px;
 	padding: 5px 15px;
     text-transform: uppercase;
     border-radius: 0px 10px 0px 0px;
@@ -2735,6 +2744,7 @@ transition: 0.2s ease-in-out;
     align-items: center;
     justify-content: center;
     background-color: #0C97FF;
+    height: 100%;
 }
 .avenir {
 	display: flex;
@@ -2742,6 +2752,7 @@ transition: 0.2s ease-in-out;
     justify-content: center;
     background-color: #9706D3;
 	color: #fff;
+	height: 100%;
 }
 .pdt-5{
 	padding-top: 5%;
@@ -2948,12 +2959,13 @@ color: #fff !important;
     margin-right: auto;
 }
 .crt-title {
-    font-size: 30px;
+    font-size: 20px;
     color: #000;
     font-family: 'Futura Condensed';
     font-weight: 600;
     WIDTH: 80px;
-    float: left;
+    float: unset;
+    width: 100%;
     text-align: center;
 }
 
@@ -3012,7 +3024,7 @@ color: #fff !important;
 }
 .jpl-team img{   
 	border-radius: 50%;
-    border: 1px solid #000;
+/*     border: 1px solid #000; */
     box-shadow: none;
     margin-right: 9px;
     width: 99px;
@@ -3131,7 +3143,7 @@ color: #fff !important;
 @media screen and (max-width: 425px) {
 	
     .home .side-rencontres-flip-card-back, .col-rcntr .side-rencontres-flip-card-front {height:60px !important;}
-    .home .flip-card { height: 111px !important; margin-bottom: 28px !important; }
+    .home .flip-card { height: 76px !important; margin-bottom: 28px !important; }
     .home .side-rencontres-affiche {
     height: 40px !important;
 }
@@ -3535,7 +3547,7 @@ margin-top: 5px !important;
     justify-content: left;
     text-align: center;
 /* 	grid-template-columns: 67% 33%; */
-	grid-template-columns: 15% 60%;
+	grid-template-columns: 5% 15% 60%;
 	align-items: center;
 gap: 5px;
 }
@@ -3544,7 +3556,7 @@ gap: 5px;
     justify-content: right;
     text-align: center;
 /* 	grid-template-columns: 33% 67%; */
-	grid-template-columns: 60% 15%;
+	grid-template-columns: 60% 15% 5%;
 	align-items: center;
 }
 .lft-result-jdk span,.rgt-result-jdk span{
@@ -3637,7 +3649,8 @@ margin:0px 20px;
 .gagnant{
 	background: linear-gradient(90deg, rgba(121,25,168,1) 0%, rgba(42,80,216,1) 100%);
     color: #fff !important;
-	border-radius: 15px;
+	border-radius: 50px;
+    padding: 5px 10px;
 }
 .container-iw {
     align-items: center;
@@ -3676,9 +3689,7 @@ margin:0px 20px;
     grid-template-columns: 0.8fr 2fr;
     align-items: center;
 }
-body .nv-duree-jdk{
-	    background-color: #971ed3 !important;
-}
+
 .iw-2{
     display: grid;
     grid-template-columns: 2fr 0.8fr;
@@ -3767,14 +3778,15 @@ body .nv-duree-jdk{
 }
 .nv-logo-cpyr {
 	display: grid;
-    grid-template-columns: repeat(14,1fr);
+    grid-template-columns: repeat(18,1fr);
     align-items: center;
     gap: 15px;
     justify-items: center;
     margin: 0 auto;
+	padding: 5px 0px;
 }
 .nv-logo-cpyr img {
-    max-width: 64px;
+    max-width: 38px;
 }
 .nv-copyright{
 	justify-content: center;
@@ -3907,7 +3919,7 @@ form.cat-equipes-selector-form {
     color: #fff !important;
 }
 
-.page-id-2882 .tr-stat td:nth-child(9){   
+.page-id-2882 .tr-stat td:nth-child(10){   
 	border-width: 1px 1px 1px 1px !important;
     border-radius: 0px 20px 20px 0px;
 }
@@ -3951,7 +3963,7 @@ body table.dataTable tbody td{
     float: left;
 }
 .align-photo-nom-vertically {
-	padding-top:10px;
+	padding-top:0px;
     display: table-cell !important;
 }
 .align-photo-nom-vertically .nom-stat-eq{font-size:26px;}
@@ -4443,7 +4455,7 @@ cal-res-poule-stat {
 	  
 	.news-2-col {
 		max-width: 900px;
-		gap: 0 25px;
+		gap: 15px 15px;
 	}
 	.title-news-3-col.title-news, .nv-title-news-3-col {
 		font-size: 16px;
@@ -4505,9 +4517,9 @@ cal-res-poule-stat {
 		background-position: center;
 	}
 	.news-2-col {
-		max-width: 75%;
-		gap: 0 25px;
-		grid-template-columns: repeat(1,1fr);
+		max-width: 90%;
+		gap: 15px;
+		grid-template-columns: repeat(2,1fr);
 	}
 	section.section-presentation:after{
 		display: none;
@@ -4538,7 +4550,7 @@ font-size: 32px!important;
     font-size: 16px;
 }
 .rencontres-section {
-		min-height: 315px;
+		min-height: auto;
 	}
 	
 	h3.cal-res-poule-eqp {
@@ -4767,7 +4779,7 @@ font-size: 32px!important;
 .single-post .entry-header .entry-title {
     margin-bottom: 20px !important;
     margin-top: 20px !important;
-    font-size: 30px !important;
+    font-size: 22px !important;
     line-height: 40px !important;
 
 }
@@ -4882,6 +4894,7 @@ font-size: 32px!important;
 	}
 }
 @media screen and (max-width:425px ) {
+	.news-2-col {grid-template-columns: repeat(1,1fr);}
 	.jpl-img{
 	width: 120px;
 }
@@ -5299,7 +5312,17 @@ padding: 0 10px;
 
 	  /******ANNIMATION BORDER BOTTOM MENU*******************/
   }
-  
+  #navbar-menu .navbar-nav > li.current_page_item > a:after, .single-post #navbar-menu .navbar-nav > li.current_page_item > a:after{
+	transform: scaleX(1);
+}
+#navbar-menu .navbar-nav > li > a:after {
+	display: block;
+	content: '';
+	border-bottom: 2px solid #fff !important;
+	transform: scaleX(0);
+	transition: transform 300ms ease-in-out;
+}
+
   #navbar.sps--blw::before {
 	opacity: 1;
 	box-shadow: 0 0.5rem 1rem 0 rgba(21, 21, 30, 0.08);
@@ -5381,9 +5404,7 @@ padding: 0 10px;
 		min-height: 280px;
 		gap: 0px 15px;
 	}
-	.nv-header-right{
-		display: none;
-	}
+	
 	#navbar-menu {
 	  position: fixed;
 	  top: 0;
@@ -5588,9 +5609,9 @@ padding: 0 10px;
 	max-width:75%;
 	margin:0 auto;
 }
-.page-about{
-	max-width:65%;
-	margin:0 auto;
+.page-about {
+    max-width: 72%;
+    margin: 0 auto;
 }
 .page-about span{
 	margin-bottom: 1.5em;
@@ -5625,9 +5646,7 @@ padding: 0 10px;
 	right:5px;
 	bottom: 50px;
 }
-.lcel-details-title{
-	
-}
+
 .lcel-details-title :first-child{
 	font-size: 20px;font-family: 'Futura Condensed' !important;color: black;
 	line-height: 18px;
@@ -5825,7 +5844,7 @@ margin-bottom: 10px;
 .video-title-infos :last-child{
 	color: rgb(255, 255, 255);
     text-align: center;
-    text-transform: capitalize;
+/*  text-transform: capitalize; */
     font-family: 'Futura Condensed' !important;
     font-size: 22px;
 }
@@ -6028,7 +6047,7 @@ margin-bottom: 10px;
 	}
 	    .logo-eqi {
         order: 1;
-        border: 1px solid #000;
+        border: 1px solid #e5e5e5;
         border-radius: 50%;
     }
 	.pdb-30{
@@ -6551,12 +6570,7 @@ a {
 	color:white !important;
 	text-transform:uppercase;
 }
-.nv-tabs-quarts{
-	
-}
-.tabs-rencontre-journée{
-	
-}
+
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a.tabs-rencontre-journée{
 	color:#000000 !important;
 	border-bottom: solid 1px #f78da7;
@@ -6803,8 +6817,8 @@ text-align: center;
 		grid-template-columns: 1fr !important;
 	}
 .nv-rgt-result-jdk h3 {
-        font-size: 18px;
-    padding: 0 !important;
+    font-size: 18px;
+    padding: 9px !important;
     margin: 0 !important;
     line-height: 20px;
 }
@@ -6851,7 +6865,7 @@ text-align: center;
 	}
 	.txt-credit {
 		padding: 5px;
-		max-width: 1200px;
+        max-width: 1364px;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -6970,7 +6984,7 @@ input:focus-visible {
 @media only screen and (max-width:1573px){
 #navbar-menu{width:85% !important; justify-content: space-evenly;}
 .nv-header-lang {position: relative;top: 0px;right: 3px;}
-	.page-about { max-width: 75%;}
+	.page-about { max-width: 75%;  padding: 2%;}
 }
 @media only screen and (max-width:1317px){
 	.custom-logo-link {max-width: 160px !important;}
@@ -7132,7 +7146,7 @@ body table.dataTable thead th, body table.dataTable thead td {
     display: inline-block !important;
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 35px;
+    font-size: 45px;
 }
 /************************bloc-videos-home***********************************/
 .but-vid-hm {
@@ -7196,19 +7210,21 @@ body table.dataTable thead th, body table.dataTable thead td {
 .nv-cat a { color: #E614AA !important; font-size: 23px;}
 /*****************************page-classement************************************/
 body.page-template-modele-tableau-principal .pd-5, body.page-template-modle-classement .pd-5, body.page-template-modle-classement .season-selector-box{background:transparent;}
-.page-id-1734 .site-main.home, .page-id-2887 .site-main.home, page-id-1708 .site-main.home{  
+.page-id-1734 .site-main.home, .page-id-2887 .site-main.home, .page-id-1708 .site-main.home, .page-id-3222 .site-main.home, .page-template-modle-classement-2024{  
     background: url(http://www.rimo0631.odns.fr/wp-content/uploads/2024/08/Group-40066.svg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;}
 body.page-template-modele-tableau-principal .judo_pro_league, body.page-template-modle-classement .judo_pro_league{ padding: 1% 0;}
+.ui-widget.ui-widget-content, .page-template-template section.pd-5{ background: transparent !important;background-color: transparent !important;}
 /*******************************page-resultat***********************************/
 .page-template-modele-calendrier-resultat section {
-    background: url(http://www.rimo0631.odns.fr/wp-content/uploads/2024/08/Group-40066.svg);
+/*  background: url(http://www.rimo0631.odns.fr/wp-content/uploads/2024/08/Group-40066.svg); */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .page-template-modele-calendrier-resultat #tabs{background:transparent !important;}
 /**************************** style-new-sections-home ******************************/
 /***************** section-sondage ******************/
@@ -7221,7 +7237,7 @@ body.page-template-modele-tableau-principal .judo_pro_league, body.page-template
 	position:relative;
     text-align: left;
     font-weight: 600;
-	text-shadow: 1px 1px 18px white;
+/* 	text-shadow: 1px 1px 18px white; */
     font-family: 'Futura Condensed';
     font-size: 45px;
     color: #fff;
@@ -7392,7 +7408,6 @@ span.num-eq {font-size: 30px;}
 	position:relative;
     text-align: center;
     font-weight: 600;
-	text-shadow: 1px 1px 18px white;
     font-family: 'Futura Condensed';
     font-size: 45px;
     color: #000;
@@ -7485,6 +7500,7 @@ h3.clssmnt-h3 {
     justify-content: center;
     align-items: center;
     gap: 19px;
+	padding-right: 20px;
 }
 /******************** bloc-live-home **************************/
 .nv-live-video iframe{border-radius: 15px;}
@@ -7525,7 +7541,7 @@ h3.clssmnt-h3 {
 	padding-right: 0px;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' width='25' height='25' x='0' y='0' viewBox='0 0 24 24' style='enable-background:new 0 0 512 512' xml:space='preserve' class=''%3E%3Cg%3E%3Cpath fill='%23dd01fb' fill-rule='evenodd' d='M6 10.5a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0zm-2 0a6.5 6.5 0 0 0 10.335 5.249l3.604 3.605a.5.5 0 0 0 .707 0l.708-.708a.5.5 0 0 0 0-.707l-3.605-3.604A6.5 6.5 0 1 0 4 10.5z' clip-rule='evenodd' opacity='1' data-original='%23000000' class=''%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0px center;
+    background-position: right 10px center;
     caret-color: #999;
 	transform: translate(23px,0px);
 }
@@ -7534,7 +7550,14 @@ h3.clssmnt-h3 {
 .search-form input[type="search"]{padding: 4px 8px 6px !important;}
 .news-content {padding-top:15px; }
 .page-about p, .page-about ul, .page-about li, .page-about u{ font-size: 20px;font-family: 'Grtsk regular', sans-serif;}
-
+.page-result-desc{
+margin-bottom: 1.5em;
+    font-family: 'Futura Condensed', sans-serif;
+    color: #000;
+    font-size: 18px;
+	font-weight: 400;
+	margin-bottom: 50px;
+}
 .personal-info { display: flex; align-items: center;justify-content: space-between;}
 /*.season-selector-select {margin-bottom: 20px;}*/
 
@@ -7567,7 +7590,7 @@ h3.clssmnt-h3 {
 	.nv-title-clsm-presenta { margin-bottom: 6px !important;font-size: 35px !important;}
 	span.nom-premier { font-size: 17px !important;}
 	.rencntr-main .nv-bg-rencontre {padding: 0px;}
-	.main-info-eq .bg-galerie .nv-title-news-3-col { width: fit-content;	font-size: 17px;}
+	.main-info-eq .bg-galerie .nv-title-news-3-col { width: fit-content;	font-size: 17px !important; }
 	
 }
 @media only screen and (max-width:1100px){
@@ -7586,7 +7609,7 @@ h3.clssmnt-h3 {
 	
 	
     .titre-partners {font-size: 36px;}
-.	.logo-partner { padding: 21px 20px;width: 195px;}
+	.logo-partner { padding: 21px 20px;width: 195px;}
 	.presentation {margin-left: 4%;}
 	.live-vid-flx {justify-content: space-around;}
 	.nv-live-video {width: 68%;}
@@ -7730,7 +7753,7 @@ h3.clssmnt-h3 {
     align-items: stretch!important;
     justify-content: center!important;
     flex-wrap: wrap!important;
-    align-content: center!important;}
+    align-content: center!important; width: 95% !important;}
 	.page-template-modele-videos-new .videos-container-element:nth-child(1) { width: 96% !important;}
 	.video-preview {min-height: 94px;}
 	.videos-container {padding: 12px 0px !important;}
@@ -7742,7 +7765,7 @@ h3.clssmnt-h3 {
 	section { padding: 0% 0%;}
 	.page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer {padding: 0px 15px 15px 15px;}
 	 table.dataTable tbody tr {height: 42px;}
-	.tr-stat td:nth-child(1) {padding-left: 20px !important;}
+	.tr-stat td:nth-child(1) {padding-left: 6px !important; padding-top: 5px !important;}
 	.phases-cl2 {margin: 26px auto 0px auto;}
 	h1.result-h1.mtb-0 { margin: auto;}
 	 .page-id-2882 select#categorie { padding: 10px;}
@@ -7846,7 +7869,8 @@ h4.mobile-h4 { display:none;}
 .logos-partners {width: 100%;}
         .tab-phase a { font-size: 18px;}
 	    .page-template-modele-videos-new .container {  max-width: 100%; }
-	    .page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview {  min-height: 217px; height: auto;}
+	    .page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview, .page-template-modele-videos-new .video-preview {  min-height: 217px; height: auto;}
+
 	    .video-preview {  min-height: 0; height: 105px;}
 	    .page-template-modele-videos-new .videos-container-element { width: 44% !important;}
 	/**************************page-equipes***************************/
@@ -7859,7 +7883,7 @@ h4.mobile-h4 { display:none;}
 	.page-id-1708 .cal-res-poule {width: 100% !important;}
 	.page-id-1708 .ui-tabs .ui-tabs-panel {padding: 1em 1.4em 1em 1.4em;}
     }
-@media only screen and (max-width:375px){   
+@media only screen and (max-width:375px){    
 	
 	    .main-info-eq >.pdb-30 {  min-height: 452px !important;display: flex; align-items: center;  justify-content: center;}
 	    .main-info-eq .ul-style-eqp {  width: 673px !important;  }
@@ -7921,9 +7945,9 @@ li.rencontre .beaten span {color: #fff !important;}
 .pd-5.eq-reslt-div {max-width: 1440px; background: #fff !important;margin:auto;}
 .eq-reslt-div .judo_pro_league {max-width: auto;}
 .eq-reslt-flx {
-    display: flex!important;
+    display: flex !important;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .eq-reslt-flx .crt-title {WIDTH: fit-content;margin: 0px;}
@@ -7986,12 +8010,13 @@ li.rencontre .beaten span {color: #fff !important;}
     align-content: center;
 }
 .main-info-eq .bg-galerie .nv-title-news-3-col {
-    color: #ffffff;
-    margin-bottom: -30px;
+    color: #000000;
+    margin-bottom: 0px;
     margin-top: 0px;
-    transform: translate(21px, -51px);
+    /* transform: translate(21px, -51px); */
     position: relative;
     font-size: 21px;
+    height: auto !important;
     line-height: 25px;
     text-transform: uppercase;
 }
@@ -8025,7 +8050,7 @@ li.rencontre .beaten span {color: #fff !important;}
 	height:1px;
 	background-color:#000;
 }
-.main-info-eq .bg-clss-season{padding:0% 2% 2% 2%;}
+.main-info-eq .bg-clss-season{padding:2% 2% 2% 2%;}
 /*********************page-class-result-2024*************************/
 .cal-res-poule-team img {
     width: 35px !important;
@@ -8066,7 +8091,13 @@ li.rencontre .beaten span {color: #fff !important;}
 }
 .result-24 .cal-res-poule{gap: 31px;}
 /***bloc-rencontres-home***/
-.col-rcntr{background: linear-gradient(90deg, rgba(219, 2, 255, 1) 0%, rgba(151, 6, 211, 1) 100%);width:30%;padding-block: 5px;}
+.col-rcntr {
+    background: linear-gradient(90deg, rgba(219, 2, 255, 1) 0%, rgba(151, 6, 211, 1) 100%);
+    width: 20%;
+    margin-left: 18px;
+    border-radius: 20px;
+    padding-block: 2%;
+}
 .sides-rencontres-grid{
     margin-bottom:0px;
 	display: grid;
@@ -8090,7 +8121,7 @@ li.rencontre .beaten span {color: #fff !important;}
 .side-rencontres-affiche{
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr 1fr 1.3fr 1fr 1fr;
     padding: 5px 10px;
     border-bottom: 1px solid rgb(170 170 170 / 30%);
     height: 40px;
@@ -8159,6 +8190,7 @@ color: white;
 	max-width:fit-content;
     line-height: 1;
     margin: 0;
+	display:none;
 }
 .home-articles-title:before{
 	position:absolute;
@@ -8187,7 +8219,7 @@ color: white;
     transition: 0.3s;
 }
 .but-vid-hm i{margin-left:20px;}
-.col-actus {padding: 4% 4%; width: 70%;}
+.col-actus {padding: 2% 4%; width: 80%;}
 .col-actus .news-1-2-3-col {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -8207,7 +8239,7 @@ color: white;
 .col-actus .news-img-2-col {min-height: 209px;}
 .col-actus .nv-title-news-3-col{font-size:22px;height: 34px;}
 .col-actus .news-3-col {grid-template-columns: repeat(2, 1fr);}
-.section-side-rencontres .section-header { align-items: center !important;}
+/* .section-side-rencontres .section-header { align-items: center !important;} */
 h3.title-rcntr {
     position: relative;
     text-align: center;
@@ -8220,8 +8252,23 @@ h3.title-rcntr {
     line-height: 1;
     margin-inline: auto;
     margin-bottom: 38px;
+	display:none;
 }
-h3.title-rcntr:before {
+.col-rcntr .journee-div{
+	margin-top: 1px;
+    position: relative;
+    text-align: center;
+    font-weight: 500;
+/*  text-shadow: 1px 1px 18px white; */
+    font-family: 'Futura Condensed';
+    font-size: 30px;
+    color: #fff;
+    max-width: fit-content;
+    line-height: 1;
+    margin-inline: auto;
+    margin-bottom: 38px;
+}
+/* h3.title-rcntr:before {
     position: absolute;
     left: 0;
     content: "";
@@ -8238,17 +8285,45 @@ h3.title-rcntr:after {
     width: 100%;
     height: 1px;
     background-color: #fff;
+} */
+.col-rcntr .journee-div:before {
+    position: absolute;
+    left: 0;
+    content: "";
+    top: -8px;
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
 }
-.col-rcntr .nv-name {font-size: 23px;}
+.col-rcntr .journee-div:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+}
+.side-rencontre-date {
+    color: #FFFFFF !important;
+    background-color: #ffffff52;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 5px 35px;
+    width: fit-content;
+    border-radius: 5px 5px 0px 0px;
+}
+.col-rcntr .nv-name {font-size: 26px;}
 .col-rcntr .side-rencontres-flip-card-front{background:transparent; transition: 0.4s ease-in-out !important;}
 .col-rcntr .side-rencontres-flip-card-back { background-image:linear-gradient(rgb(47 106 219), #8e0bd4);}
 .col-rcntr .side-rencontres-affiche img.nv-img {
-    border-radius: 50%;
+    /* border-radius: 50%; */
     width: 50px;
-    background: #fff;
+    /* background: #fff; */
     height: 50px;
     max-width: 100%;
-    object-fit: none;
+    object-fit: contain;
 }
 .but-rnctr-hm{
     font-size: 29px;
@@ -8260,13 +8335,15 @@ h3.title-rcntr:after {
     text-decoration: underline !important;
     transition: 0.3s;
 }
-.rcntr-score, .rcntr-score .nv-score, .nv-time{font-size: 41px;}
+.rcntr-score, .rcntr-score .nv-score, .nv-time{font-size: 30px;}
 .col-rcntr .side-rencontres-affiche {border-bottom: none;}
 .flip-card {height: 151px;}
+.col-rcntr .flip-card {height: 107px;margin-bottom:0px !important;}
+body .col-rcntr .rnctr-div-li.mb{margin-bottom:0px !important;}
 .side-rencontres-affiche {height: 83px;}
-.col-rcntr{/*height: 1512px;*/height:auto !important;}
+.col-rcntr{/*height: 1512px;*/height:auto !important; margin-block: 2% !important;}
 /*******page actus******/
-.section-bloc-articles .display-news-2-col-reverse h3{font-size: 29px;}
+.section-bloc-articles .display-news-2-col-reverse h3{font-size: 29px; height: auto !important;}
 .page-actus {max-width: 1440px;margin: auto;}
 .page-actus .section-bloc-articles {padding: 4% 4%;margin: auto;}
 .page-actus .news-3-2-1-col { display: grid;grid-template-columns: 1fr;gap: 37px;}
@@ -8280,13 +8357,14 @@ h3.title-rcntr:after {
 }
 .page-actus .display-news-2-col-reverse {
     background: #e9e9e9;
-    height: 100%;
+    /*height: 100%; pb*/
     border-radius: 15px;
-    padding: 5px;
-    display: flex;
+    padding: 5px !important;
+    /*display: flex;pb*/
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+	display: flex;
 }
 .page-actus .display-news-1-col {
     background-color: #e9e9e9;
@@ -8304,7 +8382,7 @@ h3.title-rcntr:after {
 .page-actus .display-news-2-col-reverse .news-img-2-col {min-height: 347px;}
 .page-actus ul.page-numbers { padding: 0px; display: flex; gap: 15px; margin-top: 50px;}
 .page-actus a.page-numbers { border: 2px solid #000!important;padding: 6px 12px;border-radius: 7px;}
-.page-actus .next.page-numbers{border:none !important;}
+/* .page-actus .next.page-numbers{border:none !important;} */
 .page-actus a.page-numbers:hover, .page-actus ul.page-numbers .current { border: 2px solid #E737F8!important;background:#E737F8;color:#fff;padding: 6px 12px;border-radius: 7px;}
 
 .page-actus .result-h1 {margin-bottom: 60px;}
@@ -8317,6 +8395,7 @@ h3.title-rcntr:after {
 
 /*responsive*/
 @media only screen and (max-width:1750px){
+.judoka-name {font-size: 21px;}
 .div-videos {gap: 20px;}
 .col-actus .nv-title-news-3-col {font-size: 19px;}
 	
@@ -8327,7 +8406,9 @@ h3.title-rcntr:after {
 
 }
 @media only screen and (max-width:1366px){
+.equipes.type-equipes .container {  max-width: 94%;}
 	
+.col-rcntr .journee-div { font-size: 30px;}
 .col-actus .nv-title-news-3-col {  margin-top: 0px !important; }		
 .div-videos {gap: 24px;}
 .col-actus .nv-title-news-3-col {height: 52px;}
@@ -8335,7 +8416,15 @@ h3.title-rcntr:after {
 .col-actus .news-1-2-3-part2 a .news-img-2-col{ min-height: 380px!important;}
 .col-rcntr {height: 1567px;}
 }	
+
+@media only screen and (max-width:1162px){
+.equipes.type-equipes .nv-cat a { font-size: 15px;}
+}
 @media only screen and (max-width:1100px){
+	
+.equipes.type-equipes .judoka-name { font-size: 18px; }
+.equipes.type-equipes .nv-cat span { font-size: 20px;}
+.equipes.type-equipes .container {  max-width: 100%;}
 .section-side-rencontres{padding:0%;}
 h3.title-rcntr {font-size: 28px;}
 .col-rcntr .nv-name {font-size: 19px;}	
@@ -8349,12 +8438,17 @@ h3.title-rcntr {font-size: 28px;}
 	
 }
 @media only screen and (max-width:1024px){
+	.desk-menu-rs {
+        display: none;
+    }
 .section-side-rencontres .section-header {display: flex!important;align-items: center;}
 .page-actus .result-h1 {margin-bottom: 40px;}
 	.classmnt-24 .cal-res-poule-blc, .result-24 .cal-res-poule-blc{ width: 48%;}
 }
 
 @media only screen and (max-width:800px){
+	.equipes.type-equipes .container {  max-width: 95%;}
+	
 	.tab-phase:hover, .tab-phase{
     display: flex;
     justify-content: center;
@@ -8391,7 +8485,7 @@ h3.title-rcntr {font-size: 21px;}
 .but-rnctr-hm {font-size: 20px;}
 .col-rcntr .side-rencontres-affiche img.nv-img {width: 40px;height: 40px;}
 .page-actus .news-img-2-col {min-height: 117px;}	
-.page-actus .news-3-2-1-col {grid-template-columns: 2fr 2fr;}
+.page-actus .news-3-2-1-col {grid-template-columns: 1fr;}
 .page-actus .news-1-col {gap: 6px;}	
 .page-actus .display-news-2-col .news-img-2-col {min-height: 93px !important;}
 .page-actus .display-news-2-col-reverse .news-img-2-col {min-height: 265px;}
@@ -8407,6 +8501,7 @@ h3.title-rcntr {font-size: 21px;}
 	
 }
 @media only screen and (max-width:497px){
+	 .tab-phase {font-size: 12px; }
 	.home .flip-card:nth-child(5) {margin-top: -26px !important;}
 	.side-rencontres-details {	margin-top: -3px !important;}
     .side-rencontre-date {padding: 1px 35px !important;}
@@ -8537,7 +8632,10 @@ form#search-form {
 /****************/
 @media only screen and (max-width:1100px){
 .search-popup-content {width: 45%;max-width: 568px;}
-h2, .home .nd-title{ font-size: 34px !important; }
+.home h2, .home .nd-title{ font-size: 34px !important; }
+h2{text-align: center !important;   font-size: 25px !important;}	
+	
+	.crt-title{font-size: 20px !important;}
 .jdk-ttl { margin-bottom: 37px;
         text-align: center;
         font-size: 30px; }
@@ -8550,14 +8648,14 @@ h2, .home .nd-title{ font-size: 34px !important; }
 .search-icon { color: #fff!important; font-size: 20px; }
 .col-actus .news-3-col .news-img-2-col, .col-actus .news-img-2-col{ min-height: 150px;}
 	
-	.col-actus .news-1-2-3-part1 ..news-img-2-col, .col-actus .news-3-col .news-img-2-col {  min-height: 238px;}
-	
-	
+	.col-actus .news-1-2-3-part1 .news-img-2-col, .col-actus .news-3-col .news-img-2-col {  min-height: 238px;}
+	.clssmnt-content {padding: 20px 20px;}
+	h2{font-size: 21px !important;}	
 }
 
 
 @media only screen and (min-width:801px){
-.mob-icon { display: none !important;}
+/* .mob-icon { display: none !important;} */
 }
 
 
@@ -8569,7 +8667,13 @@ select option:checked{
   box-shadow: 0 0 10px 100px red inset !important;
   }
 @media only screen and (max-width:600px){
-h2, .home .nd-title {   text-align: center !important;   font-size: 28px !important;}
+	
+	.page-actus .display-news-2-col-reverse .news-img-2-col {
+        min-height: 182px !important;
+    }
+	
+.home h2, .home .nd-title{   text-align: center !important;   font-size: 28px !important;}
+ h2{ font-size: 20px !important;}	
 .sondage-home .sondg-title{ margin: auto;}
 .ays-survey-title {  font-size: 27px !important;text-align: center !important;}
 .home .div-videos { width: 100% !important;  gap: 14px;  max-width: 100% !important; }
@@ -8584,14 +8688,21 @@ h2, .home .nd-title {   text-align: center !important;   font-size: 28px !import
 	
 }
 @media only screen and (max-width:497px){
-	.col-rcntr {  width: 100% !important;}
+
+     h2{font-size: 19px !important;}	
+	 .col-rcntr {
+        width: 93% !important;
+        margin-left: 0px;
+        margin-top: 13px;}
 	.col-actus .nv-title-news-3-col {font-size: 14px !important;}
 	span.nom-premier {  font-size: 22px !important;}
     .news-1-2-3-part1 {display: block;}
     .jdk-ttl {  text-align: center !important;}
     .jdk-mois { border: 4px solid #fff !important; background-size: auto !important;}
 
-    
+    .clssmnt-content {  padding: 20px 10px; }
+	
+	
     .bg-stat h3 {  margin-bottom: 0px !important; }
     .bg-stat h4.mobile-h4 {   margin-top: 20px !important;}
 
@@ -8626,9 +8737,10 @@ font-family: 'Futura Condensed Extra-bold' !important;
     font-size: 24px; line-height:30px;
 }
 .news-2-col .nv-title-news-3-col{
+	height: auto !important;
     font-size: 19px; line-height:25px;
 }
-.home .col-actus .nv-title-news-3-col {  font-size: 15px;  line-height: 19px;  height: 43px; }
+.home .col-actus .nv-title-news-3-col {  font-size: 17px;  line-height: 19px;  height: 43px; }
 
 h3.cal-res-poule-eqp { font-size: 17px !important;}
 .page-template-modele-calendrier-resultat .crt-title { font-size: 22px !important;}
@@ -8645,8 +8757,7 @@ h3.cal-res-poule-eqp { font-size: 17px !important;}
     font-size: 27px;
 }
 
-.home .flip-card:nth-child(5) { margin-top: -42px; margin-bottom: -32px !important;}
-.but-rnctr-hm { margin-top: -46px; margin-bottom: 20px;z-index:9999 !important; position:relative;}
+.but-rnctr-hm { margin-top: 0px; margin-bottom: 0px;z-index:9999 !important; position:relative;}
 @media only screen and (min-width:498px) and (max-width:800px){
 .jdk-mois {	background-size: 106% 117% !important;}
 }
@@ -8713,22 +8824,952 @@ h3.cal-res-poule-eqp { font-size: 17px !important;}
     color: #9b42d8 !important;
     font-size: 20px !important;
 }
-/************************************/
+/*******************************************************/
+.season-selector-box {margin-bottom: 42px;}
+.result-h1{text-transform:uppercase !important;}
+.rencntr-main .beaten span {color: #000 !important;}
+.rencntr-main .nv-equip-name {color: #060e95 !important;}
+.col-actus .flx-tle-but { justify-content: flex-end;margin: 18px 0 0px 0 !important;}
+.rencontres-section.splide { visibility: visible;}
 
-@media only screen and (max-width:1360px){
+
+
+/***************imgs equipe********************/
+.page-eq-phot .liste-images-galerie.judo_pro_league {display: grid !important;grid-template-columns: 1fr 1fr 1fr !important;gap:15px !important;}
+.page-eq-phot .liste-images-element:before, .page-eq-phot .liste-images-element, .page-eq-gal .liste-images-element:before, .page-eq-gal .liste-images-element, .page-eq-vid .video-preview{ border-radius: 8px !important;}
+.page-eq-vid h3.nv-title-news-3-col{height:auto !important;}
+.page-eq-gal, .page-eq-vid .liste-images-galerie{display: grid !important;grid-template-columns: 1fr 1fr 1fr !important;gap:15px !important;}
+.page-eq-phot, .page-eq-gal{max-width: 1440px !important;padding:0px 2% !important;}
+
+.page-eq-phot .liste-images-element,  .page-eq-gal .liste-images-element{margin: 0 0 0px 0 !important;}
+
+.type-judoka .nv-details-judoka { padding: 0px 0 !important;}
+/******************************************************/
+.page-stats-judokas .align-photo-nom-vertically {padding-top: 0px !important;}
+.page-id-2882 div#tableauAll_paginate {margin-bottom: 20px;}
+section.nv-gal-equ { padding: 3% 2%;}
+.nv-gal-equ .galerie-images-resultat {margin-top: 0px!important;}
+.post-3005.judoka.type-judoka.status-publish.hentry {border-radius: 0px !important;}
+.judoka-template-default.single.single-judoka #secondary{display:none !important;}
+
+
+.page-jdk .nv-title-stat{overflow:hidden !important;}
+
+.postid-182  section.section-bloc-articles {padding: 3% 2% !important;}
+/************************************/
+.sondage-home{display:none !important;}
+.home .h2-presentation {text-align: left !important;margin-bottom: 0px;position:relative;}
+.home .h2-presentation:before {
+    position: absolute;
+    left: 0;
+    content: "";
+    top: -10px;
+    width: 60%;
+    height: 1px;
+	margin: 0;
+    background-color: #000;}
+.home .h2-presentation:after {
+    position: absolute;
+    content: "";
+	margin: 0;
+    left: 0;
+    bottom: -10px;
+    width: 60%;
+    height: 1px;
+    background-color: #000;
+}
+.page-id-2887.page-template-modele-tableau-principal .judo_pro_league { padding: 1% 0 4% !important;}
+.page-id-3217 .pd-5 {padding: 0 0 4% 0 !important;}
+.div-jdk-tabs:nth-child(2) .nv-team-hdr{padding: 11px 15px !important;}
+/***************************************************************************/
+@media only screen and (max-width:1440px){
+.presentation {	max-width: 57%;}
+}
+@media only screen and (max-width:1678px){
+h3.title-rcntr {font-size: 38px;}
+.col-rcntr .nv-time {margin-inline: 5px;}	
+
+}
+@media only screen and (max-width:1366px){
+	h2.crt-title {font-size: 21px !important;}
+	
+	
 .section-header {max-width: 100%;}
+.col-actus {width: 75%;}	
+.col-rcntr {width: 25%;}	
+.col-rcntr .journee-div { margin-top: 20px !important;}
+	.col-rcntr {margin-block:18px;}
 }
 @media only screen and (max-width:1280px){
 .rencontre-element {  width: 156px !important;}
  #navbar-menu { justify-content: end !important;}
 	
 }
-@media only screen and (max-width:1100px){
-    .section-header {max-width: 100% !important;}
+@media only screen and (max-width:1178px){
+.brd-header.slide-equipes-haut{display:none;}
 }
-@media only screen and (max-width:800px){
-     #navbar-menu { justify-content:center !important;}
+@media only screen and (max-width:1124px){
+.classmnt-24 .table-23 { grid-template-columns: 0.2fr 1.5fr 3fr;}
 
 }
-.season-selector-box {margin-bottom: 42px;}
-.result-h1{text-transform:uppercase !important;}
+@media only screen and (max-width:1100px){
+    .section-header {max-width: 100% !important;}
+	.page-eq-phot h2{font-size: 19px !important;}
+	.page-eq-vid section{padding: 23px 20px !important;}
+}
+@media only screen and (max-width:1086px){
+.flip-card-front, .flip-card-back {	height: 88%;}
+}
+
+@media only screen and (max-width:1024px){
+.nv-header-right {  width: 14% !important;}
+.nv-journee-cl {font-size: 18px;}
+	
+	
+.home .col-actus .nv-title-news-3-col {font-size: 13px;  line-height: 16px;}
+.home .col-actus .news-1-2-3-part1 .news-img-2-col { min-height: 175px;}
+.home .col-actus .news-1-2-3-part2 a .news-img-2-col { min-height: 405px !important;}
+	
+.col-rcntr .but-rnctr-hm {	font-size: 23px;}
+.col-rcntr {  margin-block: 15px; }
+	.nv-logo-cpyr img { max-width: 51px;}
+}
+@media only screen and (max-width:1020px){
+	.mob-icon {display: flex;  align-items: center; justify-content: center;}
+	.mob-icon  .search-icon { color: #fff;  font-size: 20px;}
+	#navbar-menu { justify-content: center !important;}	
+}
+@media only screen and (max-width:800px){
+	
+	#navbar-menu .navbar-nav > li > a:after {width: 80%;margin:auto !important;}
+	#navbar-menu .navbar-nav > li > a:after {border-bottom: 1px solid #fff !important;}
+	#langues-menu .souligne { border-bottom: 2px solid #4de800 !important;}
+	
+	
+	
+	.tr-stat td:nth-child(1) {min-height: 42px;}
+	
+	.home .h2-presentation:before, .home .h2-presentation:after{margin:auto !important; right:0 !important;}
+	.home .h2-presentation { text-align: center !important;}
+	
+	.tr-stat td:nth-child(1) {  display: flex !important;  padding-top: 0px !important;   align-items: center;  justify-content: flex-start;  align-content: center; }
+	.page-stats-judokas .dataTables_wrapper table th { text-align: center !important; }
+	 .page-stats-judokas thead > tr > th:nth-child(1) {  width: 237px !important;  }
+	
+	
+	.section-header {  gap: 0px;}
+	.result-h1 {font-size: 26px !important;margin-bottom:40px;}
+	.classmnt-24 .table-23 .table-tname {font-size: 15px;}
+    .col-actus {width: 70%;}	
+    .col-rcntr {width: 30%;}
+	h3.title-rcntr {font-size: 30px;}
+	.nv-logo-cpyr img { max-width: 38px;}
+	form#search-form {    align-items: center;flex-direction: column;}
+	.tp-3x-grid {max-width: 100%;}
+	
+	.page-template-modele-videos-new .videos-container-element:nth-child(1) .nv-title-news-3-col {height: auto !important; }
+	.page-template-modele-videos-new .videos-container-element {width: 30% !important;}
+	
+}
+
+@media only screen and (min-width:1200px){
+	.brd-header.slide-equipes-haut{display:none;}
+
+}
+@media only screen and (max-width:600px){
+	#tableauAll .align-photo-nom-vertically a {line-height: 0.9;}
+	
+	.journees { max-width: 100%;}
+	.search-popup-content {width: 58%;}
+    .page-actus .news-img-2-col{  min-height: 206px !important;}
+	.brd-header.slide-equipes-haut .splide {display: block !important; position: relative !important; }
+	.brd-header.more-1200 .nv-logo-cpyr {gap: 4px;}
+	.brd-header.slide-equipes-haut .splide__arrow svg { fill: #ffffff !important; background-color: #9b06d6; border-radius: 50px;}
+	
+	.page-id-2882 form.cat-equipes-selector-form select#categorie{padding: 7px 33px 7px 16px;}
+	
+	
+}
+@media only screen and (max-width:497px){
+	
+#tableauAll .align-photo-nom-vertically .nom-stat-eq { text-align: center !important;}
+#tableauAll .tr-stat td:nth-child(1) { flex-direction: column; }
+.avenir, .encours, .terminer{min-height: 49px;}
+.bg-galerie .div-flx-nv, .bg-gt .div-flx-nv{ display: flex;flex-direction: column;margin-bottom:20px !important;}
+.main-info-eq .div-flx-nv .nv-title-clsm {width: 100%;}
+#tableauAll .align-photo-nom-vertically a {line-height: 0.9;}	
+	
+	.page-actus ul.page-numbers { flex-wrap: wrap;}
+    .home .h2-presentation { text-align: center !important;}
+	
+	.nv-journee-cl {  font-size: 13px;  text-align: center; }
+	 .postid-182 .video-preview {min-height:200px;height:auto;}
+	
+	.blog .entry-content {min-height: 0px !important;}
+	.search-popup-content {width: 82%;}
+	.brd-header.more-1200{display:none;}
+	
+	.brd-header.slide-equipes-haut{display:block;}
+	.brd-header.slide-equipes-haut .splide li{ width: 13% !important;}
+	 .page-actus .display-news-1-col, .page-actus .display-news-2-col-reverse {grid-template-columns: 1fr;gap: 0px !important;}
+	.classmnt-24 .table-23 .table-tname {  font-size: 12px;}
+	.col-actus {width: 100%;}
+	
+	.page-eq-gal, .page-eq-phot .liste-images-galerie.judo_pro_league{grid-template-columns: 1fr 1fr !important;}
+	.page-eq-vid .liste-images-galerie{grid-template-columns: 1fr !important;}
+	.page-eq-gal .liste-images-element, .page-eq-phot .liste-images-element { background-size:cover;height: 205px;}
+	
+	.page-eq-phot h2 {  font-size: 13px !important; text-align: left !important;line-height: 16px !important;}
+	
+	.home .col-actus .news-1-2-3-part2 a .news-img-2-col { min-height: 211px !important;}
+	
+	.page-id-2882 .wp-caption-text { font-size: 17px;}
+	.page-id-2882 form.cat-equipes-selector-form select#categorie, .page-id-2882 form.cat-equipes-selector-form select#categorie_value, .page-id-2882 form.cat-equipes-selector-form select#equipe_value{        padding: 7px 9px 7px 9px !important;font-size:13px !important;}
+	
+	.page-template-modele-videos-new .videos-container-element {width: 100% !important;}
+	
+}
+@media only screen and (max-width:375px){
+.search-popup-content {	padding: 38px 20px 20px 20px;}
+.page-id-2882 .align-photo-nom-vertically a { font-size: 27px;   line-height: 14px;text-align: center;}
+.page-id-2882 .tr-stat td:nth-child(1) { display: flex !important; padding-top: 0px !important; align-items: center; justify-content: flex-start; align-content: center;flex-direction: column; }
+.page-id-2882 .paginate_button {margin-inline: 1px;}
+	
+	
+}
+@media only screen and (max-width:320px){
+.search-popup-content { width: 94%;}
+.page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer { padding:1px 1px 3px 1px;}
+form.cat-equipes-selector-form {padding: 3px;}	
+.page-id-2882 .judo_pro_league { max-width: 100%; }
+	
+}
+
+@media only screen and (min-width:1020px){
+.mob-icon .search-icon{display:none;}
+}
+/*************************************************************************************************************************/
+.m-t-0{margin-top:0px !important;}
+.kinza {
+    background-color: #315B31;
+    color: #fff;
+    border-radius: 50px;
+    padding: 2px 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.article-respo{ height: auto !important;}
+.postid-3443 .nv-bloc-rencontre .container-iw {grid-template-columns: 1fr 2fr 1fr !important;}
+/*****************************************************************/
+.nv-gal-equ.bg-blanc{background-color:#fff;}
+.page-eq-gal.page-eq-gal-jdk {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    align-content: center;
+}
+.page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 23%;}
+.nv-gal-equ.bg-blanc .video-preview{
+    height: 253px;
+    border-radius: 15px;
+}
+.judoka img { border-radius: 15px 15px 0px 0px;}
+.page-eq-gal .liste-images-element {background-size: cover;width: 100%;    background-position: top center !important;}
+.live iframe { border-radius: 15px;border: none !important;  width: 100% !important;}
+.live-video {margin-block: 10px;}
+/**************************************************************************************************************************/
+.rgt-result-jdk-1 { grid-template-columns: 17% 28% 50% !important;}
+.lft-result-jdk-1{ grid-template-columns: 50% 34% 17% !important;}
+.lft-result-jdk {grid-template-columns: 55% 45%;}
+.rgt-result-jdk{grid-template-columns: 45% 55%;}
+.nv-bloc-rencontre .container-iw {grid-template-columns: 1fr 1.9fr 1fr;}
+.nv-bloc-rencontre .div-span {gap: 52px;}
+.rencntr-main .result-jdk {grid-template-columns: 43% 14% 43% !important;}
+.iw-2 {grid-template-columns: 1fr 0.1fr;}
+.title-iw {grid-template-columns: 40% 18% 40% !important;}
+@media only screen and (max-width:1024px){
+.sec-rencontre .nv-bg-rct { margin-top: 3% !important;}
+.kinza{display:block !important; margin: auto !important;}
+.nv-rgt-result-jdk {grid-template-columns: 50% 50%;}
+.nv-rgt-result-jdk h3 {	font-size: 18px;}
+.rgt-result-jdk-1 {  grid-template-columns: 13% 34% 37% !important;}
+.flex-col { width: 90%;}    
+.result-jdk-mobile {grid-template-columns: 75% 25;}		
+.page-eq-gal.page-eq-gal-jdk { margin-top: 20px;}
+}
+@media only screen and (max-width:800px){
+.kinza {padding: 1px 10px !important;}
+.nv-rgt-result-jdk h3 {font-size: 14px;}
+.rgt-result-jdk-1 {grid-template-columns: 23% 34% 37% !important;}
+.nv-iw-1 {grid-template-columns: 42% 46%;}		
+.judoka img {width: 30%; }	
+.page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 30%;}
+}
+@media only screen and (max-width:497px){
+.page-id-2882 .judo_pro_league { max-width: 99%; margin: auto;}
+#tableauAll .align-photo-nom-vertically a { text-align: center !important; }
+.nv-iw-1 { grid-template-columns: 63% 49%; }
+.page-eq-gal .liste-images-element{ max-height: 160px;}
+.page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 47%;}
+}
+@media only screen and (max-width:320px){
+.nv-result-eqju {padding: 0 5px;}
+.nv-rgt-result-jdk h3 { padding: 11px !important; font-size: 12px;}	
+	
+}
+.single-equipes .splide__pagination__page {	background: #1a1caf !important;}
+.single-equipes .splide__pagination__page.is-active {background: #dd01fb !important;}
+.single-equipes .splide__arrow {background: #1a1caf !important;}
+
+.sub-header-pari{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.sub-header-pari-logo{
+	width: 244px;
+}
+.sub-header-pari-profil{
+    width: 40%;
+}
+.flex-row-center{
+	    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile-picture-link{
+	text-align: end;
+}
+.flex-3-pari{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.flex-3-pari2{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.flex-3-pari2 .sub-menu-element a{
+	    display: flex;
+    margin: 8px 15px 0px 15px;
+    gap: 7px;
+}
+.no-border{
+	line-height: 22px;
+}
+.flex-1-pari{
+	display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin: 10px 0px;
+    flex-wrap: wrap;
+}
+.flex-3-pari .sub-menu-element,.flex-2-pari .sub-menu-element{
+	padding: 10px 20px;
+}
+.my-leagues-list li{
+	background-color: #edecff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: 10px 0px;
+}
+.my-leagues-list img{
+	vertical-align: middle;
+    margin-right: 10px;
+}
+.pari-form textarea, .pari-form input{
+	background-color: #edecff;
+    border-radius: 8px;
+    border: solid 2px #1724F6;
+}
+.my-leagues-list{
+	max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 37px;
+    padding: 0px;
+}
+.divider{
+	width: 100%;
+    margin: 20px 0px;
+    border: solid 1px #cbcbcb
+}
+.center-upper-title{
+	text-align: center;
+	text-transform: uppercase;
+}
+.flex-3-pari .sub-menu-element a{
+	display: flex;
+}
+.flex-1-pari .sub-menu-element{
+	padding: 10px 20px;
+	width: 100%;
+	max-width: 360px;
+}
+.flex-1-pari{
+	max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.flex-2-pari{
+	display: flex;
+    flex-direction: row;
+	gap: 20px;
+}
+.status-pari{
+	background: #a595f7;
+    width: fit-content;
+    margin-left: auto;
+    border-radius: 7px;
+    margin-right: auto;
+    padding: 5px 10px;
+}
+.grid-3-pari{
+	display: flex;
+    justify-content:center;
+}
+.grid-3-pari-titles{
+	display: flex;
+    justify-content: space-between;
+}
+
+.grid-3-1-pari{
+	display: flex;
+    gap: 20px;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.col-2-form{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin: 10px 0px;
+}
+.round-border-purple{
+	border-radius: 8px;
+	border:solid 2px #1724F6;
+}
+.round-border{
+	border-radius: 8px;
+}
+.bg-gray{
+	background-color: #edecff;
+}
+.bg-orange{
+	background-color: #f4e092;
+}
+.bg-green{
+	background-color: #7de475;
+}
+.bg-green a,.bg-green span{
+	color: white;
+}
+.sub-menu-element a.horizontal{
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+.champ2{
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.sub-menu-element a.horizontal2{
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	align-items: center;
+	gap:10px
+	
+}
+.sub-menu-element a.vertical{
+	display: flex;
+    flex-direction: column;
+}
+.sub-menu-element span{
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 20px;
+}
+.img-text{
+	display: flex;
+}
+.menu-img{
+	width: 100px;
+}
+.content-center{
+	text-align: center;
+}
+.what1{
+	text-align: center;
+    display: flex;
+    line-height: 20px;
+    flex-direction: column;
+}
+
+.total-home{
+	font-size: 60px;
+	font-weight: bolder;
+	line-height: 40px;
+}
+@media only screen and (max-width:600px){
+	.flex-3-pari2 {
+		flex-wrap: wrap;
+		gap: 16px;
+	}
+	.flex-3-pari2 .sub-menu-element a {
+		margin: 8px 12px 0px 8px !important;
+	}
+	.flex-3-pari .sub-menu-element {
+		padding: 10px 12px !important;
+	}
+	.flex-3-pari{
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	.grid-3-1-pari{
+		gap:5px !important;
+	}
+	.grid-3-pari{
+		justify-content: space-between !important;
+	}
+	.score-equipe {
+		font-size: 13px !important;
+    	width: 30px !important;
+	}
+	.pari {
+		padding: 10px !important;
+	}
+	.equipe{
+		margin: 5px !important;
+	}
+	.pages-pari .ui-tabs .ui-tabs-panel {
+		padding: 0.4em !important;
+	}
+	.image-equipe-pari {
+		width: 82px !important;
+	}
+	.temps-restant-pari {
+		padding: 5px 5px !important;
+		font-size: 11px !important;
+	}
+	.bonus-pari {
+		font-size: 13px !important;
+		padding-right: 15px;
+	}
+	.status-pari {
+		font-size: 14px !important;
+	}
+	.title-team-pari {
+		font-size: 8px !important;
+	}
+	.bonus-paris-title {
+		font-size: 13px !important;
+	}
+	.equipe-box{
+		width: 90px !important;
+	}
+}
+.bonus-paris-title{
+	text-align: center;
+	text-transform: uppercase;
+}
+.grid-3-bonus{
+	display: flex;    
+	gap: 20px;
+    justify-content: center;
+}
+.bonus-pari{
+	font-weight: bolder;
+	border: solid 1px;
+    border-radius: 20px;
+	position: relative;
+    padding-right: 25px;
+}
+.bonus-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff9b00;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 3px 6px;
+}
+.score-equipe{
+	border: solid 1px;
+    border-radius: 20px;
+    font-weight: bolder;
+    font-size: 25px;
+    height: 50px;
+    width: 50px;
+	
+}
+.equipe-box{
+	width: fit-content;
+}
+.score-equipe input{
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+	border: none;
+}
+.liste-paris{
+	display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.pari{
+	border: solid 1px;
+    border-radius: 20px;
+	padding: 20px;
+}
+.temps-restant-pari{
+	border: solid 1px;
+    border-radius: 20px;
+    font-weight: bolder;
+    padding: 5px 10px;
+    font-size: 13px;
+    text-align: center;
+}
+.date-pari{
+	text-align: center;
+    font-size: 12px;
+    font-weight: bolder;
+}
+.heure-pari{
+	text-align: center;
+    font-size: 13px;
+}
+.image-equipe-pari{
+	background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 1px;
+    border-radius: 20px;
+	background-position: center;
+	width: 200px;
+	height: 90px;
+}
+.equipe {
+  
+  position: relative; /* nécessaire pour positionner le ::after */
+ 
+  overflow: hidden; /* pour ne pas dépasser */
+}
+.equipe::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px; /* match la div */
+  background-color: transparent; /* par défaut rien */
+  transition: background-color 0.3s ease; /* fondu doux */
+}
+
+.equipe.selected::after {
+  background-color: rgba(0, 255, 0, 0.4); /* couche verte transparente */
+}
+
+.bonus-pari.selected {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.title-team-pari{
+	text-transform: uppercase;
+	font-size: 13px;
+    text-align: center;
+}
+
+.connexion-parieur .popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.2);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Contenu */
+.popup-screen h2{font-family:'futura' !important;font-weight:700;font-size: 37px;margin-bottom: 23px;}
+.connexion-parieur .popup-content {
+    background: #F8F6F8;
+	border:1px solid #020640;
+    padding: 42px;
+    border-radius: 16px;
+    width: 485px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+/* Fermer */
+.connexion-parieur .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    font-weight: 100;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+/* Inputs */
+.connexion-parieur .input {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #D9D9D9;
+}
+.connexion-parieur .input::placeholder {
+  color: #B3B3B3 !important;
+}
+.connexion-parieur .input, .connexion-parieur  label{font-family:'Inter', sans-serif !important;}
+.connexion-parieur  label{
+	text-align: start;
+    display: block;
+    width: 100%;
+}
+.connexion-parieur .equipe-fav{
+	text-align: left;
+}
+/* Boutons */
+.connexion-parieur .btn {
+    margin: 10px 0px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 400;
+	border:1px solid #2C2C2C;
+    font-family: 'Inter', sans-serif;
+    background: #1724F6;
+    color: #F5F5F5;
+}
+.connexion-parieur .btn:not(.side) {
+	width: 100%;
+}
+.connexion-parieur .btn.side{
+	width: 49%;
+}
+.connexion-parieur label,.connexion-parieur span,.connexion-parieur #btn-forgot,.connexion-parieur li {
+	color:#1E1E1E !important;
+}
+.connexion-parieur #openPopup, .connexion-parieur #logout{
+	margin: 5px 10px;
+}
+.connexion-parieur .btn:hover { background: #000;color: #F5F5F5; }
+.connexion-parieur #btn-forgot{
+	border: solid 1px #767676;
+    margin: 0px 0px;
+    padding: 10px 18px;
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+}
+.connexion-parieur #btn-forgot:hover{background: #000;color: #F5F5F5 !important;}
+.connexion-parieur .btn-secondary {
+    background: transparent;
+	border-color: transparent;
+    color: #303030;
+}
+.connexion-parieur .btn-secondary:hover {
+    background: transparent;
+    border-color: #ccc;
+    color: #303030;}
+
+/* Ecrans */
+.connexion-parieur .popup-screen { display: none; }
+.connexion-parieur .popup-screen.active { display: block; }
+
+/* Liste équipes */
+.connexion-parieur #team-select {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+.connexion-parieur i{
+	color: #fff;
+    font-size: 23px;
+}
+
+.connexion-parieur #team-select-custom ul {
+    list-style: none;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+.connexion-parieur #team-select-custom li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.connexion-parieur #team-select-custom li.selected {
+    background-color: #0073aa;
+    color: white;
+}
+.enter-game-action{
+    background-color: #1724f6;
+    color: #F8F6F8;
+    border-radius:8px;
+	margin-block: 45px;
+    display: block;
+    width: fit-content;
+    padding:10px 20px;
+}
+.enter-game-action:hover{
+    background-color: #000;
+    color: #F8F6F8 !important;
+}
+.pink-ac .accordion-button{
+    background-color: #9706D31A !important;
+    color:black !important;
+	font-size: 20px;
+	box-shadow: none !important;
+}
+.pink-ac .accordion-item {
+    margin-bottom: 15px;
+	background-color: #fff !important;
+	border:1px solid #9706D31A !important;
+	border-radius:9px !important;
+}
+ .pink-ac .accordion-button:not(.collapsed){background-color: #fff !important;}
+/*.pink-ac .accordion-button.collapsed{background-color: #9706D31A !important;} */
+
+.pink-ac .accordion-button::after {
+    background-image: url('/wp-content/uploads/2025/09/Chevron-down.png') !important;
+    filter: brightness(0) !important;
+}
+
+.game-tips{
+    background-color: #e1a0fc ;
+    padding:10px;
+    border-radius:8px;
+}
+.game-help-1{
+    background-color: #646DF9;
+    padding:10px;
+	color: #000;
+    border-radius:8px;
+	margin-block: 30px;
+}
+.pink-ac .accordion-body{background-color:transparent !important;}
+.page-calendrier h1, .page-calendrier h2, .page-calendrier h3{font-family: 'futura' !important;}
+.page-calendrier p, .page-calendrier li{font-family: 'futura' !important;font-weight: 500; font-size:16px !important;}
+.container-list {margin-bottom: 3%;}
+h4.sub-h{font-family:'Inter', sans-serif !important;font-weight: 100;color:#757575;margin-bottom:3%;font-size: 20px;}
+h3.sub-h{font-family:'Inter', sans-serif !important;font-weight: 600;}
+.container-list.faq h4, .container-list.faq h2{font-family: 'Inter', sans-serif !important;}
+.pink-ac .accordion-body p{font-family: 'Inter', sans-serif !important; font-weight: 400 !important;}
+.game-tips, .game-help-1 {width: fit-content;}
+
+/*************************** slider **************************************/
+.swiper {
+  width: 100% !important;
+  padding-bottom: 40px !important;
+}
+/* Slides should align horizontally */
+.swiper-slide {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+/* Images: responsive */
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 0px;
+  display: block;
+}
+/* Caption below each image */
+.swiper-slide .caption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #000;
+}
+/*************************** responsive page paris presentation **************************************/
+@media screen and (min-width: 498px) {
+.img-box.mobile{display:none !important;}
+}
+@media screen and (max-width: 800px) {
+	.page-calendrier {max-width: 95%;}
+		
+}
+@media screen and (max-width: 497px) {
+	.sub-header-pari-logo {width: 185px;}
+    .enter-game-action {margin-inline: auto;}	
+	.container-list.faq h3, .container-list.faq h4{text-align:center;}
+	.pink-ac .accordion-body {padding-left: 22px !important; padding-right: 22px !important; }
+	h4.sub-h {margin-bottom: 8%;}
+	.swiper-slide {width:200px;}
+	.connexion-parieur .popup-content {padding: 22px; width: 90%;}
+	    .connexion-parieur .close-btn {
+        top: -4px;
+        right: 30px;
+        font-size: 31px;
+        filter: brightness(19.5);
+    }
+	
+		.connexion-parieur .popup-content {
+        background: linear-gradient(90deg, rgba(23, 36, 246, 1) 0%, rgba(196, 65, 250, 1) 100%);
+        border: none !important;
+        padding: 0px;
+        border-radius: 0px !important;
+        width: 485px;
+        height: 100vh !important;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+		.popup-screen  h2 {display: none;}
+	    .connexion-parieur .popup-screen.active { background: #fff; padding: 20px;}
+	    .img-box.mobile {
+        display: block !important;
+        height: 100%;
+        align-content: center;
+    }
+	
+	
+	
+	
+	
+}
+
+/***************** header ****************/
+#menu-item-5199{
+    background-color: #C441FA !important;
+    border-radius: 8px !important;
+	margin-right: 20px !important;
+}
+#menu-item-5199 a:after {display:none !important;}
+#menu-item-5199 a:before {
+    position: absolute !important;
+    content: "New" !important;
+    color: black !important;
+    top: -15px !important;
+    right: -16px!important;
+    padding: 0px 8px !important;
+    background-color: #FFDB43 !important;
+    border-radius: 8px !important;
+    font-size: 15px !important;
+}
+
+.center-text{text-align:center !important;}
+.width-site{max-width:1440px;margin:auto;padding: 4% 2%;}
+.width-site ul { list-style-type: disc;}

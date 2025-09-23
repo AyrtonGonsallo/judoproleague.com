@@ -391,7 +391,7 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 
-	<div id="tabs-6">
+	<div id="tabs-6" class="page-eq-phot">
 
 
 
@@ -556,7 +556,7 @@ $team_permalink = get_the_permalink($post->ID);
 					$credit_images = get_field('credit_images',$image_galerie->ID);
 					$titre = get_field('titre',$image_galerie->ID);
 					$cover=$photos[0];
-					$link=get_the_permalink($image_galerie->ID);
+					$link=get_the_permalink($image_galerie->ID)."?equipeID=".get_the_ID();
 			?>
 					
 						
@@ -566,7 +566,7 @@ $team_permalink = get_the_permalink($post->ID);
 									
 								</div>
 								<h2 class="nv-title-news-3-col">
-										<?php echo $titre;?>
+										<?php echo $titre.' - '. get_the_date('Y', $image_galerie->ID);?>
 								</h2>
 							</a>		
 						

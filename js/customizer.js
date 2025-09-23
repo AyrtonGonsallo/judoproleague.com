@@ -3,11 +3,11 @@ searchField.placeholder = ' ';
 
         // Select the button using its class name
         const button = document.querySelector('.ays-survey-section-button.ays-survey-finish-button');
-        // Change the text of the button
+        if(button){
+         // Change the text of the button
         button.value = 'Voter';
-
-
-
+        }
+        
 // $(document).ready(function() {
 //   var maxHeight = 0;
 //   // Find the maximum height
@@ -76,3 +76,11 @@ for (i = 0; i < mt.length; i++) {
 		$('.nv-btns').show();
 	  });
 }( jQuery ) );
+
+
+
+
+
+
+
+

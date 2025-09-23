@@ -60,31 +60,60 @@
 
 
 
- $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2023-2024";
-
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"";
+ $saisons = array();
+// equipe de la saison en cours
+ $found_equipe=null;
+  //equipe de la derniere saison trouvee
+ $default_equipe=null;
 //$equipe=get_field('equipe_judoka',$post->ID)[0];
 $equipe=null;
 $equipes_par_saisons =get_field('equipes_par_saisons',$post->ID);
 //var_dump($equipes_par_saisons);
 if ($equipes_par_saisons) {
+	$highest="";
 	foreach ($equipes_par_saisons as $equipe1) {
-		// Obtenir et afficher le titre de l'équipe
-		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons']) ) {
-			//var_dump($equipe1['saisons'][0]);
-				
-				if( $equipe1['saisons'][0]== $saison_value){
-					$equipe = $equipe1['equipe_judoka'][0];
-				}
-				
-			
+		// prendre la derniere saison
+		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons'])) {
+			// Obtenir la saison actuelle
+			$current_saison = $equipe1['saisons'];
+			// Vérifier si c'est la première itération ou si la saison actuelle est supérieure à la plus élevée trouvée jusqu'à présent
+			if ($highest == "" || strcmp($current_saison, $highest) > 0) {
+				$highest = $current_saison; // Mettre à jour la saison la plus élevée
+			}
 		}
-		
-
+	}
+	//mettre a jour la derniere saison
+	if($saison_value=="" && $saison_value!=$highest){
+		$saison_value=$highest;
+	}
+	//prendre la derniere equipe
+	foreach ($equipes_par_saisons as $equipe1) {
+		// Vérifier si les clés 'equipe_judoka' et 'saisons' existent
+		if (isset($equipe1['equipe_judoka']) && isset($equipe1['saisons'])) {
+			// Obtenir la saison actuelle
+			$current_saison = $equipe1['saisons'];
+	
+			// Si la saison actuelle n'est pas déjà dans le tableau $saisons, l'ajouter
+			if (!in_array($current_saison, $saisons)) {
+				$saisons[] = $current_saison;
+			}
+	
+			// Trouver l'équipe judoka en fonction de la saison
+			if ($current_saison == $saison_value) {
+				$found_equipe = $equipe1['equipe_judoka'][0];
+			} else {
+				$default_equipe = $equipe1['equipe_judoka'][0];
+			}
+		}
 	}
 }
-
+usort($saisons, function ($a, $b) {
+    return  strcmp($a, $b);
+});
+$equipe=($found_equipe)?$found_equipe:$default_equipe;
 //var_dump($equipe);
-
+//echo $highest;
 
 $site = get_field('site_web',$equipe->ID);
 
@@ -151,11 +180,63 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 
 
+$args = array(
+	'post_type' => 'attachment', // Spécifiez le type de post comme étant des pièces jointes
+	'post_status' => 'inherit',   // Les images sont généralement en statut "inherit"
+	'posts_per_page' => -1,       // Récupérer toutes les images
+	'meta_query' => array(
+		'relation' => 'AND', // Utiliser une relation AND pour que la saison soit vraie
+		array(
+			'key' => 'related_saison', // Métadonnée pour la saison
+			'value' => $saison_value,         // La saison que vous recherchez
+			'compare' => '=',           // Comparaison
+		),
+		array(
+			'relation' => 'OR', // Relation OR pour vérifier les judokas
+			array(
+				'key' => 'related_judoka_1', // Métadonnée pour le premier judoka
+				'value' => $post->ID,       // ID du judoka
+				'compare' => 'LIKE',            // Comparaison pour vérifier l'ID
+			),
+			array(
+				'key' => 'related_judoka_2', // Métadonnée pour le deuxième judoka
+				'value' => $post->ID,       // ID du judoka
+				'compare' => 'LIKE',            // Comparaison pour vérifier l'ID
+			),
+		),
+	),
+);
+
+// Exécutez la requête
+$images_par_judokas_et_saisons = get_posts($args);
 
 
 
-
-
+function get_correct_categorie($saison_value,$cat){
+	if($saison_value=="2024-2025"){
+		switch ($cat) {
+			case '-65':
+				return '-66';
+				break;
+			case '-75':
+				return '-73';
+				break;
+			case '-85':
+				return '-81';
+				break;
+			case '-95':
+				return '-90';
+				break;
+			case '+95':
+				return '+90';
+				break;
+			default:
+				# code...
+				break;
+		}
+	}
+	return $cat;
+}
 
 
 
@@ -182,9 +263,9 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> >
 
-
+<div class="page-jdk">
 
 
 
@@ -341,9 +422,11 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 	<div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
 				<select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+					<?php foreach ($saisons as $saison) : ?>
+						<option value="<?php echo esc_attr($saison); ?>" <?php echo selected($saison_value, $saison, false); ?>>
+							<?php echo esc_html($saison); ?>
+						</option>
+					<?php endforeach; ?>
 				</select>
 			</form>
 		</div>
@@ -539,7 +622,7 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 								<span class="titile-1">Catégorie de poids</span>
 
-								<span class="info-1"><?php echo $cat_poids.' kg';?></span>
+								<span class="info-1"><?php echo get_correct_categorie($saison_value,$cat_poids).' kg';?></span>
 
 							</div>
 
@@ -663,7 +746,7 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 				<div class="results-cmba">
 					<div class="combat-judo">
 						<div class="header-tabl">
-							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE 2023</h2>
+							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
 						</div>
 						<div class="resultat-combat">
 							<div class="col-1">
@@ -767,7 +850,7 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 				<div class="results-cmba">
 					<div class="combat-judo">
 						<div class="header-tabl">
-							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE 2023</h2>
+							<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
 						</div>
 						<div class="resultat-combat">
 							<div class="col-1">
@@ -885,6 +968,34 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 
 
+<section class="nv-gal-equ">
+	<?php if ($images_par_judokas_et_saisons) {?>
+		<div class="galerie-images-resultat">
+
+			<div class="liste-images-galerie judo_pro_league page-eq-gal" >
+
+				<?php foreach($images_par_judokas_et_saisons as $image){
+					$attachment_id = $image->ID; // ID de la pièce jointe
+					$image_src = wp_get_attachment_image_src($attachment_id, 'medium_large'); // Récupérer l'URL de la taille 'medium_large'
+					$image_url = $image_src ? $image_src[0] : ''; // L'URL de l'image si elle existe
+					$titre = get_the_title($attachment_id);
+				?>
+
+					<div class="liste-images-element" style="background-image: url(<?php echo $image_url; ?>);">
+
+						<img class="diaporama" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($titre); ?>" />
+
+					</div>
+
+				<?php } ?>
+
+			</div>
+
+		</div>
+	<?} else {
+    	echo '';
+	} ?>
+</section>	
 
 
 
@@ -892,9 +1003,5 @@ $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="backgro
 
 
 
-
-
-
-
-
+	</div>
 </article>

@@ -166,10 +166,10 @@ function display($rencontres){?>
     <div class="season-selector-box">
 			<form Method="GET" ACTION="" class="season-selector-form">
                 <select name="saison_value" id="saison_value" class="season-selector-select">
-					<option value="2021-2022" >2021-2022</option>
-					<option value="2022-2023" >2022-2023</option>
-					<option value="2023-2024" >2023-2024</option>
-                    <option value="2024-2025" selected>2024-2025</option>
+					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                    <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+
 				</select>
 			</form>
 		</div>
@@ -189,6 +189,7 @@ function display($rencontres){?>
         </div>
 
         <div class="judo_pro_league mtop-5 tab-princ-23">
+        <h1 class="result-h1">tableau principal Judo Pro League <?php echo $saison_value;?></h1>
             <div class="tp-3x-grid">
 
                 <div class="tp-3x-grid-content">

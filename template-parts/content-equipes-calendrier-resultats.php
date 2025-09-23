@@ -49,7 +49,7 @@
 $site = get_field('site_web');
 
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 
 
 $description = get_field('presentation'); 
@@ -319,7 +319,7 @@ $matchs_poules=get_posts($args_poules);
             <div class="judo_pro_league">
                 <div class="eq-reslt-flx">
                      <h2 class="crt-title">Phase de poules</h2>
-                     <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a>
+                     <!-- <a href="../../../calendrier-resultats-2023/poules/" class="more-classement">Classement Poules <i class="fa-solid fa-arrow-right-long"></i></a> -->
                 </div>
                 <div class="cal-res-poule">
                     <?php foreach ($matchs_poules as $rencontre):
@@ -328,8 +328,8 @@ $matchs_poules=get_posts($args_poules);
                         $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
                         $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
                         $rencontre_permalink = get_the_permalink($rencontre->ID);
-                        $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'][0];
-                        $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];
+                        $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'];
+                        $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'];
                         $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
                         $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
                         $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Segments vidéo Judo</title>
+</head>
+<body>
+
+  <h2>Combat principal</h2>
+  <div id="mainPlayer"></div>
+
+  <h3>Liste des extraits</h3>
+  <ul>
+    <li>
+      Combat 1 (0:30 à 2:30)
+      <button onclick="playSegment('th9Ofzlqpuw', 30, 150)">Voir</button>
+    </li>
+    <li>
+      Combat 2 (3:00 à 4:10)
+      <button onclick="playSegment('th9Ofzlqpuw', 180, 250)">Voir</button>
+    </li>
+  </ul>
+
+  <script>
+    let player;
+    let stopTime = 0;
+    let checkInterval;
+
+    // API YouTube appelle cette fonction une fois prête
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('mainPlayer', {
+        height: '360',
+        width: '640',
+        videoId: 'th9Ofzlqpuw', // ID de vidéo par défaut
+        playerVars: {
+          autoplay: 0,
+          controls: 1,
+          enablejsapi: 1
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      console.log('Lecteur prêt');
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        clearInterval(checkInterval);
+      }
+    }
+
+    function playSegment(videoId, start, end) {
+      stopTime = end;
+      if (player && typeof player.loadVideoById === 'function') {
+        player.loadVideoById({
+          videoId: videoId,
+          startSeconds: start,
+          endSeconds: end
+        });
+        clearInterval(checkInterval);
+        checkInterval = setInterval(() => {
+          if (player.getCurrentTime() >= stopTime) {
+            player.pauseVideo();
+            clearInterval(checkInterval);
+          }
+        }, 300);
+      } else {
+        console.error('Lecteur non prêt');
+      }
+    }
+
+    // Charger l'API YouTube
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  </script>
+
+</body>
+</html>

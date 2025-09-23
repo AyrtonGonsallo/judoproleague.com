@@ -89,7 +89,7 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
 
 $now=date('Y/m/d H:i:s');
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2022-2023";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 $page_permalink = get_the_permalink($post->ID);
 
 function get_rencontres($poule_id,$journee,$saison_value){
@@ -181,7 +181,8 @@ $rencontres_j6_pouleD = get_rencontres(600,'6',$saison_value);
 					<option value="2021-2022" >2021-2022</option>
 					<option value="2022-2023" >2022-2023</option>
 					<option value="2023-2024" >2023-2024</option>
-                    <option value="2024-2025" selected>2024-2025</option>
+                    <option value="2024-2025" >2024-2025</option>
+                    <option value="2025-2026" selected>2025-2026</option>
 				</select>
 			</form>
 		</div>

@@ -1,5 +1,5 @@
 <?php
-
+        $equipe_id=$_GET["equipeID"];
         $photos=get_field('photos');
         $credit_images = get_field('credit_images');
 		$titre = get_field('titre');
@@ -20,7 +20,7 @@
 <header class="nv.team-header">
 <section class="nv-header-team" <?php echo $style_couleur1;?>>
     <div class="container">
-
+<?php echo $equipe_id;?>
         <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal',$equipe[0]->ID))?get_field('logo_principal',$equipe[0]->ID):get_the_post_thumbnail_url($equipe[0]->ID)?>)">
         </div>
             <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title($equipe[0]->ID);?></h2> 
@@ -102,7 +102,7 @@
 
 					<div class="galerie-images-resultat">
 
-					<div class="liste-images-galerie judo_pro_league" >
+					<div class="liste-images-galerie judo_pro_league page-eq-gal" >
 
 								<?php foreach($photos as $image){?>
 

@@ -26,7 +26,7 @@ $equipes = get_posts(array(
         array(
             'key'     => 'saisons',
             'compare' => 'LIKE',
-            'value'   => '2024-2025'
+            'value'   => '2025-2026'
         )
     )
 ));
@@ -210,7 +210,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
 			<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'inox' ); ?></a>
 
-			<div class="brd-header">
+			<div class="brd-header more-1200">
 
 				<div class="nv-logo-cpyr container">
 
@@ -232,6 +232,26 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
 			</div>
 
+            <div class="brd-header slide-equipes-haut">
+                <section class="splide splide2" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track">
+                            <ul class="splide__list">
+                            <?php foreach ($equipes as $equipe):
+
+                                $logo=(get_field('logo_circle', $equipe->ID))?get_field('logo_circle', $equipe->ID):get_the_post_thumbnail_url($equipe->ID);
+
+                                $url=get_permalink($equipe->ID);
+
+                                ?>
+                                    <li class="splide__slide"><a href="<?= $url;?>"><img src="<?php echo $logo;?>"></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                    </div>
+                </section>
+				
+
+			</div>
+
 	<nav class="sps inverse sps--abv" id="navbar">
 
 		<div class="container">
@@ -240,6 +260,8 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
     
    <div class="mob-icon">
     <!-- Search Icon -->
+      
+
           <div class="search-icon">
               <i class="fa fa-search"></i>
           </div>
@@ -317,6 +339,12 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 			</div>
 
 			<div class="nv-header-right">
+              
+
+                
+      
+        
+        </div>
     <div class="nv-header-lang">
 
         <?php
@@ -363,6 +391,10 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
     
     <script>
     jQuery(document).ready(function($) {
+
+       const urlParams = new URLSearchParams(window.location.search);
+
+
         // Function to show the popup
         function showPopup() {
             $('#search-popup').fadeIn();
@@ -390,15 +422,8 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
             }
         });
 
-        // Prevent event propagation for clicks inside the popup content
-        $(document).on('click', '.search-popup-content', function(event) {
-            event.stopPropagation();
-        });
-
-        
-    });
-
-
+      
+});
     </script>
     <?php
     function enqueue_custom_scripts() {
@@ -434,25 +459,25 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 		//recuperer_bandeau_live();
 
 		?>		
-
+ <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+ <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 		<?php
 
  		if(!($post_type=="equipes") && !($post_type=="judoka") && !($post_type=="galerie") && !($post->ID==1620)){?>
 
-		
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-<?php date_default_timezone_set('Africa/Porto-Novo'); ?>
-<?php $niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); ?>
-<?php 
-$rencontres=array();
-if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ){
-    while ( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ) : the_row();
-    $rencontre = get_sub_field('rencontre');
-    $rencontres=array_merge($rencontres,$rencontre);
-    endwhile;
-}
-?>
+                    
+           
+            <?php date_default_timezone_set('Africa/Porto-Novo'); ?>
+            <?php $niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); ?>
+            <?php 
+            $rencontres=array();
+            if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ){
+                while ( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ) : the_row();
+                $rencontre = get_sub_field('rencontre');
+                $rencontres=array_merge($rencontres,$rencontre);
+                endwhile;
+            }
+            ?>
 
 <?php 
    // $rencontres=get_posts($args);
@@ -471,10 +496,10 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                     $combat=get_field('les_combat', $rencontre->ID)[0];
                     $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
                     $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
-                    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'][0];
+                    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'];
                     $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
                     $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
-                    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];
+                    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'];
                     $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
                     $date_fin=get_field('date_de_fin', $rencontre->ID, false, false);
                     $statut=get_field('statut', $rencontre->ID)['label'];
@@ -508,12 +533,27 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
                         $lien_billets=get_field('lien_de_reservation', $rencontre->ID);
                     }
                     //var_dump($equipe1);exit(-1);
+                    $phase = get_field('phase', $rencontre->ID);
+                    $journee = get_field('journee', $rencontre->ID);
+
+                    $phase_title = '';
+                    if (!empty($phase) && is_array($phase) && isset($phase[0])) {
+                        $phase_title = $phase[0]->post_title;
+}
                 ?>
                 <li class="rencontre-element flip-card splide__slide" style="margin:20px !important;">
                     <div class="flip-card-inner splide__slide__container">
                         <div class="flip-card-front">
-                            <div class="nv-header-rencontre"><span><?php echo get_field('phase', $rencontre->ID)[0]->post_title.' '.get_field('journee', $rencontre->ID); ?></span><span class="nv-staut"> <?php echo $status ;?> <img src="/wp-content/uploads/2023/07/<?php echo $icone_status;?>" class="nv-img-statut"></span></div>
-                            <div class="nv-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>" ><span class="nv-name"><?php echo $abreviation1;?></span><img src="<?php echo $image1_url; ?>" class="nv-img"><span class="nv-score"><?php echo (($status!='à venir')?$score_equipe1:(substr($date_debut,8,2).'/'.substr($date_debut,5,2)));?></span></div>
+                        <div class="nv-header-rencontre">
+                            <span>
+                                <?php echo $phase_title . ' ' . ($journee ?: ''); ?>
+                            </span>
+                            <span class="nv-staut">
+                                <?php echo esc_html($status); ?>
+                                <img src="/wp-content/uploads/2023/07/<?php echo esc_attr($icone_status); ?>" class="nv-img-statut">
+                            </span>
+                        </div>
+                        <div class="nv-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>" ><span class="nv-name"><?php echo $abreviation1;?></span><img src="<?php echo $image1_url; ?>" class="nv-img"><span class="nv-score"><?php echo (($status!='à venir')?$score_equipe1:(substr($date_debut,8,2).'/'.substr($date_debut,5,2)));?></span></div>
                             <div class="nv-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>"><span class="nv-name"><?php echo $abreviation2;?></span><img src="<?php echo $image2_url; ?>" class="nv-img"><span class="nv-score"><?php if($status!='à venir'){echo $score_equipe2;}else{echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);}?></span></div>
                         </div>
                         <div class="flip-card-back">
@@ -566,14 +606,14 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
 
 <script>
 
-const splide = new Splide( '.splide' , {
+const splide = new Splide( '.rencontres-section' , {
                 type: 'slide',
                 perPage: 6,
                 rewind: false,
                 pagination:true,
                 breakpoints: {
                     1200:{
-                        perPage:4,
+                        perPage:6,
                     },
                     992:{
                         perPage:3,
@@ -587,6 +627,7 @@ const splide = new Splide( '.splide' , {
 
 splide.mount();
 
+
 </script>
 
 		<?php
@@ -594,6 +635,33 @@ splide.mount();
 			 }?>
 			
 
+            <script>
+
+const splide2 = new Splide( '.splide2' , {
+                type: 'slide',
+                perPage: 6,
+                rewind: true,
+                pagination:true,
+                breakpoints: {
+                    1200:{
+                        perPage:4,
+                    },
+                    992:{
+                        perPage:6,
+                    },
+                    640: {
+                        erPage: 5,
+                    },
+                    400: {
+                        perPage: 3,
+                    }
+                },
+            });
+
+
+splide2.mount();
+
+</script>
 </header>
 <div id="recherche-box">
 	 <?php echo do_shortcode( '[search_form]' ); ?>

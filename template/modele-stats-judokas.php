@@ -4,7 +4,7 @@
  * Template Name: Modèle stats Judokas
  */
  get_header();
- $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
  $equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
  $categorie_value=($_GET["categorie_value"])?$_GET["categorie_value"]:"0";
  $args_teams=array(
@@ -14,6 +14,34 @@
      'order' => 'ASC',
      );
  $equipes=get_posts($args_teams);
+ 
+
+function get_correct_categorie($saison_value,$cat){
+	if($saison_value=="2024-2025"){
+		switch ($cat) {
+			case '-65':
+				return '-66';
+				break;
+			case '-75':
+				return '-73';
+				break;
+			case '-85':
+				return '-81';
+				break;
+			case '-95':
+				return '-90';
+				break;
+			case '+95':
+				return '+90';
+				break;
+			default:
+				# code...
+				break;
+		}
+	}
+	return $cat;
+}
+
  ?>
  
 <script>
@@ -53,13 +81,14 @@
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                     <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
 
                 </select>
 			</form>
 		</div>
      <section>
      <div class="judo_pro_league  mt-5p">
-        <h1 class="result-h1 mtb-0">Statistiques Judo Pro League <?php echo $saison_value;?></h1>
+        <h1 class="result-h1 mtb-0">Statistiques judokas Judo Pro League <?php echo $saison_value;?></h1>
 
             <div class="phases-cl2">
                 <h2 class="tab-phase fs-30">
@@ -78,6 +107,7 @@
             <?php 
                 require_once (THEMEDIR.'template-parts/content-judokas-requests-stats.php');
                 $classement_total=get_classement( $saison_value);
+                //var_dump($classement_total);exit();
             ?>  
             <?php
                 if($classement_total['total']){
@@ -104,6 +134,11 @@
                         <option value="-85" <?php echo ($categorie_value=="-85")?"selected":"";?>>-85</option>
                         <option value="-95" <?php echo ($categorie_value=="-95")?"selected":"";?>>-95</option>
                         <option value="+95" <?php echo ($categorie_value=="+95")?"selected":"";?>>+95</option>
+                        <option value="-66" <?php echo ($categorie_value=="-66")?"selected":"";?>>-66</option>
+                        <option value="-73" <?php echo ($categorie_value=="-73")?"selected":"";?>>-73</option>
+                        <option value="-81" <?php echo ($categorie_value=="-81")?"selected":"";?>>-81</option>
+                        <option value="-90" <?php echo ($categorie_value=="-90")?"selected":"";?>>-90</option>
+                        <option value="+90" <?php echo ($categorie_value=="+90")?"selected":"";?>>+90</option>
 
                     </select>
                     <select name="equipe_value" id="equipe_value" class="team-selector-select">
@@ -133,7 +168,8 @@
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
                             
-                           
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
+
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -144,13 +180,14 @@
                                 <!--<td><?php //echo $i;?></td>-->
                                 <td class="align-photo-nom-vertically "><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></a></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
                                 
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                             </tr>
                         <?php
@@ -170,7 +207,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                           
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -182,7 +219,7 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
@@ -190,6 +227,7 @@
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php
@@ -212,7 +250,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                         
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -224,13 +262,14 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php
@@ -252,7 +291,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                         
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -264,13 +303,14 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php
@@ -292,7 +332,7 @@
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Ippon</span><span class="mobile">Ip</span></th>
                             
                             <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Waza-ari</span><span class="mobile">Wa</span></th>
-                         
+                            <th class="text-end" style="text-transform: capitalize;"><span class="desktop">Kinza</span><span class="mobile">K</span></th>
                             <th class="text-end" style="text-transform: capitalize;">Pts</th>
                         </tr>
                     </thead>
@@ -304,13 +344,14 @@
                                     <!--<td><?php //echo $i;?></td>-->
                                     <td class="align-photo-nom-vertically"><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></a></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
-                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
 
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_v'])?$d[0]['matchs_v']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_nuls'])?$d[0]['matchs_nuls']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['matchs_d'])?$d[0]['matchs_d']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['ippons_marqués'])?$d[0]['ippons_marqués']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['wazaris_marqués'])?$d[0]['wazaris_marqués']:0?></td>
+                                    <td class="wp-caption-text"><?php echo ($d[0]['kinza'])?$d[0]['kinza']:0?></td>
                                     <td class="wp-caption-text"><?php echo ($d[0]['points_judoka'])?$d[0]['points_judoka']:0?></td>
                                 </tr>
                         <?php

@@ -7,6 +7,21 @@
 */
 function fiche_rencontre($result,$post_id=null)
 {
+
+	function remplacer_judoka($texte) {
+		// Vérifie si le mot "judoka" est présent dans le texte et le remplace
+		if (preg_match('/^nom judoka\b/', $texte)) {
+			return 'judoka non présenté';
+		}
+		
+		// Utilisation de regex pour vérifier si "renom judokas" est présent
+		else if (preg_match('/\bprenom judoka\b/', $texte)) {
+			return '';
+		}else{
+			return $texte;
+		}
+		
+	}
 	$equipe1 = get_field('equipe_1',$post_id)[0];
 	$equipe2 = get_field('equipe_2',$post_id)[0];
 	ob_start();
@@ -121,7 +136,8 @@ function fiche_rencontre($result,$post_id=null)
 									$judoka_equipe_1         = get_sub_field('judoka_equipe_1' );
 									$valeur_ippon_judoka_1   = get_sub_field('valeur_ippon_judoka_1' );
 									$valeur_wazari__judoka_1 = get_sub_field('valeur_wazari__judoka_1');
-
+									$kinza_1   = get_sub_field('kinza_1' );
+									$kinza_2   = get_sub_field('kinza_2' );
 									$valeurs_shidos_judoka_1 = (get_sub_field('valeurs_shidos_judoka_1'))?get_sub_field('valeurs_shidos_judoka_1')['value']:0;
 									$valeurs_shidos_judoka_1_label = (get_sub_field('valeurs_shidos_judoka_1'))?get_sub_field('valeurs_shidos_judoka_1')['label']:'';
 									$points_judoka_1 = (get_sub_field('points_judoka_1'))?get_sub_field('points_judoka_1'):0;
@@ -150,7 +166,7 @@ function fiche_rencontre($result,$post_id=null)
 									<div class="result-jdk">
 										<div class="lft-result-jdk">
 										<a href="<?php echo get_the_permalink($judoka_equipe_1[0]->ID );?>">
-										<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==1){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.get_field('prenom_judoka',$judoka_equipe_1[0]->ID ).'</b> <b class="uppercase">'.get_field('nom_judoka',$judoka_equipe_1[0]->ID ).'</b>'; if(get_field('id_ffjda',$judoka_equipe_1[0]->ID )=="")echo ' *'?>	</h3>
+										<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==1){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.remplacer_judoka(get_field('prenom_judoka',$judoka_equipe_1[0]->ID )).'</b> <b class="uppercase">'.remplacer_judoka(get_field('nom_judoka',$judoka_equipe_1[0]->ID )).'</b>'; if(get_field('id_ffjda',$judoka_equipe_1[0]->ID )=="")echo ' *'?>	</h3>
 										</a>
 											<div class="lft-result-jdk-1">
 												<div class="resut-new">
@@ -184,6 +200,7 @@ function fiche_rencontre($result,$post_id=null)
 													else{
 														echo '<span><div class="motif-looser">'.$valeurs_shidos_judoka_1_label.'</div></span>';
 													}
+													echo '<div class="kinza">'.$kinza_1.'</div>';
 												?>
 											</div>
 										</div>
@@ -195,6 +212,7 @@ function fiche_rencontre($result,$post_id=null)
 										<div class="rgt-result-jdk">
 											<div class="rgt-result-jdk-1">
 											<?php
+											echo '<div class="kinza">'.$kinza_2.'</div>';
 												if(is_numeric($valeurs_shidos_judoka_2)){
 													echo '<div class="penalite ">';
 													if($valeurs_shidos_judoka_2==3){
@@ -230,7 +248,7 @@ function fiche_rencontre($result,$post_id=null)
 												</div>
 											</div>
 											<a href="<?php echo get_the_permalink($judoka_equipe_2[0]->ID );?>">
-											<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==2){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.get_field('prenom_judoka',$judoka_equipe_2[0]->ID ).'</b> <b class="uppercase">'.get_field('nom_judoka',$judoka_equipe_2[0]->ID ).'</b>'; if(get_field('id_ffjda',$judoka_equipe_2[0]->ID )=="")echo ' *'?></h3>
+											<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==2){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.remplacer_judoka(get_field('prenom_judoka',$judoka_equipe_2[0]->ID )).'</b> <b class="uppercase">'.remplacer_judoka(get_field('nom_judoka',$judoka_equipe_2[0]->ID )).'</b>'; if(get_field('id_ffjda',$judoka_equipe_2[0]->ID )=="")echo ' *'?></h3>
 											</a>
 										</div>
 									</div>
@@ -330,7 +348,8 @@ function fiche_rencontre($result,$post_id=null)
 										$valeur_wazari__judoka_2 = get_sub_field('valeur_wazari__judoka_2' );
 										$valeurs_shidos_judoka_2 = (get_sub_field('valeurs_shidos_judoka_2'))?get_sub_field('valeurs_shidos_judoka_2')['value']:0;
 										$valeurs_shidos_judoka_2_label = (get_sub_field('valeurs_shidos_judoka_2'))?get_sub_field('valeurs_shidos_judoka_2')['label']:'';
-
+										$kinza_1   = get_sub_field('kinza_1' );
+										$kinza_2   = get_sub_field('kinza_2' );
 										$judoka_gagnant = get_sub_field('judoka_gagnant');
 										
 										if($statut=='en cours'){
@@ -349,10 +368,11 @@ function fiche_rencontre($result,$post_id=null)
 									<div class="nv-rslt-mobile">
 										<div class="nv-rgt-result-jdk">
 										<a href="<?php echo get_the_permalink($judoka_equipe_1[0]->ID );?>">
-											<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==1){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.get_field('prenom_judoka',$judoka_equipe_1[0]->ID ).'</b> <b class="uppercase">'.get_field('nom_judoka',$judoka_equipe_1[0]->ID ).'</b>'; if(get_field('id_ffjda',$judoka_equipe_1[0]->ID )=="")echo ' *'?>	</h3>
+											<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==1){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.remplacer_judoka(get_field('prenom_judoka',$judoka_equipe_1[0]->ID )).'</b> <b class="uppercase">'.remplacer_judoka(get_field('nom_judoka',$judoka_equipe_1[0]->ID )).'</b>'; if(get_field('id_ffjda',$judoka_equipe_1[0]->ID )=="")echo ' *'?>	</h3>
 											</a>
 											<div class="rgt-result-jdk-1">
 											<?php
+											echo '<div class="kinza">'.$kinza_1.'</div>';
 														if(is_numeric($valeurs_shidos_judoka_1)){
 															echo '<div class="penalite">';
 															if($valeurs_shidos_judoka_1==3){
@@ -389,10 +409,11 @@ function fiche_rencontre($result,$post_id=null)
 										</div>			
 										<div class="nv-rgt-result-jdk">
 										<a href="<?php echo get_the_permalink($judoka_equipe_2[0]->ID );?>">
-										<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==2){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.get_field('prenom_judoka',$judoka_equipe_2[0]->ID ).'</b> <b class="uppercase">'.get_field('nom_judoka',$judoka_equipe_2[0]->ID ).'</b>'; if(get_field('id_ffjda',$judoka_equipe_2[0]->ID )=="")echo ' *'?></h3>
+										<h3 class="<?php if ($judoka_gagnant!=null && $judoka_gagnant==2){echo 'gagnant';}?>"><?php echo '<b class="capitalize">'.remplacer_judoka(get_field('prenom_judoka',$judoka_equipe_2[0]->ID )).'</b> <b class="uppercase">'.remplacer_judoka(get_field('nom_judoka',$judoka_equipe_2[0]->ID )).'</b>'; if(get_field('id_ffjda',$judoka_equipe_2[0]->ID )=="")echo ' *'?></h3>
 										</a>
 											<div class="rgt-result-jdk-1">
 											<?php
+											echo '<div class="kinza">'.$kinza_2.'</div>';
 													if(is_numeric($valeurs_shidos_judoka_2)){
 														echo '<div class="penalite ">';
 														if($valeurs_shidos_judoka_2==3){

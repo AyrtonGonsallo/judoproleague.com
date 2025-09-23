@@ -6,7 +6,7 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     ?>
 <?php if ($rencontres_j2_pouleB): ?><div class="judo_pro_league">    
     <!-- <h2 class="crt-title">Poule <?php echo $poule?></h2>     -->
-    <a href="/classement-judo-pro-league-2023/phase-eliminatoire/poule-<?php echo $poule?>/" class="more-classement">Classement <i class="fa-solid fa-arrow-right-long"></i> </a>
+    <a href="/classement-judo-pro-league-2024/" class="more-classement">Classement <i class="fa-solid fa-arrow-right-long"></i> </a>
 
     <?php $count=count($rencontres_j2_pouleB);?>
     <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" <?php }?>>        
@@ -16,8 +16,8 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     $equipe1 =get_field('equipe_1', $rencontre->ID)[0];            
     $equipe2 =get_field('equipe_2', $rencontre->ID)[0];            
     $rencontre_permalink = get_the_permalink($rencontre->ID);            
-    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'][0];            
-    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];            
+    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'];            
+    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'];            
     $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);            
     $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);            
     $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);            
@@ -89,7 +89,7 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
 
 $now=date('Y/m/d H:i:s');
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 $page_permalink = get_the_permalink($post->ID);
 
 function get_rencontres($poule_id,$journee,$saison_value){
@@ -160,6 +160,7 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
 					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
 					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
 
 				</select>
 			</form>
@@ -265,12 +266,8 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
                 <li><a href="#tabs-4" class="nv-journee">J4</a></li>
 
 
-
-                <li><a href="#tabs-5" class="nv-journee">J5</a></li>
-
-
-
-                <li><a href="#tabs-6" class="nv-journee">J6</a></li>
+     
+               
 
 
 

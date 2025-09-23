@@ -12,7 +12,7 @@
 
 get_header();
 $equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2024-2025";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 $args_teams=array(
     'post_type'=> 'equipes',
     'posts_per_page' => -1,
@@ -37,10 +37,11 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
     <div class="season-selector-box">
         <form Method="GET" ACTION="" class="season-selector-form">
             <select name="saison_value" id="saison_value" class="season-selector-select">
-                <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
                 <option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
                 <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                 <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+
 
             </select>
             <select name="equipe_value" id="equipe_value" class="team-selector-select">
@@ -116,8 +117,9 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
                 <div class="videos-container" id="videoscontainer">
 
                     <?php while ( have_posts() ) : the_post();  
-                        
-                        $image_url=($i==0)?str_replace("hq","maxres",get_field('image')):get_field('image');
+                        $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
+                        $image_url=($i==0)?str_replace("hq","maxres",$image_url):$image_url;
+
                         ?>
 
                         <div class="videos-container-element">
