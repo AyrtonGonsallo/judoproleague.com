@@ -7564,8 +7564,6 @@ margin-bottom: 1.5em;
 		text-align: center;
 		position: relative;
 		box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-		max-height: 100vh;
-    	overflow-y: auto;
 	}
 }
 
@@ -9138,12 +9136,39 @@ h3.title-rcntr {font-size: 38px;}
 }
 .my-leagues-list li {
     display: grid;
-	gap: 23px;
+	gap: 10px;
     grid-template-columns: 2fr 1fr 2fr 1fr 0.2fr;
 }
+
+
+.list-lig td{ padding: 7px 10px !important;}
+.list-lig tr td:not(:first-child) {
+  text-align: center;
+}
+.list-lig {
+  border-collapse: collapse; 
+  width: 100%;
+}
+.list-lig tr {
+	background-color: #e1a0fc;
+  margin-bottom: 8px;   
+  border-radius: 10px;
+  display: table;      
+  width: 100%;
+  border-spacing: 0;
+}
+.list-lig .first-li tr{ background-color: transparent;}
+.list-lig tr td:nth-child(1) {width:40%;}
+.list-lig tr td:nth-child(2) {width:10%;}
+.list-lig tr td:nth-child(3) {width:20%;}
+.list-lig tr td:nth-child(4) {width:20%;}
+.list-lig tr td:nth-child(5) {width:10%;}
+
+
+
 .my-leagues-list img{
 	vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 .pari-form textarea, .pari-form input{
 	background-color: #fff;
@@ -11003,7 +11028,7 @@ body #tableau_classement_par_ligue .table-ranking td{
 .content-ligue {  grid-template-columns: 1fr 1fr;}
 .cree-ligue #form-creer-ligue {max-width: 100%;}
 .page-pari .ui-tabs:not(.tabs-leagues-ranking) .ui-tabs-nav li.ui-tabs-active a, .page-pari .ui-tabs .ui-tabs-nav .ui-tabs-anchor {font-size: 25px;}
-	
+	.list-lig tr td:nth-child(3) { width: 0%;padding:!important;}
 	
 }
 @media screen and (max-width: 800px) {
@@ -11067,6 +11092,7 @@ body #tableau_classement_par_ligue .table-ranking td{
         top: -4px;
         right: 30px;
         font-size: 31px;
+        filter: brightness(19.5);
     }
 		.connexion-parieur .popup-content {
         border: none !important;
@@ -11204,8 +11230,8 @@ body #tableau_classement_par_ligue .table-ranking td{
     .round-rank { height: 2px; width: 2px; font-size: 19px; }
     .classmt .ui-tabs .ui-tabs-nav:not(.leagues-ranking-tabs) {width: fit-content;margin-inline: auto;padding: 7px 5px !important;}
 	.classmt .ui-tabs:not(.tabs-leagues-ranking) .ui-tabs-nav li.ui-tabs-active a, .classmt .nv-journee, .classmt .ui-tabs .ui-tabs-nav .ui-tabs-anchor {font-size: 12px !important;}
-	    .classmt thead > tr > th:nth-child(1) { width: 36px !important;}
-	
+	 .classmt thead > tr > th:nth-child(1) { width: 36px !important;}
+	.list-lig td {font-size: 14px;padding: 7px 2px !important;}
 	
 	
 	

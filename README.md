@@ -79,19 +79,3 @@ verifier les urls des crons
 verifier le plugin des rencontres
 verifier les apis
 verifier indexation et page speed
-
-
-Pas trop de changements dans le nouveau json
-
-champs enlevés par rapport aux anciennes versions :
-
-BonusIpponEquipe1 
-BonusIpponEquipe2
-on s'en sert pour stocker les bonus des equipes par rencontres et ils apparaissent dans le classement
-
-champs ajoutés par rapport aux anciennes versions :
-
-Yuko1
-Yuko2
-Penalite1
-Penalite2

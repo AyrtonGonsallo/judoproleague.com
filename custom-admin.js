@@ -75,7 +75,9 @@ jQuery(document).ready(function(jQuery) {
 
     // Envelopper la section "Video"
     jQuery(".block-video, .block-video-datas").wrapAll("<div class='new block-acf block-video' />");
-	
+
+
+
 	/********************************************/
 	
     // 2 section - "Taggage"
@@ -93,3 +95,7 @@ jQuery(document).ready(function(jQuery) {
 
 
 });
+
+
+
+

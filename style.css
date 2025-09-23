@@ -3759,10 +3759,11 @@ margin:0px 20px;
     background: #fff;
     padding: 9px;
 	width: 43px;
+	color: #051095 !important;
 }
 .footer-rs a:hover i {
     background: #051095;
-    color: #fff;
+    color: #fff !important;
     border-color: #051095;
 }
 /* .footer-rs a i.fa-instagram {

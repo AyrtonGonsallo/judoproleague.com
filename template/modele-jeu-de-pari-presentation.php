@@ -230,7 +230,22 @@ La JPL n’attend que tes pronos.</p>
 
 </div>
 
+<div class="container-list">
+<h2>Les cadeaux :</h2><br>
+<p>
+<b>Classement général</b><br>
+1. Rencontre avec des athlètes de l’EDF Judo<br>
+2. 2 places VIP pour le PGS 2027<br>
+3. 150€ de bon d’achat sur la boutique France Judo
+<br><br>
+<b>Champions de la semaine :</b>
+<br>
+Un lot de goodies boutiques d’une valeur de (TBD)<br><br>
+Tirage au sort parmi les champions de la semaine :<br>
+2 places pour la PGS 2026 + visite VIP de la salle d’échauffement
+</p>
 
+</div>
 
 
 <!-- <div class="game-help-1">
