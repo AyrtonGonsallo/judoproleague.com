@@ -7564,6 +7564,8 @@ margin-bottom: 1.5em;
 		text-align: center;
 		position: relative;
 		box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+		max-height: 100vh;
+        overflow-y: auto;
 	}
 }
 
@@ -11028,7 +11030,7 @@ body #tableau_classement_par_ligue .table-ranking td{
 .content-ligue {  grid-template-columns: 1fr 1fr;}
 .cree-ligue #form-creer-ligue {max-width: 100%;}
 .page-pari .ui-tabs:not(.tabs-leagues-ranking) .ui-tabs-nav li.ui-tabs-active a, .page-pari .ui-tabs .ui-tabs-nav .ui-tabs-anchor {font-size: 25px;}
-	.list-lig tr td:nth-child(3) { width: 0%;padding:!important;}
+	.list-lig tr td:nth-child(3) { width: 0%;padding:0px!important;}
 	
 }
 @media screen and (max-width: 800px) {
@@ -11092,7 +11094,6 @@ body #tableau_classement_par_ligue .table-ranking td{
         top: -4px;
         right: 30px;
         font-size: 31px;
-        filter: brightness(19.5);
     }
 		.connexion-parieur .popup-content {
         border: none !important;

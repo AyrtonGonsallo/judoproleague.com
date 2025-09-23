@@ -11,6 +11,9 @@ if ( ! is_user_logged_in() || ! current_user_can('joueur_jpl') ) {
 }
 
 
+
+
+
 get_header();
 $saison_value="2025-2026";
 $user_id = get_current_user_id();
@@ -32,6 +35,11 @@ $args = [
             'key'     => 'niveau',
             'compare' => '=',
             'value'   => 'Phase de poules',
+        ],
+        [
+            'key'     => 'journee',
+            'compare' => '=',
+            'value'   => 'journée 1',
         ],
         [
             'key'     => 'statut', // remplace par ton champ ACF exact
@@ -451,7 +459,7 @@ function get_bonus_label($type){
                         }
                     ?>">
                         <input type="number" 
-                        value="<?php echo $score_equipe1 ; ?>" readonly>
+                        value="<?php echo $score_final_equipe_1 ; ?>" readonly>
                     </div>
                 
                 </div>
@@ -472,7 +480,7 @@ function get_bonus_label($type){
                         }
                     ?>">
                         <input type="number" 
-                        value="<?php echo $score_equipe2 ; ?>" readonly>
+                        value="<?php echo $score_final_equipe_1 ; ?>" readonly>
                     </div>
                 
                 </div>

@@ -116,40 +116,55 @@ get_header();
                 <div class="">
                     <div>
                         <?php
-                            
-                            $all_users = $wpdb->get_results("
+                            /*
+                           $all_users = $wpdb->get_results("
                                 SELECT u.ID
                                 FROM {$wpdb->users} u
                                 INNER JOIN {$wpdb->usermeta} m1 ON u.ID = m1.user_id AND m1.meta_key = 'classement'
                                 INNER JOIN {$wpdb->usermeta} m2 ON u.ID = m2.user_id AND m2.meta_key = '{$wpdb->prefix}capabilities'
                                 WHERE m2.meta_value LIKE '%joueur_jpl%'
+                                AND CAST(m1.meta_value AS UNSIGNED) > 0
                                 ORDER BY CAST(m1.meta_value AS UNSIGNED) ASC
                                 LIMIT 10
-                            ");
+                            ");*/
+
+                            $all_users = $wpdb->get_results("
+    SELECT u.ID
+    FROM {$wpdb->users} u
+    INNER JOIN {$wpdb->usermeta} m1 ON u.ID = m1.user_id AND m1.meta_key = 'classement'
+    INNER JOIN {$wpdb->usermeta} m2 ON u.ID = m2.user_id AND m2.meta_key = '{$wpdb->prefix}capabilities'
+    WHERE m2.meta_value LIKE '%joueur_jpl%'
+    ORDER BY 
+        CASE WHEN CAST(m1.meta_value AS UNSIGNED) = 0 THEN 1 ELSE 0 END, 
+        CAST(m1.meta_value AS UNSIGNED) ASC
+    LIMIT 10
+");
+
+
                             
                             if ( !empty($all_users) ): 
                         ?>
                         <h3 class="desktop fs-h3">Classement</h3>
 
                             <table id="tableau_classement_general_parieurs" class="display table-ranking">
-<thead class="no-head">
-  <tr>
-    <th>Joueur</th>
-    <th style="text-align:center;">
-      <span class="desktop">Victoires / Pronos</span>
-      <span class="mobile">Victoires</span>
-    </th>
-    <th style="text-align:center;">
-      <span class="desktop">Score exact</span>
-      <span class="mobile">Score</span>
-    </th>
-    <th style="text-align:center;">
-      <span class="desktop">Meilleure série</span>
-      <span class="mobile">MS</span>
-    </th>
-    <th style="text-align:center;">Points</th>
-  </tr>
-</thead>
+                                <thead class="no-head">
+                                <tr>
+                                    <th>Joueur</th>
+                                    <th style="text-align:center;">
+                                    <span class="desktop">Victoires / Pronos</span>
+                                    <span class="mobile">Victoires</span>
+                                    </th>
+                                    <th style="text-align:center;">
+                                    <span class="desktop">Score exact</span>
+                                    <span class="mobile">Score</span>
+                                    </th>
+                                    <th style="text-align:center;">
+                                    <span class="desktop">Meilleure série</span>
+                                    <span class="mobile">MS</span>
+                                    </th>
+                                    <th style="text-align:center;">Points</th>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 <?php 
                                 $is_in_table = false;
