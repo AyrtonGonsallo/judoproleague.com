@@ -120,11 +120,14 @@ function array_msort($array, $cols)
 		}
 	}
 	foreach($rencontres->posts as $rencontre){
+		$statut=get_field('statut', $rencontre->ID)['label'];
+		$vallable=($statut=='en cours' || $statut=='terminé');
+
 		$phase=get_field("phase",$rencontre->ID)[0];
 		$mode_de_calcul_classement=get_field("mode_de_calcul_classement",$rencontre->ID);
 
 		$matchs_liste=get_field('les_combat',$rencontre->ID);
-		if($matchs_liste){
+		if($matchs_liste || $vallable){
 			//prettyPrint(get_field('les_combat')[0]['combats'][0]);exit(-1); 
 			
 			//echo sizeof($matchs_liste).' combats<br>';

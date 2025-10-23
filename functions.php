@@ -397,7 +397,7 @@ $my_fake_pages2 = array(
       
         $newrules22 = array();
         foreach ($my_fake_pages2 as $slug => $title)
-			$newrules22['calendrier-resultat-judo-pro-league-2024/' . $slug . '/?$'] = 'index.php?pagename=calendrier-resultat-judo-pro-league-2024&fpage=' . $slug;
+			$newrules22['calendrier-resultat-judo-pro-league/' . $slug . '/?$'] = 'index.php?pagename=calendrier-resultat-judo-pro-league&fpage=' . $slug;
 
         return $newrules22 + $rules;
     }
@@ -646,6 +646,7 @@ function add_custom_image_fields_autocomplete($form_fields, $post) {
     $saisons = array(
         '2023-2024' => '2023-2024',
         '2024-2025' => '2024-2025',
+        '2025-2026' => '2025-2026',
         // Ajoutez d'autres saisons si nécessaire
     );
 
@@ -755,7 +756,7 @@ add_filter('admin_body_class', 'add_custom_editor_body_class');
 // Enregistrer les judokas et la saison associés aux images sélectionnées
 function save_related_judokas() {
     // Vérifier les permissions de l'utilisateur
-    if (!current_user_can('edit_posts')) {
+    if (!current_user_can('edit_galeries')) {
         wp_send_json_error('Vous n\'avez pas la permission d\'effectuer cette action.');
         return;
     }
@@ -799,12 +800,232 @@ function hide_yoast_seo_and_post_body_content_for_non_page_post_types() {
 add_action('admin_footer', 'hide_yoast_seo_and_post_body_content_for_non_page_post_types');
 
 
+function rencontre_get_equipe_1_title() {
+	$equipe1 = get_field('equipe_1')[0];
+    return get_the_title($equipe1->ID );
+}
+
+function rencontre_get_equipe_2_title() {
+	$equipe2 = get_field('equipe_2')[0];
+    return get_the_title($equipe2->ID );
+}
+
+function get_page_equipe_title() {
+    // Récupère l'URL complète de la page actuelle
+    $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") 
+                   . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    // Parse l'URL pour ne garder que le path
+    $path = parse_url($current_url, PHP_URL_PATH);
+
+    // Découpe le path en segments
+    $segments = array_filter(explode('/', trim($path, '/')));
+
+    // On récupère le dernier segment
+    $last_segment = end($segments);
+
+    // Retourne un mot selon le dernier segment
+    switch($last_segment) {
+        case 'infos':
+            return 'Informations';
+        case 'actus':
+            return 'Actualités';
+		case 'photos':
+            return 'Photos';
+		case 'videos':
+            return 'Vidéos';
+		case 'calendrier_resultats':
+            return 'Calendrier et résultats';
+		case 'judokas':
+            return 'Judokas';
+        default:
+            return 'Autre';
+    }
+}
+
+
+function get_page_equipe_desc() {
+    // Récupère l'URL complète de la page actuelle
+    $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") 
+                   . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    // Parse l'URL pour ne garder que le path
+    $path = parse_url($current_url, PHP_URL_PATH);
+
+    // Découpe le path en segments
+    $segments = array_filter(explode('/', trim($path, '/')));
+
+    // On récupère le dernier segment
+    $last_segment = end($segments);
+
+    // Retourne un mot selon le dernier segment
+    switch($last_segment) {
+        case 'infos':
+            return 'toutes les informations concernant la Judo Pro League. Actus, vidéos, judokas,photos';
+        case 'actus':
+            return 'toutes les actualités concernant la Judo Pro League';
+		case 'photos':
+            return 'toutes les photos de la Judo Pro League';
+		case 'videos':
+            return 'toutes les vidéos de la Judo Pro League';
+		case 'calendrier_resultats':
+            return 'calendrier et résultats de la Judo Pro League';
+		case 'judokas':
+            return 'liste des judokas';
+        default:
+            return 'Autre';
+    }
+}
+
+
+// define the action for register yoast_variable replacments
+function register_custom_yoast_variables() {
+    wpseo_register_var_replacement( '%%equipe_1_title%%', 'rencontre_get_equipe_1_title', 'advanced', 'some help text' );
+	wpseo_register_var_replacement( '%%equipe_2_title%%', 'rencontre_get_equipe_2_title', 'advanced', 'some help text' );
+	wpseo_register_var_replacement(
+		'%%page_equipe_title%%',
+		'get_page_equipe_title',
+		'advanced',
+		'Renvoie un element seo de titre selon le dernier segment de l\'URL de la page equipe'
+	);
+	wpseo_register_var_replacement(
+		'%%page_equipe_desc%%',
+		'get_page_equipe_desc',
+		'advanced',
+		'Renvoie un element seo de description selon le dernier segment de l\'URL de la page equipe'
+	);
+}
+add_action('wpseo_register_extra_replacements', 'register_custom_yoast_variables');
+
+/*
+add_action('admin_init', function() {
+    // Supprime complètement le rôle 'photographe_jpl'
+    remove_role('photographe_jpl');
+});
+*/
+
+add_action('admin_init', 'rpt_add_role_caps', 999);
+
+function rpt_add_role_caps() {
+
+    // Liste des rôles à modifier
+    $roles = [ 'administrator', 'editor'];
+
+    // Capacités spécifiques au CPT "galerie"
+    $caps = [
+        'read_galerie',
+        'edit_galerie',
+        'edit_galeries',
+        'publish_galeries',
+        'delete_galerie',
+        'edit_others_galeries',
+        'edit_published_galeries',
+        'edit_private_galeries',
+    ];
+
+    foreach ($roles as $role_name) {
+        $role = get_role($role_name);
+        if (!$role) continue; // sécurité
+
+        // Ajouter chaque capacité
+        foreach ($caps as $cap) {
+            $role->add_cap($cap);
+        }
+
+        // Pour accès aux médias
+        $role->add_cap('upload_files');
+    }
+}
+
+
+function rpt_reset_photographe_jpl_caps() {
+    $role = get_role('photographe_jpl');
+    if (!$role) return;
+
+    // Supprime toutes les capacités existantes pour ce rôle
+    foreach ($role->capabilities as $cap => $value) {
+        $role->remove_cap($cap);
+    }
+
+    // Capacités spécifiques au CPT "galerie" pour photographe_jpl
+    $caps = [
+        'read'                     => true,
+        'upload_files'             => true,  // accès médiathèque
+        'edit_galerie'             => true,  // modifier sa galerie
+        'edit_galeries'            => true,  // modifier ses galeries
+        'edit_published_galeries'  => true,  // modifier ses galeries publiées
+        'publish_galeries'         => true,
+        'delete_galerie'           => false, // pas de suppression
+        'delete_galeries'          => false,
+        'read_private_galeries'    => true,
+        'edit_others_galeries'     => false, // ne peut pas éditer celles des autres
+    ];
+
+    foreach ($caps as $cap => $value) {
+        if ($value) {
+            $role->add_cap($cap);
+        }
+    }
+}
+add_action('admin_init', 'rpt_reset_photographe_jpl_caps', 999);
 
 
 
+add_filter('acf/fields/relationship/query/key=field_64b7ce9f8932c', 'filtrer_rencontres_relation', 10, 3);
 
+function filtrer_rencontres_relation($args, $field, $post_id) {
+    // Exemple : trier par date décroissante
+    $args['orderby'] = 'date_de_debut';
+    $args['order'] = 'ASC';
 
+    // Exemple : filtrer par saison (meta field "saison")
+    $args['meta_query'] = [
+        'relation' => 'AND', // ou 'OR' selon ton besoin
+        [
+            'key' => 'saisons',
+            'value' => '2025-2026',
+            'compare' => '='
+        ],
+        [
+            'key'     => 'statut',
+            'value'   => 'termine',
+            'compare' => '=',
+        ]
+    ];
 
+    return $args;
+}
 
+add_filter('login_redirect', 'photographe_jpl_login_redirect', 10, 3);
 
+function photographe_jpl_login_redirect($redirect_to, $requested_redirect_to, $user) {
+    // Sécurité : vérifier que $user est un objet WP_User
+    if (!isset($user->roles) || !is_array($user->roles)) {
+        return $redirect_to;
+    }
 
+    // Si l'utilisateur a le rôle 'photographe_jpl'
+    if (in_array('photographe_jpl', $user->roles)) {
+        // Redirection vers l'édition des galeries
+        return admin_url('edit.php?post_type=galerie');
+    }
+
+    // Sinon garder la redirection par défaut
+    return $redirect_to;
+}
+
+add_action('admin_head', 'hide_menus_for_photographe_jpl');
+
+function hide_menus_for_photographe_jpl() {
+    $user = wp_get_current_user();
+
+    if (in_array('photographe_jpl', $user->roles)) {
+        echo '<style>
+            /* Masquer le menu Médias */
+            #menu-media { display: none !important; }
+            /* Masquer d’autres menus si nécessaire */
+            #toplevel_page_delete_all_actions { display: none !important; }
+            #toplevel_page_image-multi-selector { display: none !important; }
+        </style>';
+    }
+}

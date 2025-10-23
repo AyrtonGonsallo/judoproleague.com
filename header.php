@@ -82,7 +82,7 @@ $equipes = get_posts(array(
 	<?php } ?>
 	<?php
 
-		if(( $post->post_title=="Calendrier résultat Judo Pro League 2023" || $post->post_title=="Calendrier résultat Judo Pro League 2024")){
+		if(( $post->post_title=="Calendrier résultat Judo Pro League 2023" || $post->post_title=="Calendrier résultat Judo Pro League")){
            
 
 		?>
@@ -468,8 +468,9 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
                     
            
             <?php date_default_timezone_set('Africa/Porto-Novo'); ?>
-            <?php $niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); ?>
+            <?php // $niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); ?>
             <?php 
+            /*
             $rencontres=array();
             if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ){
                 while ( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ) : the_row();
@@ -477,10 +478,94 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
                 $rencontres=array_merge($rencontres,$rencontre);
                 endwhile;
             }
+                */
             ?>
 
 <?php 
-   // $rencontres=get_posts($args);
+function get_next_week_with_rencontres($saison = '2025-2026') {
+    $rencontres = [];
+
+    $aujourdhui = current_time('Y-m-d');
+
+    // Semaine actuelle
+    $monday_this_week = date('Y-m-d', strtotime('monday this week'));
+    $sunday_this_week = date('Y-m-d', strtotime('sunday this week'));
+
+    // 1️⃣ Récupérer les rencontres de la semaine en cours
+    $args_courante = [
+        'post_type'      => 'rencontre',
+        'posts_per_page' => -1,
+        'orderby'        => 'meta_value',
+        'order'          => 'ASC',
+        'meta_key'       => 'date_de_debut',
+        'meta_query'     => [
+            [
+                'key'     => 'saisons',
+                'value'   => $saison,
+                'compare' => '='
+            ],
+            [
+                'key'     => 'date_de_debut',
+                'value'   => [$monday_this_week, $sunday_this_week],
+                'compare' => 'BETWEEN',
+                'type'    => 'DATE'
+            ]
+        ]
+    ];
+
+    $rencontres_courante = get_posts($args_courante);
+
+    // Ajouter les rencontres de la semaine en cours
+    if (!empty($rencontres_courante)) {
+        $rencontres = array_merge($rencontres, $rencontres_courante);
+    }
+
+    // 2️⃣ Parcourir semaine par semaine pour trouver la semaine future la plus proche si nécessaire
+    if (1==1) {
+        $monday_courant = date('Y-m-d', strtotime("monday this week", strtotime($aujourdhui)));
+        $semaine_offset = 1;
+        while ($semaine_offset <= 52) { // max 1 an
+            $monday = date('Y-m-d', strtotime("+$semaine_offset week", strtotime($monday_courant)));
+            $sunday = date('Y-m-d', strtotime("$monday +6 days"));
+
+            $args_future = [
+                'post_type'      => 'rencontre',
+                'posts_per_page' => -1,
+                'orderby'        => 'meta_value',
+                'order'          => 'ASC',
+                'meta_key'       => 'date_de_debut',
+                'meta_query'     => [
+                    [
+                        'key'     => 'saisons',
+                        'value'   => $saison,
+                        'compare' => '='
+                    ],
+                    [
+                        'key'     => 'date_de_debut',
+                        'value'   => [$monday, $sunday],
+                        'compare' => 'BETWEEN',
+                        'type'    => 'DATE'
+                    ],
+                ]
+            ];
+
+            $rencontres_future = get_posts($args_future);
+
+            if (!empty($rencontres_future)) {
+                // Ajouter ces rencontres aux rencontres existantes
+                $rencontres = array_merge($rencontres, $rencontres_future);
+                break; // arrêter après avoir trouvé la semaine future la plus proche
+            }
+
+            $semaine_offset++;
+        }
+    }
+
+    return $rencontres;
+}
+
+
+   $rencontres=get_next_week_with_rencontres();
     $now=date('Y/m/d H:i:s');
 ?>
 

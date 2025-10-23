@@ -289,7 +289,7 @@ get_footer();
                     <h2>Modification du login</h2>
                     <form id="resset_login" method="post">
                         <input type="hidden" name="action" value="change_email">
-                        <label for="new_email">nouvel Email</label>
+                        <label for="new_email">Nouvel Email</label>
                         <input type="email"   name="new_email" placeholder="" class="input">
                         <label for="new_email_repeat">Répeter le nouvel email</label>
                         <input type="email"   name="new_email_repeat" placeholder="" class="input">

@@ -178,12 +178,12 @@ function display($rencontres){?>
         <div class="judo_pro_league  mt-5p">
             <div class="phases-cl">
                 <h2 class="tab-phase fs-30">
-                    <a href="classement-judo-pro-league-2024/">
+                    <a href="classement-judo-pro-league/">
                         PHASE éliminatoire
                     </a>
                 </h2>
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="tableau-principal-judo-pro-league-2024/">
+                    <a href="tableau-principal-judo-pro-league/">
                         tableau principal
                     </a>
                 </h2>

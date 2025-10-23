@@ -24,6 +24,16 @@
 				<div ><h2 class="entry-title"><?php echo get_field('titre',get_the_ID());?></h2></div>
 			</div>
 		</div>
+
+	<?php elseif ( 'judoka' === get_post_type() ) : 
+			$image=get_the_post_thumbnail_url(get_the_ID(),'thumbnail')?get_the_post_thumbnail_url (get_the_ID(),'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
+		?>
+		
+		<div class="nv-img-judoka" style="background-image: url(<?= $image?>);"></div>
+		
+		<div class="nv-right-content">
+			<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+		</div>
 		
 	<?php else : ?>
 		<? if(get_the_post_thumbnail_url(get_the_ID(),'thumbnail')){?>	

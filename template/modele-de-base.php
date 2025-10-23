@@ -23,6 +23,24 @@ recuperer_video_live();
     //require_once (THEMEDIR.'inc/acf-blocs/bloc-event.php');
    // $section=bloc_event();
     require_once (THEMEDIR.'inc/acf-blocs/bloc-rencontres.php'); 
+    
+    while ( have_rows('articles'))
+    {
+        the_row();
+        $style=get_row_layout();
+        //site_debug("style=$style");
+        $section=false;
+        switch($style)
+        {
+
+            case 'bloc_sondage':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-sondage.php');
+                $section=bloc_sondage();
+                break;
+    
+        }
+    }
+   
     require_once (THEMEDIR.'inc/acf-blocs/bloc-playlist-videos.php');
     require_once (THEMEDIR.'inc/acf-blocs/bloc-classement.php');
     require_once (THEMEDIR.'inc/acf-blocs/bloc-sondage.php');

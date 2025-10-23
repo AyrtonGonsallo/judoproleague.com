@@ -5,98 +5,71 @@
 		$titre = get_field('titre');
         $equipe = get_field('equipes');
 		$date=get_the_date('j F Y', $my_post->ID );
-		$couleur1 = get_field('couleur1',$equipe[0]->ID);
-		$site = get_field('site_web',$equipe[0]->ID);
+		$couleur1 = get_field('couleur1',$equipe_id);
+		$site = get_field('site_web',$equipe_id);
 		$style_couleur1=($couleur1)?'style="background: '.$couleur1.';"':'style="background: #e5332a;"';
-		$image=get_field('logo_principal')?get_field('logo_principal'):get_the_post_thumbnail_url($equipe[0]->ID,"thumbnail");
-		$couleur2 = get_field('couleur2',$equipe[0]->ID); 
+		$image=get_field('logo_principal')?get_field('logo_principal'):get_the_post_thumbnail_url($equipe_id,"thumbnail");
+		$couleur2 = get_field('couleur2',$equipe_id); 
 		$style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="background: #990021;"';
-		$team_permalink = get_the_permalink($equipe[0]->ID);
-        $reseaux= get_field('reseaux_sociaux',$equipe[0]->ID);
+		$team_permalink = get_the_permalink($equipe_id);
+        $reseaux= get_field('reseaux_sociaux',$equipe_id);
+        $rencontre=get_field('rencontre')[0];
+        $equipe1 = get_field('equipe_1',$rencontre->ID)[0];
+        $equipe2 = get_field('equipe_2',$rencontre->ID)[0];
+
+        $title="Photos de ".get_the_title($equipe1->ID )." vs ".get_the_title($equipe2->ID )." ".get_field("saisons",$rencontre->ID);
+        $title2=get_the_title($equipe1->ID )." vs ".get_the_title($equipe2->ID )." ".get_field("saisons",$rencontre->ID);
+
+
 ?>
 
 
-<?php if($equipe){ ?>
+<?php if($equipe_id){ ?>
 <header class="nv.team-header">
-<section class="nv-header-team" <?php echo $style_couleur1;?>>
-    <div class="container">
-<?php echo $equipe_id;?>
-        <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal',$equipe[0]->ID))?get_field('logo_principal',$equipe[0]->ID):get_the_post_thumbnail_url($equipe[0]->ID)?>)">
-        </div>
-            <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title($equipe[0]->ID);?></h2> 
-        <?php if($site){?><a class="site-team-blanc" href="<?php echo $site;?>"><?php echo str_replace("/","",str_replace("https://","",$site));?></a><?php }?> 
-    </div>
-</section>
-<section class="nv-header-nav" <?php echo $style_couleur2;?>>
+
+<main id="primary" class="site-main  main-info-eq">
+
+<section class="nv-header-nav" >
 
     <div class="container">
 
         <div class="nv-nav">
+            <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle',$equipe_id))?get_field('logo_circle',$equipe_id):get_the_post_thumbnail_url($equipe_id)?>)"></div>
 
-            <a href="<?php echo $team_permalink;?>infos" class="team-link">Infos générales</a>
+            <div class="menu-eq">
+                <a href="<?php echo $team_permalink;?>infos" class="team-link  " <?php echo $style_couleur2;?>>Infos générales</a>
 
-            <a href="<?php echo $team_permalink;?>actus" class="team-link">Actualités</a>
+                <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
 
-            <a href="<?php echo $team_permalink;?>photos" class="team-link  nvtl-active ">Photos</a>
+                <a href="<?php echo $team_permalink;?>photos" class="team-link nvtl-active" <?php echo $style_couleur1;?>>Photos</a>
 
-            <a href="<?php echo $team_permalink;?>videos" class="team-link">Vidéos</a>
+                <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
 
-            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link">Calendrier / Résultats</a>
+                <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
 
-            <a href="<?php echo $team_permalink;?>judokas" class="team-link">Judokas</a>
-
-            <div class="nv-eqip-rs">
-
-                <?php  if($reseaux){
-
-                    foreach($reseaux as $rs){
-
-                        $rs_link=$rs['lien_page'];
-
-                        if($rs["type"]=="Facebook"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Instagram"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-instagram"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Tiktok"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-tiktok"></i></a>';						}
-
-                        elseif($rs["type"]=="YouTube"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-youtube"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Twitter"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-twitter"></i></a>';
-
-                        }
-
-                    }
-
-                }?>
-
+                <a href="<?php echo $team_permalink;?>judokas" class="team-link" <?php echo $style_couleur2;?>>Judokas</a>
             </div>
 
         </div>
+        
+        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title($equipe_id);?></a> > <a href="<?php echo $team_permalink;?>photos">Photos</a> > <?php echo $title2;?></span>
+
 
     </div>
 
 </section>
+
+
+
+
+
+
+
 </header>
 <?php }?>
 
 
-<h1 class="result-h1"><?php echo $titre;?></h1>
+<h1 class="result"><?php echo $title;?></h1>
 
 
 

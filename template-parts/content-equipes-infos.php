@@ -492,36 +492,34 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-<section class="nv-header-team" <?php echo $style_couleur1;?>>
-    <div class="container">
 
-        <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal'))?get_field('logo_principal'):get_the_post_thumbnail_url($post->ID)?>)">
-        </div>
-            <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title();?></h2> 
-        <?php if($site){?><a class="site-team-blanc" target="_blank"  href="<?php echo $site;?>"><?php echo str_replace("/","",str_replace("https://","",$site));?></a><?php }?> 
-    </div>
-</section>
-<section class="nv-header-nav" <?php echo $style_couleur2;?>>
+<section class="nv-header-nav" >
 
     <div class="container">
 
         <div class="nv-nav">
+                    <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle'))?get_field('logo_circle'):get_the_post_thumbnail_url($post->ID)?>)"></div>
 
-            <a href="<?php echo $team_permalink;?>infos" class="team-link nvtl-active ">Infos générales</a>
+        <div class="menu-eq">
+            <a href="<?php echo $team_permalink;?>infos" class="team-link nvtl-active " <?php echo $style_couleur1;?>>Infos générales</a>
 
-            <a href="<?php echo $team_permalink;?>actus" class="team-link">Actualités</a>
+            <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
 
-            <a href="<?php echo $team_permalink;?>photos" class="team-link">Photos</a>
+            <a href="<?php echo $team_permalink;?>photos" class="team-link" <?php echo $style_couleur2;?>>Photos</a>
 
-            <a href="<?php echo $team_permalink;?>videos" class="team-link">Vidéos</a>
+            <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
 
-            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link">Calendrier / Résultats</a>
+            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
 
-            <a href="<?php echo $team_permalink;?>judokas" class="team-link">Judokas</a>
+            <a href="<?php echo $team_permalink;?>judokas" class="team-link" <?php echo $style_couleur2;?>>Judokas</a>
+        </div>
 
+
+            <!--
             <div class="nv-eqip-rs">
 
-                <?php  if($reseaux){
+                <?php /*
+                 if($reseaux){
 
                     foreach($reseaux as $rs){
 
@@ -556,12 +554,17 @@ $prochaine_rencontre=get_posts($args5);
                         }
 
                     }
+                        
 
-                }?>
+                }*/
+                ?>
 
             </div>
+            -->
 
         </div>
+                <span><a href="/equipes-judo-pro-league/">Equipes</a> > <?php echo get_the_title();?> </span>
+
 
     </div>
 
@@ -573,7 +576,9 @@ $prochaine_rencontre=get_posts($args5);
 
 
 <section class="pdt-30 pdb-30" style="min-height: 410px; position: relative;">
+    
            <div class="container">
+            
             <div class="">
                 <div class="">
 
@@ -662,7 +667,7 @@ $prochaine_rencontre=get_posts($args5);
                                         </div>
                                         <div class="nv-rslt-fix">
                                             <div class="nv-result-rctr">
-                                            <span class="nv-number"><?php echo $score_equipe1;?></span><span class="nv-number">-</span><span class="nv-number"><?php echo $score_equipe2;?></span>                  </div>
+                                            <span class="nv-number" style="color:<?php echo $couleur1;?>"><?php echo $score_equipe1;?></span><span class="nv-number">-</span><span class="nv-number" style="color:<?php echo $couleur1;?>"><?php echo $score_equipe2;?></span>                  </div>
                                         </div>
                                         <div class="nv-equip-1 <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>">
                                             <img src="<?php echo $image2_url;?>" class="logo-eqi">
@@ -692,9 +697,6 @@ $prochaine_rencontre=get_posts($args5);
 
     <section class="nv-liste-judoka bg-gt bg-clss-season">
 
-
-   
-
         <div class="container">
 
             <div class="nv-judokas">
@@ -709,7 +711,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                        <h3 class="title-info">EFFECTIF<span><?php echo $title;?></span></h3>
+                        <h3 class="title-info">STAFF<span><?php echo $title;?></span></h3>
 
 
 
@@ -753,15 +755,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                        <div class="nv-btn-decou">
-
-
-
-                            <a href="<?php echo $team_permalink;?>judokas">Découvrir les judokas</a>
-
-
-
-                        </div>
+                       
 
 
 
@@ -1059,9 +1053,75 @@ $prochaine_rencontre=get_posts($args5);
 
     </section>
 
+    <section class="nv-liste-judoka eq-judo bg-gt bg-clss-season" style="background-color:#fff;">
+        <?php
+            $judokas = $wpdb->get_results(
+                $wpdb->prepare(
+                    "SELECT * 
+                    FROM prol_judokas_saisons 
+                    WHERE saison = %s 
+                    AND equipe_id = %s
+                    ORDER BY sexe ASC, categorie_de_poids ASC
+                    LIMIT 5",
+                    $saison_value,
+                    get_the_ID()
+                )
+            );
+
+        ?>
+        <div class="container">
+            <div class="nv-judokas">
+                <?php foreach ($judokas as $j): ?>
+
+                    <?php 
+                    $judoka = get_post($j->judoka_id);
+
+                    if (get_field('masquer', $judoka->ID)) {
+                        continue;
+                    }
+
+                    $nom            = get_field('nom_judoka', $judoka->ID);
+                    $prenom         = get_field('prenom_judoka', $judoka->ID);
+                    $cat_poids      = get_field('categorie_de_poids', $judoka->ID);
+                    $pays           = get_field('pays', $judoka->ID);
+                    $cat_age        = get_field('categorie_dage', $judoka->ID);
+                    $date_naissance = get_field('date_de_naissance', $judoka->ID);
+                    $image          = get_the_post_thumbnail_url($judoka->ID) 
+                                        ? get_the_post_thumbnail_url($judoka->ID) 
+                                        : '/wp-content/uploads/2023/09/profil.jpg';
+                    ?>
+
+                    <div class="judoka">
+                        <a href="<?php echo get_the_permalink($judoka->ID); ?>">
+                            <div class="nv-img-judoka" style="background-image:url(<?php echo esc_url($image); ?>)">
+                            </div>
+                        </a>
+
+                        <div class="nv-info-judoka">
+                            <h3 class="judoka-name"><?php echo esc_html($prenom . ' ' . $nom); ?></h3>
+
+                           
+
+                            
+                        </div>
+                    </div>
+
+                    
+
+                <?php endforeach; ?>
+
+                
+            </div>
+            <div class="nv-btn-decou">
+                <a href="<?php echo $team_permalink;?>judokas">Découvrir les judokas</a>
+            </div>
+        </div>
+    </section>
+
+
     <?php if($description):?>
 
-        <section class="nv-liste-judoka bg-gt bg-presenta" style="background-image: url(http://www.rimo0631.odns.fr/wp-content/uploads/2024/07/bg-presentation-equipe.jpg);background-size:cover;background-repeat:no-repeat; background-position:center;">
+        <section class="nv-liste-judoka bg-gt bg-presenta" >
 
             <div class="container">
 
@@ -1369,7 +1429,7 @@ $prochaine_rencontre=get_posts($args5);
 
                                                     <a href="<?= $url; ?>" class="news-link-2-col"><h3 class="nv-title-news-3-col"><?= $my_post->post_title?></h3></a>
 
-                                                    <span class="nv-date"><?php $date=get_the_date('j F Y', $my_post->ID ); echo $date; ?></span>
+                                                    <span class="nv-date" style="color:<?php echo $couleur1;?>"><?php $date=get_the_date('j F Y', $my_post->ID ); echo $date; ?></span>
 
 
 
@@ -1583,13 +1643,13 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-                            $video=get_field('video_url', $video_object->ID);
+                            
 
 
 
                             $id=get_field('id', $video_object->ID);
 
-
+                            $video_url='https://youtu.be/'.$id;
 
                             $date_dajout=get_the_date('j F Y', $video_object->ID );
 
@@ -1616,13 +1676,14 @@ $prochaine_rencontre=get_posts($args5);
 
                                     <?php 
 
+                                        echo '<div class="button-play-video button-play-video-grande-taille">'.do_shortcode('[video_popup url="'.$video_url.'" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').'</div>';
 
 
-                                        echo '<div class="button-play-video button-play-video-grande-taille">'.do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').'</div>';
+                                     //   echo '<div class="button-play-video button-play-video-grande-taille">'.do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').'</div>';
 
 
 
-                                        echo '<div class="button-play-video button-play-video-mobile">'.do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').'</div>';
+                                    //    echo '<div class="button-play-video button-play-video-mobile">'.do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').'</div>';
 
 
 
@@ -1642,7 +1703,7 @@ $prochaine_rencontre=get_posts($args5);
 
 
 
-<span class="nv-date"><?php $date=get_the_date('j F Y', $my_post->ID ); echo $date; ?></span>
+<span class="nv-date" style="color:<?php echo $couleur1;?>"><?php $date=get_the_date('j F Y', $my_post->ID ); echo $date; ?></span>
 
 
 
@@ -1727,7 +1788,17 @@ const splide5 = new Splide( '.splide5' , {
 
 </script>
 
-
+<style>
+    .team-link:hover {
+        background: <?php echo esc_attr($couleur1); ?> !important;
+    }
+    .single-equipes .splide__arrow {
+        background: <?php echo esc_attr($couleur1); ?> !important;
+    }
+    .nv-number{
+        color: <?php echo esc_attr($couleur1); ?> !important;
+    }
+</style>
     <?php
 
 

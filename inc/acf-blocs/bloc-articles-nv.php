@@ -89,12 +89,15 @@ function bloc_articles_nv() {
 
 
 									$id = explode('watch?v=', $video)[1];//https://www.youtube.com/watch?v=EBmDX7MNHSI
+                                    $video_url='https://youtu.be/'.$id;
 
+
+                      
 
 									echo '<div class="video video-grande-taille">'.
 
+                                do_shortcode('[video_popup url="'.$video_url.'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').
 
-                    do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').
 
 
                 '</div>';
@@ -102,8 +105,8 @@ function bloc_articles_nv() {
 
 							echo '<div class="video video-mobile">'.
 
+                                do_shortcode('[video_popup url="'.$video_url.'" w="300" h="160" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').
 
-                    do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').
 
 
                 '</div>';?>

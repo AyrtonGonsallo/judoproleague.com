@@ -5,51 +5,26 @@
  */
 get_header();
 $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
-$argsA=array(
+$args=array(
 			'post_type'=> 'equipes',
 			'posts_per_page' => -1,
 			'orderby' => 'title',
 			'order' => 'ASC',
-			'meta_query'     => array(	
-				'relation' => 'AND',			
+			'meta_query'  => array(
 				array(
-					'key'        => 'conference',
-					'compare'    => '=',
-					'value'      => 'Conférence Ouest'
-				),
-				array(
-					'key'        => 'saisons',
-					'compare'    => 'LIKE',
-					'value'      => $saison_value
+					'key'     => 'saisons',
+					'compare' => 'LIKE',
+					'value'   => '2025-2026'
 				)
 			)
 			
+			
 		);
 
-$argsC=array(
-			'post_type'=> 'equipes',
-			'posts_per_page' => -1,
-			'orderby' => 'title',
-			'order' => 'ASC',
-			'meta_query'     => array(		
-				'relation' => 'AND',				
-				array(
-					'key'        => 'conference',
-					'compare'    => '=',
-					'value'      => 'Conférence Est'
-				),
-				array(
-					'key'        => 'saisons',
-					'compare'    => 'LIKE',
-					'value'      => $saison_value
-				)
-			)
-		);
-$equipes_poule_A=get_posts($argsA);
-$equipes_poule_C=get_posts($argsC);
-$count_A=count($equipes_poule_A);
-$count_C=count($equipes_poule_C);
-//var_dump($equipes_poule_A);exit();
+$equipes_t=get_posts($args);
+$count_t=count($equipes_t);
+//var_dump($equipes_t);exit();
+
 ?>
 <script>
         $(document).ready(function() {
@@ -81,10 +56,10 @@ $count_C=count($equipes_poule_C);
 					<div class="jpl-poules">
 						<div class="jpl-team">
 							<?php
-							for ($x = 0; $x < 4; $x++) {
-								$url=get_permalink($equipes_poule_A[$x]->ID);
-								$logo=(get_field('logo_circle', $equipes_poule_A[$x]->ID))?get_field('logo_circle', $equipes_poule_A[$x]->ID):get_the_post_thumbnail_url($equipes_poule_A[$x]->ID);
-								$title=get_the_title($equipes_poule_A[$x]->ID);
+							for ($x = 0; $x <18; $x++) {
+								$url=get_permalink($equipes_t[$x]->ID);
+								$logo=(get_field('logo_circle', $equipes_t[$x]->ID))?get_field('logo_circle', $equipes_t[$x]->ID):get_the_post_thumbnail_url($equipes_t[$x]->ID);
+								$title=get_the_title($equipes_t[$x]->ID);
 							?>
 								<div class="jpl-team">
 									<a href="<?php echo $url; ?>" class="jpl-team-name"><?php echo $title; ?></a>
@@ -94,52 +69,7 @@ $count_C=count($equipes_poule_C);
 							}
 							?>
 						</div>
-						<div class="jpl-team">
-							<?php
-							for ($x = 4; $x < $count_A; $x++) {
-								$url=get_permalink($equipes_poule_A[$x]->ID);
-								$logo=(get_field('logo_circle', $equipes_poule_A[$x]->ID))?get_field('logo_circle', $equipes_poule_A[$x]->ID):get_the_post_thumbnail_url($equipes_poule_A[$x]->ID);
-								$title=get_the_title($equipes_poule_A[$x]->ID);
-								?>
-								<div class="jpl-team">
-									<a href="<?php echo $url; ?>" class="jpl-team-name"><?php echo $title; ?></a>
-									<a href="<?php echo $url; ?>"><img src="<?php echo $logo; ?>" class="jpl-img"></a>
-								</div>
-							
-							<?php
-							}
-							?>
-						</div>
-						<div class="jpl-team">
-							<?php
-							for ($x = 0; $x < 3; $x++) {
-								$url=get_permalink($equipes_poule_C[$x]->ID);
-								$logo=(get_field('logo_circle', $equipes_poule_C[$x]->ID))?get_field('logo_circle', $equipes_poule_C[$x]->ID):get_the_post_thumbnail_url($equipes_poule_C[$x]->ID);
-								$title=get_the_title($equipes_poule_C[$x]->ID);
-							?>
-								<div class="jpl-team">
-									<a href="<?php echo $url; ?>" class="jpl-team-name"><?php echo $title; ?></a>
-									<a href="<?php echo $url; ?>"><img src="<?php echo $logo; ?>" class="jpl-img"></a>
-								</div>
-							<?php
-							}
-							?>
-						</div>
-						<div class="jpl-team">
-							<?php
-							for ($x = 3; $x < $count_C; $x++) {
-								$url=get_permalink($equipes_poule_C[$x]->ID);
-								$logo=(get_field('logo_circle', $equipes_poule_C[$x]->ID))?get_field('logo_circle', $equipes_poule_C[$x]->ID):get_the_post_thumbnail_url($equipes_poule_C[$x]->ID);
-								$title=get_the_title($equipes_poule_C[$x]->ID);
-								?>
-								<div class="jpl-team">
-									<a href="<?php echo $url; ?>" class="jpl-team-name"><?php echo $title; ?></a>
-									<a href="<?php echo $url; ?>"><img src="<?php echo $logo; ?>" class="jpl-img"></a>
-								</div>
-							
-							<?php
-							}
-							?>
+						
 						</div>
 					</div>
 				</div>

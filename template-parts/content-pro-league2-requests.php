@@ -35,6 +35,7 @@ function array_msort($array, $cols)
 	foreach($rencontres as $rencontre){
 		//prettyPrint(get_field('les_combat')[0]['combats'][0]);exit(-1); 
 		$matchs_liste=get_field('les_combat',$rencontre->ID);
+		
 		//echo sizeof($matchs_liste).' combats<br>'; 
 		if(!$matchs_liste[0]['combats']){
 			$equipe1=get_field( 'equipe_1',$rencontre->ID)[0];
@@ -107,11 +108,12 @@ function array_msort($array, $cols)
 	//prettyPrint($results);exit(-1); 
 	foreach($rencontres as $rencontre){
 		$mode_de_calcul_classement=get_field("mode_de_calcul_classement",$rencontre->ID);
-
+		$statut=get_field('statut', $rencontre->ID)['label'];
+		$vallable=($statut=='en cours' || $statut=='terminé');
 		$matchs_liste=get_field('les_combat',$rencontre->ID);
 		//prettyPrint($mode_de_calcul_classement);exit(1);
 		
-		if(!$matchs_liste[0]['combats']){
+		if(!$matchs_liste[0]['combats'] || !$vallable){
 			$equipe1=get_field( 'equipe_1',$rencontre->ID)[0];
 			$equipe2=get_field( 'equipe_2',$rencontre->ID)[0];
 			$results[$equipe1->post_title][0]["nombre_de_rencontres"]+=0;

@@ -203,6 +203,11 @@ function array_msort($array, $cols)
 				'compare' => 'LIKE',
 				'value'   => 'Phase de poules',
 			),
+			array(
+				'key'     => 'statut', // remplace par ton champ ACF exact
+				'value'   => ['en_cours','termine'],
+				'compare' => 'IN'
+			),
 		),	
 	);
 

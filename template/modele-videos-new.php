@@ -8,6 +8,20 @@
 
  */
 
+function get_key_categorie_video($label) {
+    // Correspondance label → clé
+    $map = [
+        'Éditorial'            => 'editorial',
+        'Combats'              => 'combat',
+        'Ippons de la semaine' => 'ippon'
+    ];
+
+    // Trouver la clé correspondante
+    $key = isset($map[$label]) ? $map[$label] : sanitize_title($label);
+
+    
+    return $key;
+}
 
 
 get_header();
@@ -33,7 +47,7 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
             });
         });
     </script>
-<main id="primary" class="blog site-main liste-videos">
+<main id="primary" class="blog site-main liste-videos vid-club-cat">
     <div class="season-selector-box">
         <form Method="GET" ACTION="" class="season-selector-form">
             <select name="saison_value" id="saison_value" class="season-selector-select">
@@ -64,6 +78,8 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
 
         <div class="container">
         <h1 class="result-h1">Vidéos Judo Pro League <?php echo $saison_value;?></h1>
+        <div>
+    </section>
             <?php //recuperer les dernieres series
                 if($equipe_value!=0){
                     query_posts(
@@ -106,63 +122,163 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
                     );
                 }
 
-                
+                // Déterminer le meta_query de base selon équipe
+                $base_meta_query = array('relation' => 'AND');
 
-            ?>
+                if($equipe_value != 0){
+                    $base_meta_query[] = array(
+                        'key'     => 'equipe1',
+                        'compare' => 'LIKE',
+                        'value'   => '"' . $equipe_value . '"'
+                    );
+                }
 
-            <?php if ( have_posts() ) :
-              $i=0;
-            ?>
+                $base_meta_query[] = array(
+                    'key'     => 'saison',
+                    'compare' => 'LIKE',
+                    'value'   => $saison_value
+                );
 
-                <div class="videos-container" id="videoscontainer">
+                // --- 1) Vidéo "à la une" ---
+                $featured_query = new WP_Query(array(
+                    'post_type'      => 'video_youtube',
+                    'posts_per_page' => 1,
+                    'meta_query'     => array_merge($base_meta_query, array(
+                        array(
+                            'key'     => 'a_la_une',
+                            'value'   => '1',  // ACF checkbox true
+                            'compare' => '='
+                        )
+                    )),
+                    'orderby' => 'date',
+                    'order'   => 'DESC'
+                ));
 
-                    <?php while ( have_posts() ) : the_post();  
-                        $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
-                        $image_url=($i==0)?str_replace("hq","maxres",$image_url):$image_url;
+                // --- 2) Groupes de vidéos par catégorie ---
+                $categories = array('editorial','combat','ippon'); // tes catégories ACF
 
+                $category_queries = array();
+
+                foreach($categories as $cat){
+                    $category_queries[$cat] = new WP_Query(array(
+                        'post_type'      => 'video_youtube',
+                        'posts_per_page' => 4,
+                        'meta_query'     => array_merge($base_meta_query, array(
+                            array(
+                                'key'     => 'categorie',
+                                'value'   => $cat,
+                                'compare' => 'LIKE'
+                            )
+                        )),
+                        'orderby' => 'date',
+                        'order'   => 'DESC'
+                    ));
+                }?>
+
+
+            <section> <!--//ta classe section a la une -->
+                <div class="container">
+                    <div> <!--//ta classe pour ta grid 1x1 -->
+                    <?
+                    if($featured_query->have_posts()){
+                        while($featured_query->have_posts()){
+                            $featured_query->the_post();
+
+                            $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
+                            $image_url=($i==0)?str_replace("hq","maxres",$image_url):$image_url;
+
+                            ?>
+
+                            <div class="videos-container-element">
+
+                                <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
+
+                                    <div class="button-play-video button-play-video-grande-taille" >
+
+                                        <?php echo do_shortcode('[video_popup url="https://youtu.be/'.get_field('id').'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
+
+                                    </div>
+
+
+                                </div>                        
+
+                                <h3 class="nv-title-news-3-col"><?php echo get_field('titre');?></h3>
+
+                            </div>
+
+                        <?php
+                            
+                        }
+                    }
+                    wp_reset_postdata();
+                    ?>
+                    </div>
+                </div>
+            </section>
+
+          
+               
+                <?
+                // 2) Groupes
+                foreach($categories as $cat){
+                    $q = $category_queries[$cat];
+                    if($q->have_posts()){
+                        $first_post = $q->posts[0]; // ne change pas le pointeur interne
+        $acf_categorie = get_field('categorie', $first_post->ID);
                         ?>
-
-                        <div class="videos-container-element">
-
-                            <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
-
-                                <div class="button-play-video button-play-video-grande-taille" >
-
-                                    <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id').'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
-
+                        <section class="bg-gt"> <!--//ta classe section  -->
+                            <div class="container main-info-eq">
+                                <div class="div-flx-nv">
+                                    <? echo '<h2 class="nv-title-clsm">'.ucfirst($acf_categorie).'</h2>';?>
+                                    <div style="text-align:center;margin-top:0px !important">
+                                        <a href="toutes-les-videos/?categorie=<?php echo get_key_categorie_video($acf_categorie);?>&saison_value=<?php echo $saison_value;?>" class="more-actu"><span>Toutes les vidéos</span><i class="fa-solid fa-arrow-right-long"></i></a>
+                                    </div>
                                 </div>
+                                
+                               
 
-                                <div class="button-play-video button-play-video-mobile" >
+                                <div class="col-vids"> <!--//ta classe pour tes grid 2x2 -->
 
-                                    <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id').'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
-
-                                </div>
-
-                            </div>                        
-
-                            <h3 class="nv-title-news-3-col"><?php echo get_field('titre');?></h3>
-
-                        </div>
-
-                    <?php 
-                    $i+=1;
-                endwhile;?> 
-
-                <?php else: ?>
-
-                    <p>Aucun résultat.</p>
-
+                                <?  
+                                while($q->have_posts()){
+                                    $q->the_post();
                                     
+                                    $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
+                                    $image_url=($i==0)?str_replace("hq","maxres",$image_url):$image_url;
 
-            <?php endif; wp_reset_query();?>
+                                ?>
+                                        <div class="videos-container-element">
+
+                                            <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
+
+                                                <div class="button-play-video button-play-video-grande-taille" >
+
+                                                    <?php echo do_shortcode('[video_popup url="https://youtu.be/'.get_field('id').'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
+
+                                                </div>
+
+                                              
+
+                                            </div>                        
+
+                                            <h3 class="nv-title-news-3-col"><?php echo get_field('titre');?></h3>
+
+                                        </div>
+                                    
+                                <?php
+                                } ?>
+                                </div>
+                            </div>
+                        </section>
+                    <?php } 
+                    wp_reset_postdata();
+                }?>
+                
+            
+
 
             </div>
-
-        </div>
-
-    </section>
-
-</main>
+        </main>
 
     
 
@@ -171,6 +287,8 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
 
 
     <?php
+
+
 
 get_footer();
 

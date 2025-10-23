@@ -1144,14 +1144,13 @@ text-decoration: underline !important;
 .right-content span{
     font-family: 'Futura Condensed';
     font-size: 18px;
-    color: #e525f7 !important;
     text-transform: lowercase;
     padding-bottom: 5px;
 }
 .nv-right-content span {
     font-family: 'Futura Condensed';
     font-size: 18px;
-    color: #e525f7 !important;
+    /*color: #e525f7 !important;*/
     text-transform: lowercase;
     padding-bottom: 5px;
 }
@@ -1416,39 +1415,47 @@ body #langues-menu li.current-language-menu-item a:after{
     padding: 15px 0;
 }
 .nv-header-nav {
-    background-color: #990021;
+    background-color: transparent;
     min-height: 40px;
+}
+.main-info-eq .nv-header-nav .container span,article .nv-header-nav .container span {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .nv-nav {
     min-height: 40px;
-	display: flex;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
     align-items: center;
-	justify-content: center;
+    justify-content: center;
     position: relative;
 }
+.menu-eq{    display: flex;
+    align-items: center;
+    justify-content: center;}
 .team-link {
     font-family: 'Futura Condensed';
     color: #fff;
-    padding: 0 15px;
-    min-height: 40px;
-	display: flex;
+	font-size:1.1em;
+    padding: 0 16px;
+    min-height: 34px;
+    display: flex;
     align-items: center;
-	transition: 0.5s;
-    border-top: 2px solid rgba(0,0,0,0);
+    transition: 0.5s;
+    border-radius: 50px;
+    margin-inline: 4px;
 }
 .team-link:hover{
 	color: #fff;
-	border-top: 2px solid #fff;
 }
 .nv-header-rs i {
     color: #fff;
 	font-size: 23px;
 }
-.nvtl-active{
-	border-top: 2px solid #fff;
-}
 .nv-title-grade {
-    background: linear-gradient(#f2f2f2, #fff);
+    background: #fff;
 }
 .title-grade{
 	color: #000;
@@ -1457,13 +1464,22 @@ body #langues-menu li.current-language-menu-item a:after{
     background-color: #f2f2f2;
     padding: 4% 0;
 }
+.eq-judo .judoka {
+    font-family: "Futura Condensed", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	gap: 10px;
+}
 .judoka {
     font-family: "Futura Condensed", sans-serif;
-    font-weight: 600;
-    background-color: #cdcdcd52;
-    border: 1px solid #cdcdcd52;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	gap: 0px;
 }
-
 .nv-info-judoka{
 	padding: 0 10px;
 }
@@ -1478,14 +1494,21 @@ body #langues-menu li.current-language-menu-item a:after{
     display: flex;
     justify-content: space-between;
     padding: 5px 0 15px 0;
-	align-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+.nv-header-nav{
+    padding: 2% !important;
+	background: #f2f2f2;
 }
 .nv-cat span {
     font-family: 'Futura Condensed';
     color: #000;
-	font-size: 23px;
+    font-size: 19px;
+    margin-bottom: 12px;
 }
 .nv-cat a {
+	border-radius: 50px !important;
     font-family: 'Futura Condensed';
     color: #e5332a;
 	transition: 0.5s;
@@ -1505,14 +1528,12 @@ body #langues-menu li.current-language-menu-item a:after{
     grid-template-columns: repeat(4,1fr);
 	gap: 20px;
 }
+.nv-judokas h3{font-family: 'Futura Condensed' !important;}
 .judoka-name {
     color: #000;
     margin: 0;
 }
-.sep_judoka {
-    background-color: #cccccc;
-    height: 2px;
-}
+
 .nv-team-header {
     align-items: center;
     margin: 0 auto;
@@ -1552,19 +1573,22 @@ span.titile-1 {
     align-items: center;
     gap: 20px;
 }
-.nv-logo-team-1{
-min-height: 100px;
-    background-size: contain;
+.nv-logo-team-1 {
+    min-height: unset;
+    background-size: cover;
     background-position: center;
-    width: 260px;
-	margin-left: auto;
+    width: 104px;
     margin-right: auto;
     background-repeat: no-repeat;
+    height: 104px;
+    border-radius: 500px;
+    border: 1px solid #0000001c;
 }
+/* .postid-3235 .nv-logo-team-1, .postid-4806 .nv-logo-team-1 {background-color:#000;} */
 .flex-col{
 	display: flex;
     margin-left: auto;
-    width: 60%;
+    width: 80%;
 	margin-top: 5px;
 	margin-bottom: 5px;
     flex-direction: column;
@@ -1592,6 +1616,9 @@ min-height: 100px;
 
     gap: 5px;
 }
+.sec-jdk-detail .number-stat {font-size: 25px;}
+.sec-jdk-detail .percent-stat { font-size: 36px;}
+.sec-jdk-detail .titile-percent {font-size: 18px;}
 .resultat-ippon {
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -1616,7 +1643,7 @@ min-height: 100px;
     font-family: 'Futura Condensed';
     font-size: 35px;
 }
-.combat-judo, .ippon {
+.combat-judo{
     display: grid;
     row-gap: 15px;
 }
@@ -1625,14 +1652,45 @@ min-height: 100px;
     font-family: 'Futura Condensed';
     text-align: center;
 	line-height: 22px;
-    font-size: 20px;
+    font-size: 15px;
+}
+.sec-jdk-detail .stat-infos{ display: grid;grid-template-columns: 100%;}
+.sec-jdk-detail .disp-grid-stat {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-bottom: 0%;
+    gap: 0px;
+    justify-items: center;}
+.sec-jdk-detail .col-1.statistic .disp-grid-stat {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 0%;
+	align-items: center;
+    gap: 0px;
+    justify-items: center;}
+.sec-jdk-detail .season-selector-form{
+    display: flex;
+    gap: 4px;
+    margin-right: auto;
+    margin-bottom: 44px;
+    margin-left: auto;
+    width: fit-content;
+}
+
+
+.sec-jdk-detail .logo-jpl {
+    position: absolute;
+    bottom: 0px;
+    right: 2px;
+    max-width: 17%;
+    z-index: 0;
 }
 .statistic {
     background-color: #000a98;
     display: grid;
     align-items: center;
 	position: relative;
-	padding: 18% 0px;
+	padding: 2% 0px;
 }
 .logo-jpl {
 	position: absolute;
@@ -1736,7 +1794,7 @@ thead > tr > th:nth-child(1){
 	width: 120px !important;
 }
 table td{
-	padding: 0 !important;
+	padding: 6px 0px !important;
 }
 
 .single-equipes .splide{
@@ -1779,7 +1837,7 @@ display : block !important;
 		align-items: center;
 		padding-top: 10px;
 	}
-.nv-header-nav .container{
+.nv-header-nav .container .menu-eq{
 	overflow: auto;
   white-space: nowrap;
 }
@@ -1792,7 +1850,7 @@ display : block !important;
 		max-width: 100%;
 	}
 .phases{
-grid-template-columns: repeat(1,1fr)!important;
+grid-template-columns: repeat(3,1fr)!important;
 
 }
 .news-1-2-3-col{
@@ -2117,10 +2175,23 @@ color: #fff;
 }
 .nv-btn-decou {
     margin: 0 10px;
-    border-top: 1px solid #cdcdcd;
     padding: 20px 0;
     text-align: center;
 	margin-top: 15px;
+}
+.eq-judo .nv-img-judoka {
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+.nv-img-judoka {
+    height: 230px;
+    width: 230px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
 }
 .page-template-modele-rencontre .rencontres-section,  .page-template-modele-equipes-nv .rencontres-section,  .page-template-modele-calendrier-resultat .rencontres-section {
     display: none;
@@ -2692,7 +2763,7 @@ align-items: center;
 .header-cal-res-poule {
     background-color: #dddddd;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     border-radius: 10px 10px 0px 0px;
     align-content: center;
     justify-content: space-between;
@@ -2747,10 +2818,10 @@ transition: 0.2s ease-in-out;
     height: 100%;
 }
 .avenir {
+    background-color: #070e95;
 	display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #9706D3;
 	color: #fff;
 	height: 100%;
 }
@@ -2834,11 +2905,12 @@ padding-left: 10px;
 	right:0;
 	color: #240aac;
 }
+
 .cal-res-poule-link {
+	background-color:#060e95;
     text-align: center;
     padding: 5px 0;
     border-top: 1px solid #dddddd;
-    background-color: #240AAC;
     border-radius: 0px 0px 10px 10px;
 }
 .cal-res-poule-link a{    color: #fff !important;}
@@ -2944,7 +3016,7 @@ color: #fff !important;
 	font-size:25px;
 }
 .tab-phase:hover, .tab-phase.tab-act{
-	background-color: #E614AA !important;
+	background-color: #9706D3 !important;
 	color:#fff !important;
 }
 
@@ -3143,7 +3215,7 @@ color: #fff !important;
 @media screen and (max-width: 425px) {
 	
     .home .side-rencontres-flip-card-back, .col-rcntr .side-rencontres-flip-card-front {height:60px !important;}
-    .home .flip-card { height: 76px !important; margin-bottom: 28px !important; }
+    .home .flip-card { height: 65px !important; margin-bottom: 28px !important; }
     .home .side-rencontres-affiche {
     height: 40px !important;
 }
@@ -3622,6 +3694,8 @@ margin:0px 20px;
 	background: #fff;
 }
 .main-info-eq .nv-judokas {grid-template-columns: 1fr 1fr 1fr;}
+.main-info-eq .eq-judo .nv-judokas {grid-template-columns: repeat(5 , 1fr);}
+
 .main-info-eq .nv-team-hdr{border-radius:15px 15px 0px 0px !important;}
 .main-info-eq  .div-eff, .main-info-eq .div-clsm { border-radius: 0px 0px 15px 15px;}
 
@@ -3638,7 +3712,7 @@ margin:0px 20px;
 }
 .resut-new{
 	display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(3,1fr);
     align-items: center;
 	margin-right: 4px;
 }
@@ -3698,7 +3772,7 @@ margin:0px 20px;
 .div-span{
 	display: grid;
 	gap: 33px;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(3,1fr);
     align-items: center;
 }
 .div-span span{
@@ -3814,7 +3888,6 @@ margin:0px 20px;
     align-items: center;
 }
 .copyright {
-	border-top: 1px solid #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3876,7 +3949,7 @@ body #tableauAll_previous:hover{color: #fff !important;}
 .page-id-2882 form.cat-equipes-selector-form select#categorie, .page-id-2882 form.cat-equipes-selector-form select#categorie_value, .page-id-2882 form.cat-equipes-selector-form select#equipe_value {
     background-color: #fff;
     width: 33%;
-    color: #e614aa !important;
+    color: #000 !important;
     height: 47px !important;
     font-size: 20px !important;
     font-weight: 400 !important;
@@ -4646,9 +4719,11 @@ font-size: 32px!important;
 		font-size: 16px;
 		padding: 5px 0;
 	}
-	.rgt-result-jdk h3, .lft-result-jdk h3 {
-		font-size: 20px;
-	}
+    .rgt-result-jdk h3, .lft-result-jdk h3 {
+        font-size: 15px;
+        width: 100%;
+        margin: auto !important;
+    }
 	.blog .post.type-post {
 		grid-template-columns: 100%;
 	}	
@@ -4711,6 +4786,7 @@ font-size: 32px!important;
 		bottom: 0;
 		width: 100%;
 		text-align: center;
+		padding-block: 10px;
 	}
 	.info-footer {
 		padding-top: 0px;
@@ -4800,7 +4876,7 @@ font-size: 32px!important;
 		padding: 50px 0;
 	}
 	.custom-logo-link img{
-		max-width: 80% !important;
+		max-width: 90% !important;
 	}
 	.right-content{
 		margin-left: 5%;
@@ -5348,13 +5424,15 @@ padding: 0 10px;
 	padding-left: 0;
   }
   
-  #navbar .navbar-toggler {
-	outline: none !important;
-    margin-right: -15px;
+#navbar .navbar-toggler {
+    outline: none !important;
+    margin-right: 0;
+    margin-left: 16px;
+    padding: 0px;
     border: none;
     cursor: pointer;
-	background: none !important;
-  }
+    background: none !important;
+}
   
   @media (min-width: 1024px) {
 	#navbar .navbar-toggler {
@@ -5937,6 +6015,7 @@ margin-bottom: 10px;
 }
  @media (max-width: 497px) {
 	 .main-info-eq .liste-images-galerie a, .main-info-eq .liste-images-galerie-element { width: 90%;}
+	 .main-info-eq .eq-judo .nv-judokas {grid-template-columns: 1fr 1fr;}
 }
 /**************************************************/
 .galerie-equipe{
@@ -6584,7 +6663,7 @@ a {
 	display:flex !important;
 	justify-content:center !important;
 }
-.ui-widget-header{
+.ui-widget-header:not(.with-border){
 	background:none !important;
 	border:none !important;
 }
@@ -6605,7 +6684,7 @@ widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:h
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a{
 	padding: 8px;
     margin: 15px 0 0 0;
-    background: #000a98;
+    background: #9706D3;
     border-radius: 50%;
 font-family: 'Futura Condensed' !important;
     letter-spacing: 3px;
@@ -6698,7 +6777,7 @@ gap: 10px;
     display: grid;
     justify-content: left;
     text-align: center;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 53% 30%;
     align-items: center;
 gap: 10px;
 }
@@ -6712,10 +6791,10 @@ gap: 10px;
 }
 .nv-div-span {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         align-items: center;
         margin-right: 4px;
-        gap: 52px;
+        gap: 24px;
 }
 .nv-div-span span {
     text-align: center;
@@ -6732,7 +6811,7 @@ gap: 10px;
     color: #000;
 }
 .flex-col {
-    width: 40%;
+    width: 80%;
 text-align: center;
 }
 
@@ -6809,7 +6888,7 @@ text-align: center;
 		max-width: 100%;
 	}
 .flex-col {
-    width: 60% !important;
+    width: 80% !important;
 }
 }
 
@@ -6835,7 +6914,7 @@ text-align: center;
     font-size: 18px;
 }
 .flex-col {
-    width: 65%;
+    width: 75%;
     text-align: center;
 }
 .center-slide {
@@ -6972,12 +7051,13 @@ input:focus-visible {
      border: none !important;
 
 }
-.season-selector-form,.team-selector-box{
-	display: flex;
-	gap: 4px;
-	margin-right: auto;
-	margin-left: auto;
-        width: fit-content;
+.season-selector-form, .team-selector-box {
+    display: flex;
+    gap: 4px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    width: fit-content;
 }
 
 
@@ -6988,7 +7068,7 @@ input:focus-visible {
 	.page-about { max-width: 75%;  padding: 2%;}
 }
 @media only screen and (max-width:1317px){
-	.custom-logo-link {max-width: 160px !important;}
+	.custom-logo-link {max-width: 160px !important;line-height: 0 !important;}
 	.nv-header-lang {right: 0px;}
 }
 @media only screen and (max-width:1100px){
@@ -7021,7 +7101,7 @@ input:focus-visible {
 }
 /********************* fin-header*******************************/
 @media only screen and (max-width:800px){
-	.nv-div-span {gap: 35px;}
+	.nv-div-span {gap: 19px;}
 	
 	
 /*************classement***************/
@@ -7183,7 +7263,7 @@ body table.dataTable thead th, body table.dataTable thead td {
 .home .videos-container{display:none;}
 }
 .home .video-title-infos{font-size: 20px;text-align:left; margin-top: -18px;}
-.home .videos-container-element:nth-child(1) .video-preview {border-radius: 15px;min-height: 550px;}
+.home .videos-container-element .video-preview {border-radius: 15px;min-height: 550px;}
 .home .videos-3 .videos-container-element .video-preview{ width: 90%;min-height: 139px;}
 .home .videos-3 .videos-container-element {min-height: 155px; margin: 10px 10px;}
 .home .video-title-infos :last-child {
@@ -7201,12 +7281,12 @@ body table.dataTable thead th, body table.dataTable thead td {
 
 
 /***************************** page-videos *********************************/
-.page-template-modele-videos-new .videos-container-element:nth-child(1){width:93% !important;}
-.page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview {height: 540px;}
+
+.page-template-modele-videos-new .videos-container-element .video-preview {height: 540px;}
 .page-template-modele-videos-new .video-preview {border-radius:15px !important;}
 .page-template-modele-videos-new .videos-container {display: flex !important; align-items: center; justify-content: center;flex-wrap: wrap; width: 75% !important;}
 .page-template-modele-videos-new .nv-title-news-3-col { font-size: 23px;	font-weight: 400;}
-.page-template-modele-videos-new .videos-container-element {width: 22% !important;}
+
 /**************************** page-equipes ***************************************/
 .nv-cat a { color: #E614AA !important; font-size: 23px;}
 /*****************************page-classement************************************/
@@ -7229,7 +7309,7 @@ body.page-template-modele-tableau-principal .judo_pro_league, body.page-template
 .page-template-modele-calendrier-resultat #tabs{background:transparent !important;}
 /**************************** style-new-sections-home ******************************/
 /***************** section-sondage ******************/
-.sondage-width{max-width:1600px;margin:auto;}
+.sondage-home .sondage-width{max-width:1358px;margin:auto;}
 .sondage-home{padding:4%;background-size:cover;background-repeat:no-repeat; background-position:center;}
 .stat-home, .classmt-home{padding:4%;}
 .stat-title{margin:auto !important;margin-bottom: 97px !important;}
@@ -7310,7 +7390,7 @@ input.ays-survey-section-button.ays-survey-finish-button:hover{background-color:
 }
 .ays-survey-answer.ays-survey-answer-grid{position:relative !important; overflow: hidden;}
 .ays-survey-answer-icon-content-2 {border-color: transparent !important;}
-.flex-sondg{display:flex;gap:30px !important; align-items: flex-end;}
+.flex-sondg{display:flex;gap:30px !important;align-items: start;}
 .jdk-sdg-w{width:60%;}
 .jdk-mois{width:40%; border-radius: 30px;  padding: 30px; display: flex;flex-direction: column;  align-items: center; justify-content: center; border: 16px solid #fff !important;margin-top: 88px;
 }
@@ -7324,7 +7404,7 @@ img.img-jdk-m { width: 100px; border-radius: 50%;}
     justify-content: center;
     gap: 5px 20px;
     border-radius: 32px;
-    width: 55%;
+    width: 100%;
     flex-direction: column;
 }
 .mg0{margin:0px !important;}
@@ -7637,7 +7717,7 @@ margin-bottom: 1.5em;
     width: 76px;
 }
 
-	.home .videos-container2 > .videos-container-element:nth-child(1) .video-preview {min-height: 497px;}
+	.home .videos-container2 > .videos-container-element .video-preview {min-height: 497px;}
 	
 	.result-24 .cal-res-poule { gap: 13px;}
 	
@@ -7672,7 +7752,7 @@ margin-bottom: 1.5em;
 	
 	
 	.videos-container2{display:none !important;}
-	.home .videos-container-element:nth-child(1) .video-preview, .home .videos-container-element .video-preview {border-radius: 15px; min-height: 0; height: 187px;}
+	.home .videos-container-element .video-preview, .home .videos-container-element .video-preview {border-radius: 15px; min-height: 0; height: 187px;}
 	.home .videos-container{align-items: start;}
 	/************************************/
 	.rencntr-main .judo_pro_league {padding: 0% 0%;}
@@ -7755,10 +7835,10 @@ margin-bottom: 1.5em;
     justify-content: center!important;
     flex-wrap: wrap!important;
     align-content: center!important; width: 95% !important;}
-	.page-template-modele-videos-new .videos-container-element:nth-child(1) { width: 96% !important;}
+	.page-template-modele-videos-new .videos-container-element { width: 96% !important;}
 	.video-preview {min-height: 94px;}
 	.videos-container {padding: 12px 0px !important;}
-	.page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview {height: 392px;}
+	.page-template-modele-videos-new .videos-container-element .video-preview {height: 392px;}
 	/**************************page-equipes***************************/
 	.jpl-poules {margin-left: 0px;}
 	.regions {display: flex;}
@@ -7793,7 +7873,7 @@ margin-bottom: 1.5em;
 	
 	
 .page-template-modele-videos-new .videos-container-element {	width: 46% !important;}
-.page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview {   min-height: 293px;height: auto;    }
+.page-template-modele-videos-new .videos-container-element .video-preview {   min-height: 293px;height: auto;    }
 .video-preview {min-height: 123px; }
 		/**********************resultats***********************/
 	.flx-gap {width: 100%; margin-bottom: 20px;}
@@ -7868,9 +7948,9 @@ h4.mobile-h4 { display:none;}
 	.crt-title {width: 100%;}
 	/******/
 .logos-partners {width: 100%;}
-        .tab-phase a { font-size: 18px;}
+        .tab-phase a { font-size: 14px;}
 	    .page-template-modele-videos-new .container {  max-width: 100%; }
-	    .page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview, .page-template-modele-videos-new .video-preview {  min-height: 217px; height: auto;}
+	    .page-template-modele-videos-new .videos-container-element .video-preview, .page-template-modele-videos-new .video-preview {  min-height: 217px; height: auto;}
 
 	    .video-preview {  min-height: 0; height: 105px;}
 	    .page-template-modele-videos-new .videos-container-element { width: 44% !important;}
@@ -7885,7 +7965,7 @@ h4.mobile-h4 { display:none;}
 	.page-id-1708 .ui-tabs .ui-tabs-panel {padding: 1em 1.4em 1em 1.4em;}
     }
 @media only screen and (max-width:375px){    
-	
+	    .tab-phase a {font-size: 12px;}
 	    .main-info-eq >.pdb-30 {  min-height: 452px !important;display: flex; align-items: center;  justify-content: center;}
 	    .main-info-eq .ul-style-eqp {  width: 673px !important;  }
 	
@@ -7911,8 +7991,8 @@ h4.mobile-h4 { display:none;}
 	
 	.main-info-eq .more-actu i {font-size: 20px; margin-left: 12px;}
 	
-    .page-template-modele-videos-new .videos-container-element:nth-child(1), .page-template-modele-videos-new .videos-container-element{  width: 100% !important;}
-    .page-template-modele-videos-new .videos-container-element:nth-child(1) .video-preview, .page-template-modele-videos-new .video-preview {min-height: 142px;}
+    .page-template-modele-videos-new .videos-container-element, .page-template-modele-videos-new .videos-container-element{  width: 100% !important;}
+    .page-template-modele-videos-new .videos-container-element .video-preview, .page-template-modele-videos-new .video-preview {min-height: 142px;}
     .page-template-modele-videos-new .nv-title-news-3-col {  font-size: 16px !important;}
 	.jpl-poules {  width: 100%; }
     .flx-gap {margin-bottom: 62px;}
@@ -7959,7 +8039,6 @@ li.rencontre .beaten span {color: #fff !important;}
     color: #000;
     font-family: 'Futura Condensed';
     font-weight: 600;
-    WIDTH: 80px;
     float: left;
     text-align: center;
 }
@@ -8392,14 +8471,16 @@ body .col-rcntr .rnctr-div-li.mb{margin-bottom:0px !important;}
 
 .flip-card-front img {object-fit: contain !important;}
 
-
+.section-page-jdks .judoka-name {padding: 1% 0 0% 0;font-size: 22px;text-align: center; font-family: 'Futura Condensed Extra-Bold' !important;}
+.section-page-jdks .nv-cat a:hover{background-color: #000!important;text-decoration: none !important;}
 
 /*responsive*/
 @media only screen and (max-width:1750px){
-.judoka-name {font-size: 21px;}
+.judoka-name {font-size: 25px;text-align: center;}
+
 .div-videos {gap: 20px;}
 .col-actus .nv-title-news-3-col {font-size: 19px;}
-	
+
 }
 @media only screen and (max-width:1440px){
 .col-actus .nv-title-news-3-col {font-size: 17px;}
@@ -8502,7 +8583,9 @@ h3.title-rcntr {font-size: 21px;}
 	
 }
 @media only screen and (max-width:497px){
-	 .tab-phase {font-size: 12px; }
+	 .phases {max-width: 100%;}
+	 .fs-30 {font-size: 14px !important; }
+	 .tab-phase {font-size: 12px !important;padding:5px 5px; }
 	.home .flip-card:nth-child(5) {margin-top: -26px !important;}
 	.side-rencontres-details {	margin-top: -3px !important;}
     .side-rencontre-date {padding: 1px 35px !important;}
@@ -8673,14 +8756,14 @@ select option:checked{
         min-height: 182px !important;
     }
 	
-.home h2, .home .nd-title{   text-align: center !important;   font-size: 28px !important;}
+.home h2, .home .nd-title{text-align: center !important; font-size: 20px !important;}
  h2{ font-size: 20px !important;}	
 .sondage-home .sondg-title{ margin: auto;}
 .ays-survey-title {  font-size: 27px !important;text-align: center !important;}
 .home .div-videos { width: 100% !important;  gap: 14px;  max-width: 100% !important; }
 .home .videos-container {width: 91%;}
 .col-actus .flx-tle-but { display: flex; gap: 30px;}	
-.site-footer {  padding: 0% 0 13% 0;}
+.site-footer {  padding: 0% 0 19% 0;}
 .col-rcntr {width: 47% !important;}
 .col-actus .flx-tle-but {display: flex;   gap: 30px;   flex-direction: column;}
 
@@ -8696,7 +8779,7 @@ select option:checked{
         margin-left: 0px;
         margin-top: 13px;}
 	.col-actus .nv-title-news-3-col {font-size: 14px !important;}
-	span.nom-premier {  font-size: 22px !important;}
+	span.nom-premier {  font-size: 17px !important;}
     .news-1-2-3-part1 {display: block;}
     .jdk-ttl {  text-align: center !important;}
     .jdk-mois { border: 4px solid #fff !important; background-size: auto !important;}
@@ -8721,6 +8804,8 @@ select option:checked{
 }
 @media only screen and (max-width:375px){
     .site-footer .flx-gap {  margin-bottom: 63px; }
+		 .fs-30 {font-size: 12px !important; }
+
 }
 @media only screen and (max-width:320px){
 
@@ -8758,7 +8843,7 @@ h3.cal-res-poule-eqp { font-size: 17px !important;}
     font-size: 27px;
 }
 
-.but-rnctr-hm { margin-top: 0px; margin-bottom: 0px;z-index:9999 !important; position:relative;}
+.but-rnctr-hm { margin-top: 0px; margin-bottom: 0px;z-index:9 !important; position:relative;}
 @media only screen and (min-width:498px) and (max-width:800px){
 .jdk-mois {	background-size: 106% 117% !important;}
 }
@@ -8826,7 +8911,7 @@ h3.cal-res-poule-eqp { font-size: 17px !important;}
     font-size: 20px !important;
 }
 /*******************************************************/
-.season-selector-box {margin-bottom: 42px;}
+.season-selector-box {margin-bottom: 0px;}
 .result-h1{text-transform:uppercase !important;}
 .rencntr-main .beaten span {color: #000 !important;}
 .rencntr-main .nv-equip-name {color: #060e95 !important;}
@@ -8858,7 +8943,35 @@ section.nv-gal-equ { padding: 3% 2%;}
 
 .postid-182  section.section-bloc-articles {padding: 3% 2% !important;}
 /************************************/
-.sondage-home{display:none !important;}
+.sondage-home{display:block !important;}
+.ippons-semaine{
+    color: white;
+    margin: 50px 0px 0px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.ippons-semaine .ippon{width: 100%;display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;}
+.sondage-home .description,.sondage-home .description span, .sondage-home .description b,.sondage-home .description p {
+	color: #ffffff;
+}
+.sondage-home h3{
+    font-weight: 400 ;
+    margin: 0px ;
+	font-size: 40px;
+	text-transform: uppercase;
+}
+.sondage-home .ippons-semaine h3{
+	color: #fff;
+}
+.sondage-home .ippon-gagnant h3{
+	color: #000;
+}
+.ippons-semaine p { margin: 2px; color: #ffffff;}
+.ippon-gagnant p { margin: 2px; color: #000;}
 .home .h2-presentation {text-align: left !important;margin-bottom: 0px;position:relative;}
 .home .h2-presentation:before {
     position: absolute;
@@ -8953,7 +9066,7 @@ h3.title-rcntr {font-size: 38px;}
 	.home .h2-presentation:before, .home .h2-presentation:after{margin:auto !important; right:0 !important;}
 	.home .h2-presentation { text-align: center !important;}
 	
-	.tr-stat td:nth-child(1) {  display: flex !important;  padding-top: 0px !important;   align-items: center;  justify-content: flex-start;  align-content: center; }
+	.tr-stat td:nth-child(1) {  display: flex !important;  align-items: center;  justify-content: center;  align-content: center; }
 	.page-stats-judokas .dataTables_wrapper table th { text-align: center !important; }
 	 .page-stats-judokas thead > tr > th:nth-child(1) {  width: 237px !important;  }
 	
@@ -8968,7 +9081,7 @@ h3.title-rcntr {font-size: 38px;}
 	form#search-form {    align-items: center;flex-direction: column;}
 	.tp-3x-grid {max-width: 100%;}
 	
-	.page-template-modele-videos-new .videos-container-element:nth-child(1) .nv-title-news-3-col {height: auto !important; }
+	.page-template-modele-videos-new .videos-container-element .nv-title-news-3-col {height: auto !important; }
 	.page-template-modele-videos-new .videos-container-element {width: 30% !important;}
 	
 }
@@ -9011,7 +9124,7 @@ h3.title-rcntr {font-size: 38px;}
 	.brd-header.more-1200{display:none;}
 	
 	.brd-header.slide-equipes-haut{display:block;}
-	.brd-header.slide-equipes-haut .splide li{ width: 13% !important;}
+	.brd-header.slide-equipes-haut .splide li{ width: 11% !important;}
 	 .page-actus .display-news-1-col, .page-actus .display-news-2-col-reverse {grid-template-columns: 1fr;gap: 0px !important;}
 	.classmnt-24 .table-23 .table-tname {  font-size: 12px;}
 	.col-actus {width: 100%;}
@@ -9025,15 +9138,15 @@ h3.title-rcntr {font-size: 38px;}
 	.home .col-actus .news-1-2-3-part2 a .news-img-2-col { min-height: 211px !important;}
 	
 	.page-id-2882 .wp-caption-text { font-size: 17px;}
-	.page-id-2882 form.cat-equipes-selector-form select#categorie, .page-id-2882 form.cat-equipes-selector-form select#categorie_value, .page-id-2882 form.cat-equipes-selector-form select#equipe_value{        padding: 7px 9px 7px 9px !important;font-size:13px !important;}
-	
+	.page-id-2882 form.cat-equipes-selector-form select#categorie, .page-id-2882 form.cat-equipes-selector-form select#categorie_value, .page-id-2882 form.cat-equipes-selector-form select#equipe_value{        padding: 7px 9px 7px 9px !important;font-size:12px !important;height:37px !important;}
+	form.cat-equipes-selector-form {gap: 7px;}
 	.page-template-modele-videos-new .videos-container-element {width: 100% !important;}
 	
 }
 @media only screen and (max-width:375px){
 .search-popup-content {	padding: 38px 20px 20px 20px;}
 .page-id-2882 .align-photo-nom-vertically a { font-size: 27px;   line-height: 14px;text-align: center;}
-.page-id-2882 .tr-stat td:nth-child(1) { display: flex !important; padding-top: 0px !important; align-items: center; justify-content: flex-start; align-content: center;flex-direction: column; }
+.page-id-2882 .tr-stat td:nth-child(1) { display: flex !important; align-items: center; justify-content: flex-start; align-content: center;flex-direction: column; }
 .page-id-2882 .paginate_button {margin-inline: 1px;}
 	
 	
@@ -9043,6 +9156,8 @@ h3.title-rcntr {font-size: 38px;}
 .page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer { padding:1px 1px 3px 1px;}
 form.cat-equipes-selector-form {padding: 3px;}	
 .page-id-2882 .judo_pro_league { max-width: 100%; }
+body table.dataTable thead th, body table.dataTable thead td {padding: 10px 5px !important;}	
+.page-stats-judokas thead > tr > th:nth-child(1) {width: 53px !important;}
 	
 }
 
@@ -9082,17 +9197,24 @@ form.cat-equipes-selector-form {padding: 3px;}
 .live iframe { border-radius: 15px;border: none !important;  width: 100% !important;}
 .live-video {margin-block: 10px;}
 /**************************************************************************************************************************/
-.rgt-result-jdk-1 { grid-template-columns: 17% 28% 50% !important;}
-.lft-result-jdk-1{ grid-template-columns: 50% 34% 17% !important;}
+.rgt-result-jdk-1 { grid-template-columns:  28% 50% !important;}
+.lft-result-jdk-1{ grid-template-columns: 50% 34%  !important;}
 .lft-result-jdk {grid-template-columns: 55% 45%;}
 .rgt-result-jdk{grid-template-columns: 45% 55%;}
 .nv-bloc-rencontre .container-iw {grid-template-columns: 1fr 1.9fr 1fr;}
-.nv-bloc-rencontre .div-span {gap: 52px;}
+.nv-bloc-rencontre .div-span {  gap: 28px;}
+.nv-bloc-rencontre .iw-2 .div-span { margin-left: 18px;}
 .rencntr-main .result-jdk {grid-template-columns: 43% 14% 43% !important;}
 .iw-2 {grid-template-columns: 1fr 0.1fr;}
-.title-iw {grid-template-columns: 40% 18% 40% !important;}
+.title-iw {
+    grid-template-columns: 40% 11% 40% !important;
+    justify-items: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+}
 @media only screen and (max-width:1024px){
-.sec-rencontre .nv-bg-rct { margin-top: 3% !important;}
+.sec-rencontre .nv-bg-rct { margin-top: 3% !important;margin-bottom: 3% !important;}
 .kinza{display:block !important; margin: auto !important;}
 .nv-rgt-result-jdk {grid-template-columns: 50% 50%;}
 .nv-rgt-result-jdk h3 {	font-size: 18px;}
@@ -9105,16 +9227,34 @@ form.cat-equipes-selector-form {padding: 3px;}
 .kinza {padding: 1px 10px !important;}
 .nv-rgt-result-jdk h3 {font-size: 14px;}
 .rgt-result-jdk-1 {grid-template-columns: 23% 34% 37% !important;}
-.nv-iw-1 {grid-template-columns: 42% 46%;}		
+.nv-iw-1 {grid-template-columns: 37% 46%;}		
 .judoka img {width: 30%; }	
 .page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 30%;}
 }
 @media only screen and (max-width:497px){
 .page-id-2882 .judo_pro_league { max-width: 99%; margin: auto;}
-#tableauAll .align-photo-nom-vertically a { text-align: center !important; }
-.nv-iw-1 { grid-template-columns: 63% 49%; }
+#tableauAll .align-photo-nom-vertically a {         
+	    gap: 9px;
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;}
+	.two-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.nv-iw-1 { grid-template-columns: 0% 49%; }
 .page-eq-gal .liste-images-element{ max-height: 160px;}
 .page-eq-gal.page-eq-gal-jdk .liste-images-element, .page-eq-gal.page-eq-gal-jdk .liste-images-galerie-element{ width: 47%;}
+		#tableauEquipes .tr-stat td:nth-child(1) { display: flex !important;align-items: center;justify-content: left;}
+
+	
+	
+	
+	
 }
 @media only screen and (max-width:320px){
 .nv-result-eqju {padding: 0 5px;}
@@ -9701,9 +9841,23 @@ h3.sub-h{font-family:'Inter', sans-serif !important;font-weight: 600;}
   font-size: 14px;
   color: #000;
 }
+/*******************************************/
+.sondage-home .jdk-mois{background-size:cover !important;margin-top: 0px !important;}
+.sondage-home .jdk-mois iframe{border-radius: 9px;height: 250px; }
+.flex-sondg{margin-top: 88px;}
+.ttle-jdk-m h5{font-size: 30px;margin-block: 9px;}
+.ippon h3{font-size: 22px;margin-block:9px 21px;line-height: 1;}
+.ippons-semaine iframe{height: 176px; border-radius: 9px;}
+body .ippon .description{max-width:100% !important;}
+
 /*************************** responsive page paris presentation **************************************/
 @media screen and (min-width: 498px) {
 .img-box.mobile{display:none !important;}
+}
+@media screen and (max-width: 1024px) {
+	body #menu-item-5199 a:before { top: -6px !important;font-size: 12px !important; line-height: 1.8;}
+	.navbar-nav li#menu-item-5199 {position: relative;}
+
 }
 @media screen and (max-width: 800px) {
 	.page-calendrier {max-width: 95%;}
@@ -9721,8 +9875,7 @@ h3.sub-h{font-family:'Inter', sans-serif !important;font-weight: 600;}
         top: -4px;
         right: 30px;
         font-size: 31px;
-        filter: brightness(19.5);
-    }
+        filter: brightness(19.5);}
 	
 		.connexion-parieur .popup-content {
         background: linear-gradient(90deg, rgba(23, 36, 246, 1) 0%, rgba(196, 65, 250, 1) 100%);
@@ -9745,6 +9898,49 @@ h3.sub-h{font-family:'Inter', sans-serif !important;font-weight: 600;}
         height: 100%;
         align-content: center;
     }
+	.btn-presenta, .btn-classmnt, .btn-stat {padding: 8px 30px !important;font-size: 14px!important;}
+	.stat-home .div-eq img{width: 43px;}
+	.div-eq:not(.div-eq.premier) img {width: 43px;height: 43px;}
+	.page-about p, .page-about ul, .page-about li, .page-about u {font-size: 15px;}
+	.page-actus ul.page-numbers { gap: 4px;}
+	.align-photo-nom-vertically a {line-height: 0px;}
+	.div-eq.premier, .div-eq {padding: 3px 10px;}
+    .presentation p {font-size: 17px; margin-block: 33px 10px;}
+	.clss-eq { gap: 12px;}
+	.col-d-v-pts { justify-items: start; align-items: center;justify-content: center;}
+	.col-actus .nv-right-content { margin-block: 10px 18px !important; }
+	.col-actus .flx-tle-but { margin: 0px 0 0px 0 !important;}
+	.home .videos-container { width: 100%;}
+	.brd-header.slide-equipes-haut img { margin-block: 10px;width: 30px;}
+	h3.cal-res-poule-eqp {text-align: left;}
+	.cal-res-poule-team { display:grid; grid-template-columns: 0.2fr 1fr 0.2fr;gap: 3px;}
+	.avenir, .encours, .terminer {min-height: 37px !important; padding: 5px 15px !important;}
+	.page-result-desc { font-size: 16px;margin-bottom: 38px;}
+	.classmnt-24 .season-selector-box { margin-bottom: 0px;}
+	.single-post main#primary { max-width: 94%; padding: 7% 3% 4%;}
+	.col-rcntr .journee-div {margin-top:15px !important;margin-bottom: 28px;font-size: 25px;}
+	a.btn-classmnt.btn-mobile.center, a.btn-presenta.btn-mobile.center{margin-top: 0px !important; margin-bottom: 17px;}
+	.video-title-infos :first-child {margin-top: 13px;margin-bottom: 22px;}
+    .home .div-videos {gap: 0px;}
+    .footer-parts {padding: 6px 20px; width: 71%; margin: auto;}
+	.footer-parts a .img-2 { width: 60px;}
+	.stat-home{ padding: 9% 4%;}
+	.clss-eq img { width: 33px;}
+	.bg-stat { gap: 37px;}
+	.journee-div span{font-family:'Futura Condensed Extra-bold' !important;}
+	.bg-stat h3 {font-size: 20px;}
+	.bg-stat h4 {font-size: 16px;}
+	.home .flip-card {height: 133px !important;}
+	.home .col-rcntr {display: none;}
+	.home .rencontres-section {display: block;}
+	.phases-cl{grid-template-columns: repeat(2, 1fr) !important; max-width: 100%;}
+	.result-h1 {font-size: 18px !important;}
+	.page-result-desc { width: 80%;margin-inline: auto;}
+    .mobile img.desktop.image-equipe {
+        width: 19px;
+        margin-inline: 0px -26px;
+        margin-top: -14px !important;
+    }
 	
 	
 	
@@ -9752,6 +9948,21 @@ h3.sub-h{font-family:'Inter', sans-serif !important;font-weight: 600;}
 	
 }
 
+@media screen and (max-width: 375px) {
+.page-actus a.page-numbers, .page-actus a.page-numbers:hover, .page-actus ul.page-numbers .current {font-size: 12px;padding: 6px 10px;}
+	span.nom-premier { font-size: 18px !important; }
+	body .result-24 h3.cal-res-poule-eqp {font-size: 13px !important;padding-left: 0px !important;}
+	
+	
+}
+
+@media screen and (max-width: 320px) {
+	 .site-footer { padding: 0% 0 29% 0; }
+	.page-actus a.page-numbers, .page-actus a.page-numbers:hover, .page-actus ul.page-numbers .current { padding: 4px 8px; }
+	
+	
+	
+}
 /***************** header ****************/
 #menu-item-5199{
     background-color: #C441FA !important;
@@ -9772,5 +9983,556 @@ h3.sub-h{font-family:'Inter', sans-serif !important;font-weight: 600;}
 }
 
 .center-text{text-align:center !important;}
-.width-site{max-width:1440px;margin:auto;padding: 4% 2%;}
+
+
+/* .header-scrolled .splide.is-initialized, .header-scrolled .brd-header{display:none;}
+*/
+.header-scrolled {
+    position: fixed;
+    z-index: 999999999;
+    width: 100%;
+    top: 0;
+	transition: 1s ease-in-out;
+}
+.header-scrolled .brd-header.more-1200, .header-scrolled .rencontres-section{display:none !important;}
+.nv-copyright {background-color: #070e95;}
+
+
+
+/*********************************************************************/
+.ui-tabs .ui-tabs-nav li:not(.ui-tabs-active) a.ippon{
+	display: flex;
+    border-radius: 29px;
+    font-family: 'futura' !important;
+    font-size: 18px;
+	text-transform: uppercase;
+	padding: 8px 8px 8px 10px !important;
+    color:  white;
+	margin: 5px;
+
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a.ippon{
+	display: flex;
+    border-radius: 29px;
+    font-family: 'futura' !important;
+    font-size: 18px;
+    color: #8246BE;
+	text-transform: uppercase;
+    background: white;
+	margin: 5px;
+}
+.ui-widget-header.with-border{
+	border: solid white 1px;
+    border-radius: 29px;
+    width: fit-content;
+	padding-left:0px;
+	margin-left: auto;
+}
+
+.sondage-home .jdk-sdg-w {
+    width: 100%;
+}
+#tabs_ippons_semaine .title-tabs{
+	display: grid;
+    grid-template-columns: 3fr 2fr;
+	align-items: center;
+}
+.title-ids{
+	position: relative;
+    text-align: left;
+    font-weight: 600;
+    font-family: 'Futura Condensed';
+    font-size: 45px;
+    color: #fff;
+    max-width: fit-content;
+    line-height: 1;
+    margin: 0;
+}
+.ids-voter {
+    text-align: center;
+    text-transform: uppercase;
+    color: #2920A7;
+    font-size: 30px;
+    line-height: 0px;
+    padding: 24px 17px;
+    border-radius: 8px;
+	cursor: pointer;
+}
+.ids-img-judoka-litte{
+	border-radius: 8px;
+	width: 50px;
+}
+.ids-details-grid {
+    grid-template-columns: 2fr 3fr;
+    display: grid;
+    margin-bottom: 13px;
+	gap: 20px;
+}
+.ids-img-equipe {
+    width: 98px;
+    border-radius: 8px;
+    height: 46px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    object-fit: cover;
+    text-align: center;
+    margin-inline: auto;
+    margin-block: 20px;
+}
+.ids-img-equipe p, .ids-img-equipe span{
+	text-align: center;
+}
+.ids-opponement {
+    text-align: center;
+    font-size: 31px;
+}
+form.ippon-vote-form {
+    width: fit-content;
+    margin-inline: auto;
+    margin-block: 20px;
+}
+.ids-winner-title,.ids-details-title{
+	display: flex;
+    gap: 10px;
+    color: white;
+    font-size: 20px;
+    flex-direction: row;
+}
+.ids-judoka-title {
+    font-size: 40px;
+    text-transform: uppercase;
+}
+.ippons-semaine-before p{color:white;}
+.ids-hist-grid{
+	display: grid;
+    grid-template-columns: 3fr 1fr;
+	gap: 46px;
+	border-top: 1px solid #fff;
+    margin-top: 20px;
+    padding-top: 40px;
+}
+.select-semaine {
+    background: none;
+    color: white;
+    font-size: 31px;
+    border: none;
+    margin-bottom: 0px;
+}
+.select-semaine option{
+    color: black;
+}
+.progress {
+    background: #eeeeee00;
+    border-radius: 0;
+    overflow: hidden;
+    height: 20px;
+    width: 100%;
+    margin: 4px 0;
+}
+
+.select-semaine .ippon-item iframe{
+    max-width: 100%;
+    width: 100%;
+    border-radius: 25px;
+    height: 500px;
+}
+.progress-bar {
+    height: 100%;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+	background-color: #d9d9d9;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: 'Futura Condensed Extra-bold';
+}
+
+.progress-bar.winner {
+  background: #CD21E7; /* vert pour le gagnant */
+}
+
+
+.ids-judoka-wrapper {
+  border-radius: 29px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-bottom: 19px;
+}
+
+.ids-img-judoka {
+  display: block;
+  width: 100%; 
+  height: auto;
+  border-radius: 10px; 
+  
+}
+.home .pp_pic_holder.pp_default {
+    left: 0 !important;
+    right: 0px !important;
+    margin: auto !important;
+    display: block !important;
+    width: 50% !important;
+    position: fixed;
+    top: 27.3% !important;
+    bottom: 0;
+}
+.home div.pp_overlay {bottom: 0;}
+.ippon .video {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+}
+.home .pp_pic_holder.pp_default .pp_content {
+    width: 100% !important;
+    height: 100% !important;
+}
+.home div.pp_default .pp_close {display:none !important;}
+#pp_full_res iframe{width: 100% !important; height: 482px !important;border-radius: 20px;}
+div#pp_full_res {
+    border: 19px solid #d9d9d9;
+    border-radius: 0px;
+    background: #d9d9d9;
+}
+.home body.date-20250930.fr_FR.ltr.site-center-aligned.site-as-giant-card.webkit.webkit-537 {
+    height: 482px!important;
+}
+div.pp_default .pp_top .pp_middle, div.pp_default .pp_content_container .pp_left, div.pp_default .pp_bottom .pp_middle, div.pp_default .pp_top .pp_right, div.pp_default .pp_top, div.pp_default .pp_bottom .pp_right, div.pp_default .pp_bottom .pp_left, .pp_bottom, div.pp_default .pp_top .pp_left{background: none !important;height:0px !important;}
+.ippons-historique .ippon-item iframe{
+    width: 100%;
+	height: 545px;
+    border-radius: 20px;
+}
+.ippons-historique{}
+.ids-img-equipe {
+    width: 101px;
+    height: 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0;
+    object-fit: cover;
+    text-align: center;
+    margin-inline: 0;
+    margin-block: 0;
+}
+.ippons-semaine .ids-img-equipe { margin-inline: auto;margin-block:0px;}
+.ippons-semaine .ids-judoka-title {font-size: 31px;font-family: 'Futura Condensed Extra-bold';text-align:center;}
+.ippons-semaine .ids-opponement {text-align: center;font-size: 22px;}
+.ids-img-equipe img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50px;}
+img.jdk-semaine-home{
+	position: absolute;
+    right: 7px;
+    bottom: 5px;}
+.ippons-historique .ids-winner-title{
+    display: flex;
+    gap: 10px;
+    color: white;
+    font-size: 20px;
+	margin-bottom:20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.ids-hist-winner .ids-img-equipe img {height: 30px;}
+.ids-hist-winner .ids-judoka-title, .ippons-historique .ids-winner-title {line-height: 1;} 
+.ids-hist-winner .ids-judoka-title {font-size: 32px;margin-right: 20px;}
+.ids-hist-winner .ids-img-equipe { height: 31px;background: #ffffff00;}
+.ids-hist-details .ids-judoka-title {font-size: 25px;}
+.ids-hist-details .ids-img-judoka-litte {width: 100%;}
+.ids-hist-details .progress p {margin-top: 6px;}
+.ids-hist-winner iframe {
+    width: 100%;
+    height: 470px;
+    border-radius: 24px;
+}
+
+
+.ids-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*background-color: #4c19b663;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  border-radius: 20px;
+  transition: opacity 0.3s ease;
+}
+.ids-overlay img.video_lightbox_anchor_image {
+    width: 111px;
+}
+.ippons-semaine .ids-judoka-wrapper .ids-overlay a {
+    color: #fff;
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.ids-overlay-link {
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.ids-judoka-wrapper .ids-overlay {
+  opacity: 1;
+}
+.ids-overlay a {
+  color: #fff;
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.sec-jdk-detail .disp-grid { display: block; padding-bottom: 1%;}
+.sec-jdk-detail h2.title-grade {margin: 0px;}
+.sec-jdk-detail .nv-info-judoka-1 { display: grid; grid-template-columns:1fr !important;gap: 0px;max-width: 100%;}
+.sec-jdk-detail .title-stat {font-size: 16px;}
+.sec-jdk-detail .resultat-combat { display: grid;grid-template-columns: 1fr 1fr 1fr 1fr 2fr;}
+
+.ids-hist-details p{color:white !important;margin-top: 8px !important;}
+.img-fiche-jdk { width: 90%; border-radius: 0px !important;}
+/* body .home .ytp-large-play-button svg{display:none !important;}
+body .home .ytp-large-play-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 50%;
+    content: "/wp-content/uploads/2025/10/play-icon.svg" !important;
+    width: 105px;
+    height: 105px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 0;
+    margin-top: 0;
+    transition: opacity .25s cubic-bezier(0,0,.2,1);
+    z-index: 63;
+} */
+/***********************************************************/
+.nv-header-nav{padding:0% 0% 0%;}
+.det-combts h2{font-size:28px;text-align:center;}
+button.ids-voter.button-ippon-chosed {
+    background-color: #cd21e7;
+    border-color: #cd21e7;
+    color: #fff;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+button.ids-voter.button-ippon-chosed i{margin-left:8px;font-size: 28px;}
+button.ids-voter.button-ippon-not-chosed {
+    background-color: #7a6ebe;
+    border-color: #7a6ebe;
+	cursor: unset;
+}
+.det-combts .container{max-width:100% !important;}
+.det-combts .title-iw {grid-template-columns: 40% 51% 40% !important;}
+.det-combts .iw-1 {margin-left: -11px;}
+.ids-hist-details .ids-div-img{position: relative;}
+.ids-hist-details .ids-img-eq {
+    position: absolute;
+    right: -11px;
+    bottom: -5px;
+}
+.div-jdk-detail{display: grid;grid-template-columns: 1fr 1fr 2fr;}
+.sec-jdk-detail .personal-info { flex-direction: column !important; align-items: flex-start;}
+.col-vids { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));}
+.col-vids .video-preview { height: 321px !important;}
+.vid-club-cat h2{font-size: 33px;text-transform: uppercase;}
+.vid-club-cat .season-selector-select, .vid-club-cat .team-selector-select {
+	font-size: 25px;
+    background-color: #c442fa;
+    padding: 5px 21px;
+    border-radius: 50px;
+    font-family: 'Futura Condensed';
+    color: #ffffff !important;
+    box-shadow: 0 0 15px 0 rgb(0 0 0 / 28%);
+    font-weight: bold;}
+.vid-club-cat .season-selector-form, .vid-club-cat .team-selector-box {
+    display: flex;
+    gap: 26px;
+    margin-inline: auto;
+    margin-top: 40px;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+.vid-club-cat .season-selector-select, .vid-club-cat .team-selector-select {
+    appearance: none !important;
+    background: #c442fa url("data:image/svg+xml;utf8,<svg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center;
+    background-size: 19px;
+}
+.type-judoka .season-selector-select, .type-equipes .season-selector-select{
+    appearance: none !important;
+    background: #fff url(data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>) no-repeat right 3px center;
+    padding-inline: 14px 22px;
+}
+.aucun-cmbt{display:none;}
+/************************************************************/
+.vp-flex iframe {
+    border: 19px solid #d9d9d9 !important;
+    border-radius: 0px !important;
+}
+.video .vp-img{width: 105px;}
+/****************************** responsive *****************************/
+@media screen and (max-width: 1440px) {
+.ippons-semaine .ids-judoka-title {font-size: 24px;}
+	
+}
+@media screen and (max-width: 1248px) {
+    .ids-hist-grid {grid-template-columns: 2fr 1fr;gap: 31px;}
+	
+	
+}
+@media screen and (max-width: 1024px) {
+.home .pp_pic_holder.pp_default {width: 79% !important;}
+.video-grande-taille img.vp-img {display: none;}
+
+}
+@media screen and (max-width: 800px) {
+	.vp-flex, .Video-PopUp-Content .vp-flex {
+        max-width: 100% !important;
+        height: 450px !important;
+    }
+	.page-id-1683 .col-vids .video-preview {height: 172px !important;}
+    #tabs_ippons_semaine .title-tabs { grid-template-columns: 1fr;gap: 28px;justify-items: center;margin-bottom: 30px;}
+	.ui-widget-header.with-border {width: fit-content;margin-right:auto;margin-left:auto;}
+	.ui-tabs .ui-tabs-nav li:not(.ui-tabs-active) a.ippon, .ui-tabs .ui-tabs-nav li.ui-tabs-active a.ippon{font-size: 10px;}
+	.ippons-semaine { margin: 0px 0px; display: flex;flex-wrap: wrap;}
+	.ippons-semaine .ippon { width: 46%;}
+	.ids-opponement{font-size: 17px;}
+	.ids-voter {font-size: 24px;}
+
+	.ids-judoka-title {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;}
+    .ippons-semaine .video a {width: 100%;}
+	.ids-overlay a {font-size: 19px;text-align: center;}
+    .ippons-historique .ippon-item iframe {height: 236px;}
+    .ids-details-grid {gap: 10px;}
+	.ids-hist-grid .ids-details-title {  justify-content: space-between;}
+	.select-semaine {font-size: 26px;margin-top: 18px;}
+	.ids-hist-winner .ids-judoka-title {font-size: 26px;}
+	.video-grande-taille, .button-play-video-grande-taille {display: block !important;}
+	.pp_content { padding-top: 0% !important;}
+	#pp_full_res iframe {height: 339px !important;}
+	.home .pp_pic_holder.pp_default{ width: 95% !important;}
+	div#pp_full_res {border: 8px solid #d9d9d9;}
+    div.pp_default .pp_close {background: none;}
+	.pp_details{padding-top:0px;padding-bottom:0px;}
+	.section-page-jdks .nv-judokas {grid-template-columns: repeat(2, 1fr);}
+	.section-page-jdks .nv-img-judoka {height: 82px;width: 82px;}
+	.nv-nav {grid-template-columns: 1fr; gap: 20px;}
+	.season-selector-form, .team-selector-box{margin-right: auto; margin-left: auto;}
+	header.nv\.team-header .nv-logo-team-1 { margin-left: auto;margin-right: auto;}
+	.menu-eq {display: flex; align-items: center;justify-content: flex-start;}
+	.ids-voter { padding: 16px;}
+	.det-combts .title-iw { grid-template-columns: 40% 40% 40% !important;}
+	.nv-result-eqju .div-span {gap: 12px;}
+	section.det-combts {width: 100%;}
+	.det-combts .iw-1 { margin-left: -24px; }
+	.div-jdk-detail .judoka img {width: 100% !important;}
+    .col-vids {grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));gap: 20px;}
+	.col-vids .videos-container-element {width: 95% !important; }
+	.single-equipes .splide__track--draggable {height: 100% !important;}
+	.single-equipes .flip-card {height: 301px !important; }
+	
+	
+}
+
+@media screen and (max-width: 497px) {
+    .ids-overlay img.video_lightbox_anchor_image {width: 69px;}
+	.ids-img-equipe img {width: 30px;height: 30px;}
+	.ids-hist-grid {padding-top: 30px;}
+	.ids-hist-grid { grid-template-columns: 1fr;}
+	.ids-winner-title > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;}
+    .select-semaine { font-size: 22px; margin-top: 0px; }	
+	.ids-hist-winner iframe {height: 100%;}
+	.ids-hist-grid { gap: 90px;}
+	.ippons-semaine .ids-judoka-title { font-size: 17px; }
+	.ippons-semaine .ids-opponement { text-align: center; font-size: 16px; }
+	.nv-result-eqju .div-span { gap: 9px; }
+	.det-combts .title-iw { grid-template-columns: 40% 52% 40% !important; }
+	.det-combts .iw-1 { margin-left: -9px; }
+	.div-jdk-detail{grid-template-columns: 1fr !important;gap: 18px;}
+	.sec-jdk-detail h2.title-grade { text-align: left !important;}
+	.sec-jdk-detail .season-selector-form {margin-right: auto;}
+	.sec-jdk-detail .container {max-width: 100%;}
+	.vid-club-cat .nv-title-news-3-col { font-size: 15px !important; }
+    .col-vids {grid-template-columns: 1fr;gap: 1px;}
+    .vid-club-cat .season-selector-select, .vid-club-cat .team-selector-select {font-size: 17px;padding: 5px 28px !important;}
+	.vp-flex iframe { border: 9px solid #d9d9d9 !important;}
+	.nv-logo-team-1 {width: 70px;height: 70px; margin: auto;}
+	.vp-flex, .Video-PopUp-Content .vp-flex {max-width: 100% !important;height: auto !important;}
+	.video .vp-img {width: 60px;}
+	
+	
+	
+	
+	
+	
+}
+
+@media screen and (max-width: 375px) {
+.ids-hist-details .ids-judoka-title {font-size: 18px; text-align: left;}
+.ids-img-equipe {width: 65px;}
+.ippons-historique .ids-winner-title {gap: 5px;}	
+.det-combts .iw-1 { margin-left: -6px; }
+.rgt-result-jdk h3, .lft-result-jdk h3 { font-size: 10px;}
+.sec-jdk-detail .disp-grid span {font-size: 16px;}
+.sec-jdk-detail h2 {font-size: 13px !important;}
+.main-info-eq >.pdb-30 {min-height: auto !important; height: auto !important;}
+	
+	
+	
+}
+
+@media screen and (max-width: 320px) {
+    .ids-hist-winner .ids-judoka-title { font-size: 20px; }
+	.ippons-historique .ids-winner-title { font-size: 17px;}
+    button.ids-voter.button-ippon-chosed i { font-size: 15px;}
+	button.ids-voter.button-ippon-chosed {font-size: 23px;}
+	.det-combts .iw-1 { margin-left: 0px; }
+	.sec-jdk-detail .resultat-combat { gap: 3px;}
+	.vid-club-cat .season-selector-form, .vid-club-cat .team-selector-box {gap: 4px;}
+    .main-info-eq .flip-card {max-width: 48% !important;}
+	.ids-hist-grid {gap: 83px;}
+	
+	
+	
+}
+
+.width-site{max-width:1440px !important;margin:auto !important;padding: 4% 2% !important;}
 .width-site ul { list-style-type: disc;}
+

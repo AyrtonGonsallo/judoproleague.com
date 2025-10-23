@@ -58,9 +58,9 @@
                 <p>Copyright <?php echo date('Y'); ?></p>
 <p class="desktop"> - </p>
 
-                <p><a href="https://www.ffjudo.com/mentions-legales" target="_blank">mentions légales</a></p>
+                <p><a href="https://www.ffjudo.com/mentions-legales" target="_blank">Mentions Légales</a></p>
 <p class="desktop"> - </p>
-<p>Judo Pronos Challenge : <a href="/protection-des-donnees-judo-pronos-challenge/" target="_self">protection des données & <a href="/reglement-officiel-judo-pronos-challenge/" target="_self">Réglement officiel</a></a>
+<p>Judo Pronos Challenge : <a href="/protection-des-donnees-judo-pronos-challenge/" target="_self">Protection des Données & <a href="/reglement-officiel-judo-pronos-challenge/" target="_self">Règlement Officiel</a></a>
                 </p>
 
 

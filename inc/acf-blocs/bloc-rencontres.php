@@ -1,10 +1,11 @@
 	
 
 <?php date_default_timezone_set('Africa/Porto-Novo'); 
-setlocale(LC_TIME, 'fr_FR.UTF-8')
+setlocale(LC_TIME, 'fr_FR.UTF-8');
 ?>
-<?php $niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); ?>
+<?php //$niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); ?>
 <?php 
+/*
 $rencontres=array();
 if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ){
     while ( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ) : the_row();
@@ -12,6 +13,8 @@ if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2')
     $rencontres=array_merge($rencontres,$rencontre);
     endwhile;
 }
+*/
+
 
 $args_articles=array(
 	'post_type'=> 'post',
@@ -27,7 +30,9 @@ $news_part2 = array_slice($news,3,2);
 ?>
 
 <?php 
-   // $rencontres=get_posts($args);
+
+
+   $rencontres=get_next_week_with_rencontres();
     $now=date('Y/m/d H:i:s');
 ?>
 
@@ -170,7 +175,7 @@ $news_part2 = array_slice($news,3,2);
                 $last_date_rencontre=$date_rencontre;
                         endforeach ?>
                 
-                <a href="calendrier-resultat-judo-pro-league-2024/"  class="but-rnctr-hm"> Voir toutes les rencontres <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a href="calendrier-resultat-judo-pro-league/"  class="but-rnctr-hm"> Voir toutes les rencontres <i class="fa-solid fa-arrow-right-long"></i></a>
 
                 
             </ul>

@@ -6,7 +6,7 @@ function display_rencontre_journee_poule($rencontres_j2_pouleB,$poule){
     ?>
 <?php if ($rencontres_j2_pouleB): ?><div class="judo_pro_league">    
     <!-- <h2 class="crt-title">Poule <?php echo $poule?></h2>     -->
-    <a href="/classement-judo-pro-league-2024/" class="more-classement">Classement <i class="fa-solid fa-arrow-right-long"></i> </a>
+    <a href="/classement-judo-pro-league/" class="more-classement">Classement <i class="fa-solid fa-arrow-right-long"></i> </a>
 
     <?php $count=count($rencontres_j2_pouleB);?>
     <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" <?php }?>>        
@@ -116,8 +116,8 @@ function get_rencontres($poule_id,$journee,$saison_value){
             )  
         ),		
         'meta_key' => 'date_de_debut',		
-        'orderby' => 'meta_value_num',		
-        'order' => 'DESC',			
+        'orderby' => 'meta_value',		
+        'order' => 'ASC',			
     );
     return get_posts($args);
 }
@@ -169,7 +169,7 @@ $rencontres_j6_pouleA =get_rencontres(488,'6',$saison_value);
 
         <div class="judo_pro_league">
 
-        <h1 class="result-h1">Calendrier phase éliminatoire <?php echo $saison_value;?></h1>
+        <h1 class="result-h1">Calendrier phase éliminatoire </h1>
 
             <div class="phases">
 

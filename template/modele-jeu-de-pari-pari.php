@@ -38,8 +38,8 @@ $args = [
         ],
         [
             'key'     => 'journee',
-            'compare' => '=',
-            'value'   => 'journée 1',
+            'value'   => ['journée 1','journée 2','journée 3'],
+            'compare' => 'IN'
         ],
         [
             'key'     => 'statut', // remplace par ton champ ACF exact
@@ -333,7 +333,8 @@ function get_bonus_label($type){
     $paris_finis = get_posts([
         'post_type'      => 'pari',
         'posts_per_page' => -1,
-        'orderby'        => 'ID',
+        'meta_key'       => 'date',
+        'orderby'        => 'meta_value',
         'order'          => 'ASC',
         'meta_query'     => [
            'relation' => 'AND',
@@ -389,6 +390,7 @@ function get_bonus_label($type){
                     $bonus_applique = get_field('bonus_applique', $pari_fini->ID);
                     $vainqueur  = get_field('vainqueur', $pari_fini->ID);
                     $resultats  = get_field('resultats', $pari_fini->ID);
+                    $multiplicateur  = get_field('multiplicateur', $pari_fini->ID);
                     $points_obtenus  = get_field('points_obtenus', $pari_fini->ID);
                     $class = ''; // valeur par défaut
                     $class_etat = '';
@@ -480,7 +482,7 @@ function get_bonus_label($type){
                         }
                     ?>">
                         <input type="number" 
-                        value="<?php echo $score_final_equipe_1 ; ?>" readonly>
+                        value="<?php echo $score_final_equipe_2 ; ?>" readonly>
                     </div>
                 
                 </div>
@@ -537,6 +539,9 @@ function get_bonus_label($type){
                         <div class="detail-element de-orange bonus-font">🎯 LA PASSE DE 3 | x3</div>
                     <?php endif; ?>
                 <?php endif; ?>
+                <?php if( $multiplicateur !== 'x1'): ?>
+                    <div class="detail-element de-orange bonus-font">Série <?php echo $multiplicateur;?></div>
+                <?php endif; ?>
             </div>
 
             <div class="mes-pts">
@@ -565,7 +570,8 @@ function get_bonus_label($type){
     $paris_en_cours = get_posts([
         'post_type'      => 'pari',
         'posts_per_page' => -1,
-        'orderby'        => 'ID',
+        'meta_key'       => 'date',
+        'orderby'        => 'meta_value',
         'order'          => 'ASC',
         'meta_query'     => [
            'relation' => 'AND',
@@ -609,6 +615,12 @@ function get_bonus_label($type){
     
                 foreach ($paris_en_cours as $pari_en_cours):
                     $rencontre=get_field('rencontre', $pari_en_cours->ID)[0];
+                    $statut=get_field('statut', $rencontre->ID)['label'];
+                    $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
+                    if($statut!='en cours'){
+                       continue;
+                        
+                    }
                     $rencontre_id=$rencontre->ID;
                     $lien_direct = get_the_permalink($rencontre_id);
                     $equipe1 =get_field('equipe_1', $rencontre_id)[0];

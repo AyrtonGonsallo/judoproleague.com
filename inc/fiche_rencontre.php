@@ -110,14 +110,14 @@ function fiche_rencontre($result,$post_id=null)
 
 								<div class="title-iw">
 									<div class="iw-1">
-										<div class="div-span"><span>I</span><span>W</span></div>
+										<div class="div-span"><span>I</span><span>W</span><span>Y</span></div>
 										<div> </div>
 									</div>
 									<div></div>
 
 									<div class="iw-2">
 										<div></div>
-										<div class="div-span"><span>I</span><span>W</span></div>
+										<div class="div-span"><span>I</span><span>W</span><span>Y</span></div>
 									</div>
 								</div>
 								<div></div>
@@ -138,6 +138,8 @@ function fiche_rencontre($result,$post_id=null)
 									$valeur_wazari__judoka_1 = get_sub_field('valeur_wazari__judoka_1');
 									$kinza_1   = get_sub_field('kinza_1' );
 									$kinza_2   = get_sub_field('kinza_2' );
+									$yuko_1   = get_sub_field('yuko_1' )?get_sub_field('yuko_1'):0;
+									$yuko_2   = get_sub_field('yuko_2' )?get_sub_field('yuko_2'):0;
 									$valeurs_shidos_judoka_1 = (get_sub_field('valeurs_shidos_judoka_1'))?get_sub_field('valeurs_shidos_judoka_1')['value']:0;
 									$valeurs_shidos_judoka_1_label = (get_sub_field('valeurs_shidos_judoka_1'))?get_sub_field('valeurs_shidos_judoka_1')['label']:'';
 									$points_judoka_1 = (get_sub_field('points_judoka_1'))?get_sub_field('points_judoka_1'):0;
@@ -172,9 +174,10 @@ function fiche_rencontre($result,$post_id=null)
 												<div class="resut-new">
 													<span><?php echo $valeur_ippon_judoka_1; ?></span>
 													<span><?php echo $valeur_wazari__judoka_1; ?></span>
+													<span><?php echo $yuko_1; ?></span>
 												</div>
 
-												<?php
+												<?php 
 													if(is_numeric($valeurs_shidos_judoka_1)){
 														echo '<div class="penalite">';
 														if($valeurs_shidos_judoka_1==3){
@@ -200,7 +203,7 @@ function fiche_rencontre($result,$post_id=null)
 													else{
 														echo '<span><div class="motif-looser">'.$valeurs_shidos_judoka_1_label.'</div></span>';
 													}
-													echo '<div class="kinza">'.$kinza_1.'</div>';
+													
 												?>
 											</div>
 										</div>
@@ -212,7 +215,7 @@ function fiche_rencontre($result,$post_id=null)
 										<div class="rgt-result-jdk">
 											<div class="rgt-result-jdk-1">
 											<?php
-											echo '<div class="kinza">'.$kinza_2.'</div>';
+											
 												if(is_numeric($valeurs_shidos_judoka_2)){
 													echo '<div class="penalite ">';
 													if($valeurs_shidos_judoka_2==3){
@@ -245,6 +248,7 @@ function fiche_rencontre($result,$post_id=null)
 												<div class="resut-new">
 													<span><?php echo $valeur_ippon_judoka_2; ?></span>
 													<span><?php echo $valeur_wazari__judoka_2; ?></span>
+													<span><?php echo $yuko_2; ?></span>
 												</div>
 											</div>
 											<a href="<?php echo get_the_permalink($judoka_equipe_2[0]->ID );?>">
@@ -320,7 +324,7 @@ function fiche_rencontre($result,$post_id=null)
 									<div></div>
 									<div class="nv-iw-1">
 										<div> </div>
-										<div class="nv-div-span"><span>I</span><span>W</span></div>
+										<div class="nv-div-span"><span>I</span><span>W</span><span>Y</span></div>
 									</div>
 								</div>
 								<div> </div>
@@ -350,6 +354,8 @@ function fiche_rencontre($result,$post_id=null)
 										$valeurs_shidos_judoka_2_label = (get_sub_field('valeurs_shidos_judoka_2'))?get_sub_field('valeurs_shidos_judoka_2')['label']:'';
 										$kinza_1   = get_sub_field('kinza_1' );
 										$kinza_2   = get_sub_field('kinza_2' );
+										$yuko_1   = get_sub_field('yuko_1')?get_sub_field('yuko_1'):0;
+										$yuko_2   = get_sub_field('yuko_2')?get_sub_field('yuko_2'):0;
 										$judoka_gagnant = get_sub_field('judoka_gagnant');
 										
 										if($statut=='en cours'){
@@ -372,7 +378,7 @@ function fiche_rencontre($result,$post_id=null)
 											</a>
 											<div class="rgt-result-jdk-1">
 											<?php
-											echo '<div class="kinza">'.$kinza_1.'</div>';
+											
 														if(is_numeric($valeurs_shidos_judoka_1)){
 															echo '<div class="penalite">';
 															if($valeurs_shidos_judoka_1==3){
@@ -404,6 +410,7 @@ function fiche_rencontre($result,$post_id=null)
 												<div class="resut-new">
 													<span><?php echo $valeur_ippon_judoka_1; ?></span>
 													<span><?php echo $valeur_wazari__judoka_1; ?></span>
+													<span><?php echo $yuko_1; ?></span>
 												</div>
 											</div>
 										</div>			
@@ -413,7 +420,7 @@ function fiche_rencontre($result,$post_id=null)
 										</a>
 											<div class="rgt-result-jdk-1">
 											<?php
-											echo '<div class="kinza">'.$kinza_2.'</div>';
+											
 													if(is_numeric($valeurs_shidos_judoka_2)){
 														echo '<div class="penalite ">';
 														if($valeurs_shidos_judoka_2==3){
@@ -446,6 +453,7 @@ function fiche_rencontre($result,$post_id=null)
 												<div class="resut-new">
 													<span><?php echo $valeur_ippon_judoka_2; ?></span>
 													<span><?php echo $valeur_wazari__judoka_2; ?></span>
+													<span><?php echo $yuko_2; ?></span>
 												</div>
 											</div>
 										</div>
@@ -551,10 +559,19 @@ function fiche_rencontre_remove_hours($duree)
 add_filter('rencontre_temps_restant','fiche_rencontre_temps_restant');
 function fiche_rencontre_temps_restant($duree)
 {
-	$duree=substr($duree,3); // duree sans les heures : 00:00:00 -> 00:00
+	 // Nettoyer les microsecondes si présentes
+    $duree = explode('.', $duree)[0]; // garde "00:02:21"
 
-	$duree=substr($duree,0,5); // retire les milisecondes 04:58.0850000 -> 04:58
-	return $duree;
+    // Convertir en DateInterval
+    $parts = explode(':', $duree); // ["00","02","21"]
+
+    if (count($parts) >= 3) {
+        $minutes = str_pad($parts[1], 2, "0", STR_PAD_LEFT);
+        $seconds = str_pad($parts[2], 2, "0", STR_PAD_LEFT);
+        return $minutes . ":" . $seconds; // ex : 02:21
+    }
+
+    return $duree; // fallback
 }
 
 add_filter('rencontre_add_inline_js','fiche_rencontre_inline_js',10,3);

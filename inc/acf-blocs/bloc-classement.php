@@ -45,7 +45,7 @@ $classement_equipes=get_classement($rencontres,$saison_value,50);
         <span class="left"><?php echo ($d[0]['victoires']) ? $d[0]['victoires'] : 0; ?> V</span>
         <span class="left"><?php echo ($d[0]['defaites']) ? $d[0]['defaites'] : 0; ?> D</span>
         
-        <span class="left"><?php echo $d[0]['points_marqués']; ?> Pts</span>
+        <span class="left"><?php echo $d[0]['points']? $d[0]['points'] : 0; ?> Pts</span>
     </div>
     <?php 
         $i++;

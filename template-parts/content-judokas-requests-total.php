@@ -41,7 +41,12 @@ function array_msort($array, $cols)
 		'orderby' => 'meta_value_num',
 		'order' => 'DESC',
 		'meta_query' => array(
-			
+			 'relation' => 'AND',
+				array(
+					'key'     => 'statut', // remplace par ton champ ACF exact
+                    'value'   => ['en_cours','termine'],
+                    'compare' => 'IN'
+				),
 				array(
 					'key'        => 'saisons',
 					'compare'    => 'LIKE',

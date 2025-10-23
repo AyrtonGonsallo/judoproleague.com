@@ -4,6 +4,60 @@
  * Template Name: Modèle module de pari (classement)
  */
 
+
+function reset_joueur_jpl_stats() {
+    global $wpdb;
+
+    // Champs numériques à remettre à 0
+    $numeric_fields = [
+        'total_de_points',
+        'series_jouees',
+        'meilleure_serie',
+        'paris_gagnes',
+        'paris_effectues',
+        'classement',
+        'score_exact',
+        'serie_en_cours',
+    ];
+
+    // Récupérer tous les IDs des joueurs avec le rôle joueur_jpl
+    $joueurs = $wpdb->get_col("
+        SELECT u.ID
+        FROM {$wpdb->users} u
+        INNER JOIN {$wpdb->usermeta} um
+            ON u.ID = um.user_id
+        WHERE um.meta_key = '{$wpdb->prefix}capabilities'
+          AND um.meta_value LIKE '%joueur_jpl%'
+    ");
+
+    if (!empty($joueurs)) {
+        foreach ($joueurs as $user_id) {
+            foreach ($numeric_fields as $field) {
+                update_user_meta($user_id, $field, 0);
+            }
+        }
+    }
+
+    $paris_finis = get_posts([
+        'post_type'      => 'pari',
+        'posts_per_page' => -1,
+        
+    ]);
+    echo count($paris_finis)." paris";
+
+    foreach ($paris_finis as $pari_fini) {
+       update_field('status', 'a_venir', $pari_fini->ID);
+       $rencontre=get_field('rencontre', $pari_fini->ID)[0];
+        $rencontre_id=$rencontre->ID;
+        $date_debut_rencontre=get_field('date_de_debut',$rencontre_id,false, false);
+        update_field('date', $date_debut_rencontre,  $pari_fini->ID);
+        
+    }
+    
+}
+
+//reset_joueur_jpl_stats();
+
 function email_to_pseudo($email) {
     // Partie avant @
     $pseudo = explode('@', $email)[0];
@@ -128,27 +182,41 @@ get_header();
                                 LIMIT 10
                             ");*/
 
-                            $all_users = $wpdb->get_results("
-    SELECT u.ID
+                           $all_users = $wpdb->get_results("
+    SELECT u.ID, 
+           um_points.meta_value AS total_points,
+           um_pseudo.meta_value AS pseudo,
+           um_classement.meta_value AS classement
     FROM {$wpdb->users} u
-    INNER JOIN {$wpdb->usermeta} m1 ON u.ID = m1.user_id AND m1.meta_key = 'classement'
-    INNER JOIN {$wpdb->usermeta} m2 ON u.ID = m2.user_id AND m2.meta_key = '{$wpdb->prefix}capabilities'
+    INNER JOIN {$wpdb->usermeta} m2 
+        ON u.ID = m2.user_id AND m2.meta_key = '{$wpdb->prefix}capabilities'
+    LEFT JOIN {$wpdb->usermeta} um_points 
+        ON u.ID = um_points.user_id AND um_points.meta_key = 'total_de_points'
+    LEFT JOIN {$wpdb->usermeta} um_pseudo 
+        ON u.ID = um_pseudo.user_id AND um_pseudo.meta_key = 'pseudo'
+    LEFT JOIN {$wpdb->usermeta} um_classement 
+        ON u.ID = um_classement.user_id AND um_classement.meta_key = 'classement'
     WHERE m2.meta_value LIKE '%joueur_jpl%'
     ORDER BY 
-        CASE WHEN CAST(m1.meta_value AS UNSIGNED) = 0 THEN 1 ELSE 0 END, 
-        CAST(m1.meta_value AS UNSIGNED) ASC
-    LIMIT 10
+        CASE WHEN um_classement.meta_value IS NULL THEN 1 ELSE 0 END ASC,
+        CAST(um_classement.meta_value AS UNSIGNED) ASC,
+        CAST(um_points.meta_value AS UNSIGNED) DESC,
+        COALESCE(um_pseudo.meta_value, u.display_name) ASC
+    LIMIT 200
 ");
+
+
 
 
                             
                             if ( !empty($all_users) ): 
                         ?>
-                        <h3 class="desktop fs-h3">Classement</h3>
+                        <h3 class="desktop fs-h3">Classement général</h3>
 
                             <table id="tableau_classement_general_parieurs" class="display table-ranking">
                                 <thead class="no-head">
                                 <tr>
+                                    <th>Rang</th>
                                     <th>Joueur</th>
                                     <th style="text-align:center;">
                                     <span class="desktop">Victoires / Pronos</span>
@@ -168,6 +236,10 @@ get_header();
                                 <tbody>
                                 <?php 
                                 $is_in_table = false;
+                                $all_ranking_null=false;
+                                if(((int) get_field('classement', 'user_' . $all_users[0]->ID)===0)){
+                                    $all_ranking_null=true;
+                                }
 
                                 foreach ( $all_users as $user ):
                                     
@@ -203,7 +275,10 @@ get_header();
                                 ?>
                                     <tr class="cg-table-tr <?= $row_class; ?>">
                                         <td>
-                                            <?php echo $classement.". <a href='#' class='open-player-popup' data-user-id=".$user_id.">". $pseudo."</a>";?>
+                                            <?php echo ($all_ranking_null)?1:$classement;?>
+                                        </td>
+                                        <td>
+                                            <?php echo "<a href='#' class='open-player-popup' data-user-id=".$user_id.">". $pseudo."</a>";?>
                                         </td>
                                         <td style="text-align:center;">
                                             <?php echo $paris_gagnes;?>/<?php echo $paris_effectues;?> - <?php echo $ratio;?> %
@@ -227,7 +302,10 @@ get_header();
                                     ?>
                                     <tr class="cg-table-tr my-row ">
                                         <td>
-                                            <?php echo $my_classement.". <a href='{$my_permalink}'>". $my_pseudo."</a>";?>
+                                            <?php echo ($all_ranking_null)?1:$my_classement;?>
+                                        </td>
+                                        <td>
+                                            <?php echo "<a href='{$my_permalink}'>". $my_pseudo."</a>";?>
                                         </td>
                                         <td style="text-align:center;">
                                             <?php echo $my_paris_gagnes;?>/<?php echo $my_paris_effectues;?> - <?php echo $my_ratio;?> %
@@ -267,7 +345,7 @@ get_header();
                         [
                             'key'     => 'createur',
                             'value'   => $my_user_id,
-                            'compare' => 'LIKE',
+                            'compare' => '=',
                         ],
                         [
                             'key'     => 'participants',
@@ -471,7 +549,7 @@ get_header();
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
         width: 90%;
-        max-width: 500px;
+        max-width: 1000px;
         max-height: 80vh;
         overflow-y: auto;
         background: #fff;

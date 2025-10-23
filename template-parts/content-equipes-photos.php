@@ -290,76 +290,31 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 
-<section class="nv-header-team" <?php echo $style_couleur1;?>>
-    <div class="container">
 
-        <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal'))?get_field('logo_principal'):get_the_post_thumbnail_url($post->ID)?>)">
-        </div>
-            <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title();?></h2> 
-        <?php if($site){?><a class="site-team-blanc" target="_blank" href="<?php echo $site;?>"><?php echo str_replace("/","",str_replace("https://","",$site));?></a><?php }?> 
-    </div>
-</section>
-<section class="nv-header-nav" <?php echo $style_couleur2;?>>
+<section class="nv-header-nav" >
 
     <div class="container">
 
         <div class="nv-nav">
+                    <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle'))?get_field('logo_circle'):get_the_post_thumbnail_url($post->ID)?>)"></div>
+	 	
+					<div class="menu-eq">
 
-            <a href="<?php echo $team_permalink;?>infos" class="team-link">Infos générales</a>
+            <a href="<?php echo $team_permalink;?>infos" class="team-link  " <?php echo $style_couleur2;?>>Infos générales</a>
 
-            <a href="<?php echo $team_permalink;?>actus" class="team-link">Actualités</a>
+            <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
 
-            <a href="<?php echo $team_permalink;?>photos" class="team-link  nvtl-active ">Photos</a>
+            <a href="<?php echo $team_permalink;?>photos" class="team-link nvtl-active" <?php echo $style_couleur1;?>>Photos</a>
 
-            <a href="<?php echo $team_permalink;?>videos" class="team-link">Vidéos</a>
+            <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
 
-            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link">Calendrier / Résultats</a>
+            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
 
-            <a href="<?php echo $team_permalink;?>judokas" class="team-link">Judokas</a>
-
-            <div class="nv-eqip-rs">
-
-                <?php  if($reseaux){
-
-                    foreach($reseaux as $rs){
-
-                        $rs_link=$rs['lien_page'];
-
-                        if($rs["type"]=="Facebook"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Instagram"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-instagram"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Tiktok"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-tiktok"></i></a>';						}
-
-                        elseif($rs["type"]=="YouTube"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-youtube"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Twitter"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-twitter"></i></a>';
-
-                        }
-
-                    }
-
-                }?>
-
-            </div>
-
+            <a href="<?php echo $team_permalink;?>judokas" class="team-link" <?php echo $style_couleur2;?>>Judokas</a>
+            
+		</div>
         </div>
+        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title();?></a> > Photos</span>
 
     </div>
 
@@ -1016,7 +971,11 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 
-
+<style>
+    .team-link:hover {
+        background: <?php echo esc_attr($couleur1); ?> !important;
+    }
+</style>
 
 
 

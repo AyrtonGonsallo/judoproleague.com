@@ -177,7 +177,7 @@ function load_functions_of_page() {
         let lastSegment = url.split('/').filter(Boolean).pop(); // Récupérer le dernier segment non vide de l'URL
         console.log("url",lastSegment)
         // Tester si la fin de l'URL a une valeur spécifique
-        if (lastSegment === "tableau-principal-judo-pro-league-2024") {
+        if (lastSegment === "tableau-principal-judo-pro-league") {
             document.querySelector("#menu-item-3261").classList.add("current_page_item")
         }
     }

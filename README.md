@@ -79,3 +79,10 @@ verifier les urls des crons
 verifier le plugin des rencontres
 verifier les apis
 verifier indexation et page speed
+
+
+je veux un plugin de sondage pour mes utilisateurs wordpress, ce serait bien de faire un truc different avec mes propres tables. chaque semaine l'admin dans l'admin wordpress cree un candidat_ippon_de_la_semaine avec titre, description, video, nombre de votes les gens connectes sur le site voient les propositions et choissisent et a la de la semnaine au meme endroit on affiche le gagnant. ce serait bien de stocker pour chaque ippon le nom de chaque utilisateur votant, son role et afficher des graphiques part semaines dans l'admin wordpress
+
+script pour les paris
+script pour les series
+script pour les champions de la semaine

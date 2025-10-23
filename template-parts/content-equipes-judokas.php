@@ -426,7 +426,7 @@ function get_correct_categorie($saison_value,$cat){
         });
     </script>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> class="main-info-eq">
 
 
 
@@ -443,76 +443,30 @@ function get_correct_categorie($saison_value,$cat){
 
 
 
-<section class="nv-header-team" <?php echo $style_couleur1;?>>
-    <div class="container">
 
-        <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_principal'))?get_field('logo_principal'):get_the_post_thumbnail_url($post->ID)?>)">
-        </div>
-            <h2 class="blanc mrg-0 fs-30"><?php echo get_the_title();?></h2> 
-        <?php if($site){?><a class="site-team-blanc" target="_blank"  href="<?php echo $site;?>"><?php echo str_replace("/","",str_replace("https://","",$site));?></a><?php }?> 
-    </div>
-</section>
-<section class="nv-header-nav" <?php echo $style_couleur2;?>>
+<section class="nv-header-nav" >
 
     <div class="container">
 
         <div class="nv-nav">
+            <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle'))?get_field('logo_circle'):get_the_post_thumbnail_url($post->ID)?>)"></div>
 
-            <a href="<?php echo $team_permalink;?>infos" class="team-link">Infos générales</a>
+            <div class="menu-eq">
+                <a href="<?php echo $team_permalink;?>infos" class="team-link " <?php echo $style_couleur2;?>>Infos générales</a>
 
-            <a href="<?php echo $team_permalink;?>actus" class="team-link">Actualités</a>
+                <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
 
-            <a href="<?php echo $team_permalink;?>photos" class="team-link">Photos</a>
+                <a href="<?php echo $team_permalink;?>photos" class="team-link" <?php echo $style_couleur2;?>>Photos</a>
 
-            <a href="<?php echo $team_permalink;?>videos" class="team-link">Vidéos</a>
+                <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
 
-            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link">Calendrier / Résultats</a>
+                <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
 
-            <a href="<?php echo $team_permalink;?>judokas" class="team-link  nvtl-active ">Judokas</a>
-
-            <div class="nv-eqip-rs">
-
-                <?php  if($reseaux){
-
-                    foreach($reseaux as $rs){
-
-                        $rs_link=$rs['lien_page'];
-
-                        if($rs["type"]=="Facebook"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Instagram"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-instagram"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Tiktok"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-tiktok"></i></a>';						}
-
-                        elseif($rs["type"]=="YouTube"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-youtube"></i></a>';
-
-                        }
-
-                        elseif($rs["type"]=="Twitter"){
-
-                            echo '<a href="'.$rs_link.'" target="_blank"><i class="fa-brands fa-twitter"></i></a>';
-
-                        }
-
-                    }
-
-                }?>
-
+                <a href="<?php echo $team_permalink;?>judokas" class="team-link nvtl-active " <?php echo $style_couleur1;?>>Judokas</a>
             </div>
 
         </div>
+        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title();?></a> > Judokas</span>
 
     </div>
 
@@ -568,101 +522,17 @@ function get_correct_categorie($saison_value,$cat){
 
 
 
+$judokas = $wpdb->get_results($wpdb->prepare(
+    "SELECT * 
+     FROM prol_judokas_saisons 
+     WHERE saison = %s and equipe_id = %s
+     ORDER BY sexe asc,categorie_de_poids asc",
+    $saison_value,get_the_id()
+));
 
 
-	$args_femmes=array(
-    'post_type'=> 'judoka',
-    'posts_per_page' => -1,
-    'meta_key'      => 'categorie_de_poids',
-    'orderby' => 'meta_value',
-    'order' => 'ASC',
-    'meta_query'     => array(
-    'relation' => 'AND',
-    array(
-        'relation' => 'AND',
-        array(
-            'key'     => 'equipes_par_saisons_0_equipe_judoka', // Interroger le sous-champ 'equipe_judoka' du répéteur 'equipes_par_saisons'
-            'value'   => '"' . get_the_ID() . '"', // ID de l'équipe
-            'compare' => 'LIKE'
-        ),
-        array(
-            'relation' => 'OR', // Le OR pour les équipes et saisons
-            array(
-                'key'     => 'equipes_par_saisons_1_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
-                'value'   => $saison_value, // Valeur de la saison
-                'compare' => 'LIKE'
-            ),
-            array(
-                'key'     => 'equipes_par_saisons_0_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
-                'value'   => $saison_value, // Valeur de la saison
-                'compare' => 'LIKE'
-            ),
-            array(
-                'key'     => 'equipes_par_saisons_2_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
-                'value'   => $saison_value, // Valeur de la saison
-                'compare' => 'LIKE'
-            )
-        )
-    ),
-    array(
-        'key' => 'sexe', // recherche sur le champ équipe de type relation
-        'value' => 'féminin', // id de l'équipe
-        'compare' => 'LIKE'
-        )
-    
-    )
-
-);
-$args_hommes=array(
-    'post_type'=> 'judoka',
-    'posts_per_page' => -1,
-    'meta_key'      => 'categorie_de_poids',
-    'orderby' => 'meta_value',
-    'order' => 'ASC',
-    'meta_query'     => array(
-        'relation' => 'AND',
-        array(
-            'relation' => 'AND',
-            array(
-                'key'     => 'equipes_par_saisons_0_equipe_judoka', // Interroger le sous-champ 'equipe_judoka' du répéteur 'equipes_par_saisons'
-                'value'   => '"' . get_the_ID() . '"', // ID de l'équipe
-                'compare' => 'LIKE'
-            ),
-            array(
-                'relation' => 'OR', // Le OR pour les équipes et saisons
-                array(
-                    'key'     => 'equipes_par_saisons_1_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
-                    'value'   => $saison_value, // Valeur de la saison
-                    'compare' => 'LIKE'
-                ),
-                array(
-                    'key'     => 'equipes_par_saisons_0_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
-                    'value'   => $saison_value, // Valeur de la saison
-                    'compare' => 'LIKE'
-                ),
-                array(
-                    'key'     => 'equipes_par_saisons_2_saisons', // Requête sur le sous-champ 'saisons' du répéteur 'equipes_par_saisons'
-                    'value'   => $saison_value, // Valeur de la saison
-                    'compare' => 'LIKE'
-                )
-            )
-        ),
-        array(
-            'key' => 'sexe', // recherche sur le champ équipe de type relation
-            'value' => 'masculin', // id de l'équipe
-            'compare' => 'LIKE'
-            )
-        
-        )
-    
-    );
-   
 
 
-    $judokas_h=get_posts($args_hommes);
-    $judokas_f=get_posts($args_femmes);
-
-$judokas=array_merge($judokas_f,$judokas_h);
 
 
 
@@ -691,7 +561,7 @@ $judokas=array_merge($judokas_f,$judokas_h);
 
 
 
-		<div class="container">
+		<div class="container section-page-jdks">
 
 
 
@@ -715,7 +585,9 @@ $judokas=array_merge($judokas_f,$judokas_h);
 
 
 
-					<?php foreach ($judokas as $judoka):
+					<?php foreach ($judokas as $j):
+
+                     $judoka = get_post($j->judoka_id);
 
 
 
@@ -789,7 +661,8 @@ $judokas=array_merge($judokas_f,$judokas_h);
 
 
                 <a  href="<?php echo get_the_permalink($judoka->ID);?> " >
-                    <img src="<?php echo $image;?>">
+                    <div class="nv-img-judoka" style="background-image:url(<?php echo esc_url($image); ?>)">
+                            </div>
                     </a>
 
 
@@ -826,8 +699,8 @@ $judokas=array_merge($judokas_f,$judokas_h);
 
 
 
-                            <a href="<?php echo get_the_permalink($judoka->ID);?> "  class="btn-eq-clr" style="background: <?php echo $couleur1;?>; color: #fff !important;border-radius: 8px !important;
-    padding: 3px 20px;">Détails <i class="fa-solid fa-angles-right"></i></a>
+                            <a href="<?php echo get_the_permalink($judoka->ID);?> "  class="btn-eq-clr" style="background: <?php echo $couleur1;?>; color: #fff !important;border-radius: 50px !important;
+    padding: 3px 20px;">Voir +</a>
 
 
 
@@ -969,3 +842,8 @@ $judokas=array_merge($judokas_f,$judokas_h);
 
 
 </article>
+<style>
+    .team-link:hover {
+        background: <?php echo esc_attr($couleur1); ?> !important;
+    }
+</style>

@@ -178,7 +178,24 @@ function get_correct_categorie($saison_value,$cat){
                        foreach ($datas as $d) {?>
                             <tr class="tr-stat">
                                 <!--<td><?php //echo $i;?></td>-->
-                                <td class="align-photo-nom-vertically "><img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt=""><a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>"><span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span></a></td>
+                                <td class="align-photo-nom-vertically ">
+                                    <div class="desktop">
+                                        <img class="desktop" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt="">
+                                        <a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>">
+                                            <span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span>
+                                        </a>
+                                    </div>
+                                    <div class="mobile">
+                                        <a href="<?php echo get_the_permalink($d[0]['judoka_id']);?>">
+                                            <div class="two-images">
+                                                <img class="desktop image-joueur" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image'])?$d[0]['image']:''?>" alt="">
+                                                <img class="desktop image-equipe" width="24px" height="24px" style="border-radius:40px" src="<?php echo ($d[0]['image_equipe'])?$d[0]['image_equipe']:''?>" alt="">
+                                            </div>
+                                            <span class="nom-stat-eq"><?php echo ($d[0]['nom'])?$d[0]['nom']:''?></span>
+                                        </a>
+                                    </div>
+                                    
+                                </td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['age'])?$d[0]['age']:0?></td>
                                 <td class="wp-caption-text"><?php echo ($d[0]['categorie_de_poids'])?get_correct_categorie($saison_value,$d[0]['categorie_de_poids']):0?></td>
                                 

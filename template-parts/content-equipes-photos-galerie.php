@@ -422,235 +422,34 @@ $team_permalink = get_the_permalink($post->ID);
 
 
 
-		<section class="nv-header-team" <?php echo $style_couleur1;?>>
 
+<section class="nv-header-nav" >
 
+    <div class="container">
 
+        <div class="nv-nav">
+                    <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle'))?get_field('logo_circle'):get_the_post_thumbnail_url($post->ID)?>)"></div>
 
 
+            <a href="<?php echo $team_permalink;?>infos" class="team-link nvtl-active " <?php echo $style_couleur1;?>>Infos générales</a>
 
+            <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
 
-			<div class="container">
+            <a href="<?php echo $team_permalink;?>photos" class="team-link" <?php echo $style_couleur2;?>>Photos</a>
 
+            <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
 
+            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
 
-
-
-
-
-				<div class="nv-logo-team">
-
-
-
-
-
-
-
-					<img src="<?php echo $image;?>">
-
-
-
-
-
-
-
-				</div>
-
-
-
-
-
-
-
-			</div>
-
-
-
-
-
-
-
-		</section>
-
-
-
-
-
-
-
-<section class="nv-header-nav" <?php echo $style_couleur2;?>>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="container">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="nv-nav">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <a href="<?php echo $team_permalink;?>infos" class="team-link">Infos générales</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <a href="<?php echo $team_permalink;?>actus" class="team-link">Actualités</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <a href="<?php echo $team_permalink;?>photos" class="team-link nvtl-active">Photos</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <a href="<?php echo $team_permalink;?>videos" class="team-link">Vidéos</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link">Calendrier / Résultats</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <a href="<?php echo $team_permalink;?>judokas" class="team-link">Judokas</a>
-
-
-
-
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <a href="<?php echo $team_permalink;?>judokas" class="team-link" <?php echo $style_couleur2;?>>Judokas</a>
+            
 
         </div>
+        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <?php echo get_the_title();?> </span>
 
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </section>
-
-
-
-
+</section>
 
 
 

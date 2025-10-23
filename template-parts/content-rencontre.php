@@ -192,7 +192,7 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 
 
 
-                <h2 class="nv-title-clsm">GALERIES <?php echo $title;?></h2>
+                <h2 class="nv-title-clsm">Photos de <?php echo get_the_title($equipe1->ID )?> vs <?php echo get_the_title($equipe2->ID )?> <?php echo get_field("saisons",$rencontre->ID);?> </h2>
 
 
 

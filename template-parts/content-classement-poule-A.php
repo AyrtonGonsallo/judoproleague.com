@@ -80,7 +80,7 @@ function display($rencontres_j1,$titre_journee){?>
 get_header();
 $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
 if ($saison_value == "2024-2025") {
-    header("Location: /classement-judo-pro-league-2024/?saison_value=2024-2025");
+    header("Location: /classement-judo-pro-league/?saison_value=2024-2025");
     exit(); // It's a good practice to call exit() after sending a Location header
 }
 $pouleID=488;

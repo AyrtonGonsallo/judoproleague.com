@@ -199,12 +199,12 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         <div class="judo_pro_league tab-24">
             <div class="phases-cl">
                 <h2 class="tab-phase tab-act fs-30">
-                    <a href="/classement-judo-pro-league-2024/">
+                    <a href="/classement-judo-pro-league/">
                         PHASE éliminatoire
                     </a>
                 </h2>
                 <h2 class="tab-phase  fs-30">
-                    <a href="/tableau-principal-judo-pro-league-2024/">
+                    <a href="/tableau-principal-judo-pro-league/">
                         Tableau principal
                     </a>
                 </h2>
@@ -253,7 +253,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
                         'key'        => 'saisons',
                         'compare'    => 'LIKE',
                         'value'      => $saison_value
-                    ),
+                    )
             ),
         );
         $rencontres=get_posts($args);
@@ -268,7 +268,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 
     <div class="classement-23 judo_pro_league classement-24">
 
-        <h1 class="result-h1">Classement Judo Pro League <?php echo $saison_value;?></h1>
+        <h1 class="result-h1">Classement Judo Pro League</h1>
 
         <p class="page-result-desc">
             Le classement évolue en direct selon l’avancée des rencontres. Chaque match étant soumis à une procédure de vérification des scores, le classement n’est considéré comme définitif que deux heures après la fin des rencontres.
@@ -280,7 +280,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
         <div class="table-23">
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>
         <div class="header-table bb2 table-no-lb table-no-rb table-no-tb "></div>
-        <div class="table-team" style="display: grid; grid-template-columns: 3fr 1fr;border:none !important;">
+        <div class="table-team" style="display: grid; grid-template-columns: 2.5fr 1fr;border:none !important;">
         <div class="header-table table-no-lb bb2">RENCONTRES</div>
         <div class="header-table bb2 bleu-score background-score">Combats</div>
         </div>

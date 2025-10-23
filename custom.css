@@ -11032,6 +11032,18 @@ body #tableau_classement_par_ligue .table-ranking td{
 .page-pari .ui-tabs:not(.tabs-leagues-ranking) .ui-tabs-nav li.ui-tabs-active a, .page-pari .ui-tabs .ui-tabs-nav .ui-tabs-anchor {font-size: 25px;}
 	.list-lig tr td:nth-child(3) { width: 0%;padding:0px!important;}
 	
+	.footer-menu-mobile-paris .sub-menu-element a[href*="classement"] {
+        pointer-events: none; /* désactive le clic */
+        opacity: 0.5;         /* rend le lien plus gris/transparent */
+        cursor: default;      /* change le curseur pour indiquer non-cliquable */
+    }
+    .footer-menu-mobile-paris .sub-menu-element a[href*="classement"] span,
+    .footer-menu-mobile-paris .sub-menu-element a[href*="classement"] img {
+        filter: grayscale(100%);
+    }
+	
+	
+	
 }
 @media screen and (max-width: 800px) {
 	.champions .swiper-pagination {width: 52%;}
@@ -11098,6 +11110,7 @@ body #tableau_classement_par_ligue .table-ranking td{
 		.connexion-parieur .popup-content {
         border: none !important;
         padding: 0px;
+		background-color: #fff !important;
         border-radius: 0px !important;
         width: 485px;
         height: 100vh !important;
@@ -11106,8 +11119,9 @@ body #tableau_classement_par_ligue .table-ranking td{
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: flex-end !important;
     }
+	
 		.popup-screen  h2 {display: none;}
 	    .connexion-parieur .popup-screen.active { background: #fff; padding: 20px;}
 	    .img-box.mobile {
@@ -11116,7 +11130,7 @@ body #tableau_classement_par_ligue .table-ranking td{
         align-content: center;
     }
 	.sub-header-pari-profil {width: 42%;}
-	
+
 
 	.classmt .ui-tabs .ui-tabs-nav:not(.leagues-ranking-tabs), .page-pari .ui-tabs .ui-tabs-nav:not(.leagues-ranking-tabs){
     display: flex !important;
@@ -11214,9 +11228,9 @@ body #tableau_classement_par_ligue .table-ranking td{
     padding: 20px;
     flex-direction: column;}
 	h3.name-prfl {font-size: 25px;}
-
-	
-	
+    .profil .enter-game-action, .profil select#team_id{width: 100% !important;}
+	form#form-register {overflow: scroll;}
+	.profil select {padding: 8px !important;}
 	
 	
 }
@@ -11257,7 +11271,7 @@ body #tableau_classement_par_ligue .table-ranking td{
 	#tableau_classement_general_parieurs thead > tr > th:nth-child(1) { width: 120px !important; }
 	#leagues_table .all-leagues-table-tr2 { grid-template-columns: 1fr 0.6fr;}
 	h3.name-prfl {font-size: 21px;}
-    .profil select, .profil .enter-game-action { width: 270px;}
+    .profil select, .profil .enter-game-action { width: 100%;}
 	
 	
 	
@@ -11267,8 +11281,9 @@ body #tableau_classement_par_ligue .table-ranking td{
 	
 	.page-calendrier{ font-family: 'futura' !important;}
      body, .page-calendrier button, .page-calendrier input, .page-calendrier select, .page-calendrier optgroup, .page-calendrier textarea, .page-calendrier p{ font-family: 'futura' !important;}
-	
-	
+	.width-site{max-width:1440px !important;margin:auto !important;padding: 4% 2% !important;}
+    .width-site ul { list-style-type: disc;}
+    .width-site p{font-family: 'futura' !important;}
 	
 	
 	

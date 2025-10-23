@@ -95,7 +95,7 @@ get_header();
                     <span>Mes ligues</span>
             </a>
 
-<a href="/module-de-paris-classement" class="disabled vertical sub-menu-element round-border-purple bg-home" style="background:url('/wp-content/uploads/2025/09/MON CLASSEMENT.png'); background-repeat: no-repeat;background-position: center;background-size: cover;">
+<a href="/module-de-paris-classement" class="vertical sub-menu-element round-border-purple bg-home" style="background:url('/wp-content/uploads/2025/09/MON CLASSEMENT.png'); background-repeat: no-repeat;background-position: center;background-size: cover;">
                     <span>Mon classement</span>
 </a>
 

@@ -30,10 +30,7 @@
                 <div class="videos-container-element">
                     <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
                         <div class="button-play-video button-play-video-grande-taille" >
-                            <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$video->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
-                        </div>
-                        <div class="button-play-video button-play-video-mobile" >
-                            <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$video->ID).'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
+                            <?php echo do_shortcode('[video_popup url="https://youtu.be/'.get_field('id',$video->ID).'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                         </div>
                     </div>
                     <div class="video-title-infos">
@@ -57,10 +54,7 @@
                 <div class="videos-container-element">
                     <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
                         <div class="button-play-video button-play-video-grande-taille" >
-                            <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$videos_desktop_1[0]->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
-                        </div>
-                        <div class="button-play-video button-play-video-mobile" >
-                            <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$videos_desktop_1[0]).'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
+                            <?php echo do_shortcode('[video_popup url="https://youtu.be/'.get_field('id',$video->ID).'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                         </div>
                     </div>
                     <div class="video-title-infos">
@@ -75,10 +69,7 @@
                         <div class="videos-container-element">
                             <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
                                 <div class="button-play-video button-play-video-grande-taille" >
-                                    <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$video->ID).'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
-                                </div>
-                                <div class="button-play-video button-play-video-mobile" >
-                                    <?php echo do_shortcode('[video_lightbox_youtube video_id="'.get_field('id',$video->ID).'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
+                            <?php echo do_shortcode('[video_popup url="https://youtu.be/'.get_field('id',$video->ID).'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
                                 </div>
                             </div>
                             <div class="video-title-infos">
