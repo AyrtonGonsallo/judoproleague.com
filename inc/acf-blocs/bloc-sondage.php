@@ -43,10 +43,10 @@ function bloc_sondage() {
 
   <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
   <script>
-  $( function() {
-    $( "#tabs_ippons_semaine" ).tabs();
-  } );
-  </script>
+jQuery(function($) {
+  $("#tabs_ippons_semaine").tabs();
+});
+</script>
 <?php }?>
 <?php
 }

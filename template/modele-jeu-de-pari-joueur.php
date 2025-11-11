@@ -68,7 +68,8 @@ function email_to_pseudo($email) {
             $paris_finis = get_posts([
                 'post_type'      => 'pari',
                 'posts_per_page' => -1,
-                'orderby'        => 'ID',
+                 'meta_key'       => 'date',
+                'orderby'        => 'meta_value',
                 'order'          => 'ASC',
                 'meta_query'     => [
                 'relation' => 'AND',

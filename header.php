@@ -99,7 +99,7 @@ $equipes = get_posts(array(
 
 	  $( function() {
         if( $('.tabs-poules').length ){
-            $( "#tabs" ).tabs( { active: 0 } );
+            $( "#tabs" ).tabs( { active: 1 } );
             console.log("poules")
         }else if($('.tabs-quarts').length){
             //$( "#tabs" ).tabs( { active: 0 });
@@ -133,7 +133,7 @@ if(( $post->post_title=="Statistiques équipes judo pro league 2023" || $post->p
 	<meta name="robots" content="noindex">
 
 	<?php }?>
-
+ 
 
 
 <script>

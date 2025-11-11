@@ -38,6 +38,10 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                 <h4 class="mobile-h4">NOMBRE DE PTS MARQUÉS</h4>
                         <div class="col-nbr-pnt">
                             <?php $i=0;
+                                usort($classement_equipes, function($a, $b){
+                                    return $b[0]['points_marqués'] - $a[0]['points_marqués'];
+                                });
+
                                 foreach ($classement_equipes as $d){ 
                                 if($i>=5){
                                     continue;
@@ -61,6 +65,9 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                         <h4 class="mobile-h4">IPPONS</h4>
                         <div class="col-nbr-ipp-eq">
                             <?php $i=0;
+                                usort($classement_equipes, function($a, $b){
+                                    return $b[0]['ippons_marqués'] - $a[0]['ippons_marqués'];
+                                });
                                 foreach ($classement_equipes as $d){ 
                                 if($i>=5){
                                     continue;
@@ -102,7 +109,6 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                                          <div>
                                          <span class="nom-premier"><?php echo $d[0]['nom'];?></span>
                                          <div class="conf-premier">
-                                            <span>Age: <?php echo ($d[0]['age'])?$d[0]['age']:0?></span><br>
                                             <span>Poids: <?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:""?></span><br>
                                          </div>
                                         </div>
@@ -128,7 +134,6 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                                         <div>
                                         <span class="nom-premier"><?php echo $d[0]['nom'];?></span>
                                         <div class="conf-premier">
-                                           <span>Age: <?php echo ($d[0]['age'])?$d[0]['age']:0?></span><br>
                                            <span>Poids: <?php echo ($d[0]['categorie_de_poids'])?$d[0]['categorie_de_poids']:""?></span><br>
                                         </div>
                                         </div>
