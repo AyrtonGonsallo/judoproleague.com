@@ -408,7 +408,108 @@ function get_correct_categorie($saison_value,$cat){
 
 
 
+function get_champs_groupes_par_semaine() {
+    $args = [
+        'post_type'      => 'champ_semaine',
+        'posts_per_page' => -1,
+        'meta_key'       => 'date_semaine',
+        'orderby'        => 'meta_value',
+        'order'          => 'DESC',
+        'meta_type'      => 'DATE',
+    ];
 
+    $posts = get_posts($args);
+
+    $groupes = [];
+
+    foreach ($posts as $post) {
+        $date_raw = get_field('date_semaine', $post->ID);
+
+        if (!$date_raw) {
+            continue;
+        }
+
+        // Convertir en DateTime (ton champ est en d/m/Y)
+        $date_obj = DateTime::createFromFormat('d/m/Y', $date_raw, wp_timezone());
+
+        if (!$date_obj) {
+            continue;
+        }
+
+        // Calculer début et fin de la semaine
+        $start = clone $date_obj;
+        $start->modify('monday this week');
+
+        $end = clone $start;
+        $end->modify('sunday this week');
+
+        $cle = $start->format('Y-m-d');
+
+        if (!isset($groupes[$cle])) {
+            $groupes[$cle] = [
+                'date_debut_semaine' => $start->format('d/m/Y'),
+                'date_fin_semaine'   => $end->format('d/m/Y'),
+                'donnees'            => [],
+            ];
+        }
+
+        // Ajouter données avec les champs ACF pour le tri
+        $groupes[$cle]['donnees'][] = [
+            'id'            => $post->ID,
+            'title'         => get_the_title($post),
+            'date'          => $date_raw,
+            'total_points'  => (int) get_field('total_points', $post->ID),
+            'paris_gagnes'  => (int) get_field('paris_gagnes', $post->ID),
+            'score_exact'   => (int) get_field('score_exact', $post->ID),
+        ];
+    }
+
+     // 🔎 Trier chaque semaine selon la logique
+    foreach ($groupes as &$semaine) {
+        usort($semaine['donnees'], function($a, $b) {
+            if ($a['total_points'] === $b['total_points']) {
+                if ($a['paris_gagnes'] === $b['paris_gagnes']) {
+                    return $b['score_exact'] <=> $a['score_exact'];
+                }
+                return $b['paris_gagnes'] <=> $a['paris_gagnes'];
+            }
+            return $b['total_points'] <=> $a['total_points'];
+        });
+    }
+    unset($semaine); // bonne pratique
+
+    return $groupes;
+}
+
+/*
+$semaines = get_champs_groupes_par_semaine();
+echo "nom,prenom,pseudo,email,rang,debut semaine, fin semaine<br>";
+foreach ($semaines as $semaine) : 
+    $rang=1;
+    foreach ($semaine['donnees'] as $donnee) : 
+        if($rang>=4){
+            continue;
+        }
+        $points = get_field('points', $donnee['id']);
+        $bonus_utilises = get_field('bonus_utilises', $donnee['id']);
+        $user_id = get_field('user_id', $donnee['id']);
+        $nom = get_field('nom', $donnee['id']);
+        $prenom = get_field('prenom', $donnee['id']);
+        $user = get_user_by('id', $user_id);
+        $email = $user->user_email;
+        $pseudo = get_field('pseudo', 'user_'.$user_id) ?: $user->display_name;
+        $paris_gagnes = get_field('paris_gagnes', $donnee['id']);
+        $score_exacts = get_field('score_exacts', $donnee['id']);
+        $serie_en_cours = get_field('serie_en_cours', $donnee['id']);
+        $bonus_utilises = get_field('bonus_utilises', $donnee['id']);
+ 
+echo "$nom,$prenom,$pseudo,$email,$rang,{$semaine['date_debut_semaine']},{$semaine['date_fin_semaine']}";
+echo "<br>";
+
+        $rang+=1;
+    endforeach;
+endforeach;                              
+*/
 ?>
 
 

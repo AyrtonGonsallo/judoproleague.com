@@ -126,13 +126,7 @@ if(( $post->post_title=="Statistiques équipes judo pro league 2023" || $post->p
 <?php
 }
 ?>
-	<?php
-
-		if(($post_type=="judoka")){?>
-
-	<meta name="robots" content="noindex">
-
-	<?php }?>
+	
  
 
 

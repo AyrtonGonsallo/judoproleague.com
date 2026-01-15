@@ -79,7 +79,7 @@ $args_f = array(
 $rencontre_f= get_posts($args_f);
 ?>
 <?php
-function display($rencontres){?>
+function display($rencontres,$fake=false){?>
     <?php if ($rencontres): ?>     
         <?php foreach ($rencontres as $rencontre):
             $combat=get_field('les_combat', $rencontre->ID)[0];
@@ -149,7 +149,90 @@ function display($rencontres){?>
                 </div>
             </div>
         <?php endforeach; ?>
-    <?php endif;  
+    <?php endif; 
+    if (!$rencontres && $fake ): 
+        $saison_value2="2025-2026";
+        $args2=array(
+            'post_type'=> 'rencontre',
+            'posts_per_page' => -1,
+            'meta_query'     => 
+            array(  
+                array(
+                    'key'        => 'saisons',
+                    'compare'    => 'LIKE',
+                    'value'      => $saison_value2
+                )
+            ),		
+            'meta_key' => 'date_de_debut',
+            'orderby' => 'meta_value_num',
+            'order' => 'DESC',  
+        );
+        $rencontres2=get_posts($args2);
+        require_once (THEMEDIR.'template-parts/content-judokas-requests-stats-home.php');
+        $classement_equipes2=get_classement($rencontres2,$saison_value2,50);
+        $top8_raw = array_slice($classement_equipes2, 0, 8);
+
+        $top8 = []; // tableau propre et réutilisable
+
+        foreach ($top8_raw as $index => $d) {
+            $top8[] = [            // 1 à 8
+                'nom'   => $d[0]['nom'],
+                'image' => $d[0]['image'],
+                'data'  => $d[0],                   // optionnel : tout garder
+            ];
+        }
+        $quarts = [
+            [$top8[0], $top8[7]], // 1er vs 8e
+            [$top8[3], $top8[4]], // 4e vs 5e
+            [$top8[1], $top8[6]], // 2e vs 7e
+            [$top8[2], $top8[5]], // 3e vs 6e
+            
+        ];
+
+    ?> 
+    
+        <?php for ($i = 0; $i < 4; $i++): 
+            $teamA = $quarts[$i][0];
+            $teamB = $quarts[$i][1];
+        ?>
+            <div class="tp-4y-grid-content">
+                <div class="cal-res-poule-blc">
+                    <div class="header-cal-res-poule">
+                        <span class="cal-res-poule-title"></span>
+                        <span class="cal-res-poule-stat avenir">à venir</span>
+                    </div>
+
+                    <div class="horaire-jr">
+                        <div>
+                            <div class="cal-res-poule-team">
+                                <img src="<?= esc_url($teamA['image']); ?>">
+                                <h3 class="cal-res-poule-eqp"><?= esc_html($teamA['nom']); ?></h3>
+                                <span class="cal-res-poule-rs"></span>
+                            </div>
+
+                            <div class="cal-res-poule-team brd-none">
+                                <img src="<?= esc_url($teamB['image']); ?>">
+                                <h3 class="cal-res-poule-eqp"><?= esc_html($teamB['nom']); ?></h3>
+                                <span class="cal-res-poule-rs"></span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="cal-res-poule-title"></span>
+                            <span class="cal-res-poule-title"></span>
+                        </div>
+                    </div>
+
+                    <div class="cal-res-poule-link link-2">
+                        <a href="#" class="nv-link-crt brd-right">Billetterie</a>
+                        <a href="#" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        <?php endfor; ?>
+
+     
+    <?php endif; 
 }?>
 
 
@@ -192,6 +275,11 @@ function display($rencontres){?>
 
         <div class="judo_pro_league mtop-5 tab-princ-23">
             <h1 class="result-h1">tableau principal Judo Pro League <?php echo $saison_value;?></h1>
+            <?php if($saison_value=="2025-2026"){
+                setlocale(LC_TIME, 'fr_FR.UTF-8');
+            ?>
+            <p class="page-result-desc" style="text-align:center">Les affiches correspondent au classement du <?php echo strftime('%d %B %Y');?>. Elles ne seront considérées comme définitives qu'après la dernière rencontre de la 4ème journée. </p>
+            <?php }?>
             <div class="tp-3x-grid">
 
                 <div class="tp-3x-grid-content">
@@ -199,7 +287,8 @@ function display($rencontres){?>
 
                     <div class="tp-4y-grid">
                         
-                        <?php display($rencontres_quarts);?>
+                        <?php display($rencontres_quarts,true);?>
+
                         
                         
                     </div>
