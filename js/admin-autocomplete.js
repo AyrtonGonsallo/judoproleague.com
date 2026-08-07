@@ -16,44 +16,109 @@ jQuery(document).ready(function($) {
     setTimeout(function() { 
         console.log("recherche de judokas",($('#judoka-search').length)?true:false)
 
-        $('#judoka-search').on('input', function() {
-            var query = $(this).val();
-            if (query.length > 2) {
-                console.log(query)
-                $.ajax({
-                    url: ajaxurl,
-                    data: {
-                        action: 'search_judokas',
-                        query: query
-                    },
-                    success: function(data) {
-                        console.log(data)
-                        $('#judoka-results').empty();
-                        data.forEach(function(judoka) {
-                            $('#judoka-results').append('<div class="judoka-item" data-id="' + judoka.id + '">' + judoka.text + '</div>');
-                        });
-                    }
-                });
+        $(document).on('input', '#judoka-search', function () {
+
+            const query = $(this).val().toLowerCase();
+
+            $('#judoka-results').empty();
+
+            if (query.length < 2) {
+                return;
             }
-        });
-    
-        // Sélectionner un judoka et l'ajouter au champ caché
-        $('#judoka-results').on('click', '.judoka-item', function() {
-            $(this).css({
-                "background-color": "red",
-                "color": "#ffffff"
+
+            $('#judoka1-select option, #judoka2-select option').each(function () {
+
+                const id = $(this).val();
+                const text = $(this).text();
+
+                if (!id) return;
+
+                if (text.toLowerCase().includes(query)) {
+
+                    $('#judoka-results').append(
+                        '<div class="judoka-item" data-id="' + id + '">' +
+                        text +
+                        '</div>'
+                    );
+                }
+
             });
-            var judokaId = $(this).data('id');
-            var judokaName = $(this).text();
-            var prev_judokas = $('#selected-judokas').val();
-            var new_judokas = prev_judokas+"/"+judokaId
-            $('#selected-judokas').val(new_judokas).trigger('input');
-            $('#selected-judokas2').val(new_judokas).trigger('input');
-            //$('#judoka-search').val(judokaName);
-            //$('#judoka-results').empty();
+
         });
 
-    }, 5000);
+        // Sélectionner un judoka et l'ajouter au champ caché
+        $(document).on('click', '.judoka-item', function () {
+
+            const id = $(this).data('id');
+
+            if (!$('#judoka1-select').val()) {
+                $('#judoka1-select').val(id).trigger('change');
+            } else if (!$('#judoka2-select').val()) {
+                $('#judoka2-select').val(id).trigger('change');
+            } else {
+                alert('Les deux judokas sont déjà sélectionnés.');
+            }
+
+            $('#judoka-results').empty();
+            $('#judoka-search').val('');
+        });
+
+        console.log("recherche de rencontre",($('#rencontre-search').length)?true:false)
+
+        $(document).on('input', '#rencontre-search', function () {
+
+            const query = $(this).val().toLowerCase();
+            const results = $('#rencontre-results');
+
+            results.empty();
+
+            if (query.length < 2) {
+                return;
+            }
+
+            let count = 0;
+
+            $('#rencontre-select option').each(function () {
+
+                if (count >= 20) return false;
+
+                const id = $(this).val();
+                const text = $(this).text();
+
+                if (!id) return;
+
+                if (text.toLowerCase().includes(query)) {
+
+                    results.append(
+                        '<div class="rencontre-item" data-id="' + id + '">' +
+                        text +
+                        '</div>'
+                    );
+
+                    count++;
+                }
+            });
+
+        });
+
+
+        // Sélectionner une rencontre et l'ajouter au champ caché
+        $(document).on('click', '.rencontre-item', function () {
+
+            const id = $(this).data('id');
+
+            $('#rencontre-select')
+                .val(id)
+                .trigger('change');
+
+            $('#rencontre-results').empty();
+            $('#rencontre-search').val('');
+        });
     
+        
+
+    }, 5000);
+
+
     
 });

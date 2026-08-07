@@ -17,8 +17,17 @@
         $equipe1 = get_field('equipe_1',$rencontre->ID)[0];
         $equipe2 = get_field('equipe_2',$rencontre->ID)[0];
 
-        $title="Photos de ".get_the_title($equipe1->ID )." vs ".get_the_title($equipe2->ID )." ".get_field("saisons",$rencontre->ID);
-        $title2=get_the_title($equipe1->ID )." vs ".get_the_title($equipe2->ID )." ".get_field("saisons",$rencontre->ID);
+        // Récupère la saison si la rencontre existe
+        $saison = get_field("saisons", $rencontre->ID ?? null);
+
+        // Si pas de rencontre ou saison vide → valeur par défaut
+        if (!$rencontre || empty($saison)) {
+            $saison = "2025-2026";
+        }
+
+        // Construction des titres
+        $title  = "Photos de " . get_the_title($equipe1->ID) . " vs " . get_the_title($equipe2->ID) . " " . $saison;
+        $title2 = get_the_title($equipe1->ID) . " vs " . get_the_title($equipe2->ID) . " " . $saison;
 
 
 ?>

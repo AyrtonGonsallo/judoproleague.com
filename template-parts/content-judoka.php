@@ -95,7 +95,7 @@ function migrate_combats_from_rencontres() {
                 ],
                 [
                     'key'     => 'saisons',
-                    'value'   => '2025-2026',
+                    'value'   => '2026-2027',
                     'compare' => 'LIKE'
                 ]
             ]
@@ -181,7 +181,11 @@ function migrate_combats_from_rencontres() {
 }
 
 // ⚠️ à exécuter une seule fois pour migrer
-//migrate_combats_from_rencontres();
+/*
+if($post->ID==7001){
+	migrate_combats_from_rencontres();
+}
+*/
 
 
 

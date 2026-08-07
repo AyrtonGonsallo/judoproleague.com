@@ -154,7 +154,7 @@ $site = get_field('site_web');
 
 
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 
 
 
@@ -481,8 +481,9 @@ function get_champs_groupes_par_semaine() {
     return $groupes;
 }
 
-/*
+
 $semaines = get_champs_groupes_par_semaine();
+/*
 echo "nom,prenom,pseudo,email,rang,debut semaine, fin semaine<br>";
 foreach ($semaines as $semaine) : 
     $rang=1;
@@ -511,6 +512,112 @@ echo "<br>";
 endforeach;                              
 */
 ?>
+<?php
+
+function email_to_pseudo($email) {
+    // Partie avant @
+    $pseudo = explode('@', $email)[0];
+
+    // Remplacer les points par des espaces
+    $pseudo = str_replace('.', ' ', $pseudo);
+
+    // Limiter à 30 caractères
+    if(mb_strlen($pseudo) > 15){
+        $pseudo = mb_substr($pseudo, 0, 15) . '...';
+    }
+
+    return $pseudo;
+}
+
+function display_joueurs() {
+    global $wpdb;
+    $all_users = $wpdb->get_results("
+        SELECT u.ID, 
+            um_points.meta_value AS total_points,
+            um_pseudo.meta_value AS pseudo,
+            um_classement.meta_value AS classement
+        FROM {$wpdb->users} u
+        INNER JOIN {$wpdb->usermeta} m2 
+            ON u.ID = m2.user_id AND m2.meta_key = '{$wpdb->prefix}capabilities'
+        LEFT JOIN {$wpdb->usermeta} um_points 
+            ON u.ID = um_points.user_id AND um_points.meta_key = 'total_de_points'
+        LEFT JOIN {$wpdb->usermeta} um_pseudo 
+            ON u.ID = um_pseudo.user_id AND um_pseudo.meta_key = 'pseudo'
+        LEFT JOIN {$wpdb->usermeta} um_classement 
+            ON u.ID = um_classement.user_id AND um_classement.meta_key = 'classement'
+        WHERE m2.meta_value LIKE '%joueur_jpl%'
+        ORDER BY 
+            CASE WHEN um_classement.meta_value IS NULL THEN 1 ELSE 0 END ASC,
+            CAST(um_classement.meta_value AS UNSIGNED) ASC,
+            CAST(um_points.meta_value AS UNSIGNED) DESC,
+            COALESCE(um_pseudo.meta_value, u.display_name) ASC
+       
+    ");?>
+
+    Rang,
+    Joueur,
+    email,
+    Victoires / Pronos,
+    Score exact,
+    Meilleure série,
+    Points,<br>
+
+    <?php foreach ( $all_users as $user ):
+                                    
+        $user_id = $user->ID;
+        $prenom  = get_user_meta($user_id, 'first_name', true);
+        $nom     = get_user_meta($user_id, 'last_name', true);
+        $user_data = get_user_by('id', $user_id);
+        $pseudo = get_field('pseudo', 'user_'.$user_id) ?: $user_data->display_name;
+        $email = $user_data->user_email;
+        if (empty($prenom) && empty($nom)) {
+            // Si vide, assigner un pseudo
+            $pseudo = email_to_pseudo($pseudo);   // Mettre un pseudo par défaut si nécessaire
+        }else {
+            // Sinon, concaténer prénom et nom
+            $pseudo = $prenom . ' ' . $nom;
+        }
+        $current_points = (int) get_field('total_de_points', 'user_' . $user_id);
+        $score_exact = (int) get_field('score_exact', 'user_' . $user_id);
+        $classement = (int) get_field('classement', 'user_' . $user_id);
+        $paris_effectues = (int) get_field('paris_effectues', 'user_' . $user_id);
+        $series_jouees = (int) get_field('series_jouees', 'user_' . $user_id);
+        $meilleure_serie = (int) get_field('meilleure_serie', 'user_' . $user_id);
+        $paris_gagnes = (int) get_field('paris_gagnes', 'user_' . $user_id);
+
+        $ratio = $paris_effectues > 0  ? ceil($paris_gagnes *100 / $paris_effectues)  : 0;
+        $permalink = esc_url( site_url('/module-de-paris-joueur/?user_id=' . $user_id) );
+    ?>
+
+        
+            <?php echo ($all_ranking_null)?1:$classement;?>,
+        
+        
+            <?php echo $pseudo;?>,
+
+             <?php echo $email;?>,
+        
+        
+            <?php echo $paris_gagnes;?>/<?php echo $paris_effectues;?> - <?php echo $ratio;?> %,
+        
+        
+            <?php echo $score_exact;?>,
+        
+        
+            <?php echo $meilleure_serie;?>,
+        
+        
+            <?php echo $current_points;?>,
+            <?php echo "<br>";?>
+       
+
+<?php endforeach; 
+}
+
+//display_joueurs();
+?>
+
+
 
 
 

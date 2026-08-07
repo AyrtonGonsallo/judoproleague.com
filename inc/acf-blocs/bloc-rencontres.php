@@ -52,7 +52,7 @@ $news_part2 = array_slice($news,3,2);
             $journee = get_field('phase', $premiere_rencontre->ID)[0]->post_title . ' ' . get_field('journee', $premiere_rencontre->ID);
             // Afficher la journée une seule fois ici
             echo '<div class="journee-div">';
-            echo '<span>' . $journee . '</span>';
+            echo '<span>DEMI-FINALES</span>';
             echo '</div>';
         }
              ?>

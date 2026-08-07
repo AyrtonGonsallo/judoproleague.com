@@ -49,7 +49,7 @@
 $site = get_field('site_web');
 
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 
 
 $description = get_field('presentation'); 

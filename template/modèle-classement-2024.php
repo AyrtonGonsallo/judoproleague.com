@@ -87,7 +87,7 @@ function display($rencontres_j1,$titre_journee){?>
 <?php 
 
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 if ($saison_value == "2023-2024") {
     header("Location: classement-judo-pro-league-2023/?saison_value=2023-2024");
     exit(); // It's a good practice to call exit() after sending a Location header
@@ -192,6 +192,7 @@ $args_j1= array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
 					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
                     <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                    <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 				</select>
 			</form>
 		</div>

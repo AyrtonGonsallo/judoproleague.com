@@ -26,7 +26,7 @@ $equipes = get_posts(array(
         array(
             'key'     => 'saisons',
             'compare' => 'LIKE',
-            'value'   => '2025-2026'
+            'value'   => '2026-2027'
         )
     )
 ));
@@ -99,7 +99,7 @@ $equipes = get_posts(array(
 
 	  $( function() {
         if( $('.tabs-poules').length ){
-            $( "#tabs" ).tabs( { active: 1 } );
+            $( "#tabs" ).tabs( { active: 0 } );
             console.log("poules")
         }else if($('.tabs-quarts').length){
             //$( "#tabs" ).tabs( { active: 0 });
@@ -476,9 +476,10 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
             ?>
 
 <?php 
-function get_next_week_with_rencontres($saison = '2025-2026') {
+function get_next_week_with_rencontres($saison = '2026-2027') {
     $rencontres = [];
 
+    
     $aujourdhui = current_time('Y-m-d');
 
     // Semaine actuelle
@@ -554,12 +555,26 @@ function get_next_week_with_rencontres($saison = '2025-2026') {
             $semaine_offset++;
         }
     }
+        
+
+    
+    /*
+    $niveaux_a_afficher=get_field('niveaux_a_afficher','widget_gestionnaire_rencontres_widget-2'); 
+    $rencontres=array();
+    if( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ){
+        while ( have_rows('rencontres_a_afficher','widget_gestionnaire_rencontres_widget-2') ) : the_row();
+        $rencontre = get_sub_field('rencontre');
+        $rencontres=array_merge($rencontres,$rencontre);
+        endwhile;
+    }
+        */
 
     return $rencontres;
 }
 
 
    $rencontres=get_next_week_with_rencontres();
+ 
     $now=date('Y/m/d H:i:s');
 ?>
 

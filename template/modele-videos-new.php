@@ -26,7 +26,7 @@ function get_key_categorie_video($label) {
 
 get_header();
 $equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 $args_teams=array(
     'post_type'=> 'equipes',
     'posts_per_page' => -1,
@@ -55,6 +55,7 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
                 <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                 <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
                 <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 
 
             </select>

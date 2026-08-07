@@ -5,7 +5,7 @@
 
  */
 get_header();
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 $args_quarts = array(		
     'post_type'=> 'rencontre',		
     'posts_per_page' => -1,
@@ -23,12 +23,13 @@ $args_quarts = array(
             'value'      => $saison_value
         ),
 	),		
-    'meta_key' => 'date_de_debut',		
-    'orderby' => 'meta_value_num',		
-    'order' => 'DESC',			
+    'meta_key' => 'phase',		
+    'orderby' => 'meta_value',		
+    'order' => 'ASC',			
 );
 
 $rencontres_quarts= get_posts($args_quarts);
+
 
 $args_demies = array(		
     'post_type'=> 'rencontre',		
@@ -157,48 +158,75 @@ function display($rencontres,$fake=false){?>
             'posts_per_page' => -1,
             'meta_query'     => 
             array(  
+                'relation' => 'and',   
+                array(      
+                    'key'        => 'niveau',      
+                    'compare'    => 'LIKE',      
+                    'value'      => 'Demi'
+                    ),
                 array(
                     'key'        => 'saisons',
                     'compare'    => 'LIKE',
                     'value'      => $saison_value2
-                )
+                ),
             ),		
-            'meta_key' => 'date_de_debut',
-            'orderby' => 'meta_value_num',
-            'order' => 'DESC',  
+            'orderby' => 'post_title',
+            'order' => 'ASC',  
         );
         $rencontres2=get_posts($args2);
-        require_once (THEMEDIR.'template-parts/content-judokas-requests-stats-home.php');
-        $classement_equipes2=get_classement($rencontres2,$saison_value2,50);
-        $top8_raw = array_slice($classement_equipes2, 0, 8);
-
-        $top8 = []; // tableau propre et réutilisable
-
-        foreach ($top8_raw as $index => $d) {
-            $top8[] = [            // 1 à 8
-                'nom'   => $d[0]['nom'],
-                'image' => $d[0]['image'],
-                'data'  => $d[0],                   // optionnel : tout garder
-            ];
-        }
-        $quarts = [
-            [$top8[0], $top8[7]], // 1er vs 8e
-            [$top8[3], $top8[4]], // 4e vs 5e
-            [$top8[1], $top8[6]], // 2e vs 7e
-            [$top8[2], $top8[5]], // 3e vs 6e
-            
-        ];
+        //var_dump($rencontres2);
+        $winers = []; 
+        $i=1;
+        foreach ($rencontres2 as $rencontre):
+            $combat=get_field('les_combat', $rencontre->ID)[0]; 
+            $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
+            $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
+          
+            $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
+            $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
+          
+            $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):$equipe1->post_title;
+            $abreviation2=(get_field('abreviation', $equipe2->ID))?get_field('abreviation', $equipe2->ID):$equipe2->post_title;
+            $equipe_gagnante =  $combat['equipe_gagnante'];
+            if($equipe_gagnante=='équipe 1'){
+                $winers[] = [            
+                    'nom'   => $equipe1->post_title,
+                    'image' => $image1_url,           
+                ];
+            }
+            else if($equipe_gagnante=='équipe 2'){
+                $winers[] = [            
+                    'nom'   => $equipe2->post_title,
+                    'image' => $image2_url,          
+                ]; 
+            }
+            else{
+                $winers[] = [            
+                    'nom'   => "Vainqueur DF $i",
+                    'image' => "https://judoproleague.com/wp-content/uploads/2024/08/unknown.png",          
+                ];
+            }
+            $i+=1;
+        endforeach;  
+        
 
     ?> 
     
-        <?php for ($i = 0; $i < 4; $i++): 
-            $teamA = $quarts[$i][0];
-            $teamB = $quarts[$i][1];
+        <?php 
+           
+$finale = [
+    [$winers[0], $winers[1]], // QF1 vs QF4
+];
+
+foreach ($finale as $match) {
+    $teamA = $match[0];
+    $teamB = $match[1];
+
         ?>
             <div class="tp-4y-grid-content">
                 <div class="cal-res-poule-blc">
                     <div class="header-cal-res-poule">
-                        <span class="cal-res-poule-title"></span>
+                        <span class="cal-res-poule-title">Dojo de Paris (75)</span>
                         <span class="cal-res-poule-stat avenir">à venir</span>
                     </div>
 
@@ -229,7 +257,7 @@ function display($rencontres,$fake=false){?>
                     </div>
                 </div>
             </div>
-        <?php endfor; ?>
+        <?php } ?>
 
      
     <?php endif; 
@@ -253,6 +281,7 @@ function display($rencontres,$fake=false){?>
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                     <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
                     <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                    <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 				</select>
 			</form>
 		</div>
@@ -287,7 +316,22 @@ function display($rencontres,$fake=false){?>
 
                     <div class="tp-4y-grid">
                         
-                        <?php display($rencontres_quarts,true);?>
+                        <?php 
+
+                        $ids = array(18852, 18855, 18854, 18853);
+
+                        $rencontres_quarts_ordered = array();
+
+                        foreach ($ids as $wanted_id) {
+                            foreach ($rencontres_quarts as $rencontre) {
+                                if ($rencontre->ID == $wanted_id) {
+                                    $rencontres_quarts_ordered[] = $rencontre;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        display($rencontres_quarts_ordered,false);?>
 
                         
                         
@@ -297,7 +341,7 @@ function display($rencontres,$fake=false){?>
                     <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">DEMI-FINALES</h3>
 
                     <div class="tp-2y-grid">
-                        <?php display($rencontres_demies);?>
+                        <?php display($rencontres_demies,false);?>
                         
                         
                     </div>
@@ -306,7 +350,7 @@ function display($rencontres,$fake=false){?>
                     <h3 class="nv-tableau-final-subtitle tab-phase tab-act2 px-40 title-mobile">FINALE </h3>
 
                     <div class="tp-y-grid">
-                        <?php display($rencontre_f);?>
+                        <?php display($rencontre_f,false);?>
                         
                         
                     </div>

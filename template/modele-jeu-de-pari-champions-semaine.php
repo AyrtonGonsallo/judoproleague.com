@@ -37,6 +37,12 @@ function get_champs_groupes_par_semaine() {
         'orderby'        => 'meta_value',
         'order'          => 'DESC',
         'meta_type'      => 'DATE',
+        'date_query' => [
+                            [
+                                'after' => '2026-06-01',
+                                'inclusive' => true,
+                            ]
+                        ],
     ];
 
     $posts = get_posts($args);

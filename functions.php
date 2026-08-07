@@ -139,11 +139,9 @@ add_action( 'widgets_init', 'pro_league_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
-
 function pro_league_scripts() {
-    // Liste des pages où on ne veut pas charger le style principal
-    $exclude_pages = [4943, 4869,4873,4884,4880,5177,5213,5224,5197,5309,5310,5521,5469,5455];
-    // $exclude_pages = [4931,4932,4943,5177,5197,5213,5224,5310,5309,5455,5469,4873,5474]; sur le prod
+	// Liste des pages où on ne veut pas charger le style principal
+    $exclude_pages = [4931,4932,4943,5177,5197,5213,5224,5310,5309,5455,5469,4873,5474];
     $post_type=get_post_type();
     if (is_page($exclude_pages) || $post_type=="ligue") {
         // Charger un style alternatif
@@ -163,22 +161,22 @@ function pro_league_scripts() {
 
     }
 
-    // Scripts JS
-    wp_enqueue_script('pro-league-navigation', get_template_directory_uri() . '/js/navigation.js', [], _S_VERSION, true);
-    wp_enqueue_script('pro-league-main', get_template_directory_uri() . '/js/main.js', [], _S_VERSION, true);
-    wp_enqueue_script('pro-league-customizer', get_template_directory_uri() . '/js/customizer.js', [], _S_VERSION, true);
-    wp_enqueue_script('flexslider-js', get_template_directory_uri() . '/js/jquery.flexslider-min.js', [], _S_VERSION, true);
+	wp_enqueue_script( 'pro-league-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script('pro-league-main', get_template_directory_uri() . '/js/main.js', array(), _S_VERSION, true);
+	wp_enqueue_script('pro-league-customizer', get_template_directory_uri() . '/js/customizer.js', array(), _S_VERSION, true);
 
-    // Flexslider CSS
-    wp_enqueue_style('flexslider', get_template_directory_uri() . '/css/flexslider.css', [], false);
+		
+	
+	wp_enqueue_script('flexslider-js', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array(), _S_VERSION, true);
 
-    // Commentaires imbriqués
-    if (is_singular() && comments_open() && get_option('thread_comments')) {
-        wp_enqueue_script('comment-reply');
-    }
+	wp_register_style('flexslider', get_template_directory_uri() . '/css/flexslider.css', array(), false);
+	wp_enqueue_style('flexslider');
+		
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
 }
-add_action('wp_enqueue_scripts', 'pro_league_scripts', 20);
-
+add_action( 'wp_enqueue_scripts', 'pro_league_scripts' );
 
 
 /**
@@ -563,27 +561,6 @@ add_action('after_setup_theme', function() {
         show_admin_bar(false);
     }
 });
-add_filter('acf/load_field', function($field) {
-    // Liste des champs à mettre en readonly
-    $readonly_fields = [
-        'total_de_points',
-        'series_jouees',
-        'meilleure_serie',
-        'paris_gagnes',
-        'paris_effectues',
-        'classement',
-        'score_exact',
-        'serie_en_cours',
-        'consentement_utilisation_de_donnees'
-    ];
-
-    if (in_array($field['name'], $readonly_fields, true)) {
-        $field['readonly'] = 1; // ou $field['disabled'] = 1;
-    }
-
-    return $field;
-});
-
  function custom_column_single_choice ( $column, $post_id ) {
 	switch ( $column ) {
 		case 'saisons':
@@ -630,6 +607,15 @@ function custom_admin_css() {
 	wp_enqueue_style('custom-admin-style-2', get_template_directory_uri() . '/custom-admin-2.css');
 	// Charger les fichiers JavaScript
     wp_enqueue_script('custom-admin-script', get_template_directory_uri() . '/custom-admin.js', array('jquery'), null, true);
+    
+    wp_enqueue_script(
+        'admin-autocomplete',
+        get_template_directory_uri() . '/js/admin-autocomplete.js',
+        array('jquery'),
+        null,
+        true
+    );
+
 
 }
 add_action('admin_head', 'custom_admin_css');
@@ -641,20 +627,27 @@ function add_custom_image_fields_autocomplete($form_fields, $post) {
     $related_judoka_1 = get_post_meta($post->ID, 'related_judoka_1', true);
     $related_judoka_2 = get_post_meta($post->ID, 'related_judoka_2', true);
     $related_saison = get_post_meta($post->ID, 'related_saison', true);
+    $related_rencontre = get_post_meta($post->ID, 'related_rencontre', true);
+    
     
     // Tableau de saisons
     $saisons = array(
         '2023-2024' => '2023-2024',
         '2024-2025' => '2024-2025',
         '2025-2026' => '2025-2026',
+        '2026-2027' => '2026-2027',
         // Ajoutez d'autres saisons si nécessaire
     );
 
     // Obtenir tous les judokas
     $selected_judokas = get_posts(array('post_type' => 'judoka', 'numberposts' => -1)); 
 
+    //les rencontres
+    $selected_rencontres = get_posts(array('post_type' => 'rencontre', 'numberposts' => -1)); 
+
     // Champ de recherche pour sélectionner un judoka
     ob_start(); ?>
+
     <input type="text" id="judoka-search" placeholder="Rechercher un judoka">
     <div id="judoka-results"></div>
 
@@ -676,6 +669,20 @@ function add_custom_image_fields_autocomplete($form_fields, $post) {
         <?php foreach ($selected_judokas as $judoka) : ?>
             <option value="<?php echo esc_attr($judoka->ID); ?>" <?php selected($related_judoka_2, $judoka->ID); ?>>
                 <?php echo esc_html($judoka->post_title); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <input type="text" id="rencontre-search" placeholder="Rechercher une rencontre">
+    <div id="rencontre-results"></div>
+
+    <label for="rencontre-select">Sélectionnez la rencontre:</label>
+    <select name="attachments[<?php echo $post->ID; ?>][related_rencontre]" id="rencontre-select">
+        <option value="">Choisir une rencontre</option>
+        <?php foreach ($selected_rencontres as $rencontre) :
+            $saison = get_field( 'saisons',$rencontre->ID ); ?>
+            <option value="<?php echo esc_attr($rencontre->ID); ?>" <?php selected($related_rencontre, $rencontre->ID); ?>>
+                <?php echo esc_html($rencontre->ID.' - '.$saison.' - '.$rencontre->post_title); ?>
             </option>
         <?php endforeach; ?>
     </select>
@@ -703,6 +710,32 @@ function add_custom_image_fields_autocomplete($form_fields, $post) {
 }
 add_filter('attachment_fields_to_edit', 'add_custom_image_fields_autocomplete', 10, 2);
 
+function search_judokas() {
+
+    $query = sanitize_text_field($_GET['query'] ?? '');
+
+    $judokas = get_posts([
+        'post_type'      => 'judoka',
+        'posts_per_page' => 20,
+        's'              => $query,
+        'orderby'        => 'title',
+        'order'          => 'ASC',
+    ]);
+
+    $result = [];
+
+    foreach ($judokas as $judoka) {
+        $result[] = [
+            'id'   => $judoka->ID,
+            'text' => $judoka->post_title,
+        ];
+    }
+
+    wp_send_json($result);
+}
+
+add_action('wp_ajax_search_judokas', 'search_judokas');
+
 
 
 // Sauvegarder les judokas associés lors de la sauvegarde des métadonnées de l'image
@@ -711,9 +744,11 @@ function save_related_judokas_meta($post, $attachment) {
         $judoka1_id = sanitize_text_field($attachment['related_judoka_1']);
 		$judoka2_id = sanitize_text_field($attachment['related_judoka_2']);
 		$saison = sanitize_text_field($attachment['related_saison']);
+        $related_rencontre = sanitize_text_field($attachment['related_rencontre']);
         update_post_meta($post['ID'], 'related_judoka_1', $judoka1_id);
 		update_post_meta($post['ID'], 'related_judoka_2', $judoka2_id);
 		update_post_meta($post['ID'], 'related_saison', $saison);
+        update_post_meta($post['ID'], 'related_rencontre', $related_rencontre);
     
     return $post;
 }
@@ -765,6 +800,7 @@ function save_related_judokas() {
     $image_ids = isset($_POST['images']) ? $_POST['images'] : array();
     $judoka1_id = sanitize_text_field($_POST['judoka1']);
     $judoka2_id = sanitize_text_field($_POST['judoka2']);
+    $related_rencontre = sanitize_text_field($_POST['related_rencontre']);
     $saison = sanitize_text_field($_POST['saison']);
 
     // Vérifier qu'il y a des images sélectionnées
@@ -777,6 +813,7 @@ function save_related_judokas() {
     foreach ($image_ids as $image_id) {
         update_post_meta($image_id, 'related_judoka_1', $judoka1_id);
         update_post_meta($image_id, 'related_judoka_2', $judoka2_id);
+        update_post_meta($image_id, 'related_rencontre', $related_rencontre);
         update_post_meta($image_id, 'related_saison', $saison);
     }
 
@@ -799,6 +836,35 @@ function hide_yoast_seo_and_post_body_content_for_non_page_post_types() {
 }
 add_action('admin_footer', 'hide_yoast_seo_and_post_body_content_for_non_page_post_types');
 
+
+
+
+
+
+
+
+
+
+add_filter('acf/load_field', function($field) {
+    // Liste des champs à mettre en readonly
+    $readonly_fields = [
+        'total_de_points',
+        'series_jouees',
+        'meilleure_serie',
+        'paris_gagnes',
+        'paris_effectues',
+        'classement',
+        'score_exact',
+        'serie_en_cours',
+        'consentement_utilisation_de_donnees'
+    ];
+
+    if (in_array($field['name'], $readonly_fields, true)) {
+        $field['readonly'] = 1; // ou $field['disabled'] = 1;
+    }
+
+    return $field;
+});
 
 function rencontre_get_equipe_1_title() {
 	$equipe1 = get_field('equipe_1')[0];
@@ -839,7 +905,7 @@ function get_page_equipe_title() {
 		case 'judokas':
             return 'Judokas';
         default:
-            return 'Autre';
+            return 'équipe de de la Judo Pro League';
     }
 }
 
@@ -861,19 +927,19 @@ function get_page_equipe_desc() {
     // Retourne un mot selon le dernier segment
     switch($last_segment) {
         case 'infos':
-            return 'toutes les informations concernant la Judo Pro League. Actus, vidéos, judokas,photos';
+            return 'Toutes les infos concernant '.get_the_title().' en Judo Pro League : actualités, photos, vidéos, judokas.';
         case 'actus':
-            return 'toutes les actualités concernant la Judo Pro League';
+            return 'Toutes les actualités concernant '.get_the_title().' en Judo Pro League.';
 		case 'photos':
-            return 'toutes les photos de la Judo Pro League';
+            return 'Toutes les photos concernant '.get_the_title().' en Judo Pro League.';
 		case 'videos':
-            return 'toutes les vidéos de la Judo Pro League';
+            return 'Toutes les vidéos concernant '.get_the_title().' en Judo Pro League.';
 		case 'calendrier_resultats':
-            return 'calendrier et résultats de la Judo Pro League';
+            return 'Tous les calendriers et résultats concernant '.get_the_title().' en Judo Pro League.';
 		case 'judokas':
-            return 'liste des judokas';
+            return 'Tous les judokas de '.get_the_title().' en Judo Pro League.';
         default:
-            return 'Autre';
+            return 'Toutes les infos concernant '.get_the_title().' en Judo Pro League : actualités, photos, vidéos, judokas.';
     }
 }
 
@@ -897,13 +963,6 @@ function register_custom_yoast_variables() {
 }
 add_action('wpseo_register_extra_replacements', 'register_custom_yoast_variables');
 
-/*
-add_action('admin_init', function() {
-    // Supprime complètement le rôle 'photographe_jpl'
-    remove_role('photographe_jpl');
-});
-*/
-
 add_action('admin_init', 'rpt_add_role_caps', 999);
 
 function rpt_add_role_caps() {
@@ -921,6 +980,7 @@ function rpt_add_role_caps() {
         'edit_others_galeries',
         'edit_published_galeries',
         'edit_private_galeries',
+
     ];
 
     foreach ($roles as $role_name) {
@@ -936,6 +996,12 @@ function rpt_add_role_caps() {
         $role->add_cap('upload_files');
     }
 }
+
+
+
+add_filter('login_redirect', 'photographe_jpl_login_redirect', 10, 3);
+
+
 
 
 function rpt_reset_photographe_jpl_caps() {
@@ -967,36 +1033,7 @@ function rpt_reset_photographe_jpl_caps() {
         }
     }
 }
-add_action('admin_init', 'rpt_reset_photographe_jpl_caps', 999);
-
-
-
-add_filter('acf/fields/relationship/query/key=field_64b7ce9f8932c', 'filtrer_rencontres_relation', 10, 3);
-
-function filtrer_rencontres_relation($args, $field, $post_id) {
-    // Exemple : trier par date décroissante
-    $args['orderby'] = 'date_de_debut';
-    $args['order'] = 'ASC';
-
-    // Exemple : filtrer par saison (meta field "saison")
-    $args['meta_query'] = [
-        'relation' => 'AND', // ou 'OR' selon ton besoin
-        [
-            'key' => 'saisons',
-            'value' => '2025-2026',
-            'compare' => '='
-        ],
-        [
-            'key'     => 'statut',
-            'value'   => 'termine',
-            'compare' => '=',
-        ]
-    ];
-
-    return $args;
-}
-
-add_filter('login_redirect', 'photographe_jpl_login_redirect', 10, 3);
+//add_action('admin_init', 'rpt_reset_photographe_jpl_caps', 999);
 
 function photographe_jpl_login_redirect($redirect_to, $requested_redirect_to, $user) {
     // Sécurité : vérifier que $user est un objet WP_User
@@ -1025,7 +1062,6 @@ function hide_menus_for_photographe_jpl() {
             #menu-media { display: none !important; }
             /* Masquer d’autres menus si nécessaire */
             #toplevel_page_delete_all_actions { display: none !important; }
-            #toplevel_page_image-multi-selector { display: none !important; }
         </style>';
     }
 }

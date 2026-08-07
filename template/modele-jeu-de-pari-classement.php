@@ -41,6 +41,13 @@ function reset_joueur_jpl_stats() {
     $paris_finis = get_posts([
         'post_type'      => 'pari',
         'posts_per_page' => -1,
+        'date_query' => 
+        [
+            [
+                'after' => '2026-06-01',
+                'inclusive' => true,
+            ]
+        ],
         
     ]);
     echo count($paris_finis)." paris";
@@ -202,7 +209,7 @@ get_header();
         CAST(um_classement.meta_value AS UNSIGNED) ASC,
         CAST(um_points.meta_value AS UNSIGNED) DESC,
         COALESCE(um_pseudo.meta_value, u.display_name) ASC
-    LIMIT 200
+    LIMIT 10
 ");
 
 

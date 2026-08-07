@@ -12,7 +12,7 @@ date_default_timezone_set('Europe/Paris');
 
 get_header();
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 
 $titlebar   = get_field('header_de_la_page');
 

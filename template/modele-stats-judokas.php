@@ -4,7 +4,7 @@
  * Template Name: Modèle stats Judokas
  */
  get_header();
- $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+ $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
  $equipe_value=($_GET["equipe_value"])?$_GET["equipe_value"]:0;
  $categorie_value=($_GET["categorie_value"])?$_GET["categorie_value"]:"0";
  $args_teams=array(
@@ -82,6 +82,7 @@ function get_correct_categorie($saison_value,$cat){
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
                     <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
                     <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                    <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 
                 </select>
 			</form>

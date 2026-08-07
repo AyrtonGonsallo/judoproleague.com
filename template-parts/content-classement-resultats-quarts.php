@@ -1,5 +1,5 @@
 <?php  
-function display_rencontre_quarts($rencontres_quart_2,$quart){
+function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
     ?>
 <?php if ($rencontres_quart_2): ?><div class="judo_pro_league">    
     <h2 class="crt-title"> Quart <?php echo $quart?></h2>    
@@ -72,10 +72,93 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
         <?php endforeach; ?>
     </div>
 </div>
-<?php endif;  ?>
-    <?php 
-}
-?>
+<?php endif; ?>
+<?php if (!$rencontres_quart_2 && $fake ): 
+        $saison_value2="2026-2027";
+        $args2=array(
+            'post_type'=> 'rencontre',
+            'posts_per_page' => -1,
+            'meta_query'     => 
+            array(  
+                array(
+                    'key'        => 'saisons',
+                    'compare'    => 'LIKE',
+                    'value'      => $saison_value2
+                )
+            ),		
+            'meta_key' => 'date_de_debut',
+            'orderby' => 'meta_value_num',
+            'order' => 'DESC',  
+        );
+        $rencontres2=get_posts($args2);
+        require_once (THEMEDIR.'template-parts/content-judokas-requests-stats-home.php');
+        $classement_equipes2=get_classement($rencontres2,$saison_value2,50);
+        $top8_raw = array_slice($classement_equipes2, 0, 8);
+
+        $top8 = []; // tableau propre et réutilisable
+
+        foreach ($top8_raw as $index => $d) {
+            $top8[] = [            // 1 à 8
+                'nom'   => $d[0]['nom'],
+                'image' => $d[0]['image'],
+                'data'  => $d[0],                   // optionnel : tout garder
+            ];
+        }
+        $quarts = [
+            [$top8[0], $top8[7]], // 1er vs 8e
+            [$top8[3], $top8[4]], // 4e vs 5e
+            [$top8[1], $top8[6]], // 2e vs 7e
+            [$top8[2], $top8[5]], // 3e vs 6e
+            
+        ];
+
+    ?> 
+    
+        <?php for ($i = 0; $i < 4; $i++): 
+            $teamA = $quarts[$i][0];
+            $teamB = $quarts[$i][1];
+        ?>
+            <div class="cal-res-poule"  style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" >           
+                <div class="cal-res-poule-blc">
+                    <div class="header-cal-res-poule">
+                        <span class="cal-res-poule-title"></span>
+                        <span class="cal-res-poule-stat avenir">à venir</span>
+                    </div>
+
+                    <div class="horaire-jr">
+                        <div>
+                            <div class="cal-res-poule-team">
+                                <img src="<?= esc_url($teamA['image']); ?>">
+                                <h3 class="cal-res-poule-eqp"><?= esc_html($teamA['nom']); ?></h3>
+                                <span class="cal-res-poule-rs"></span>
+                            </div>
+
+                            <div class="cal-res-poule-team brd-none">
+                                <img src="<?= esc_url($teamB['image']); ?>">
+                                <h3 class="cal-res-poule-eqp"><?= esc_html($teamB['nom']); ?></h3>
+                                <span class="cal-res-poule-rs"></span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="cal-res-poule-title"></span>
+                            <span class="cal-res-poule-title"></span>
+                        </div>
+                    </div>
+
+                    <div class="cal-res-poule-link link-2">
+                        <a href="#" class="nv-link-crt brd-right">Billetterie</a>
+                        <a href="#" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        <?php endfor; ?>
+
+     
+    <?php endif; 
+}?>
+
+
 
 
 <?php
@@ -84,7 +167,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart){
 
 $now=date('Y/m/d H:i:s');
 
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2025-2026";
+$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
 
 
 
@@ -216,7 +299,7 @@ $rencontres_quart_4= get_posts($args_quart_4);
 					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
 					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
                     <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
-
+                    <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 				</select>
 			</form>
 		</div>
@@ -237,19 +320,23 @@ $rencontres_quart_4= get_posts($args_quart_4);
             </ul>
             <div id="tabs-1">
                 
-                <?php display_rencontre_quarts ($rencontres_quart_1,'1');?>
+                <?php display_rencontre_quarts ($rencontres_quart_1,'1',false);?>
             </div>
             <div id="tabs-2">
                 
-                <?php display_rencontre_quarts ($rencontres_quart_2,'2');?>
+                <?php display_rencontre_quarts ($rencontres_quart_2,'2',false);?>
             </div>
             <div id="tabs-3">
                 
-                <?php display_rencontre_quarts ($rencontres_quart_3,'3');?>
+                <?php display_rencontre_quarts ($rencontres_quart_3,'3',false);?>
             </div>
             <div id="tabs-4">
                 
-                <?php display_rencontre_quarts ($rencontres_quart_4,'4');?>
+                <?php display_rencontre_quarts ($rencontres_quart_4,'4',false);?>
+            </div>
+            <div >
+                
+                <?php //display_rencontre_quarts ($rencontres_quart_4,'4',true);?>
             </div>
         </div>
     </section>

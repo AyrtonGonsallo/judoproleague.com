@@ -15,7 +15,7 @@ if ( ! is_user_logged_in() || ! current_user_can('joueur_jpl') ) {
 
 
 get_header();
-$saison_value="2025-2026";
+$saison_value="2026-2027";
 $user_id = get_current_user_id();
 $user_info = get_userdata($user_id);
 $email = $user_info->user_email;
@@ -31,16 +31,6 @@ $args = [
     'order'          => 'ASC',
     'meta_query'     => [
         'relation' => 'AND',
-        [
-            'key'     => 'niveau',
-            'compare' => '=',
-            'value'   => 'Phase de poules',
-        ],
-        [
-            'key'     => 'journee',
-            'value'   => ['journée 1','journée 2','journée 3'],
-            'compare' => 'IN'
-        ],
         [
             'key'     => 'statut', // remplace par ton champ ACF exact
             'value'   => 'a_venir',
@@ -192,6 +182,12 @@ function get_bonus_label($type){
                     $paris_en_cours1 = get_posts([
                         'post_type'      => 'pari',
                         'posts_per_page' => 1,
+                        'date_query' => [
+                            [
+                                'after' => '2026-06-01',
+                                'inclusive' => true,
+                            ]
+                        ],
                         'meta_query'     => [
                             'relation' => 'AND',
                             [
@@ -336,6 +332,12 @@ function get_bonus_label($type){
         'meta_key'       => 'date',
         'orderby'        => 'meta_value',
         'order'          => 'ASC',
+        'date_query' => [
+            [
+                'after' => '2026-06-01',
+                'inclusive' => true,
+            ]
+        ],
         'meta_query'     => [
            'relation' => 'AND',
             [
@@ -573,6 +575,13 @@ function get_bonus_label($type){
         'meta_key'       => 'date',
         'orderby'        => 'meta_value',
         'order'          => 'ASC',
+        'date_query' => [
+            [
+                'after' => '2026-06-01',
+                'inclusive' => true,
+            ]
+        ],
+
         'meta_query'     => [
            'relation' => 'AND',
             [

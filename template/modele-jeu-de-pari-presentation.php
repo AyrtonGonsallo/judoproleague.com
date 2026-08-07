@@ -240,7 +240,10 @@ La JPL n’attend que tes pronos.</p>
 <br><br>
 <b>Champions de la semaine :</b>
 <br>
-Un lot de goodies boutiques d’une valeur de (TBD)<br><br>
+1er : 50€ de bon d’achat boutique<br>
+2e : 30€ de bon d’achat boutique<br>
+3e : 20€ de bon d’achat boutique<br>
+<br><br>
 Tirage au sort parmi les champions de la semaine :<br>
 2 places pour la PGS 2026 + visite VIP de la salle d’échauffement
 </p>
