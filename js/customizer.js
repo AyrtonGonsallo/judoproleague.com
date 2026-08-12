@@ -80,7 +80,19 @@ for (i = 0; i < mt.length; i++) {
 
 
 
+$(document).on('click', '.btn-telhd', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
+    const url = $(this).attr('href');
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = '';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
 
 
 

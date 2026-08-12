@@ -88,9 +88,10 @@
 
 								<?php foreach($photos as $image){?>
 
-								<div class="liste-images-element" style="background-image: url(<?php echo '\''.esc_url($image['sizes']['medium_large']).'\'';?>);">
+								<div class="liste-images-element dld-btn-container" style="background-image: url(<?php echo '\''.esc_url($image['sizes']['medium_large']).'\'';?>);">
 
 									<img class="diaporama" src="<?php echo esc_url($image['sizes']['large']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                                    <div class="dld-tnt-on-lightbox"><a href="<?php echo $image['sizes']['2048x2048'];?>" download class="btn-telhd">Télécharger en HD</a></div>
 
 								</div>
 
