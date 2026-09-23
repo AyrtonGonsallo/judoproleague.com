@@ -177,7 +177,7 @@ function get_champs_groupes_par_semaine() {
        
 
 
- <h3 class="fs-h3"> Les champions de la semaine 🔥</h3>
+ <h3 class="fs-h3"> Le best of 7 🔥</h3>
 <?php $semaines = get_champs_groupes_par_semaine(); ?>
         <div class="semaine-swiper-container">
             <div class="swiper mySemaineSwiper">

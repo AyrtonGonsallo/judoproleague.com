@@ -728,19 +728,67 @@ function display_joueurs() {
 
 		<?php 
 
+            //au lieu de 
+            global $wpdb;
 
+            $equipe_id = get_the_ID();
 
-$judokas = $wpdb->get_results($wpdb->prepare(
-    "SELECT * 
-     FROM prol_judokas_saisons 
-     WHERE saison = %s and equipe_id = %s
-     ORDER BY sexe asc,categorie_de_poids asc",
-    $saison_value,get_the_id()
-));
+            $ids = $wpdb->get_col(
+                $wpdb->prepare(
+                    "
+                    SELECT DISTINCT equipe.post_id
+                    FROM {$wpdb->postmeta} AS equipe
 
+                    INNER JOIN {$wpdb->postmeta} AS saison
+                        ON saison.post_id = equipe.post_id
 
+                    INNER JOIN {$wpdb->posts} AS p
+                        ON p.ID = equipe.post_id
 
+                    WHERE p.post_type = 'judoka'
 
+                    AND equipe.meta_key LIKE 'equipes_par_saisons_%_equipe_judoka'
+                    AND saison.meta_key LIKE 'equipes_par_saisons_%_saisons'
+
+                    AND equipe.meta_key REGEXP
+                        '^equipes_par_saisons_[0-9]+_equipe_judoka$'
+
+                    AND saison.meta_key = CONCAT(
+                        SUBSTRING_INDEX(
+                            equipe.meta_key,
+                            '_equipe_judoka',
+                            1
+                        ),
+                        '_saisons'
+                    )
+
+                    AND equipe.meta_value LIKE %s
+                    AND saison.meta_value = %s
+                    ",
+                    '%' . $equipe_id . '%',
+                    $saison_value
+                )
+            );
+
+      
+            
+           $judokas = [];
+
+            foreach ($ids as $id) {
+                $judokas[] = [
+                    'sexe'   => get_field('sexe', $id),
+                    'prenom' => get_field('prenom_judoka', $id),
+                    'nom'    => get_field('nom_judoka', $id),
+                    'post'   => get_post($id),
+                ];
+            }
+
+            usort($judokas, function ($a, $b) {
+                return strcasecmp($a['sexe'], $b['sexe'])
+                    ?: strcasecmp($a['prenom'], $b['prenom'])
+                    ?: strcasecmp($a['nom'], $b['nom']);
+            });
+           
 
 
 
@@ -793,9 +841,9 @@ $judokas = $wpdb->get_results($wpdb->prepare(
 
 
 
-					<?php foreach ($judokas as $j):
+					<?php foreach ($judokas as $judoka_array):
 
-                     $judoka = get_post($j->judoka_id);
+                        $judoka = $judoka_array['post'];
 
 
 

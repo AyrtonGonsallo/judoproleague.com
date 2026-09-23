@@ -64,6 +64,8 @@ function email_to_pseudo($email) {
             $total_de_points = (int) get_field('total_de_points', 'user_' . $user_id);
             $ratio = $paris_effectues > 0  ? ceil($paris_gagnes *100/ $paris_effectues)   : 0;
 
+            $date_limite = '2026-07-23';
+
              // 1️⃣ Récupérer les paris existants de l'utilisateur
             $paris_finis = get_posts([
                 'post_type'      => 'pari',
@@ -72,7 +74,7 @@ function email_to_pseudo($email) {
                 'orderby'        => 'meta_value',
                 'order'          => 'ASC',
                 'meta_query'     => [
-                'relation' => 'AND',
+                    'relation' => 'AND',
                     [
                         'key'     => 'user',
                         'value'   => $user_id,
@@ -83,7 +85,13 @@ function email_to_pseudo($email) {
                         'value'   => 'termine',
                         'compare' => '=',
                     ]
-                ]
+                ],
+                'date_query' => [
+                    [
+                        'after'     => $date_limite,
+                        'inclusive' => false,
+                    ],
+                ],
             ]);
         ?>
 

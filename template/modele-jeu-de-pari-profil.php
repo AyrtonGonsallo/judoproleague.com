@@ -135,7 +135,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'update_team'){
                 array(
                     'key'     => 'saisons',
                     'compare' => 'LIKE',
-                    'value'   => '2025-2026'
+                    'value'   => '2026-2027'
                 )
             )
         ));

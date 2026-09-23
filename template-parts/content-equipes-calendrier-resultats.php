@@ -124,25 +124,35 @@ $current_fp = get_query_var('fpage');
 
 $team_permalink = get_the_permalink($post->ID);
 
-$args_poules = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Phase de poules'    ),
-array(
-    'key'        => 'saisons',
-    'compare'    => 'LIKE',
-    'value'      => $saison_value
-),
-array(
-    'relation' => 'OR',
-    array(
-        'key' => 'equipe_1', // recherche sur le champ équipe de type relation
-        'value' => '"' . get_the_ID() . '"', // id de l'équipe
-        'compare' => 'LIKE'
-    ),
-    array(
-        'key' => 'equipe_2', // recherche sur le champ équipe de type relation
-        'value' => '"' . get_the_ID() . '"', // id de l'équipe
-        'compare' => 'LIKE'
-    )
-) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value',		'order' => 'DESC',			);
+$args_poules = array(		
+    'post_type'=> 'rencontre',		
+    'posts_per_page' => -1,
+    'meta_query'     => array(  
+        'relation' => 'and',   
+        array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Phase de poules'    ),
+        array(
+            'key'        => 'saisons',
+            'compare'    => 'LIKE',
+            'value'      => $saison_value
+        ),
+        array(
+            'relation' => 'OR',
+            array(
+                'key' => 'equipe_1', // recherche sur le champ équipe de type relation
+                'value' => '"' . get_the_ID() . '"', // id de l'équipe
+                'compare' => 'LIKE'
+            ),
+            array(
+                'key' => 'equipe_2', // recherche sur le champ équipe de type relation
+                'value' => '"' . get_the_ID() . '"', // id de l'équipe
+                'compare' => 'LIKE'
+            )
+        ) 
+    ),		
+    'meta_key' => 'date_de_debut',		
+    'orderby' => 'meta_value',		
+    'order' => 'ASC',			
+);
 $args_quarts = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   array(      'key'        => 'niveau',      'compare'    => '=',      'value'      => 'Quart de finale'    ),
 array(
     'key'        => 'saisons',
@@ -161,7 +171,7 @@ array(
         'value' => '"' . get_the_ID() . '"', // id de l'équipe
         'compare' => 'LIKE'
     )
-) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value',		'order' => 'DESC',			);
+) ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value',		'order' => 'ASC',			);
 
 $args_f4 = array(		'post_type'=> 'rencontre',		'posts_per_page' => -1,'meta_query'     => array(  'relation' => 'and',   
 array(      'key'        => 'niveau',      'compare'    => 'Like',      'value'      => 'Final four'    ),
@@ -183,7 +193,7 @@ array(
         'compare' => 'LIKE'
     )
 ) 	
-		  ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value',		'order' => 'DESC',			);
+		  ),		'meta_key' => 'date_de_debut',		'orderby' => 'meta_value',		'order' => 'ASC',			);
 
 $matchs_f4=get_posts($args_f4);
 $matchs_quarts=get_posts($args_quarts);

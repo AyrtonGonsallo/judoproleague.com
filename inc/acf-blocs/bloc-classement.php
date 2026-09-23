@@ -1,5 +1,5 @@
 <?php 
-$saison_value="2025-2026";
+$saison_value="2026-2027";
 $args=array(
     'post_type'=> 'rencontre',
     'posts_per_page' => -1,

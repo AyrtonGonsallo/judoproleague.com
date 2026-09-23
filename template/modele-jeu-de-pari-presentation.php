@@ -197,8 +197,9 @@ Jean-Charles vient d’aligner 3 bons résultats. Sur le 3e, il donne le vainque
 <div class="flx-presnt">
 <div> <img src="/wp-content/uploads/2025/09/CHAMPIONS_SEMAINE.png" /></div>
 <div>
-<h4>Les champions de la semaine</h4>
-<p> Chaque semaine, les 3 meilleurs scores seront récompensés : des lots + un tirage au sort pour remporter un gros cadeau surprise. Ton moment de briller, c’est peut-être ce week-end.
+<h4>Le best of 7</h4>
+<p> 
+    Après chaque journée de compétition (7 matchs), les 3 meilleurs scores recevront des bons d'achats sur la boutique et seront inscrits à un tirage au sort pour remporter 2 places pour le PGS 2027. C'est ton moment de briller !
 </p>
 </div>
 </div>
@@ -213,7 +214,7 @@ Jean-Charles vient d’aligner 3 bons résultats. Sur le 3e, il donne le vainque
 <p>Tu veux dominer la ligue comme Teddy Riner domine un tatami ? Active tes bonus stratégiquement ! Bien jouer tes bonus au bon moment, c'est souvent la clé pour grimper dans le classement.</p>
 <ul style="list-style: disc;">
     <li>🎯 Bonus x2 : Tu doubles tes points sur une rencontre.</li>
-    <li>⚡ x3 Banco by <img class="banco-3" src="/wp-content/uploads/2025/09/Crédit agricole.png"> : Tu les triples. Oui, ça commence à piquer.</li>
+    <li>⚡ Boost Banco x3 : Tu les triples. Oui, ça commence à piquer.</li>
     <li>🃏 Le Joker : T’hésites sur un match alors que t’es sur une grosse série ? Joue ton joker. Si tu te plantes, tu marques rien,… mais ta série continue. Ninja move.</li>
 </ul>
 
@@ -231,21 +232,21 @@ La JPL n’attend que tes pronos.</p>
 </div>
 
 <div class="container-list">
-<h2>Les cadeaux :</h2><br>
+<h2>Cadeaux du concours :</h2><br>
 <p>
 <b>Classement général</b><br>
-1. Rencontre avec des athlètes de l’EDF Judo<br>
+1. Entraînement de l’EDF Judo<br>
 2. 2 places VIP pour le PGS 2027<br>
 3. 150€ de bon d’achat sur la boutique France Judo
 <br><br>
-<b>Champions de la semaine :</b>
+<b>Best of 7 :</b>
 <br>
 1er : 50€ de bon d’achat boutique<br>
 2e : 30€ de bon d’achat boutique<br>
 3e : 20€ de bon d’achat boutique<br>
 <br><br>
-Tirage au sort parmi les champions de la semaine :<br>
-2 places pour la PGS 2026 + visite VIP de la salle d’échauffement
+Tous les champions de la semaine seront inscrits à un tirage au sort qui permettra de remporter 2 places pour le Paris Grand Slam 2027
+
 </p>
 
 </div>

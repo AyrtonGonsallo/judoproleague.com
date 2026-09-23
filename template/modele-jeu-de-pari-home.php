@@ -100,7 +100,7 @@ get_header();
 </a>
 
 <a href="/module-de-paris-champions-de-la-semaine" class="disabled vertical sub-menu-element round-border-purple bg-home" style="background:url('/wp-content/uploads/2025/09/CHAMPIONS_SEMAINE_.png'); background-repeat: no-repeat;background-position: center;background-size: cover;">
-        <div class="champ2"><span>Champions de la semaine</span></div>
+        <div class="champ2"><span>Le best of 7</span></div>
 </a>
 
 

@@ -57,7 +57,7 @@ $count_t=count($equipes_t);
 					<div class="jpl-poules">
 						<div class="jpl-team">
 							<?php
-							for ($x = 0; $x <18; $x++) {
+							for ($x = 0; $x <14; $x++) {
 								$url=get_permalink($equipes_t[$x]->ID);
 								$logo=(get_field('logo_circle', $equipes_t[$x]->ID))?get_field('logo_circle', $equipes_t[$x]->ID):get_the_post_thumbnail_url($equipes_t[$x]->ID);
 								$title=get_the_title($equipes_t[$x]->ID);

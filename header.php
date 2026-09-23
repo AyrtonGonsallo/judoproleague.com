@@ -204,7 +204,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
 			<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'inox' ); ?></a>
 
-			<div class="brd-header more-1200">
+<!-- 			<div class="brd-header more-1200">
 
 				<div class="nv-logo-cpyr container">
 
@@ -224,7 +224,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 
 				</div>
 
-			</div>
+			</div> -->
 
             <div class="brd-header slide-equipes-haut">
                 <section class="splide splide2" aria-label="Splide Basic HTML Example">
@@ -247,9 +247,13 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 			</div>
 
 	<nav class="sps inverse sps--abv" id="navbar">
-
+		
 		<div class="container">
+					<button aria-label="Open navigation" class="navbar-toggler">
 
+				<img src="<?php echo get_site_url();?>/wp-content/uploads/2026/09/burger-1.svg">
+
+			</button>
 			<?php the_custom_logo(); ?>
     
    <div class="mob-icon">
@@ -260,11 +264,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
               <i class="fa fa-search"></i>
           </div>
 
-			<button aria-label="Open navigation" class="navbar-toggler">
 
-				<img src="<?php echo get_site_url();?>/wp-content/uploads/2022/11/menu-burger.webp">
-
-			</button>
     </div>
 			<div id="navbar-menu" class="">
 
@@ -339,29 +339,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
       
         
         </div>
-    <div class="nv-header-lang">
 
-        <?php
-
-    wp_nav_menu(
-
-        array(
-
-            'theme_location' => 'langues',
-
-            'menu_id'        => 'langues-menu',
-
-            'conatiner' => false,
-
-            'menu_class' => 'navbar-nav',
-
-
-
-        )
-
-    ); ?>
-
-    </div>
 				<div class="nv-header-rs">
     
     <!-- Search Icon -->
@@ -382,7 +360,7 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
             </form>
         </div>
     </div>
-    
+
     <script>
     jQuery(document).ready(function($) {
 
@@ -435,14 +413,22 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
                     <a href="https://www.instagram.com/proleaguejudo/" target="_blank"><i class="fa-brands fa-instagram" ></i></a>-->
 
 				</div>
-
-
+    <div class="nv-header-lang">
+<?php echo do_shortcode('[language-switcher]'); ?>
+    </div>
+					<div>
+    	<ul class="navbar-nav">
+		    <!-- Pronos -->
+		<li id="menu-item-5473" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5473"><a href="https://rimo0631.odns.fr/judopronoschallenge/">Mes pronos</a></li>
+    <!-- Billetterie -->
+<li id="menu-item-19572" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19572"><a target="_blank" href="https://www.billetweb.fr/multi_event.php?user=107758">Billetterie</a></li>
+	</ul>
+		</div>
 
 				</div>
 
 			</div>
 
-		</div>
 
 	</nav>
 
@@ -590,11 +576,12 @@ function get_next_week_with_rencontres($saison = '2026-2027') {
                     $combat=get_field('les_combat', $rencontre->ID)[0];
                     $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
                     $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
-                    $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'];
+                    $score_equipe1 = $combat['nombre_de_combat_gagne_equipe_1'];
+$score_equipe1 = ($score_equipe1 !== '' && $score_equipe1 !== null) ? $score_equipe1 : 0;
                     $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
                     $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
-                    $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'];
-                    $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
+$score_equipe2 = $combat['nombre_de_combat_gagne_equipe_2'];
+$score_equipe2 = ($score_equipe2 !== '' && $score_equipe2 !== null) ? $score_equipe2 : 0;                    $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
                     $date_fin=get_field('date_de_fin', $rencontre->ID, false, false);
                     $statut=get_field('statut', $rencontre->ID)['label'];
                     $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):substr($equipe1->post_title,0,4);
@@ -602,6 +589,7 @@ function get_next_week_with_rencontres($saison = '2026-2027') {
                     $matchs_liste=get_field('les_combat',$rencontre->ID);
                     $niveau=(get_field('niveau', $rencontre->ID));
                     $equipe_gagnante = $matchs_liste[0]['equipe_gagnante'];
+                    $class = "";
                     
                     if($statut=='en cours'){
                         $status='en cours';
@@ -609,12 +597,14 @@ function get_next_week_with_rencontres($saison = '2026-2027') {
                         $lien_live=get_field('video_live', $rencontre->ID);
                         $lien_billets=null;
                         $icone_status='icon-rencontre-encours-1.png';
+                        $class = "live";
                     }else if($statut=='terminé'){
                         $status='terminé';
                         $lien=get_the_permalink($rencontre->ID);
                         $lien_billets=null;
                         $lien_live=null;
                         $icone_status='icon-rencontre-termine-1.png';
+                        $class = "ended";
                         /*if((strtotime($now)-strtotime($date_fin))>=86400){
                             continue;
                         }*/
@@ -625,6 +615,7 @@ function get_next_week_with_rencontres($saison = '2026-2027') {
                         $lien=get_the_permalink($rencontre->ID);
                         $lien_live=null;
                         $lien_billets=get_field('lien_de_reservation', $rencontre->ID);
+                        $class = "tocome";
                     }
                     //var_dump($equipe1);exit(-1);
                     $phase = get_field('phase', $rencontre->ID);
@@ -635,20 +626,71 @@ function get_next_week_with_rencontres($saison = '2026-2027') {
                         $phase_title = $phase[0]->post_title;
 }
                 ?>
-                <li class="rencontre-element flip-card splide__slide" style="margin:20px !important;">
+                <li class="rencontre-element <?php echo $class; ?> flip-card splide__slide" style="margin-top:8px;">
                     <div class="flip-card-inner splide__slide__container">
                         <div class="flip-card-front">
-                        <div class="nv-header-rencontre">
-                            <span>
-                                <?php echo $phase_title . ' ' . ($journee ?: ''); ?>
-                            </span>
-                            <span class="nv-staut">
-                                <?php echo esc_html($status); ?>
-                                <img src="/wp-content/uploads/2023/07/<?php echo esc_attr($icone_status); ?>" class="nv-img-statut">
-                            </span>
-                        </div>
-                        <div class="nv-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>" ><span class="nv-name"><?php echo $abreviation1;?></span><img src="<?php echo $image1_url; ?>" class="nv-img"><span class="nv-score"><?php echo (($status!='à venir')?$score_equipe1:(substr($date_debut,8,2).'/'.substr($date_debut,5,2)));?></span></div>
-                            <div class="nv-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>"><span class="nv-name"><?php echo $abreviation2;?></span><img src="<?php echo $image2_url; ?>" class="nv-img"><span class="nv-score"><?php if($status!='à venir'){echo $score_equipe2;}else{echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);}?></span></div>
+<div class="nv-header-rencontre">
+    <div class="nv-date">
+        <?php
+        echo esc_html(
+            date_i18n(
+                'l d F Y',
+                strtotime($date_debut)
+            )
+        );
+        ?>
+    </div>
+
+    <div class="nv-journee">
+        <?php echo esc_html($journee); ?>
+    </div>
+
+    <span class="nv-staut">
+
+        <?php if ($status === 'en direct' || $status === 'live') : ?>
+            <img
+                src="/wp-content/uploads/2023/07/<?php echo esc_attr($icone_status); ?>"
+                class="nv-img-statut"
+                alt=""
+            >
+        <?php endif; ?>
+    </span>
+
+</div>
+<div class="nv-team <?php if($equipe_gagnante == 'équipe 2') echo 'beaten'; ?>">
+    
+    <img
+        src="<?php echo esc_url($image1_url); ?>"
+        class="nv-img"
+        alt=""
+    >
+
+    <span class="nv-name">
+        <?php echo esc_html($abreviation1); ?>
+    </span>
+
+    <span class="nv-score">
+        <?php echo esc_html($score_equipe1); ?>
+    </span>
+
+</div>
+<div class="nv-team <?php if($equipe_gagnante == 'équipe 1') echo 'beaten'; ?>">
+    
+    <img
+        src="<?php echo esc_url($image2_url); ?>"
+        class="nv-img"
+        alt=""
+    >
+
+    <span class="nv-name">
+        <?php echo esc_html($abreviation2); ?>
+    </span>
+
+    <span class="nv-score">
+        <?php echo esc_html($score_equipe2); ?>
+    </span>
+
+</div>
                         </div>
                         <div class="flip-card-back">
                             <a href="<?php echo $lien;?>" class="nv-all-info">Toutes les infos</a>

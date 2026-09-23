@@ -963,41 +963,55 @@ function register_custom_yoast_variables() {
 }
 add_action('wpseo_register_extra_replacements', 'register_custom_yoast_variables');
 
+
 add_action('admin_init', 'rpt_add_role_caps', 999);
 
 function rpt_add_role_caps() {
 
-    // Liste des rôles à modifier
-    $roles = [ 'administrator', 'editor'];
+    $roles = ['administrator', 'editor'];
 
-    // Capacités spécifiques au CPT "galerie"
-    $caps = [
-        'read_galerie',
-        'edit_galerie',
-        'edit_galeries',
-        'publish_galeries',
-        'delete_galerie',
-        'edit_others_galeries',
-        'edit_published_galeries',
-        'edit_private_galeries',
-
+    $types = [
+        'galerie' => 'galeries',
+        'equipe'  => 'equipes',
+        'judoka'  => 'judokas',
     ];
 
     foreach ($roles as $role_name) {
-        $role = get_role($role_name);
-        if (!$role) continue; // sécurité
 
-        // Ajouter chaque capacité
-        foreach ($caps as $cap) {
-            $role->add_cap($cap);
+        $role = get_role($role_name);
+
+        if (!$role) {
+            continue;
         }
 
-        // Pour accès aux médias
+        foreach ($types as $singular => $plural) {
+
+            $caps = [
+                "read_{$singular}",
+                "edit_{$singular}",
+                "edit_{$plural}",
+                "edit_others_{$plural}",
+                "edit_published_{$plural}",
+                "edit_private_{$plural}",
+                "publish_{$plural}",
+
+                "delete_{$singular}",
+                "delete_{$plural}",
+                "delete_others_{$plural}",
+                "delete_published_{$plural}",
+                "delete_private_{$plural}",
+
+                "read_private_{$plural}",
+            ];
+
+            foreach ($caps as $cap) {
+                $role->add_cap($cap);
+            }
+        }
+
         $role->add_cap('upload_files');
     }
 }
-
-
 
 add_filter('login_redirect', 'photographe_jpl_login_redirect', 10, 3);
 
@@ -1056,12 +1070,163 @@ add_action('admin_head', 'hide_menus_for_photographe_jpl');
 function hide_menus_for_photographe_jpl() {
     $user = wp_get_current_user();
 
-    if (in_array('photographe_jpl', $user->roles)) {
+    if (in_array('photographe_jpl', $user->roles) || in_array('admin_equipe_jpl', $user->roles)) {
         echo '<style>
             /* Masquer le menu Médias */
             #menu-media { display: none !important; }
             /* Masquer d’autres menus si nécessaire */
             #toplevel_page_delete_all_actions { display: none !important; }
+            #menu-posts-judoka > ul > li:nth-child(3),#menu-posts-equipes > ul > li:nth-child(3),.page-title-action { display: none !important; }
+            
         </style>';
     }
 }
+
+
+//Modifie la requête qui sert à afficher la liste des posts dans l'administration.
+add_action('pre_get_posts', function ($query) {
+
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    $user = wp_get_current_user();
+
+    if (!$user || !in_array('admin_equipe_jpl', (array) $user->roles, true)) {
+        return;
+    }
+
+    $user_id = $user->ID;
+    $equipe_id = (int) get_field('equipe', 'user_'.$user_id);
+
+    if (!$equipe_id) {
+        return;
+    }
+
+    error_log(
+        ' user_id=' . $user_id .
+        ' | post_id=' . ($equipe_id) 
+    );
+
+    $post_type = $query->get('post_type');
+
+    // =========================
+    // ÉQUIPES
+    // =========================
+    if ($post_type === 'equipes') {
+
+        $query->set('post__in', [$equipe_id]);
+
+        return;
+    }
+
+    // =========================
+    // JUDOKAS
+    // =========================
+    if ($post_type === 'judoka') {
+
+        global $wpdb;
+
+        $ids = $wpdb->get_col(
+            $wpdb->prepare(
+                "
+                SELECT DISTINCT pm.post_id
+                FROM {$wpdb->postmeta} pm
+                INNER JOIN {$wpdb->posts} p
+                    ON p.ID = pm.post_id
+                WHERE p.post_type = 'judoka'
+                  AND pm.meta_key LIKE 'equipes_par_saisons_%'
+                  AND pm.meta_value LIKE %s
+                ",
+                '%"' . $equipe_id . '"%'
+            )
+        );
+
+        $query->set(
+            'post__in',
+            !empty($ids) ? array_map('intval', $ids) : [0]
+        );
+
+        return;
+    }
+
+});
+
+
+//Vérifie si l'utilisateur a réellement le droit de faire une action sur un post précis.
+add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
+
+    $user = get_userdata($user_id);
+
+    if (!$user) {
+        return $caps;
+    }
+
+    if (!in_array('admin_equipe_jpl', (array) $user->roles, true)) {
+        return $caps;
+    }
+
+    if ($cap !== 'edit_post') {
+        return $caps;
+    }
+
+    $post_id = isset($args[0]) ? (int) $args[0] : 0;
+
+    if (!$post_id) {
+        return ['do_not_allow'];
+    }
+
+    $post_type = get_post_type($post_id);
+
+    $equipe_user = (int) get_user_meta($user_id, 'equipe', true);
+
+    if (!$equipe_user) {
+        return ['do_not_allow'];
+    }
+
+    // =========================
+    // ÉQUIPE
+    // =========================
+    if ($post_type === 'equipes') {
+
+        if ($post_id !== $equipe_user) {
+            return ['do_not_allow'];
+        }
+
+        return $caps;
+    }
+
+    // =========================
+    // JUDOKA
+    // =========================
+    if ($post_type === 'judoka') {
+
+        global $wpdb;
+
+        $found = $wpdb->get_var(
+            $wpdb->prepare(
+                "
+                SELECT pm.meta_id
+                FROM {$wpdb->postmeta} pm
+                WHERE pm.post_id = %d
+                  AND pm.meta_key LIKE 'equipes_par_saisons_%'
+                  AND pm.meta_value LIKE %s
+                LIMIT 1
+                ",
+                $post_id,
+                '%"' . $equipe_user . '"%'
+            )
+        );
+
+        if (!$found) {
+            return ['do_not_allow'];
+        }
+
+        return $caps;
+    }
+
+    // Il ne peut pas éditer les autres post types
+    return ['do_not_allow'];
+
+}, 10, 4);
+
