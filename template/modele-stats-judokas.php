@@ -74,6 +74,39 @@ function get_correct_categorie($saison_value, $cat)
 ?>
 
 
+<script>
+        $(document).ready(function() {
+            $('#saison_value').change(function() {
+                $('.season-selector-form').submit();
+            });
+            $('#equipe_value').change(function() {
+                var selectedCategory=$('#categorie_value').val();
+                var selectedEquipe = $(this).val(); // Obtenez la valeur sélectionnée
+                var search_val=selectedCategory+" "+selectedEquipe;
+
+                console.log('search_val',search_val)
+                $('#tableauAll_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+            });
+            $('#categorie_value').change(function() {
+                var selectedEquipe=$('#equipe_value').val();
+                var selectedCategory = $(this).val(); // Obtenez la valeur sélectionnée
+                var search_val=selectedCategory+" "+selectedEquipe;
+
+                console.log('search_val',search_val)
+                $('#tableauAll_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmes_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauHommesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+                $('#tableauFemmesU23_filter > label > input[type=search]').val(search_val).trigger('input');;
+            });
+        });
+        
+    </script>
+
 <main
     id="primary"
     class="site-main jpl-stats-page page-stats-judokas"
@@ -1043,279 +1076,240 @@ function get_correct_categorie($saison_value, $cat)
 </main>
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    const saison = document.getElementById('saison_value');
-    const profil = document.getElementById('categorie');
-    const categorie = document.getElementById('categorie_value');
-    const equipe = document.getElementById('equipe_value');
-
-    const tableaux = {
-        all: document.getElementById('tableauAll'),
-        hommes: document.getElementById('tableauHommes'),
-        femmes: document.getElementById('tableauFemmes'),
-        hommesU23: document.getElementById('tableauHommesU23'),
-        femmesU23: document.getElementById('tableauFemmesU23')
-    };
-
-
-    /* =========================================================
-     * SAISON
-     * ========================================================= */
-
-    if (saison) {
-
-        saison.addEventListener('change', function () {
-
-            this.form.submit();
-
-        });
-
-    }
-
-
-    /* =========================================================
-     * FILTRAGE
-     * ========================================================= */
-
-    function filtrerJudokas() {
-
-        const profilValue = profil ? profil.value : '-all-';
-        const categorieValue = categorie ? categorie.value : '0';
-        const equipeValue = equipe ? equipe.value : '0';
-
-
-        /* -----------------------------------------------------
-         * DÉTERMINER LE TABLEAU À AFFICHER
-         * ----------------------------------------------------- */
-
-        Object.values(tableaux).forEach(function (table) {
-
-            if (table) {
-                table.style.display = 'none';
-            }
-
-        });
-
-
-        let tableauActif = tableaux.all;
-
-
-        switch (profilValue) {
-
-            case '-h-':
-
-                tableauActif = tableaux.hommes;
-
-                break;
-
-
-            case '-f-':
-
-                tableauActif = tableaux.femmes;
-
-                break;
-
-
-            case '-hu23-':
-
-                tableauActif = tableaux.hommesU23;
-
-                break;
-
-
-            case '-fu23-':
-
-                tableauActif = tableaux.femmesU23;
-
-                break;
-
-
-            case '-all-':
-
-            default:
-
-                tableauActif = tableaux.all;
-
-                break;
-
-        }
-
-
-        if (!tableauActif) {
-            return;
-        }
-
-
-        tableauActif.style.display = 'table';
-
-
-        /* -----------------------------------------------------
-         * FILTRER LES LIGNES
-         * ----------------------------------------------------- */
-
-        const rows = tableauActif.querySelectorAll(
-            'tbody tr.jpl-stat-row'
-        );
-
-		
-
-        rows.forEach(function (row) {
-
-            let afficher = true;
-
-
-            /* ================================================
-             * CATÉGORIE DE POIDS
-             *
-             * 3e colonne :
-             * NOM | AGE | CAT.
-             * ================================================ */
-
-            if (categorieValue !== '0') {
-
-                const celluleCategorie = row.cells[2];
-
-                if (!celluleCategorie) {
-
-                    afficher = false;
-
-                } else {
-
-                    const valeurLigne = celluleCategorie.textContent
-                        .trim()
-                        .replace(/\s+/g, '');
-
-                    const valeurFiltre = categorieValue
-                        .trim()
-                        .replace(/\s+/g, '');
-
-                    if (valeurLigne !== valeurFiltre) {
-                        afficher = false;
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
+     <script type="text/javascript">
+    $(document).ready(function() {
+        $('#tableauAll').DataTable( {
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "",
+                    lengthMenu: '<select>'+
+                    '<option value="10">10 lignes</option>'+
+                    '<option value="25" >25 lignes</option>'+
+                    '<option value="50">50 lignes</option>'+
+                    '<option value="100">100 lignes</option>'+
+                    '</select>',
+                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
+                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
                     }
-
+                },
+                 order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']],
+                 paging: false,          // Pagination
+                searching: true,       // Barre de recherche
+                info: false,            // Nombre d'entrées affichées
+                lengthChange: false,    // Choix du nombre de lignes
+        } );
+            $('#tableauHommes').DataTable( {
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "",
+                    lengthMenu: '<select>'+
+                    '<option value="10">10 lignes</option>'+
+                    '<option value="25" >25 lignes</option>'+
+                    '<option value="50">50 lignes</option>'+
+                    '<option value="100">100 lignes</option>'+
+                    '</select>',
+                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
+                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                },
+                order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']],
+                paging: false,          // Pagination
+                searching: true,       // Barre de recherche
+                info: false,            // Nombre d'entrées affichées
+                lengthChange: false,    // Choix du nombre de lignes
+        } );
+        $('#tableauFemmes').DataTable( {
+            language: {
+                processing:     "Traitement en cours...",
+                search:         "",
+                lengthMenu: '<select>'+
+                '<option value="10">10 lignes</option>'+
+                '<option value="25">25 lignes</option>'+
+                '<option value="50">50 lignes</option>'+
+                '<option value="100">100 lignes</option>'+
+                '</select>',
+                info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
+                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
+                infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
+                infoPostFix:    "",
+                loadingRecords: "Chargement en cours...",
+                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                emptyTable:     "Aucune donnée disponible dans le tableau",
+                paginate: {
+                    first:      "Premier",
+                    previous:   "Pr&eacute;c&eacute;dent",
+                    next:       "Suivant",
+                    last:       "Dernier"
+                },
+                aria: {
+                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
-
-            }
-
-
-            /* ================================================
-             * ÉQUIPE
-             * ================================================ */
-
-            if (
-                afficher &&
-                equipeValue !== '0'
-            ) {
-
-                const equipeLigne = row.getAttribute('data-equipe');
-
-                if (!equipeLigne) {
-
-                    afficher = false;
-
-                } else if (
-                    equipeLigne.trim().toLowerCase() !==
-                    equipeValue.trim().toLowerCase()
-                ) {
-
-                    afficher = false;
-
+            },
+            order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']],
+            paging: false,          // Pagination
+                searching: true,       // Barre de recherche
+                info: false,            // Nombre d'entrées affichées
+                lengthChange: false,    // Choix du nombre de lignes
+        } );
+        $('#tableauHommesU23').DataTable( {
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "",
+                    lengthMenu: '<select>'+
+                    '<option value="10">10 lignes</option>'+
+                    '<option value="25" >25 lignes</option>'+
+                    '<option value="50">50 lignes</option>'+
+                    '<option value="100">100 lignes</option>'+
+                    '</select>',
+                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
+                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                },
+                 order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']],
+                 paging: false,          // Pagination
+                searching: true,       // Barre de recherche
+                info: false,            // Nombre d'entrées affichées
+                lengthChange: false,    // Choix du nombre de lignes
+        } );
+        $('#tableauFemmesU23').DataTable( {
+            language: {
+                processing:     "Traitement en cours...",
+                search:         "",
+                lengthMenu: '<select>'+
+                '<option value="10">10 lignes</option>'+
+                '<option value="25">25 lignes</option>'+
+                '<option value="50">50 lignes</option>'+
+                '<option value="100">100 lignes</option>'+
+                '</select>',
+                info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
+                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
+                infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
+                infoPostFix:    "",
+                loadingRecords: "Chargement en cours...",
+                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                emptyTable:     "Aucune donnée disponible dans le tableau",
+                paginate: {
+                    first:      "Premier",
+                    previous:   "Pr&eacute;c&eacute;dent",
+                    next:       "Suivant",
+                    last:       "Dernier"
+                },
+                aria: {
+                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
-
+            },
+            order: [[3, 'desc'],[5, 'desc'],[6, 'desc'],[7, 'desc']],
+            paging: false,          // Pagination
+                searching: true,       // Barre de recherche
+                info: false,            // Nombre d'entrées affichées
+                lengthChange: false,    // Choix du nombre de lignes
+        } );
+        $('#tableauHommes_wrapper').hide()
+        $('#tableauFemmes_wrapper').hide()
+        $('#tableauHommesU23_wrapper').hide()
+        $('#tableauFemmesU23_wrapper').hide()
+        //console.log("genre: ",$('#genre').text())
+        
+        $('#categorie').change( function() {
+            console.log($(this).val())
+            //location.href = window.location.pathname.replace('-mf-',$(this).val());
+            if($(this).val()=="-h-"){
+                console.log("hommes")
+                $('#tableauHommes_wrapper').show()
+                $('#tableauAll_wrapper').hide()
+                $('#tableauFemmes_wrapper').hide()
+                $('#tableauHommesU23_wrapper').hide()
+                $('#tableauFemmesU23_wrapper').hide()
+            }else if($(this).val()=="-all-"){
+                console.log("tous")
+                $('#tableauHommes_wrapper').hide()
+                $('#tableauAll_wrapper').show()
+                $('#tableauFemmes_wrapper').hide()
+                $('#tableauHommesU23_wrapper').hide()
+                $('#tableauFemmesU23_wrapper').hide()
             }
-
-
-            row.style.display = afficher ? '' : 'none';
-
+            else if($(this).val()=="-hu23-"){
+                console.log("hommes u23")
+                $('#tableauHommes_wrapper').hide()
+                $('#tableauAll_wrapper').hide()
+                $('#tableauFemmes_wrapper').hide()
+                $('#tableauHommesU23_wrapper').show()
+                $('#tableauFemmesU23_wrapper').hide()
+            }
+            else if($(this).val()=="-fu23-"){
+                console.log("femmes u23")
+                $('#tableauHommes_wrapper').hide()
+                $('#tableauAll_wrapper').hide()
+                $('#tableauFemmes_wrapper').hide()
+                $('#tableauHommesU23_wrapper').hide()
+                $('#tableauFemmesU23_wrapper').show()
+            }
+            else if($(this).val()=="-f-"){
+                console.log("femmes")
+                $('#tableauHommes_wrapper').hide()
+                $('#tableauAll_wrapper').hide()
+                $('#tableauFemmes_wrapper').show()
+                $('#tableauHommesU23_wrapper').hide()
+                $('#tableauFemmesU23_wrapper').hide()
+            }
         });
-
-
-        /* -----------------------------------------------------
-         * MESSAGE AUCUN RÉSULTAT
-         * ----------------------------------------------------- */
-
-        let message = tableauActif.parentElement.querySelector(
-            '.jpl-no-filter-result'
-        );
-
-
-        const lignesVisibles = tableauActif.querySelectorAll(
-            'tbody tr.jpl-stat-row:not([style*="display: none"])'
-        );
-
-
-        if (lignesVisibles.length === 0) {
-
-            if (!message) {
-
-                message = document.createElement('div');
-
-                message.className = 'jpl-no-filter-result';
-
-                message.textContent =
-                    'Aucun judoka ne correspond aux filtres sélectionnés.';
-
-                tableauActif.parentElement.appendChild(message);
-
-            }
-
-            message.style.display = 'block';
-
-        } else {
-
-            if (message) {
-                message.style.display = 'none';
-            }
-
-        }
-
-    }
-
-
-    /* =========================================================
-     * ÉVÉNEMENTS
-     * ========================================================= */
-
-    if (profil) {
-
-        profil.addEventListener(
-            'change',
-            filtrerJudokas
-        );
-
-    }
-
-
-    if (categorie) {
-
-        categorie.addEventListener(
-            'change',
-            filtrerJudokas
-        );
-
-    }
-
-
-    if (equipe) {
-
-        equipe.addEventListener(
-            'change',
-            filtrerJudokas
-        );
-
-    }
-
-
-    /* =========================================================
-     * INITIALISATION
-     * ========================================================= */
-
-    filtrerJudokas();
-
-});
-</script>
-
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Trouver un judoka');
+        $('.dataTables_length').hide()
+        $('.dataTables_filter input[type="search"]').hide();
+        /*$('#tableauHommes').DataTable({
+        lengthMenu: [
+            [10, 25, 50, 100],
+            ['10 lignes', '25 lignes', '50 lignes', '100 lignes'],
+        ],
+    });*/
+    });
+    </script>
 
 <?php get_footer(); ?>

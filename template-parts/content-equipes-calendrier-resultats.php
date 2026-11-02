@@ -386,12 +386,12 @@ $menu_items = array(
                                         <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>">
                                             <img src="<?php echo $image1_url;?>">
                                             <h3 class="cal-res-poule-eqp"><?php echo $equipe1->post_title;?></h3>
-                                            <span class="cal-res-poule-rs"><?php echo $score_equipe1;?></span>
+                                            <span class="cal-res-poule-rs" <?php if($texte_status=='à venir'){?>style="display:none !important;"<?php }?>><?php echo $score_equipe1;?></span>
                                         </div>
                                         <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?> brd-none">
                                             <img src="<?php echo $image2_url;?>">
                                             <h3 class="cal-res-poule-eqp "><?php echo $equipe2->post_title;?></h3>
-                                            <span class="cal-res-poule-rs"><?php echo $score_equipe2;?></span>
+                                            <span class="cal-res-poule-rs" <?php if($texte_status=='à venir'){?>style="display:none !important;"<?php }?>><?php echo $score_equipe2;?></span>
                                         </div>
                                     </div>
                                     <div <?php if($texte_status=='terminé'){?>style="display : none !important;"<?php }?>>
@@ -461,12 +461,12 @@ $menu_items = array(
                                         <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>">
                                             <img src="<?php echo $image1_url;?>">
                                             <h3 class="cal-res-poule-eqp"><?php echo $equipe1->post_title;?></h3>
-                                            <span class="cal-res-poule-rs"><?php echo $score_equipe1;?></span>
+                                            <span class="cal-res-poule-rs" <?php if($texte_status=='à venir'){?>style="display:none !important;"<?php }?>><?php echo $score_equipe1;?></span>
                                         </div>
                                         <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?> brd-none">
                                             <img src="<?php echo $image2_url;?>">
                                             <h3 class="cal-res-poule-eqp "><?php echo $equipe2->post_title;?></h3>
-                                            <span class="cal-res-poule-rs"><?php echo $score_equipe2;?></span>
+                                            <span class="cal-res-poule-rs" <?php if($texte_status=='à venir'){?>style="display:none !important;"<?php }?>><?php echo $score_equipe2;?></span>
                                         </div>
                                     </div>
                                     <div <?php if($texte_status=='terminé'){?>style="display none !important;"<?php }?>>
@@ -540,12 +540,12 @@ $menu_items = array(
                                         <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>">
                                             <img src="<?php echo $image1_url;?>">
                                             <h3 class="cal-res-poule-eqp"><?php echo $equipe1->post_title;?></h3>
-                                            <span class="cal-res-poule-rs"><?php echo $score_equipe1;?></span>
+                                            <span class="cal-res-poule-rs" <?php if($texte_status=='à venir'){?>style="display:none !important;"<?php }?>><?php echo $score_equipe1;?></span>
                                         </div>
                                         <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?> brd-none">
                                             <img src="<?php echo $image2_url;?>">
                                             <h3 class="cal-res-poule-eqp "><?php echo $equipe2->post_title;?></h3>
-                                            <span class="cal-res-poule-rs"><?php echo $score_equipe2;?></span>
+                                            <span class="cal-res-poule-rs" <?php if($texte_status=='à venir'){?>style="display:none !important;"<?php }?>><?php echo $score_equipe2;?></span>
                                         </div>
                                     </div>
                                     <div>

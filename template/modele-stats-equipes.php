@@ -339,19 +339,54 @@ if (is_array($logo_principal)) {
 </main>
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    const saison = document.getElementById('saison_value');
-
-    if (saison) {
-        saison.addEventListener('change', function () {
-            this.form.submit();
-        });
-    }
-
-});
-</script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
+     <script type="text/javascript">
+    $(document).ready(function() {
+        
+            $('#tableauEquipes').DataTable( {
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "",
+                    lengthMenu: '<select>'+
+                    '<option value="10">10 lignes</option>'+
+                    '<option value="25" >25 lignes</option>'+
+                    '<option value="50">50 lignes</option>'+
+                    '<option value="100">100 lignes</option>'+
+                    '</select>',
+                    info:           "Affichage des &eacute;lements _START_ &agrave; _END_",
+                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 lignes",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ lignes au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                },
+                "paging": false,
+                info: false,
+                order: [[1, 'desc'],[2, 'desc'],[3, 'desc'],[4, 'desc']]
+        } );
+        
+        $('.dataTables_filter input[type="search"]').hide();
+        /*$('#tableauEquipes').DataTable({
+        lengthMenu: [
+            [10, 25, 50, 100],
+            ['10 lignes', '25 lignes', '50 lignes', '100 lignes'],
+        ],
+    });*/
+    });
+    </script>
 <style>
 	.flex-stat{    display: grid;
     grid-auto-flow: column;

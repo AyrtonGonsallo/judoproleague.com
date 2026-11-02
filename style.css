@@ -2755,6 +2755,7 @@ align-items: center;
 }
 .cal-res-poule {
     display: grid;
+    grid-template-columns: repeat(2,1fr);
 	align-items: center;
 	max-width: 80%;
     margin: 0 auto;
@@ -3938,13 +3939,13 @@ gap: 5px;
 }
 .page-id-2882 div#tableauAll_info {  margin-bottom: 10px;}
 .page-id-2882 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: #4E156F !important;
-    border-color: #4E156F !important;
+    background: #fff !important;
+    border-color: #fff !important;
 }
 
 body .dataTables_wrapper .dataTables_paginate .paginate_button:hover, body .dataTables_wrapper .dataTables_paginate .paginate_button.current{
-    border-color: #4E156F !important;
-	background: #4E156F !important;
+    border-color: #fff !important;
+	background: #fff !important;
 	color: #fff !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{background: #fff!important;border-color: #000 !important;}
@@ -3975,7 +3976,7 @@ body #tableauAll_previous:hover{color: #fff !important;}
 form.cat-equipes-selector-form {
     display: flex;
     border-radius: 15px 15px 0px 0px;
-    background-color: #4e156f;
+    background-color: #fff;
     padding:12px;
     justify-content: space-between;
 }
@@ -3999,7 +4000,7 @@ form.cat-equipes-selector-form {
 
 
 .page-id-2882 table.dataTable.no-footer {
-    background-color: #4E156F;
+    background-color: #fff;
     border-radius: 0px 0px 15px 15px;
     padding: 0px 45px 45px 45px;
     color: #fff !important;
@@ -4018,7 +4019,7 @@ form.cat-equipes-selector-form {
     font-size: 27px;
 }
 table.dataTable.no-footer {
-    background-color: #4E156F;
+    background-color: #fff;
     border-radius: 15px;
     padding: 45px 45px;
 	color: #fff !important;
@@ -4027,10 +4028,13 @@ table.dataTable.no-footer {
     padding: 0% 0 0px 0px !important;
 }
 table.dataTable tbody tr{border-radius: 20px !important;}
-table.dataTable tbody tr:hover{ background: linear-gradient(90deg, rgba(43, 109, 220, 1) 0%, rgba(151, 6, 211, 1) 100%); background-repeat: no-repeat;}
+table.dataTable tbody tr:hover{ 
+	background: #fafbff; 
+	background-repeat: no-repeat;
+}
 body table.dataTable tbody td{   
-    border-top: 1px dashed #fff !important;
-	border-bottom: 1px dashed #fff !important;
+    border-top: 1px dashed #ffffff00  !important;
+	border-bottom: 1px dashed #ffffff00  !important;
 }
 .tr-stat td:nth-child(1){   
 	border-width: 1px 1px 1px 1px !important;
@@ -18815,13 +18819,13 @@ gap: 5px;
 }
 .page-id-2882 div#tableauAll_info {  margin-bottom: 10px;}
 .page-id-2882 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: #4E156F !important;
-    border-color: #4E156F !important;
+    background: #fff !important;
+    border-color: #fff !important;
 }
 
 body .dataTables_wrapper .dataTables_paginate .paginate_button:hover, body .dataTables_wrapper .dataTables_paginate .paginate_button.current{
-    border-color: #4E156F !important;
-	background: #4E156F !important;
+    border-color: #fff !important;
+	background: #fff !important;
 	color: #fff !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{background: #fff!important;border-color: #000 !important;}
@@ -18852,7 +18856,7 @@ body #tableauAll_previous:hover{color: #fff !important;}
 form.cat-equipes-selector-form {
     display: flex;
     border-radius: 15px 15px 0px 0px;
-    background-color: #4e156f;
+    background-color: #fff;
     padding:12px;
     justify-content: space-between;
 }
@@ -18876,7 +18880,7 @@ form.cat-equipes-selector-form {
 
 
 .page-id-2882 table.dataTable.no-footer {
-    background-color: #4E156F;
+    background-color: #fff;
     border-radius: 0px 0px 15px 15px;
     padding: 0px 45px 45px 45px;
     color: #fff !important;
@@ -18895,7 +18899,7 @@ form.cat-equipes-selector-form {
     font-size: 27px;
 }
 table.dataTable.no-footer {
-    background-color: #4E156F;
+    background-color: #fff;
     border-radius: 15px;
     padding: 45px 45px;
 	color: #fff !important;
@@ -18904,10 +18908,13 @@ table.dataTable.no-footer {
     padding: 0% 0 0px 0px !important;
 }
 table.dataTable tbody tr{border-radius: 20px !important;}
-table.dataTable tbody tr:hover{ background: linear-gradient(90deg, rgba(43, 109, 220, 1) 0%, rgba(151, 6, 211, 1) 100%); background-repeat: no-repeat;}
+table.dataTable tbody tr:hover{ 
+	background: #fafbff; 
+	background-repeat: no-repeat;
+}
 body table.dataTable tbody td{   
-    border-top: 1px dashed #fff !important;
-	border-bottom: 1px dashed #fff !important;
+    border-top: 1px dashed #ffffff00  !important;
+	border-bottom: 1px dashed #ffffff00  !important;
 }
 .tr-stat td:nth-child(1){   
 	border-width: 1px 1px 1px 1px !important;
