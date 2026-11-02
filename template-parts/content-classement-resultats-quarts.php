@@ -173,7 +173,9 @@ function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
 $now=date('Y/m/d H:i:s');
 
 $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
-
+$saison_param = isset($_GET['saison_value'])
+    ? '?saison_value=' . urlencode($_GET['saison_value'])
+    : '';
 
 
 get_header();
@@ -283,7 +285,7 @@ $rencontres_quart_3= get_posts($args_quart_3);
 $rencontres_quart_4= get_posts($args_quart_4);
 
 
-
+$page_permalink = get_the_permalink($post->ID);
 
 
 ?>

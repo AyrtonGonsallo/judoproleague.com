@@ -684,7 +684,7 @@ jQuery(document).ready(function($) {
                         </span>
 
                         <span class="jpl-stats-tab">
-                            <a <?php if($saison_value!="2026-2027"){ echo 'href="tableau-principal-judo-pro-league/'.$saison_param.'"'; }?>>
+                            <a <?php if($saison_value!="2026-2027"){ echo 'href="/tableau-principal-judo-pro-league/'.$saison_param.'"'; }?>>
                                 Tableau principal
                             </a>
                         </span>

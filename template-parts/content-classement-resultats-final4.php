@@ -5,7 +5,11 @@ get_header();
 $now=date('Y/m/d H:i:s');
 
 $team_permalink = get_the_permalink($post->ID);
+$page_permalink = get_the_permalink($post->ID);
 $saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
+$saison_param = isset($_GET['saison_value'])
+    ? '?saison_value=' . urlencode($_GET['saison_value'])
+    : '';
 $args_f4 = array(		
     'post_type'=> 'rencontre',		
     'posts_per_page' => -1,
