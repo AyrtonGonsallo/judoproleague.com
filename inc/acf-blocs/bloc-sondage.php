@@ -5,15 +5,14 @@ function bloc_sondage() {
     
 ?>
 <?php if($afficher_le_sondage || $afficher_les_resultats ){?>
-<section class="sondage-home" style="background-image: url(/wp-content/uploads/2024/07/sondage-Background.jpg);">
+<section class="jpl-sidebar-block sondage">
      <div class="sondage-width">
-
       <div id="tabs_ippons_semaine" class="tabs-ippons-semaine">
-          <div class="title-tabs">
-               <h2 class="title-ids">IPPON DE LA SEMAINE</h2>
+          <div class="title-tabs jpl-sidebar-title">
+               <h2 class="">IPPON DE LA SEMAINE</h2>
                <ul class="with-border">
-                    <li><a href="#vote-en-cours" class="ippon"><span class="desktop">Vote en cours</span><span class="mobile">En cours</span></a></li>
-                    <li><a href="#votes-passes" class="ippon"><span class="desktop">Votes passés</span><span class="mobile">Terminés</span></a></li>
+                    <li><a href="#vote-en-cours" class="ippon"><span class="desktop">En cours</span><span class="mobile">En cours</span></a></li>
+                    <li><a href="#votes-passes" class="ippon"><span class="desktop">Terminés</span><span class="mobile">Terminés</span></a></li>
                </ul>
           </div>
           <div id="vote-en-cours">
@@ -26,20 +25,12 @@ function bloc_sondage() {
           <div id="votes-passes">
                <?php if($afficher_les_resultats ){?>
                     
-                    <?php echo do_shortcode('[ippons_semaine_historique_et_vainqueur]');?>
-                         
+                    <?php echo do_shortcode('[ippons_semaine_historique_et_vainqueur]');?>                         
                <?php }?>
           </div>
-     </div>
-
-
-
-
-      
-    
+     </div>     
      </div>
 </section>
-
 
   <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
   <script>

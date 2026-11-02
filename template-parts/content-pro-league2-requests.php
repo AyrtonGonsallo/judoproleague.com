@@ -230,6 +230,27 @@ function array_msort($array, $cols)
 						$results[$equipej2->post_title][0]["wazaris_marqués"]+=$match['valeur_wazari__judoka_2'];
 						$results[$equipej1->post_title][0]["wazaris_concédés"]+=$match['valeur_wazari__judoka_2'];
 					}
+
+					if($match['valeurs_shidos_judoka_1']){
+						if (is_numeric($match['valeurs_shidos_judoka_1']['value'])){
+							//$ippons_equ1+=1;
+							$results[$equipej1->post_title][0]["shidos_encaissés"]+=$match['valeurs_shidos_judoka_1']['value'];
+							$results[$equipej2->post_title][0]["shidos_gagnés"]+=$match['valeurs_shidos_judoka_1']['value'];
+						}else if($match['valeurs_shidos_judoka_1']['value']=="H"||$match['valeurs_shidos_judoka_1']['value']=="X"){
+							$results[$equipej1->post_title][0]["hansokumake_encaissés"]+=1;
+							$results[$equipej2->post_title][0]["hansokumake_gagnés"]+=1;
+						}
+					}
+					if($match['valeurs_shidos_judoka_2']){
+						if (is_numeric($match['valeurs_shidos_judoka_2']['value'])){
+							//$ippons_equ1+=1;
+							$results[$equipej1->post_title][0]["shidos_gagnés"]+=$match['valeurs_shidos_judoka_2']['value'];
+							$results[$equipej2->post_title][0]["shidos_encaissés"]+=$match['valeurs_shidos_judoka_2']['value'];
+						}else if($match['valeurs_shidos_judoka_2']['value']=="H"||$match['valeurs_shidos_judoka_2']['value']=="X"){
+							$results[$equipej1->post_title][0]["hansokumake_gagnés"]+=1;
+							$results[$equipej2->post_title][0]["hansokumake_encaissés"]+=1;
+						}
+					}
 					
 				}
 				

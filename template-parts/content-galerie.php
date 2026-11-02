@@ -26,64 +26,149 @@
         }
 
         // Construction des titres
-        $title  = "Photos de " . get_the_title($equipe1->ID) . " vs " . get_the_title($equipe2->ID) . " " . $saison;
+        $title  = "Photos de " . get_the_title($equipe1->ID) . "<br>" . " vs " . get_the_title($equipe2->ID) . " " . "<br>" . $saison;
         $title2 = get_the_title($equipe1->ID) . " vs " . get_the_title($equipe2->ID) . " " . $saison;
 
+$team_id = $_GET["equipeID"];
+$logo_principal = get_field( 'logo_principal', $equipe_id );
+$logo_principal_url = $logo_principal
+    ? $logo_principal
+    : get_the_post_thumbnail_url( $team_id, 'full' );
+$team_permalink = trailingslashit( get_permalink( $team_id ) );
+$team_name      = get_the_title( $team_id );
+
+/* =========================================================
+ * MENU ÉQUIPE
+ * ========================================================= */
+$menu_items = array(
+    'infos' => array(
+        'label' => 'Infos générales',
+        'url'   => $team_permalink,
+    ),
+    'actus' => array(
+        'label' => 'Actualités',
+        'url'   => $team_permalink . 'actus/',
+    ),
+    'photos' => array(
+        'label' => 'Photos',
+        'url'   => $team_permalink . 'photos/',
+    ),
+    'videos' => array(
+        'label' => 'Vidéos',
+        'url'   => $team_permalink . 'videos/',
+    ),
+    'calendrier_resultats' => array(
+        'label' => 'Calendrier / Résultats',
+        'url'   => $team_permalink . 'calendrier_resultats/',
+    ),
+    'judokas' => array(
+        'label' => 'Judokas',
+        'url'   => $team_permalink . 'judokas/',
+    ),
+);
 
 ?>
 
 
 <?php if($equipe_id){ ?>
+
+
+<main id="primary" class="site-main  main-info-eq jpl-team-page">
 <header class="nv.team-header">
 
-<main id="primary" class="site-main  main-info-eq">
+    <section
+        class="jpl-team-header"
+        style="
+            --team-color-1: <?php echo esc_attr( $couleur1 ); ?>;
+            --team-color-2: <?php echo esc_attr( $couleur2 ); ?>;
+        "
+    >
 
-<section class="nv-header-nav" >
+        <div class="jpl-team-container">
 
-    <div class="container">
+            <div class="jpl-team-identity">
 
-        <div class="nv-nav">
-            <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle',$equipe_id))?get_field('logo_circle',$equipe_id):get_the_post_thumbnail_url($equipe_id)?>)"></div>
+                <!-- LOGO -->
+                <div class="jpl-team-main-logo">
 
-            <div class="menu-eq">
-                <a href="<?php echo $team_permalink;?>infos" class="team-link  " <?php echo $style_couleur2;?>>Infos générales</a>
+                    <?php if ( $logo_principal_url ) : ?>
 
-                <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
+                        <a
+                            href="<?php echo esc_url( $team_permalink ); ?>"
+                            class="jpl-team-logo-link"
+                        >
+                            <img
+                                src="<?php echo esc_url( $logo_principal_url ); ?>"
+                                alt="<?php echo esc_attr( $team_name ); ?>"
+                            >
+                        </a>
 
-                <a href="<?php echo $team_permalink;?>photos" class="team-link nvtl-active" <?php echo $style_couleur1;?>>Photos</a>
+                    <?php endif; ?>
 
-                <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
+                </div>
 
-                <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
+                <!-- MENU ÉQUIPE -->
+                <nav
+                    class="jpl-team-menu"
+                    aria-label="Navigation <?php echo esc_attr( $team_name ); ?>"
+                >
 
-                <a href="<?php echo $team_permalink;?>judokas" class="team-link" <?php echo $style_couleur2;?>>Judokas</a>
+                    <?php foreach ( $menu_items as $key => $item ) : ?>
+
+                        <a
+                            href="<?php echo esc_url( $item['url'] ); ?>"
+                            class="jpl-team-menu-link <?php echo ( 'photos' === $key ) ? 'is-active' : ''; ?>"
+                            style="
+                                --menu-color: <?php echo esc_attr( 'photos' === $key ? $couleur1 : $couleur2 ); ?>;
+                                --menu-color-hover: <?php echo esc_attr( 'photos' === $key ? $couleur2 : $couleur1 ); ?>;
+                            "
+                        >
+                            <?php echo esc_html( $item['label'] ); ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
             </div>
-
         </div>
-        
+    </section>
+
+
+
+			<div class="jpl-team-topbar" style="max-width:1401px;margin:auto;">
+                <a
+                    href="<?php echo esc_url(home_url('/equipes-judo-pro-league/')); ?>"
+                    class="jpl-team-back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Retour aux équipes</span>
+                </a>
+				                <div class="jpl-team-breadcrumb">
         <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title($equipe_id);?></a> > <a href="<?php echo $team_permalink;?>photos">Photos</a> > <?php echo $title2;?></span>
-
-
-    </div>
-
-</section>
-
-
-
-
+                </div>	
+            </div>
 
 
 
 </header>
 <?php }?>
 
+<section class="jpl-team-section-header" style="max-width:1401px;margin:auto;">
+                            <div>
 
-<h1 class="result"><?php echo $title;?></h1>
+                    <span class="jpl-page-eyebrow">
+                        <?php echo esc_html( $team_name ); ?>
+                    </span>
 
+                       <h1 class="jpl-page-title"><?php echo $title;?></h1>
 
+                    <p class="jpl-page-description">
+                        Découvrez la gallerie de l'équipe.
+                    </p>
+
+                </div>
+        </section>
 
 					<div class="galerie-images-resultat">
-
+						            
 					<div class="liste-images-galerie judo_pro_league page-eq-gal" >
 
 								<?php foreach($photos as $image){?>

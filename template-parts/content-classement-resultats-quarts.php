@@ -4,7 +4,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
 <?php if ($rencontres_quart_2): ?><div class="judo_pro_league">    
     <h2 class="crt-title"> Quart <?php echo $quart?></h2>    
     <?php $count=count($rencontres_quart_2);?>
-    <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" <?php }?>>        
+    <div class="cal-res-poule" <?php if($count==1){?> style="grid-template-columns: repeat(1,1fr) !important; margin: 0 auto;" <?php }?>>        
     <?php foreach ($rencontres_quart_2 as $rencontre):            
     $combat=get_field('les_combat', $rencontre->ID)[0];            
     $lieu=get_field('lieu_rencontre', $rencontre->ID);            
@@ -13,8 +13,8 @@ function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
     $rencontre_permalink = get_the_permalink($rencontre->ID);            
     $score_equipe1 =$combat['nombre_de_combat_gagne_equipe_1'][0];            
     $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];            
-    $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);            
-    $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);            
+    $image1_url=(get_field('logo_principal', $equipe1->ID))?get_field('logo_principal', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);            
+    $image2_url=(get_field('logo_principal', $equipe2->ID))?get_field('logo_principal', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);            
     $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);            
     $date_fin=get_field('date_de_fin', $rencontre->ID, false, false);            
     $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):$equipe1->post_title;            
@@ -41,11 +41,19 @@ function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
         $lien_live_ou_billet=(get_field("lien_de_reservation", $rencontre->ID))?'<a href="'.get_field("lien_de_reservation", $rencontre->ID).'" target="_blank" class="nv-link-crt brd-right">Billetterie</a>':'';
     }
             ?>
-                <div class="cal-res-poule-blc">
+                <div class="cal-res-poule-blc <?php echo ($statut == 'en cours') ? 'match-live' : ''; ?>">
                     <div class="header-cal-res-poule">
                         <span class="cal-res-poule-title"><?php echo $lieu;?></span>
-                        <span class="cal-res-poule-stat <?php echo $class_status;?>"><?php echo $texte_status;?></span>
+                        <div class="cal-res-poule-link <?php echo $class_reservation;?>">
+                            <?php echo $lien_live_ou_billet;?>
+                            <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">
+                                <!-- <img src="/wp-content/uploads/2026/09/Vector-3.svg"/> -->
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                         <span class="cal-res-poule-stat <?php echo $class_status;?>"><?php echo $texte_status;?></span>
                     </div>
+
                     <div class="horaire-jr" <?php if($texte_status=='terminé'){?>style="grid-template-columns: 100% !important;"<?php }?>>
                         <div>
                             <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>">
@@ -64,10 +72,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
                             <span class="cal-res-poule-title"><?php echo substr($date_debut,11,2).'h'.substr($date_debut,14,2);?></span>
                         </div>
                     </div>
-                    <div class="cal-res-poule-link <?php echo $class_reservation;?>">
-                        <?php echo $lien_live_ou_billet;?>
-                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
-                    </div>
+                    
                 </div>
         <?php endforeach; ?>
     </div>
@@ -118,7 +123,7 @@ function display_rencontre_quarts($rencontres_quart_2,$quart,$fake=true){
             $teamA = $quarts[$i][0];
             $teamB = $quarts[$i][1];
         ?>
-            <div class="cal-res-poule"  style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;" >           
+            <div class="cal-res-poule"  style="grid-template-columns: repeat(1,1fr) !important; margin: 0 auto;" >           
                 <div class="cal-res-poule-blc">
                     <div class="header-cal-res-poule">
                         <span class="cal-res-poule-title"></span>
@@ -289,56 +294,108 @@ $rencontres_quart_4= get_posts($args_quart_4);
             });
         });
     </script>
-<main id="primary" class="site-main home">
-    <section>
-        <div class="season-selector-box">
-			<form Method="GET" ACTION="" class="season-selector-form">
-            <select name="saison_value" id="saison_value" class="season-selector-select">
-                <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
-					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
-                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
-                    <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
-				</select>
-			</form>
+
+
+
+
+
+
+
+
+
+<main id="primary" class="site-main home result-24 jpl-calendrier" style="padding: 3% 2% 5%;background: #F5F7FB;">
+
+    <section class="">
+        
+		<div class="jpl-stats-hero">	
+            <span class="jpl-stats-eyebrow" style="text-align:center;">JUDO PRO LEAGUE </span>
+            <h1 style="text-align:center;">Calendrier quarts de finale <?php echo $saison_value;?></h1>
 		</div>
-        <div class="judo_pro_league">
-        <h1 class="result-h1">Calendrier quarts de finale <?php echo $saison_value;?></h1>
-            <div class="phases">
-                <h2 class="tab-phase fs-30"><a href="<?php echo $team_permalink;?>poules">PHASE éliminatoire</a></h2>
-                <h2 class="tab-phase fs-30 tab-act"><a href="<?php echo $team_permalink;?>quarts">quarts de finale</a></h2>
-                <h2 class="tab-phase fs-30"><a href="<?php echo $team_permalink;?>final4">FINAL FOUR</a></h2>
+		<div class="jpl-calend-card">
+            <div class="jpl-teams-header">
+                <div class="jpl-stats-tabs">
+                    
+                    <a href="<?php echo $page_permalink;?>poules/<?php echo $saison_param; ?>" class="jpl-stats-tab">
+                        <span>Phase éliminatoire </span>
+                    </a>
+                                
+                    <a <?php if ($saison_value != "2026-2027") {
+                        echo 'href="' . $page_permalink . 'quarts/'.$saison_param.'"';
+                    } ?> class="jpl-stats-tab active">
+                        <span>Quarts de finale</span>
+                    </a>
+
+                    <a <?php if ($saison_value != "2026-2027") {
+                        echo 'href="' . $page_permalink . 'final4/'.$saison_param.'"';
+                    } ?> class="jpl-stats-tab">
+                        <span>Final four</span>
+                    </a>
+                    
+                </div>
+                    
+                <div class="season-selector-box">
+                    <form Method="GET" ACTION="" class="season-selector-form">
+                        <select name="saison_value" id="saison_value" class="season-selector-select">
+                        <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+                            <option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+                            <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                            <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                            <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                            <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
+                        </select>
+                    </form>
+                </div>
             </div>
+
+            <div id="tabs" class="tabs-quarts">
+                <ul style="display:none">
+                    <li><a href="#tabs-1" class="nv-journee">Q1</a></li>
+                    <li><a href="#tabs-2" class="nv-journee">Q2</a></li>
+                    <li><a href="#tabs-3" class="nv-journee">Q3</a></li>
+                    <li><a href="#tabs-4" class="nv-journee">Q4</a></li>
+                </ul>
+                <div id="tabs-1">
+                    
+                    <?php display_rencontre_quarts ($rencontres_quart_1,'1',false);?>
+                </div>
+                <div id="tabs-2">
+                    
+                    <?php display_rencontre_quarts ($rencontres_quart_2,'2',false);?>
+                </div>
+                <div id="tabs-3">
+                    
+                    <?php display_rencontre_quarts ($rencontres_quart_3,'3',false);?>
+                </div>
+                <div id="tabs-4">
+                    
+                    <?php display_rencontre_quarts ($rencontres_quart_4,'4',false);?>
+                </div>
+                <div >
+                    
+                    <?php //display_rencontre_quarts ($rencontres_quart_4,'4',true);?>
+                </div>
+            </div>
+
         </div>
-        <div id="tabs" class="tabs-quarts">
-            <ul style="display:none">
-                <li><a href="#tabs-1" class="nv-journee">Q1</a></li>
-                <li><a href="#tabs-2" class="nv-journee">Q2</a></li>
-                <li><a href="#tabs-3" class="nv-journee">Q3</a></li>
-                <li><a href="#tabs-4" class="nv-journee">Q4</a></li>
-            </ul>
-            <div id="tabs-1">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_1,'1',false);?>
-            </div>
-            <div id="tabs-2">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_2,'2',false);?>
-            </div>
-            <div id="tabs-3">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_3,'3',false);?>
-            </div>
-            <div id="tabs-4">
-                
-                <?php display_rencontre_quarts ($rencontres_quart_4,'4',false);?>
-            </div>
-            <div >
-                
-                <?php //display_rencontre_quarts ($rencontres_quart_4,'4',true);?>
-            </div>
-        </div>
+
     </section>
+
+
+
+<style>
+.jpl-calend-card{	
+	width: min(1026px, calc(100% - 40px));
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 2px solid var(--jpl-purple-principal);
+    box-shadow: 0 15px 45px rgba(15, 25, 80, .065);
+    background: #fff;
+    padding: 1%;
+    margin-top: 3%;}
+</style>
+
+</main>
 <?php
 get_footer();

@@ -57,73 +57,77 @@ $rencontre_f = get_posts($args_f4f);
             });
         });
     </script>
-<main id="primary" class="site-main home">
 
-    <section>
-        <div class="season-selector-box">
-			<form Method="GET" ACTION="" class="season-selector-form">
-                <select name="saison_value" id="saison_value" class="season-selector-select">
-                    <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
-					<option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-					<option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
-					<option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
-                    <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
-                    <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 
-				</select>
-			</form>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<main id="primary" class="site-main home result-24 jpl-calendrier" style="padding: 3% 2% 5%;background: #F5F7FB;">
+
+    <section class="">
+        
+		<div class="jpl-stats-hero">	
+            <span class="jpl-stats-eyebrow" style="text-align:center;">JUDO PRO LEAGUE </span>
+            <h1 style="text-align:center;">Calendrier quarts de finale <?php echo $saison_value;?></h1>
 		</div>
-        <div class="judo_pro_league">
-            <h1 class="result-h1">Calendrier final 4 <?php echo $saison_value;?></h1>
-            <div class="phases">
+		<div class="jpl-calend-card">
+            <div class="jpl-teams-header">
+                <div class="jpl-stats-tabs">
+                    
+                    <a href="<?php echo $page_permalink;?>poules/<?php echo $saison_param; ?>" class="jpl-stats-tab">
+                        <span>Phase éliminatoire </span>
+                    </a>
+                                
+                    <a <?php if ($saison_value != "2026-2027") {
+                        echo 'href="' . $page_permalink . 'quarts/'.$saison_param.'"';
+                    } ?> class="jpl-stats-tab">
+                        <span>Quarts de finale</span>
+                    </a>
 
-                <h2 class="tab-phase fs-30">
-
-                <a href="<?php echo $team_permalink;?>poules">
-
-                    PHASE éliminatoire 
-
-                </a>
-
-                </h2>
-
-                <h2 class="tab-phase fs-30">
-
-                <a href="<?php echo $team_permalink;?>quarts">
-
-                    quarts de finale
-
-                </a>
-
-                </h2>
-
-                <h2 class="tab-phase fs-30 tab-act">
-
-                <a href="<?php echo $team_permalink;?>final4">
-
-                    FINAL FOUR
-
-                </a>
-
-                </h2>
-
+                    <a <?php if ($saison_value != "2026-2027") {
+                        echo 'href="' . $page_permalink . 'final4/'.$saison_param.'"';
+                    } ?> class="jpl-stats-tab active">
+                        <span>Final four</span>
+                    </a>
+                    
+                </div>
+                    
+                <div class="season-selector-box">
+                    <form Method="GET" ACTION="" class="season-selector-form">
+                        <select name="saison_value" id="saison_value" class="season-selector-select">
+                        <option value="2021-2022" <?php echo ($saison_value=="2021-2022")?"selected":"";?>>2021-2022</option>
+                            <option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+                            <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                            <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                            <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                            <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
+                        </select>
+                    </form>
+                </div>
             </div>
 
-        </div>
-
-        
-
-    </section>
-
-    <section class="pd-5">
+            
+            <section class="pd-5">
 
         
         
 
                     <div class="judo_pro_league">
-                        <h2 class="crt-title"> Demi-Finales</h2>    
+                         
                  
                         <?php if ($rencontres_demies): ?>
+                            <h2 class="crt-title"> Demi-Finales</h2>   
                             <?php $count=count($rencontres_demies);?>
                             <div class="cal-res-poule" style="grid-template-columns: repeat(2,1fr) !important;margin: 0 auto;"> 
                                 <?php foreach ($rencontres_demies as $rencontre):
@@ -143,9 +147,9 @@ $rencontre_f = get_posts($args_f4f);
 
                                     $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];
 
-                                    $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
+                                    $image1_url=(get_field('logo_principal', $equipe1->ID))?get_field('logo_principal', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
 
-                                    $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
+                                    $image2_url=(get_field('logo_principal', $equipe2->ID))?get_field('logo_principal', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
 
                                     $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
 
@@ -196,15 +200,23 @@ $rencontre_f = get_posts($args_f4f);
 
                                     ?>
                                     
-                                        <div class="cal-res-poule-blc">
+                                        <div class="cal-res-poule-blc" <?php echo ($statut == 'en cours') ? 'match-live' : ''; ?>">
 
                                             <div class="header-cal-res-poule">
 
                                                 <span class="cal-res-poule-title"><?php echo $lieu;?></span>
-
+                                                <div class="cal-res-poule-link <?php echo $class_reservation;?>">
+                                                    <?php echo $lien_live_ou_billet;?>
+                                                    <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">
+                                                        <!-- <img src="/wp-content/uploads/2026/09/Vector-3.svg"/> -->
+                                                        <i class="fas fa-arrow-right"></i>
+                                                    </a>
+                                                </div>
                                                 <span class="cal-res-poule-stat <?php echo $class_status;?>"><?php echo $texte_status;?></span>
-
-                                            </div>                                        <div class="horaire-jr" <?php if($texte_status=='terminé'){?>style="grid-template-columns: 100% !important;"<?php }?>>
+                                                
+                                            </div>                                        
+                                            
+                                            <div class="horaire-jr" <?php if($texte_status=='terminé'){?>style="grid-template-columns: 100% !important;"<?php }?>>
                                                 <div>
                                                     <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>">
                                                         <img src="<?php echo $image1_url;?>">
@@ -223,13 +235,7 @@ $rencontre_f = get_posts($args_f4f);
                                                 </div>
                                             </div>
 
-                                            <div class="cal-res-poule-link <?php echo $class_reservation;?>" <?php if($lien_live_ou_billet){?> style="" <?php } ?> >
-
-                                                <?php echo $lien_live_ou_billet;?>
-
-                                                <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
-
-                                            </div>
+                                            
 
                                         </div>
 
@@ -237,105 +243,7 @@ $rencontre_f = get_posts($args_f4f);
 
                             </div>
 
-                        <?php else:
-                            $saison_value2="2025-2026";
-                            $args2=array(
-                                'post_type'=> 'rencontre',
-                                'posts_per_page' => -1,
-                                'meta_query'     => 
-                                array(  
-                                    'relation' => 'and',   
-                                    array(      
-                                        'key'        => 'niveau',      
-                                        'compare'    => '=',      
-                                        'value'      => 'Quart de finale'
-                                        ),
-                                    array(
-                                        'key'        => 'saisons',
-                                        'compare'    => 'LIKE',
-                                        'value'      => $saison_value
-                                    ),
-                                ),		
-                                 'orderby' => 'post_title',
-                                'order' => 'ASC',   
-                            );
-                            $rencontres2=get_posts($args2);
-                            $winers = []; 
-                            $i=1;
-                            foreach ($rencontres2 as $rencontre):
-                                $combat=get_field('les_combat', $rencontre->ID)[0]; 
-                                $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
-                                $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
-                            
-                                $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
-                                $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
-                            
-                                $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):$equipe1->post_title;
-                                $abreviation2=(get_field('abreviation', $equipe2->ID))?get_field('abreviation', $equipe2->ID):$equipe2->post_title;
-                                $equipe_gagnante =  $combat['equipe_gagnante'];
-                                if($equipe_gagnante=='équipe 1'){
-                                    $winers[] = [            
-                                        'nom'   => $equipe1->post_title,
-                                        'image' => $image1_url,           
-                                    ];
-                                }
-                                else if($equipe_gagnante=='équipe 2'){
-                                    $winers[] = [            
-                                        'nom'   => $equipe2->post_title,
-                                        'image' => $image2_url,          
-                                    ]; 
-                                }
-                                else{
-                                    $winers[] = [            
-                                        'nom'   => "Vainqueur QF $i",
-                                        'image' => "https://judoproleague.com/wp-content/uploads/2024/08/unknown.png",          
-                                    ];
-                                }
-                                $i+=1;
-                            endforeach;
-                            
-                            ?>
-                            <div class="cal-res-poule" style="grid-template-columns: repeat(2,1fr) !important;margin: 0 auto;"> 
-                                <?php 
-                                    $demiFinales = [
-                                        [$winers[0], $winers[3]], // QF1 vs QF4
-                                        [$winers[1], $winers[2]]  // QF2 vs QF3
-                                    ];
-
-                                    foreach ($demiFinales as $match) {
-                                        $teamA = $match[0];
-                                        $teamB = $match[1];
-                                ?> 
-
-                                    <div class="cal-res-poule-blc">
-
-                                            <div class="header-cal-res-poule">
-
-                                                <span class="cal-res-poule-title"></span>
-
-                                                <span class="cal-res-poule-stat avenir">à venir</span>
-
-                                            </div>                                        
-                                            <div class="horaire-jr" >
-                                                <div>
-                                                    <div class="cal-res-poule-team ">
-                                                        <img src="<?= esc_url($teamA['image']); ?>">
-                                                        <h3 class="cal-res-poule-eqp"><?php echo esc_html($teamA['nom']); ?></h3>
-                                                        <span class="cal-res-poule-rs"></span>
-                                                    </div>
-                                                    <div class="cal-res-poule-team  brd-none">
-                                                        <img src="<?= esc_url($teamB['image']); ?>">
-                                                        <h3 class="cal-res-poule-eqp "><?php echo esc_html($teamB['nom']); ?></h3>
-                                                        <span class="cal-res-poule-rs"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                           
-
-                                        </div>
-                                <?php } ?>
-                                </div>
+                        
                         <?php endif;  ?>
 
                         
@@ -352,7 +260,7 @@ $rencontre_f = get_posts($args_f4f);
                     <h2 class="crt-title"> Finale</h2>    
                         
         
-                    <div class="cal-res-poule" style=" max-width: 450px;margin: 0 auto;">       
+                    <div class="cal-res-poule" style=" margin: 0 auto;">       
                         <?php foreach ($rencontre_f as $rencontre):
 
                             $combat=get_field('les_combat', $rencontre->ID)[0];
@@ -370,9 +278,9 @@ $rencontre_f = get_posts($args_f4f);
 
                             $score_equipe2 =$combat['nombre_de_combat_gagne_equipe_2'][0];
 
-                            $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
+                            $image1_url=(get_field('logo_principal', $equipe1->ID))?get_field('logo_principal', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
 
-                            $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
+                            $image2_url=(get_field('logo_principal', $equipe2->ID))?get_field('logo_principal', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
 
                             $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
 
@@ -423,15 +331,23 @@ $rencontre_f = get_posts($args_f4f);
 
                             ?>
                             
-                                <div class="cal-res-poule-blc">
+                                <div class="cal-res-poule-blc <?php echo ($statut == 'en cours') ? 'match-live' : ''; ?>">
 
                                     <div class="header-cal-res-poule">
 
                                         <span class="cal-res-poule-title"><?php echo $lieu;?></span>
 
+                                        <div class="cal-res-poule-link <?php echo $class_reservation;?>">
+                                            <?php echo $lien_live_ou_billet;?>
+                                            <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">
+                                                <!-- <img src="/wp-content/uploads/2026/09/Vector-3.svg"/> -->
+                                                <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </div>
                                         <span class="cal-res-poule-stat <?php echo $class_status;?>"><?php echo $texte_status;?></span>
+                                    </div>
 
-                                    </div>                                        <div class="horaire-jr" <?php if($texte_status=='terminé'){?>style="grid-template-columns: 100% !important;"<?php }?>>
+                                    <div class="horaire-jr" <?php if($texte_status=='terminé'){?>style="grid-template-columns: 100% !important;"<?php }?>>
                                         <div>
                                             <div class="cal-res-poule-team <?php if($equipe_gagnante=='équipe 2'){echo "beaten";}?>">
                                                 <img src="<?php echo $image1_url;?>">
@@ -450,13 +366,7 @@ $rencontre_f = get_posts($args_f4f);
                                             </div>
                                     </div>
 
-                                    <div class="cal-res-poule-link <?php echo $class_reservation;?>" <?php if($lien_live_ou_billet){?>  <?php } ?> >
-
-                                        <?php echo $lien_live_ou_billet;?>
-
-                                        <a href="<?php echo $rencontre_permalink;?>" class="nv-link-crt">Détails <i class="fa-solid fa-angles-right"></i></a>
-
-                                    </div>
+                                   
 
                                 </div>
 
@@ -468,110 +378,35 @@ $rencontre_f = get_posts($args_f4f);
 
                 </div>
 
-            <?php else:
-                $saison_value2="2025-2026";
-                $args2=array(
-                    'post_type'=> 'rencontre',
-                    'posts_per_page' => -1,
-                    'meta_query'     => 
-                    array(  
-                        'relation' => 'and',   
-                        array(      
-                            'key'        => 'niveau',      
-                            'compare'    => 'LIKE',      
-                            'value'      => 'Demi'
-                            ),
-                        array(
-                            'key'        => 'saisons',
-                            'compare'    => 'LIKE',
-                            'value'      => $saison_value
-                        ),
-                    ),		
-                        'orderby' => 'post_title',
-                    'order' => 'ASC',   
-                );
-                $rencontres2=get_posts($args2);
-                $winers = []; 
-                $i=1;
-                foreach ($rencontres2 as $rencontre):
-                    $combat=get_field('les_combat', $rencontre->ID)[0]; 
-                    $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
-                    $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
-                
-                    $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
-                    $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
-                
-                    $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):$equipe1->post_title;
-                    $abreviation2=(get_field('abreviation', $equipe2->ID))?get_field('abreviation', $equipe2->ID):$equipe2->post_title;
-                    $equipe_gagnante =  $combat['equipe_gagnante'];
-                    if($equipe_gagnante=='équipe 1'){
-                        $winers[] = [            
-                            'nom'   => $equipe1->post_title,
-                            'image' => $image1_url,           
-                        ];
-                    }
-                    else if($equipe_gagnante=='équipe 2'){
-                        $winers[] = [            
-                            'nom'   => $equipe2->post_title,
-                            'image' => $image2_url,          
-                        ]; 
-                    }
-                    else{
-                        $winers[] = [            
-                            'nom'   => "Vainqueur DF $i",
-                            'image' => "https://judoproleague.com/wp-content/uploads/2024/08/unknown.png",          
-                        ];
-                    }
-                    $i+=1;
-                endforeach;
-                
-                ?>
-                    <div class="cal-res-poule" style="grid-template-columns: repeat(1,1fr) !important; max-width: 450px;margin: 0 auto;">       
-                    <?php 
-                        $demiFinales = [
-                            [$winers[0], $winers[1]], // QF1 vs QF4
-                        ];
-
-                        foreach ($demiFinales as $match) {
-                            $teamA = $match[0];
-                            $teamB = $match[1];
-                    ?> 
-
-                        <div class="cal-res-poule-blc">
-
-                                <div class="header-cal-res-poule">
-
-                                    <span class="cal-res-poule-title">Dojo de Paris (75)</span>
-
-                                    <span class="cal-res-poule-stat avenir">à venir</span>
-
-                                </div>                                        
-                                <div class="horaire-jr" >
-                                    <div>
-                                        <div class="cal-res-poule-team ">
-                                            <img src="<?= esc_url($teamA['image']); ?>">
-                                            <h3 class="cal-res-poule-eqp"><?php echo esc_html($teamA['nom']); ?></h3>
-                                            <span class="cal-res-poule-rs"></span>
-                                        </div>
-                                        <div class="cal-res-poule-team  brd-none">
-                                            <img src="<?= esc_url($teamB['image']); ?>">
-                                            <h3 class="cal-res-poule-eqp "><?php echo esc_html($teamB['nom']); ?></h3>
-                                            <span class="cal-res-poule-rs"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-
-                            </div>
-                    <?php } ?>
-                    </div>
+            
             <?php endif;  ?>
             
             
         </div>
 
     </section>
+
+        </div>
+
+    </section>
+
+
+
+<style>
+.jpl-calend-card{	
+	width: min(1026px, calc(100% - 40px));
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 2px solid var(--jpl-purple-principal);
+    box-shadow: 0 15px 45px rgba(15, 25, 80, .065);
+    background: #fff;
+    padding: 1%;
+    margin-top: 3%;}
+</style>
+
+</main>
 <?php
 
 get_footer();

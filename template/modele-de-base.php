@@ -22,10 +22,10 @@ $saison_value = '2026-2027';
 
 function jpl_team_logo($team_id, $class = '') {
 
-    $logo = get_field('logo_miniature', $team_id);
+    $logo = get_field('logo_principal', $team_id);
 
     if (!$logo) {
-        $logo = get_field('logo_circle', $team_id);
+        $logo = get_field('logo_principal', $team_id);
     }
 
     if (!$logo) {
@@ -41,8 +41,11 @@ function jpl_team_logo($team_id, $class = '') {
 
 
 /**
- * Récupération des rencontres de la saison
+ * =========================================================
+ * RÉCUPÉRATION DES RENCONTRES DE LA SAISON
+ * =========================================================
  */
+
 function jpl_get_home_matches($season = '2026-2027') {
 
     $args = array(
@@ -65,8 +68,11 @@ function jpl_get_home_matches($season = '2026-2027') {
 
 
 /**
- * Infos communes d'une rencontre
+ * =========================================================
+ * INFOS COMMUNES D'UNE RENCONTRE
+ * =========================================================
  */
+
 function jpl_match_data($match) {
 
     $combat = get_field('les_combat', $match->ID);
@@ -130,21 +136,24 @@ function jpl_match_data($match) {
             ?: get_the_post_thumbnail_url($team2->ID),
         'score1' => (int) ($combat['nombre_de_combat_gagne_equipe_1'] ?? 0),
         'score2' => (int) ($combat['nombre_de_combat_gagne_equipe_2'] ?? 0),
-        'status'    => strtolower(trim($status)),
-        'date'      => $date,
-        'phase'     => $phase ? $phase->post_title : '',
-        'journee'   => $journee,
-        'link'      => get_permalink($match->ID),
-        'tickets'   => get_field('lien_de_reservation', $match->ID),
-        'live'      => get_field('video_live', $match->ID),
-        'winner'    => $combat['equipe_gagnante'] ?? ''
+        'status' => strtolower(trim($status)),
+        'date'   => $date,
+        'phase'  => $phase ? $phase->post_title : '',
+        'journee'=> $journee,
+        'link'   => get_permalink($match->ID),
+        'tickets'=> get_field('lien_de_reservation', $match->ID),
+        'live'   => get_field('video_live', $match->ID),
+        'winner' => $combat['equipe_gagnante'] ?? ''
     );
 }
 
 
 /**
- * Séparation des rencontres
+ * =========================================================
+ * SÉPARATION DES RENCONTRES
+ * =========================================================
  */
+
 $all_matches = jpl_get_home_matches($saison_value);
 
 $live_matches     = array();
@@ -175,14 +184,20 @@ foreach ($all_matches as $match) {
 
 
 /**
- * Prochains matchs
+ * =========================================================
+ * PROCHAINS MATCHS
+ * =========================================================
  */
+
 $upcoming_matches = array_slice($upcoming_matches, 0, 4);
 
 
 /**
- * Derniers résultats
+ * =========================================================
+ * DERNIERS RÉSULTATS
+ * =========================================================
  */
+
 usort(
     $finished_matches,
     function ($a, $b) {
@@ -245,11 +260,57 @@ $classement_home = get_classement(
     $saison_value,
     14
 );
+ 
+/* =========================================================
+ * CATÉGORIES
+ * ========================================================= */
+function jpl_news_categories($post_id) {
 
+    $categories = get_the_category($post_id);
+
+    if (empty($categories)) {
+        return '';
+    }
+
+    $output = array();
+
+    foreach ($categories as $category) {
+
+        // On ignore la catégorie WordPress par défaut
+        if (strtolower(trim($category->name)) === 'non classé') {
+            continue;
+        }
+
+        $output[] = $category->name;
+    }
+
+    return implode(' · ', $output);
+}
+
+/* =========================================================
+ * TAGS
+ * ========================================================= */
+
+function jpl_news_tags($post_id) {
+
+    $tags = get_the_tags($post_id);
+
+    if (empty($tags)) {
+        return '';
+    }
+
+    $output = array();
+
+    foreach ($tags as $tag) {
+        $output[] = esc_html($tag->name);
+    }
+
+    return implode(' · ', $output);
+}
 
 /**
  * =========================================================
- * VIDEOS
+ * VIDÉOS
  * =========================================================
  */
 
@@ -262,11 +323,6 @@ $videos = get_posts(array(
 ));
 
 
-/**
- * =========================================================
- * PRESENTATION
- * =========================================================
- */
 
 ?>
 
@@ -283,742 +339,846 @@ $videos = get_posts(array(
             <!-- =================================================
                  MAIN CONTENT
             ================================================== -->
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+
             <div class="jpl-home-main">
 
                 <div class="jpl-actualite">
-                <div class="jpl-section-heading">
-                    <h1>NOS ACTUALITÉS</h1>
 
-                    <a href="<?php echo esc_url(
-                        home_url('/actualites-judo-pro-league/')
-                    ); ?>">
-                        VOIR PLUS
-                        <img class="" src="/wp-content/uploads/2026/09/arrow-btn.svg"/>
-                    </a>
+                    <div class="jpl-section-heading">
 
-                </div>
+                        <h1>NOS ACTUALITÉS</h1>
+
+                        <a href="<?php echo esc_url(
+                            home_url('/actualites-judo-pro-league/')
+                        ); ?>">
+
+                            VOIR PLUS
+
+                            <img
+                                src="/wp-content/uploads/2026/09/arrow-btn.svg"
+                                alt=""
+                            />
+
+                        </a>
+
+                    </div>
 
 
-                <?php if ($featured_news): ?>
+                    <?php if ($featured_news): ?>
 
-                    <?php
-                    $featured_image =
-                        get_the_post_thumbnail_url(
-                            $featured_news->ID,
-                            'large'
-                        );
-                    ?>
+                        <?php
+                        $featured_image =
+                            get_the_post_thumbnail_url(
+                                $featured_news->ID,
+                                'large'
+                            );
+                        ?>
 
-                    <article class="jpl-featured-news">
+                        <article class="jpl-featured-news">
+
+<a
+    href="<?php echo esc_url(get_permalink($featured_news->ID)); ?>"
+    class="jpl-news-image"
+    style="background-image:url('<?php echo esc_url($featured_image); ?>');"
+>
+
+    <div class="jpl-news-overlay"></div>
+
+ <div class="jpl-news-featured-content">
+<?php
+$categories = jpl_news_categories($featured_news->ID);
+?>
+
+<span class="jpl-news-tag">
+    <?php echo esc_html($categories ?: 'Actualités'); ?>
+</span>
+
+    <h2>
+        <?php echo esc_html($featured_news->post_title); ?>
+    </h2>
+
+</div>
+</a>
+
+                        </article>
+
+                    <?php endif; ?>
+
+
+                   <?php if ($secondary_news): ?>
+
+    <div class="jpl-news-grid">
+
+        <?php foreach ($secondary_news as $article): ?>
+
+            <?php
+            $image = get_the_post_thumbnail_url(
+                $article->ID,
+                'medium_large'
+            );
+
+            $categories = jpl_news_categories($article->ID);
+            ?>
+
+            <article class="jpl-news-card">
+
+                <a
+                    href="<?php echo esc_url(
+                        get_permalink($article->ID)
+                    ); ?>"
+                    class="jpl-news-card-image"
+                    style="background-image:url('<?php echo esc_url($image); ?>');"
+                ></a>
+
+                <div class="jpl-news-card-body">
+
+                    <span class="jpl-news-tag">
+                        <?php echo esc_html($categories ?: 'Actualités'); ?>
+                    </span>
+
+                    <h3>
                         <a
                             href="<?php echo esc_url(
-                                get_permalink($featured_news->ID)
+                                get_permalink($article->ID)
                             ); ?>"
-                            class="jpl-news-image"
-                            style="background-image:url('<?php echo esc_url($featured_image); ?>');"
                         >
-                            <div class="jpl-news-overlay"></div>
-
-                            <div class="jpl-news-featured-content">
-
-                                <span class="jpl-news-tag">
-                                    Actualités
-                                </span>
-
-                                <h2>
-                                    <?php echo esc_html(
-                                        $featured_news->post_title
-                                    ); ?>
-                                </h2>
-                            </div>
+                            <?php echo esc_html(
+                                $article->post_title
+                            ); ?>
                         </a>
-                    </article>
-                <?php endif; ?>
+                    </h3>
 
-
-                <?php if ($secondary_news): ?>
-                    <div class="jpl-news-grid">
-                        <?php foreach ($secondary_news as $article): ?>
-
-                            <?php
-                            $image = get_the_post_thumbnail_url(
-                                $article->ID,
-                                'medium_large'
-                            );
-                            ?>
-                            <article class="jpl-news-card">
-                                <a
-                                    href="<?php echo esc_url(
-                                        get_permalink($article->ID)
-                                    ); ?>"
-                                    class="jpl-news-card-image"
-                                    style="background-image:url('<?php echo esc_url($image); ?>');"
-                                ></a>
-                                <div class="jpl-news-card-body">
-                                    <h3>
-                                        <a
-                                            href="<?php echo esc_url(
-                                                get_permalink($article->ID)
-                                            ); ?>"
-                                        >
-                                            <?php echo esc_html(
-                                                $article->post_title
-                                            ); ?>
-                                        </a>
-                                    </h3>
-                                    <span>
-                                        <?php
-                                        echo esc_html(
-                                            get_the_date(
-                                                'j F Y',
-                                                $article->ID
-                                            )
-                                        );
-                                        ?>
-                                    </span>
-                                </div>
-                            </article>
-                        <?php endforeach; ?>
-
-                    </div>
-
-                <?php endif; ?>
-				</div>
-    <!-- =====================================================
-         STATISTIQUES
-    ====================================================== -->
-    <section class="jpl-section jpl-statistics">
-        <div class="jpl-container">
-            <div class="jpl-section-heading">
-                <h2>STATISTIQUES</h2>
-                <a href="/statistiques-equipes-judo-pro-league/">
-                    VOIR PLUS
-                    <img class="" src="/wp-content/uploads/2026/09/arrow-btn.svg"/>
-                </a>
-
-            </div>
-            <div class="jpl-stats-grid">
-                <!-- EQUIPES -->
-                <div class="jpl-stat-card equipe">
-                    <div class="jpl-stat-card-title">
-                        <h3>Équipes</h3>
-                    </div>
-                    <div class="jpl-stat-columns">
-                        <div class="bg-column">
-                            <h4>Points marqués</h4>
-
-<?php
-$teams_points = is_array($classement_equipes)
-    ? $classement_equipes
-    : array();
-
-usort(
-    $teams_points,
-    function ($a, $b) {
-
-        $points_b = isset($b[0]['points_marqués'])
-            ? (int) $b[0]['points_marqués']
-            : 0;
-
-        $points_a = isset($a[0]['points_marqués'])
-            ? (int) $a[0]['points_marqués']
-            : 0;
-
-        return $points_b - $points_a;
-    }
-);
-?>
-
-                            <?php foreach (array_slice($teams_points, 0, 7) as $row): ?>
-
-                                <?php $team = $row[0]; ?>
-
-                                <div class="jpl-stat-line">
-
-                                    <div class="jpl-stat-name">
-
-                                        <?php if (!empty($team['image'])): ?>
-
-                                            <img
-                                                src="<?php echo esc_url(
-                                                    $team['image']
-                                                ); ?>"
-                                                alt=""
-                                            >
-
-                                        <?php endif; ?>
-
-                                        <span>
-                                            <?php echo esc_html(
-                                                $team['abreviation']
-                                            ); ?>
-                                        </span>
-
-                                    </div>
-
-                                    <strong>
-                                        <?php echo esc_html(
-                                            $team['points_marqués'] ?? 0
-                                        ); ?>
-                                    </strong>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="bg-column">
-                            <h4>Ippons</h4>
-
-<?php
-$teams_ippons = is_array($classement_equipes)
-    ? $classement_equipes
-    : array();
-
-usort(
-    $teams_ippons,
-    function ($a, $b) {
-
-        $ippons_b = isset($b[0]['ippons_marqués'])
-            ? (int) $b[0]['ippons_marqués']
-            : 0;
-
-        $ippons_a = isset($a[0]['ippons_marqués'])
-            ? (int) $a[0]['ippons_marqués']
-            : 0;
-        return $ippons_b - $ippons_a;
-    }
-);
-?>
-                            <?php foreach (array_slice($teams_ippons, 0, 7) as $row): ?>
-                                <?php $team = $row[0]; ?>
-
-                                <div class="jpl-stat-line">
-
-                                    <div class="jpl-stat-name">
-
-                                        <?php if (!empty($team['image'])): ?>
-
-                                            <img
-                                                src="<?php echo esc_url(
-                                                    $team['image']
-                                                ); ?>"
-                                                alt=""
-                                            >
-                                        <?php endif; ?>
-
-                                        <span>
-                                            <?php echo esc_html(
-                                                $team['abreviation']
-                                            ); ?>
-                                        </span>
-
-                                    </div>
-
-                                    <strong>
-                                        <?php echo esc_html(
-                                            $team['ippons_marqués'] ?? 0
-                                        ); ?>
-                                    </strong>
-
-                                </div>
-
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- JUDOKAS -->
-                <div class="jpl-stat-card judokas">
-                    <div class="jpl-stat-card-title">
-                        <h3>Judokas</h3>
-                    </div>
-                    <div class="jpl-stat-columns">
-                        <div class="bg-column">
-                            <h4>Victoires</h4>
-                            <?php foreach ($classement_judokas as $row): ?>
-                                <?php $judoka = $row[0]; ?>
-                                <div class="jpl-stat-line">
-                                   <div class="jpl-stat-name">
-                                       <?php if (!empty($judoka['image'])): ?>
-                                            <img
-                                                src="<?php echo esc_url(
-                                                    $judoka['image']
-                                                ); ?>"
-                                                alt=""
-                                            >
-                                        <?php endif; ?>
-<span>
-    <?php echo esc_html(
-        $judoka['nom'] ?? ''
-    ); ?>
-</span>
-                                    </div>
-
-                                    <strong>
-                                        <?php echo esc_html(
-                                            $judoka['matchs_v'] ?? 0
-                                        ); ?>
-                                    </strong>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="bg-column">
-                            <h4>Ippons</h4>
-                            <?php foreach ($classement_judokas as $row): ?>
-                                <?php $judoka = $row[0]; ?>
-                                <div class="jpl-stat-line">
-                                    <div class="jpl-stat-name">
-                                        <?php if (!empty($judoka['image'])): ?>
-                                            <img
-                                                src="<?php echo esc_url(
-                                                    $judoka['image']
-                                                ); ?>"
-                                                alt=""
-                                            >
-
-                                        <?php endif; ?>
-
-                                        <span>
-                                            <?php echo esc_html(
-                                                $judoka['nom']
-                                            ); ?>
-                                        </span>
-
-                                    </div>
-
-                                    <strong>
-                                        <?php echo esc_html(
-                                            $judoka['ippons_marqués'] ?? 0
-                                        ); ?>
-                                    </strong>
-
-                                </div>
-
-                            <?php endforeach; ?>
-
-                        </div>
-
-                    </div>
+                    <span>
+                        <?php
+                        echo esc_html(
+                            get_the_date(
+                                'j F Y',
+                                $article->ID
+                            )
+                        );
+                        ?>
+                    </span>
 
                 </div>
 
-            </div>
+            </article>
 
-        </div>
-
-    </section>
-<!-- =====================================================
-     STATISTIQUES MOBILE
-====================================================== -->
-
-<section class="jpl-statistics-mobile">
-
-    <div class="jpl-container" style="margin:0px;width:100%;">
-        <!--<div class="jpl-section-heading">
-            <h2>STATISTIQUES</h2>
-            <a href="/statistiques-equipes-judo-pro-league/">
-                VOIR PLUS
-                <img
-                    src="/wp-content/uploads/2026/09/arrow-btn.svg"
-                    alt=""
-                >
-            </a>
-        </div>-->
-        <!-- TABS -->
-<div class="col-stat-tab jpl-section">
-	<h2>STATISTIQUES</h2>
-        <div class="jpl-stats-tabs">
-
-            <button
-                type="button"
-                class="jpl-stats-tab active"
-                data-tab="equipes"
-            >
-                ÉQUIPES
-            </button>
-
-            <button
-                type="button"
-                class="jpl-stats-tab"
-                data-tab="judokas"
-            >
-                JUDOKAS
-            </button>
-
-        </div>
-
-
-        <!-- =========================
-             EQUIPES
-        ========================== -->
-
-        <div
-            class="jpl-mobile-stat-content active"
-            id="stats-equipes"
-        >
-
-            <div class="jpl-stat-columns">
-
-                <!-- POINTS -->
-
-                <div class="bg-column">
-
-                    <h4>Points marqués</h4>
-
-                    <?php foreach (array_slice($teams_points, 0, 7) as $row): ?>
-
-                        <?php $team = $row[0]; ?>
-
-                        <div class="jpl-stat-line">
-
-                            <div class="jpl-stat-name">
-
-                                <?php if (!empty($team['image'])): ?>
-
-                                    <img
-                                        src="<?php echo esc_url($team['image']); ?>"
-                                        alt=""
-                                    >
-
-                                <?php endif; ?>
-
-                                <span>
-                                    <?php echo esc_html(
-                                        $team['abreviation'] ?? ''
-                                    ); ?>
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                <?php echo esc_html(
-                                    $team['points_marqués'] ?? 0
-                                ); ?>
-                            </strong>
-
-                        </div>
-
-                    <?php endforeach; ?>
-
-                </div>
-
-
-                <!-- IPPONS -->
-
-                <div class="bg-column">
-
-                    <h4>Ippons</h4>
-
-                    <?php foreach (array_slice($teams_ippons, 0, 7) as $row): ?>
-
-                        <?php $team = $row[0]; ?>
-
-                        <div class="jpl-stat-line">
-
-                            <div class="jpl-stat-name">
-
-                                <?php if (!empty($team['image'])): ?>
-
-                                    <img
-                                        src="<?php echo esc_url($team['image']); ?>"
-                                        alt=""
-                                    >
-
-                                <?php endif; ?>
-
-                                <span>
-                                    <?php echo esc_html(
-                                        $team['abreviation'] ?? ''
-                                    ); ?>
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                <?php echo esc_html(
-                                    $team['ippons_marqués'] ?? 0
-                                ); ?>
-                            </strong>
-
-                        </div>
-
-                    <?php endforeach; ?>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             JUDOKAS
-        ========================== -->
-
-        <div
-            class="jpl-mobile-stat-content"
-            id="stats-judokas"
-        >
-
-            <div class="jpl-stat-columns">
-
-                <!-- VICTOIRES -->
-
-                <div class="bg-column">
-
-                    <h4>Victoires</h4>
-
-                    <?php foreach (array_slice($classement_judokas, 0, 7) as $row): ?>
-
-                        <?php $judoka = $row[0]; ?>
-
-                        <div class="jpl-stat-line">
-
-                            <div class="jpl-stat-name">
-
-                                <?php if (!empty($judoka['image'])): ?>
-
-                                    <img
-                                        src="<?php echo esc_url($judoka['image']); ?>"
-                                        alt=""
-                                    >
-
-                                <?php endif; ?>
-
-                                <span>
-                                    <?php echo esc_html(
-                                        $judoka['nom'] ?? ''
-                                    ); ?>
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                <?php echo esc_html(
-                                    $judoka['matchs_v'] ?? 0
-                                ); ?>
-                            </strong>
-
-                        </div>
-
-                    <?php endforeach; ?>
-
-                </div>
-
-
-                <!-- IPPONS -->
-
-                <div class="bg-column">
-
-                    <h4>Ippons</h4>
-
-                    <?php foreach (array_slice($classement_judokas, 0, 7) as $row): ?>
-
-                        <?php $judoka = $row[0]; ?>
-
-                        <div class="jpl-stat-line">
-
-                            <div class="jpl-stat-name">
-
-                                <?php if (!empty($judoka['image'])): ?>
-
-                                    <img
-                                        src="<?php echo esc_url($judoka['image']); ?>"
-                                        alt=""
-                                    >
-
-                                <?php endif; ?>
-
-                                <span>
-                                    <?php echo esc_html(
-                                        $judoka['nom'] ?? ''
-                                    ); ?>
-                                </span>
-
-                            </div>
-
-                            <strong>
-                                <?php echo esc_html(
-                                    $judoka['ippons_marqués'] ?? 0
-                                ); ?>
-                            </strong>
-
-                        </div>
-
-                    <?php endforeach; ?>
-
-                </div>
-
-            </div>
-
-        </div>
+        <?php endforeach; ?>
 
     </div>
 
-</section>
-				<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const tabs = document.querySelectorAll('.jpl-stats-tab');
-    const contents = document.querySelectorAll('.jpl-mobile-stat-content');
-
-    tabs.forEach(function (tab) {
-
-        tab.addEventListener('click', function () {
-
-            const target = tab.dataset.tab;
-
-            tabs.forEach(function (item) {
-                item.classList.remove('active');
-            });
-
-            contents.forEach(function (content) {
-                content.classList.remove('active');
-            });
-
-            tab.classList.add('active');
-
-            const targetContent = document.getElementById(
-                'stats-' + target
-            );
-
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-
-        });
-
-    });
-
-});
-</script>
-<!-- =====================================================
-         VIDEOS
-    ====================================================== -->
-
-    <section class="jpl-section jpl-videos">
-
-        <div class="jpl-container">
-
-            <div class="jpl-section-heading">
-
-                <h2>NOS VIDÉOS</h2>
-
-                <a href="/toutes-les-videos/">
-                    VOIR PLUS
-                    <img class="" src="/wp-content/uploads/2026/09/arrow-btn.svg"/>
-                </a>
-
-            </div>
+<?php endif; ?>
+                </div>
 
 
-            <div class="jpl-video-grid">
+                <!-- =====================================================
+                     STATISTIQUES
+                ====================================================== -->
 
-                <?php foreach ($videos as $video): ?>
+                <section class="jpl-section jpl-statistics">
+
+                    <div class="jpl-container">
+
+                        <div class="jpl-section-heading">
+
+                            <h2>STATISTIQUES</h2>
+
+                            <a href="/statistiques-equipes-judo-pro-league/">
+
+                                VOIR PLUS
+
+                                <img
+                                    src="/wp-content/uploads/2026/09/arrow-btn.svg"
+                                    alt=""
+                                />
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="jpl-stats-grid">
+
+                            <!-- EQUIPES -->
+
+                            <div class="jpl-stat-card equipe">
+
+                                <div class="jpl-stat-card-title">
+                                    <h3>Équipes</h3>
+                                </div>
+
+                                <div class="jpl-stat-columns">
+
+                                    <div class="bg-column">
+
+                                        <h4>Points marqués</h4>
+
+                                        <?php
+
+                                        $teams_points = is_array($classement_equipes)
+                                            ? $classement_equipes
+                                            : array();
+
+                                        usort(
+                                            $teams_points,
+                                            function ($a, $b) {
+
+                                                $points_b = isset($b[0]['points_marqués'])
+                                                    ? (int) $b[0]['points_marqués']
+                                                    : 0;
+
+                                                $points_a = isset($a[0]['points_marqués'])
+                                                    ? (int) $a[0]['points_marqués']
+                                                    : 0;
+
+                                                return $points_b - $points_a;
+                                            }
+                                        );
+
+                                        ?>
+
+                                        <?php foreach (array_slice($teams_points, 0, 7) as $row): ?>
+
+                                            <?php $team = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($team['image_circle'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($team['image_circle']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $team['abreviation']
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $team['points_marqués'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+
+                                    <div class="bg-column">
+
+                                        <h4>Ippons</h4>
+
+                                        <?php
+
+                                        $teams_ippons = is_array($classement_equipes)
+                                            ? $classement_equipes
+                                            : array();
+
+                                        usort(
+                                            $teams_ippons,
+                                            function ($a, $b) {
+
+                                                $ippons_b = isset($b[0]['ippons_marqués'])
+                                                    ? (int) $b[0]['ippons_marqués']
+                                                    : 0;
+
+                                                $ippons_a = isset($a[0]['ippons_marqués'])
+                                                    ? (int) $a[0]['ippons_marqués']
+                                                    : 0;
+
+                                                return $ippons_b - $ippons_a;
+                                            }
+                                        );
+
+                                        ?>
+
+                                        <?php foreach (array_slice($teams_ippons, 0, 7) as $row): ?>
+
+                                            <?php $team = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($team['image_circle'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($team['image_circle']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $team['abreviation']
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $team['ippons_marqués'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- JUDOKAS -->
+
+                            <div class="jpl-stat-card judokas">
+
+                                <div class="jpl-stat-card-title">
+                                    <h3>Judokas</h3>
+                                </div>
+
+                                <div class="jpl-stat-columns">
+
+                                    <div class="bg-column">
+
+                                        <h4>Victoires</h4>
+
+                                        <?php foreach ($classement_judokas as $row): ?>
+
+                                            <?php $judoka = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($judoka['image'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($judoka['image']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $judoka['nom'] ?? ''
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $judoka['matchs_v'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+
+                                    <div class="bg-column">
+
+                                        <h4>Ippons</h4>
+
+                                        <?php foreach ($classement_judokas as $row): ?>
+
+                                            <?php $judoka = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($judoka['image'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($judoka['image']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $judoka['nom']
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $judoka['ippons_marqués'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =====================================================
+                     STATISTIQUES MOBILE
+                ====================================================== -->
+
+                <section class="jpl-statistics-mobile">
+
+                    <div
+                        class="jpl-container"
+                        style="margin:0px;width:100%;"
+                    >
+
+                        <div class="col-stat-tab jpl-section">
+
+                            <h2>STATISTIQUES</h2>
+
+                            <div class="jpl-stats-tabs">
+
+                                <button
+                                    type="button"
+                                    class="jpl-stats-tab active"
+                                    data-tab="equipes"
+                                >
+                                    ÉQUIPES
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="jpl-stats-tab"
+                                    data-tab="judokas"
+                                >
+                                    JUDOKAS
+                                </button>
+
+                            </div>
+
+
+                            <!-- EQUIPES -->
+
+                            <div
+                                class="jpl-mobile-stat-content active"
+                                id="stats-equipes"
+                            >
+
+                                <div class="jpl-stat-columns">
+
+                                    <div class="bg-column">
+
+                                        <h4>Points marqués</h4>
+
+                                        <?php foreach (array_slice($teams_points, 0, 7) as $row): ?>
+
+                                            <?php $team = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($team['image_circle'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($team['image_circle']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $team['abreviation'] ?? ''
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $team['points_marqués'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+
+                                    <div class="bg-column">
+
+                                        <h4>Ippons</h4>
+
+                                        <?php foreach (array_slice($teams_ippons, 0, 7) as $row): ?>
+
+                                            <?php $team = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($team['image_circle'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($team['image_circle']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $team['abreviation'] ?? ''
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $team['ippons_marqués'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- JUDOKAS -->
+
+                            <div
+                                class="jpl-mobile-stat-content"
+                                id="stats-judokas"
+                            >
+
+                                <div class="jpl-stat-columns">
+
+                                    <div class="bg-column">
+
+                                        <h4>Victoires</h4>
+
+                                        <?php foreach (array_slice($classement_judokas, 0, 7) as $row): ?>
+
+                                            <?php $judoka = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($judoka['image'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($judoka['image']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $judoka['nom'] ?? ''
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $judoka['matchs_v'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+
+                                    <div class="bg-column">
+
+                                        <h4>Ippons</h4>
+
+                                        <?php foreach (array_slice($classement_judokas, 0, 7) as $row): ?>
+
+                                            <?php $judoka = $row[0]; ?>
+
+                                            <div class="jpl-stat-line">
+
+                                                <div class="jpl-stat-name">
+
+                                                    <?php if (!empty($judoka['image'])): ?>
+
+                                                        <img
+                                                            src="<?php echo esc_url($judoka['image']); ?>"
+                                                            alt=""
+                                                        >
+
+                                                    <?php endif; ?>
+
+                                                    <span>
+                                                        <?php echo esc_html(
+                                                            $judoka['nom'] ?? ''
+                                                        ); ?>
+                                                    </span>
+
+                                                </div>
+
+                                                <strong>
+                                                    <?php echo esc_html(
+                                                        $judoka['ippons_marqués'] ?? 0
+                                                    ); ?>
+                                                </strong>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+
+                    const tabs = document.querySelectorAll('.jpl-stats-tab');
+                    const contents = document.querySelectorAll('.jpl-mobile-stat-content');
+
+                    tabs.forEach(function (tab) {
+
+                        tab.addEventListener('click', function () {
+
+                            const target = tab.dataset.tab;
+
+                            tabs.forEach(function (item) {
+                                item.classList.remove('active');
+                            });
+
+                            contents.forEach(function (content) {
+                                content.classList.remove('active');
+                            });
+
+                            tab.classList.add('active');
+
+                            const targetContent = document.getElementById(
+                                'stats-' + target
+                            );
+
+                            if (targetContent) {
+                                targetContent.classList.add('active');
+                            }
+
+                        });
+
+                    });
+
+                });
+                </script>
+
+
+                <!-- =====================================================
+                     VIDÉOS
+                ====================================================== -->
+
+                <section class="jpl-section jpl-videos">
+
+                    <div class="jpl-container">
+
+                        <div class="jpl-section-heading">
+
+                            <h2>NOS VIDÉOS</h2>
+
+                            <a href="/liste-videos/">
+
+                                VOIR PLUS
+
+                                <img
+                                    src="/wp-content/uploads/2026/09/arrow-btn.svg"
+                                    alt=""
+                                />
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="jpl-video-grid">
+
+                            <?php foreach ($videos as $video): ?>
+
+                                <?php
+
+                                $video_id = get_field(
+                                    'id',
+                                    $video->ID
+                                );
+
+                                $video_image =
+                                    get_the_post_thumbnail_url(
+                                        $video->ID,
+                                        'large'
+                                    );
+
+                                if (!$video_image && $video_id) {
+
+                                    $video_image =
+                                        'https://i.ytimg.com/vi/' .
+                                        esc_attr($video_id) .
+                                        '/maxresdefault.jpg';
+                                }
+
+                                $video_title = get_field(
+                                    'titre',
+                                    $video->ID
+                                );
+
+                                $video_date_dajout = get_field(
+                                    'date_dajout',
+                                    $video->ID
+                                );
+
+                                if (!$video_title) {
+                                    $video_title = $video->post_title;
+                                }
+
+                                ?>
+
+                                <article class="jpl-video-card">
+
+                                    <div
+                                        class="jpl-video-image"
+                                        style="background-image:url('<?php echo esc_url($video_image); ?>');"
+                                    >
+
+                                        <?php if ($video_id): ?>
+
+                                            <a
+                                                href="https://www.youtube.com/watch?v=<?php echo esc_attr($video_id); ?>"
+                                                target="_blank"
+                                                rel="noopener"
+                                                class="jpl-play-button"
+                                            >
+                                                <i class="fa-solid fa-play"></i>
+                                            </a>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                    <div class="jpl-video-body">
+
+                                        <span>
+                                            <?php echo esc_html($video_date_dajout); ?>
+                                        </span>
+
+                                        <h3>
+                                            <?php echo esc_html($video_title); ?>
+                                        </h3>
+
+                                    </div>
+
+                                </article>
+
+                            <?php endforeach; ?>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =====================================================
+                     PRESENTATION
+                ====================================================== -->
+
+                <div>
 
                     <?php
-                    $video_id = get_field('id', $video->ID);
 
-                    $video_image =
-                        get_the_post_thumbnail_url(
-                            $video->ID,
-                            'large'
-                        );
-
-                    if (!$video_image && $video_id) {
-                        $video_image =
-                            'https://i.ytimg.com/vi/' .
-                            esc_attr($video_id) .
-                            '/maxresdefault.jpg';
-                    }
-
-                    $video_title = get_field(
-                        'titre',
-                        $video->ID
+                    require_once(
+                        THEMEDIR . 'inc/acf-blocs/bloc-presentation.php'
                     );
 
-                     $video_date_dajout = get_field(
-                        'date_dajout',
-                        $video->ID
-                    );
+                    while (have_rows('articles')) {
 
-                    
+                        the_row();
 
-                    if (!$video_title) {
-                        $video_title = $video->post_title;
+                        $style = get_row_layout();
+
+                        $section = false;
+
+                        switch ($style) {
+
+                            case 'bloc_presentation':
+
+                                require_once(
+                                    THEMEDIR . 'inc/acf-blocs/bloc-presentation.php'
+                                );
+
+                                $section = bloc_presentation();
+
+                                break;
+                        }
                     }
+
                     ?>
 
-                    <article class="jpl-video-card">
+                    <img
+                        class="mob-presenta"
+                        src="/wp-content/uploads/2026/09/Group-40420.svg"
+                        alt=""
+                    />
 
-                        <div
-                            class="jpl-video-image"
-                            style="background-image:url('<?php echo esc_url($video_image); ?>');"
-                        >
+                </div>
 
-                            <?php if ($video_id): ?>
-
-                                <a
-                                    href="https://www.youtube.com/watch?v=<?php echo esc_attr($video_id); ?>"
-                                    target="_blank"
-                                    rel="noopener"
-                                    class="jpl-play-button"
-                                >
-                                    <i class="fa-solid fa-play"></i>
-                                </a>
-
-                            <?php endif; ?>
-
-                        </div>
-
-                        <div class="jpl-video-body">
-
-                            <span><?php echo $video_date_dajout;?></span>
-
-                            <h3>
-                                <?php echo esc_html(
-                                    $video_title
-                                ); ?>
-                            </h3>
-
-                        </div>
-
-                    </article>
-
-                <?php endforeach; ?>
-
-            </div>
-
-        </div>
-
-    </section>
-    <!-- =====================================================
-         PRESENTATION
-    ====================================================== -->
-	<div>
-				<?php
-    require_once (THEMEDIR.'inc/acf-blocs/bloc-presentation.php');
-    while ( have_rows('articles'))
-    {
-        the_row();
-        $style=get_row_layout();
-        //site_debug("style=$style");
-        $section=false;
-        switch($style)
-        {
-           case 'bloc_presentation':
-                require_once (THEMEDIR.'inc/acf-blocs/bloc-presentation.php');
-                $section=bloc_presentation();
-                break;
-    
-        }
-    }
-				?>
-		<img class="mob-presenta" src="/wp-content/uploads/2026/09/Group-40420.svg"/>
-	</div>
-				
-				
-				
             </div>
 
 
@@ -1029,34 +1189,37 @@ document.addEventListener('DOMContentLoaded', function () {
             <aside class="jpl-home-sidebar">
 
 
-                <!-- LIVE -->
+                <!-- =====================================================
+                     LIVE
+                ====================================================== -->
 
                 <div class="jpl-sidebar-block-live">
 
-                    <!--<div class="jpl-sidebar-title-live">
-
-                        <?php if (!empty($live_matches)): ?>
-                            <span class="jpl-live-dot"></span>
-                        <?php endif; ?>
-
-                    </div>-->
-					
                     <?php if (!empty($live_matches)): ?>
 
                         <?php foreach ($live_matches as $match): ?>
 
                             <?php
+
                             $team1_logo = $match['team1logo'];
                             $team2_logo = $match['team2logo'];
+
                             ?>
 
                             <a
                                 href="<?php echo esc_url($match['link']); ?>"
                                 class="jpl-score-card jpl-score-live jpl-mini-match"
                             >
-					<div class="jpl-mini-live-icon">
-						<img src="/wp-content/uploads/2026/09/live.svg" />
-					</div>
+
+                                <div class="jpl-mini-live-icon">
+
+                                    <img
+                                        src="/wp-content/uploads/2026/09/live.svg"
+                                        alt="Live"
+                                    />
+
+                                </div>
+
                                 <div class="jpl-score-team team1">
 
                                     <span>
@@ -1066,27 +1229,35 @@ document.addEventListener('DOMContentLoaded', function () {
                                     </span>
 
                                     <?php if ($team1_logo): ?>
+
                                         <img
                                             src="<?php echo esc_url($team1_logo); ?>"
                                             alt=""
                                         >
+
                                     <?php endif; ?>
 
                                 </div>
 
                                 <strong>
+
                                     <?php echo esc_html($match['score1']); ?>
+
                                     -
+
                                     <?php echo esc_html($match['score2']); ?>
+
                                 </strong>
 
                                 <div class="jpl-score-team team2">
 
                                     <?php if ($team2_logo): ?>
+
                                         <img
                                             src="<?php echo esc_url($team2_logo); ?>"
                                             alt=""
                                         >
+
                                     <?php endif; ?>
 
                                     <span>
@@ -1104,7 +1275,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <?php else: ?>
 
                         <div class="jpl-no-live">
-                            Aucun match en direct
+                            
                         </div>
 
                     <?php endif; ?>
@@ -1112,7 +1283,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
 
-                <!-- UPCOMING -->
+                <!-- =====================================================
+                     UPCOMING
+                ====================================================== -->
 
                 <div class="jpl-sidebar-block rencontres">
 
@@ -1121,8 +1294,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h2>RENCONTRES À VENIR</h2>
 
                         <a href="/calendrier-resultats-2023/final4/">
+
                             VOIR TOUTES
-							<img class="" src="/wp-content/uploads/2026/09/arrow-btn.svg"/>
+
+                            <img
+                                src="/wp-content/uploads/2026/09/arrow-btn.svg"
+                                alt=""
+                            />
+
                         </a>
 
                     </div>
@@ -1132,10 +1311,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <?php foreach ($upcoming_matches as $match): ?>
 
-                            <a
-                                href="<?php echo esc_url($match['link']); ?>"
-                                class="jpl-mini-match"
-                            >
+                            <div class="jpl-match-hover-card">
+
+                                <a
+                                    href="<?php echo esc_url($match['link']); ?>"
+                                    class="jpl-mini-match-main jpl-mini-match"
+                                >
 
                                 <div class="jpl-mini-date">
 
@@ -1160,18 +1341,20 @@ document.addEventListener('DOMContentLoaded', function () {
                                         );
                                         ?>
                                     </span>
-                                <div class="jpl-mini-time-done">
 
-                                    <?php
-                                    echo esc_html(
-                                        date_i18n(
-                                            'H:i',
-                                            strtotime($match['date'])
-                                        )
-                                    );
-                                    ?>
+                                    <div class="jpl-mini-time-done">
 
-                                </div>
+                                        <?php
+                                        echo esc_html(
+                                            date_i18n(
+                                                'H:i',
+                                                strtotime($match['date'])
+                                            )
+                                        );
+                                        ?>
+
+                                    </div>
+
                                 </div>
 
 
@@ -1184,15 +1367,18 @@ document.addEventListener('DOMContentLoaded', function () {
                                     </span>
 
                                     <?php if ($match['team1logo']): ?>
+
                                         <img
                                             src="<?php echo esc_url(
                                                 $match['team1logo']
                                             ); ?>"
                                             alt=""
                                         >
+
                                     <?php endif; ?>
 
                                 </div>
+
 
                                 <div class="jpl-mini-result">
 
@@ -1208,15 +1394,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 </div>
 
+
                                 <div class="jpl-mini-team team2">
 
                                     <?php if ($match['team2logo']): ?>
+
                                         <img
                                             src="<?php echo esc_url(
                                                 $match['team2logo']
                                             ); ?>"
                                             alt=""
                                         >
+
                                     <?php endif; ?>
 
                                     <span>
@@ -1227,7 +1416,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 </div>
 
-                            </a>
+                                </a>
+
+                                <?php if (!empty($match['link']) || !empty($match['tickets'])): ?>
+                                    <div class="jpl-match-hover-actions">
+                                        <?php if (!empty($match['link'])): ?>
+                                            <a href="<?php echo esc_url($match['link']); ?>" class="jpl-match-hover-btn jpl-match-info-btn">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                                <span>Infos rencontre</span>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if (!empty($match['tickets'])): ?>
+                                            <a href="<?php echo esc_url($match['tickets']); ?>" class="jpl-match-hover-btn jpl-match-ticket-btn" target="_blank" rel="noopener">
+                                                <i class="fa-solid fa-ticket"></i>
+                                                <span>Billetterie</span>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+
+                            </div>
 
                         <?php endforeach; ?>
 
@@ -1236,24 +1444,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
 
-                <!-- RESULTS -->
+                <!-- =====================================================
+                     RESULTS
+                ====================================================== -->
+
                 <div class="jpl-sidebar-block last-results">
+
                     <div class="jpl-sidebar-title">
+
                         <h2>DERNIERS RÉSULTATS</h2>
+
                         <a href="/calendrier-resultats-2023/final4/">
+
                             VOIR TOUTES
-							<img class="" src="/wp-content/uploads/2026/09/arrow-btn.svg"/>
+
+                            <img
+                                src="/wp-content/uploads/2026/09/arrow-btn.svg"
+                                alt=""
+                            />
+
                         </a>
+
                     </div>
 
+
                     <div class="jpl-mini-matches">
+
                         <?php foreach ($finished_matches as $match): ?>
-                           <a
-                                href="<?php echo esc_url($match['link']); ?>"
-                                class="jpl-mini-match jpl-result"
-                            >
+
+                            <div class="jpl-result jpl-match-hover-card">
+
+                                <a
+                                    href="<?php echo esc_url($match['link']); ?>"
+                                    class="jpl-mini-match-main jpl-mini-match "
+                                >
+
                                 <div class="jpl-mini-date">
+
                                     <strong>
+
                                         <?php
                                         echo esc_html(
                                             date_i18n(
@@ -1262,31 +1491,40 @@ document.addEventListener('DOMContentLoaded', function () {
                                             )
                                         );
                                         ?>
+
                                     </strong>
 
                                     <span>
+
                                         <?php
                                         echo esc_html(
                                             date_i18n(
                                                 'M',
                                                 strtotime($match['date'])
                                             )
-                                        ); ?>
+                                        );
+                                        ?>
+
                                     </span>
-                                 <div class="jpl-mini-time-done">
-                                    <?php
-                                    echo esc_html(
-                                        date_i18n(
-                                            'H:i',
-                                            strtotime($match['date'])
-                                        )
-                                    );
-                                    ?>
-                                </div>
+
+                                    <div class="jpl-mini-time-done">
+
+                                        <?php
+                                        echo esc_html(
+                                            date_i18n(
+                                                'H:i',
+                                                strtotime($match['date'])
+                                            )
+                                        );
+                                        ?>
+
+                                    </div>
+
                                 </div>
 
 
-<div class="jpl-mini-team team1 <?php echo ($match['score1'] < $match['score2']) ? 'lost' : ''; ?>">
+                                <div class="jpl-mini-team team1 <?php echo ($match['score1'] < $match['score2']) ? 'lost' : ''; ?>">
+
                                     <span>
                                         <?php echo esc_html(
                                             $match['team1name']
@@ -1294,12 +1532,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                     </span>
 
                                     <?php if ($match['team1logo']): ?>
+
                                         <img
                                             src="<?php echo esc_url(
                                                 $match['team1logo']
                                             ); ?>"
                                             alt=""
                                         >
+
                                     <?php endif; ?>
 
                                 </div>
@@ -1320,14 +1560,17 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
 
 
-<div class="jpl-mini-team team2 <?php echo ($match['score2'] < $match['score1']) ? 'lost' : ''; ?>">
+                                <div class="jpl-mini-team team2 <?php echo ($match['score2'] < $match['score1']) ? 'lost' : ''; ?>">
+
                                     <?php if ($match['team2logo']): ?>
+
                                         <img
                                             src="<?php echo esc_url(
                                                 $match['team2logo']
                                             ); ?>"
                                             alt=""
                                         >
+
                                     <?php endif; ?>
 
                                     <span>
@@ -1338,16 +1581,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 </div>
 
-                            </a>
+                                </a>
+
+<?php if (!empty($match['link'])): ?>
+    <div class="jpl-match-hover-actions">
+
+        <a
+            href="<?php echo esc_url($match['link']); ?>"
+            class="jpl-match-hover-btn jpl-match-info-btn"
+        >
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Infos rencontre</span>
+        </a>
+
+    </div>
+<?php endif; ?>
+                                    </div>
+                              
 
                         <?php endforeach; ?>
 
                     </div>
-
-                </div>
-
-
-                <!-- PUBLICITE -->
+ </div>
+                <!-- =====================================================
+                     PUBLICITÉ
+                ====================================================== -->
 
                 <div class="jpl-ad">
 
@@ -1356,7 +1614,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
 
-                <!-- CLASSEMENT -->
+                <!-- =====================================================
+                     CLASSEMENT
+                ====================================================== -->
 
                 <div class="jpl-sidebar-block jpl-ranking">
 
@@ -1365,8 +1625,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         <h2>CLASSEMENT</h2>
 
                         <a href="/classement-judo-pro-league/">
+
                             VOIR TOUT
-							<img class="" src="/wp-content/uploads/2026/09/arrow-btn.svg"/>
+
+                            <img
+                                src="/wp-content/uploads/2026/09/arrow-btn.svg"
+                                alt=""
+                            />
+
                         </a>
 
                     </div>
@@ -1375,91 +1641,146 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="jpl-ranking-header">
 
                         <span></span>
-                        <span style="text-align: left !important;">Équipes</span>
-                        <span>Defaites</span>
-                        <span>Victoires</span>
-                        <span>Points</span>
+
+                        <span style="text-align: left !important;">
+                            Équipes
+                        </span>
+
+                        <span style="text-align: center !important;">
+                            PTS
+                        </span>
+
+                        <span style="text-align: center !important;">
+                            PM
+                        </span>
+
+                        <span style="text-align: center !important;">
+                            IPP
+                        </span>
 
                     </div>
 
 
-<?php
-$classement_home = is_array($classement_home) ? $classement_home : array();
+                    <?php
 
-$rang = 1;
+                    $classement_home = is_array($classement_home)
+                        ? $classement_home
+                        : array();
 
-foreach ($classement_home as $row):
+                    $rang = 1;
 
-    if (
-        !is_array($row) ||
-        !isset($row[0]) ||
-        !is_array($row[0])
-    ) {
-        continue;
-    }
+                    foreach ($classement_home as $row):
 
-    $team = $row[0];
+                        if (
+                            !is_array($row) ||
+                            !isset($row[0]) ||
+                            !is_array($row[0])
+                        ) {
+                            continue;
+                        }
 
-    $classement_class = ($rang <= 8)
-        ? 'top-8'
-        : 'outside-top-8';
-?>
+                        $team = $row[0];
 
-    <div class="jpl-ranking-row <?php echo esc_attr($classement_class); ?>">
+                        $classement_class = ($rang <= 8)
+                            ? 'top-8'
+                            : 'outside-top-8';
 
-        <span class="rank">
-            <?php echo esc_html($rang); ?>
-        </span>
+                    ?>
 
-        <span class="rank-team">
+                        <div class="jpl-ranking-row <?php echo esc_attr($classement_class); ?>">
 
-            <?php if (!empty($team['image'])): ?>
+                            <span class="rank">
+                                <?php echo esc_html($rang); ?>
+                            </span>
 
-                <img
-                    src="<?php echo esc_url($team['image']); ?>"
-                    alt=""
-                >
 
-            <?php endif; ?>
+                            <span class="rank-team">
 
-            <strong>
-                <?php echo esc_html($team['abreviation'] ?? ''); ?>
-            </strong>
+                                <?php if (!empty($team['image'])): ?>
 
-        </span>
+                                    <img
+                                        src="<?php echo esc_url($team['image']); ?>"
+                                        alt=""
+                                    >
 
-        <span>
-            <?php echo esc_html(
-                (int) ($team['defaites'] ?? 0)
-            ); ?>
-        </span>
+                                <?php endif; ?>
 
-        <span>
-            <?php echo esc_html(
-                (int) ($team['victoires'] ?? 0)
-            ); ?>
-        </span>
 
-        <span class="points">
-            <?php echo esc_html(
-                (int) ($team['points'] ?? 0)
-            ); ?>
-        </span>
+                                <strong>
+                                    <?php echo esc_html(
+                                        $team['abreviation'] ?? ''
+                                    ); ?>
+                                </strong>
 
-    </div>
+                            </span>
 
-<?php
-    $rang++;
 
-endforeach;
-?>
+                             <span class="points">
+                                <?php echo esc_html(
+                                    (int) ($team['points'] ?? 0)
+                                ); ?>
+                            </span>
+
+                            <span>
+                                <?php echo esc_html(
+                                    (int) ($team['points_marqués'] ?? 0)
+                                ); ?>
+                            </span>
+
+
+                            <span>
+                                <?php echo esc_html(
+                                    (int) ($team['ippons_marqués'] ?? 0)
+                                ); ?>
+                            </span>
+
+
+                           
+
+                        </div>
+
+
+                    <?php
+
+                        $rang++;
+
+                    endforeach;
+
+                    ?>
+
                 </div>
+
+
+                <!-- =====================================================
+                     SONDAGE / IPPON DE LA SEMAINE
+                ====================================================== -->
+
+                <?php 
+                 while ( have_rows('articles'))
+    {
+        the_row();
+        $style=get_row_layout();
+        //site_debug("style=$style");
+        $section=false;
+        switch($style)
+        {
+
+            case 'bloc_sondage':
+                require_once (THEMEDIR.'inc/acf-blocs/bloc-sondage.php');
+                $section=bloc_sondage();
+                break;
+    
+        }
+    }
+                
+                ?>
+
+
             </aside>
+
         </div>
+
     </section>
-
-
-
 
 
     <!-- =====================================================
@@ -1491,7 +1812,7 @@ endforeach;
                 foreach ($teams as $team):
 
                     $logo = get_field(
-                        'logo_circle',
+                        'logo_principal',
                         $team->ID
                     );
 
@@ -1502,7 +1823,7 @@ endforeach;
                         );
                     }
 
-                    ?>
+                ?>
 
                     <a
                         href="<?php echo esc_url(
@@ -1533,5 +1854,19 @@ endforeach;
     </section>
 
 </main>
+
+
+<style>
+.jpl-match-hover-card{position:relative;overflow:hidden;}
+.jpl-match-hover-card .jpl-mini-match-main{position:relative;z-index:1;display:grid;text-decoration:none!important;transition:opacity .25s ease,transform .25s ease;}
+.jpl-match-hover-actions{margin-inline: 10px;border-radius: 11px;min-height: 54px; padding: 0px 8px 0px 0px; margin-bottom: 10px;position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;gap:8px;10px;background:rgb(34 27 59);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s ease,visibility .25s ease,transform .25s ease;}
+.jpl-match-hover-card:hover .jpl-match-hover-actions{opacity:1;visibility:visible;transform:translateY(0);}
+.jpl-match-hover-card:hover .jpl-mini-match-main{opacity:0;transform:translateY(-6px);}
+.jpl-match-hover-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;padding:7px 12px;border-radius:7px;color:#fff!important;font-size:19px;line-height:1;font-weight:600;text-decoration:none!important;white-space:nowrap;transition:transform .2s ease,filter .2s ease;}
+.jpl-match-hover-btn:hover{color:#fff!important;text-decoration:none!important;transform:translateY(-2px);filter:brightness(1.08);}
+.jpl-match-hover-btn i{font-size:15px;}
+.jpl-match-info-btn{background:linear-gradient(90deg, #4b265c 0%, #a4146b 100%);}
+.jpl-match-ticket-btn{background:linear-gradient(90deg,#9d166a 0%,#e00078 100%);}
+</style>
 
 <?php get_footer(); ?>

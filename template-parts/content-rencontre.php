@@ -41,8 +41,8 @@ $matchs_liste=get_field('les_combat',$rencontre->ID);
 			<?php	
 				while ( have_rows('les_combat') ) :
 				the_row();
-				$logo1=(get_field('logo_circle', $equipe1->ID))?get_field('logo_circle', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
-				$logo2=(get_field('logo_circle', $equipe2->ID))?get_field('logo_circle', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
+				$logo1=(get_field('logo_principal', $equipe1->ID))?get_field('logo_principal', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
+				$logo2=(get_field('logo_principal', $equipe2->ID))?get_field('logo_principal', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
 				$ncge1 = get_sub_field('nombre_de_combat_gagne_equipe_1' );
 				$equipe_gagnante = get_sub_field('equipe_gagnante');
 				$ncge2 = get_sub_field('nombre_de_combat_gagne_equipe_2' );

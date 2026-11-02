@@ -43,7 +43,7 @@ $news_part2 = array_slice($news,3,2);
     <div class="section-header" style="">
     
         <div class="col-rcntr" style="">
-            <h3 class="title-rcntr">LES RENCONTRES</h3>
+            <h3 class="title-rcntr">LES RENCONTRES </h3>
             
             <?php 
         // Extraire les informations de la première rencontre

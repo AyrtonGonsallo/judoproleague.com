@@ -99,7 +99,7 @@ $equipes = get_posts(array(
 
 	  $( function() {
         if( $('.tabs-poules').length ){
-            $( "#tabs" ).tabs( { active: 0 } );
+            $( "#tabs" ).tabs( { active: 1 } );
             console.log("poules")
         }else if($('.tabs-quarts').length){
             //$( "#tabs" ).tabs( { active: 0 });
@@ -419,9 +419,9 @@ src="https://www.facebook.com/tr?id=1277521052827557&ev=PageView&noscript=1"
 					<div>
     	<ul class="navbar-nav">
 		    <!-- Pronos -->
-		<li id="menu-item-5473" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5473"><a href="https://rimo0631.odns.fr/judopronoschallenge/">Mes pronos</a></li>
+		<li id="menu-item-5473" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5473"><a href="/judopronoschallenge/">Mes pronos</a></li>
     <!-- Billetterie -->
-<li id="menu-item-19572" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19572"><a target="_blank" href="https://www.billetweb.fr/multi_event.php?user=107758">Billetterie</a></li>
+<!-- <li id="menu-item-19572" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19572"><a target="_blank" href="https://www.billetweb.fr/multi_event.php?user=107758">Billetterie</a></li> -->
 	</ul>
 		</div>
 
@@ -577,11 +577,11 @@ function get_next_week_with_rencontres($saison = '2026-2027') {
                     $equipe1 =get_field('equipe_1', $rencontre->ID)[0];
                     $equipe2 =get_field('equipe_2', $rencontre->ID)[0];
                     $score_equipe1 = $combat['nombre_de_combat_gagne_equipe_1'];
-$score_equipe1 = ($score_equipe1 !== '' && $score_equipe1 !== null) ? $score_equipe1 : 0;
+                    $score_equipe1 = ($score_equipe1 !== '' && $score_equipe1 !== null) ? $score_equipe1 : 0;
                     $image1_url=(get_field('logo_miniature', $equipe1->ID))?get_field('logo_miniature', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
                     $image2_url=(get_field('logo_miniature', $equipe2->ID))?get_field('logo_miniature', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
-$score_equipe2 = $combat['nombre_de_combat_gagne_equipe_2'];
-$score_equipe2 = ($score_equipe2 !== '' && $score_equipe2 !== null) ? $score_equipe2 : 0;                    $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
+                    $score_equipe2 = $combat['nombre_de_combat_gagne_equipe_2'];
+                    $score_equipe2 = ($score_equipe2 !== '' && $score_equipe2 !== null) ? $score_equipe2 : 0;                    $date_debut=get_field('date_de_debut', $rencontre->ID, false, false);
                     $date_fin=get_field('date_de_fin', $rencontre->ID, false, false);
                     $statut=get_field('statut', $rencontre->ID)['label'];
                     $abreviation1=(get_field('abreviation', $equipe1->ID))?get_field('abreviation', $equipe1->ID):substr($equipe1->post_title,0,4);
@@ -626,7 +626,7 @@ $score_equipe2 = ($score_equipe2 !== '' && $score_equipe2 !== null) ? $score_equ
                         $phase_title = $phase[0]->post_title;
 }
                 ?>
-                <li class="rencontre-element <?php echo $class; ?> flip-card splide__slide" style="margin-top:8px;">
+                <li class="rencontre-element <?php echo $class; ?> flip-card splide__slide" style="margin:8px 3px 8px !important;">
                     <div class="flip-card-inner splide__slide__container">
                         <div class="flip-card-front">
 <div class="nv-header-rencontre">
@@ -796,6 +796,7 @@ const splide2 = new Splide( '.splide2' , {
 
 
 splide2.mount();
+
 
 </script>
 </header>

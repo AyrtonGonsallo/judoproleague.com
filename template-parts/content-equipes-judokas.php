@@ -1,1105 +1,866 @@
 <?php
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- * Template part for displaying posts
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ * Template part for displaying team judokas
  *
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- *
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  * @package pro-league
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$site = get_field('site_web');
-
-
-
-
-
-
-
-
-
-
-
-$saison_value=($_GET["saison_value"])?$_GET["saison_value"]:"2026-2027";
-
-
-
-
-
-
-$description = get_field('presentation'); 
-
-
-
-
-
-
-
-
-$saisons = get_field('saisons'); 
-
-
-
-
-
-
-
-
-$directeur = get_field('directeur'); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$couleur1 = get_field('couleur1'); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$style_couleur1=($couleur1)?'style="background: '.$couleur1.';"':'style="background: #e5332a;"';
-
-
-
-
-
-
-
-
-
-
-
-$image=get_field('logo_principal')?get_field('logo_principal'):get_the_post_thumbnail_url($post->ID,"thumbnail");
-
-
-
-
-
-$couleur2 = get_field('couleur2'); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="background: #990021;"';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$entraineur = get_field('entraineur'); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$date_creation = get_field('date_de_creation'); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$reseaux= get_field('reseaux_sociaux');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$palmares = get_field('palmares');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$galerie_photos = get_field('galerie_photos');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$gender=  get_field('genre');
-
-
-
-
-
-$current_fp = get_query_var('fpage');
-
-
-
-
-
-$team_permalink = get_the_permalink($post->ID);
-
-
-
-
-
-
-
-
-function get_correct_categorie($saison_value,$cat){
-	if($saison_value=="2024-2025"){
-		switch ($cat) {
-			case '-65':
-				return '-66';
-				break;
-			case '-75':
-				return '-73';
-				break;
-			case '-85':
-				return '-81';
-				break;
-			case '-95':
-				return '-90';
-				break;
-			case '+95':
-				return '+90';
-				break;
-			default:
-				# code...
-				break;
-		}
-	}
-	return $cat;
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
 }
 
+/* =========================================================
+ * DONNÉES DE BASE
+ * ========================================================= */
 
+$team_id = get_the_ID();
 
-function get_champs_groupes_par_semaine() {
-    $args = [
-        'post_type'      => 'champ_semaine',
-        'posts_per_page' => -1,
-        'meta_key'       => 'date_semaine',
-        'orderby'        => 'meta_value',
-        'order'          => 'DESC',
-        'meta_type'      => 'DATE',
-    ];
+$saison_value = isset( $_GET['saison_value'] )
+    ? sanitize_text_field( wp_unslash( $_GET['saison_value'] ) )
+    : '2026-2027';
 
-    $posts = get_posts($args);
+$site           = get_field( 'site_web', $team_id );
+$description    = get_field( 'presentation', $team_id );
+$saisons        = get_field( 'saisons', $team_id );
+$directeur      = get_field( 'directeur', $team_id );
+$entraineur     = get_field( 'entraineur', $team_id );
+$date_creation  = get_field( 'date_de_creation', $team_id );
+$reseaux        = get_field( 'reseaux_sociaux', $team_id );
+$palmares       = get_field( 'palmares', $team_id );
+$galerie_photos = get_field( 'galerie_photos', $team_id );
+$gender         = get_field( 'genre', $team_id );
+$partenaires    = get_field( 'partenaires', $team_id );
 
-    $groupes = [];
+$couleur1 = get_field( 'couleur1', $team_id );
+$couleur2 = get_field( 'couleur2', $team_id );
 
-    foreach ($posts as $post) {
-        $date_raw = get_field('date_semaine', $post->ID);
+$couleur1 = $couleur1 ? $couleur1 : '#040b89';
+$couleur2 = $couleur2 ? $couleur2 : '#e00078';
 
-        if (!$date_raw) {
-            continue;
-        }
+$logo_principal = get_field( 'logo_principal', $team_id );
+$logo_circle    = get_field( 'logo_circle', $team_id );
 
-        // Convertir en DateTime (ton champ est en d/m/Y)
-        $date_obj = DateTime::createFromFormat('d/m/Y', $date_raw, wp_timezone());
+$logo_principal_url = $logo_principal
+    ? $logo_principal
+    : get_the_post_thumbnail_url( $team_id, 'full' );
 
-        if (!$date_obj) {
-            continue;
-        }
+$logo_circle_url = $logo_circle
+    ? $logo_circle
+    : $logo_principal_url;
 
-        // Calculer début et fin de la semaine
-        $start = clone $date_obj;
-        $start->modify('monday this week');
+$team_permalink = trailingslashit( get_permalink( $team_id ) );
+$team_name      = get_the_title( $team_id );
 
-        $end = clone $start;
-        $end->modify('sunday this week');
+/* =========================================================
+ * CORRECTION CATÉGORIES
+ * ========================================================= */
 
-        $cle = $start->format('Y-m-d');
+if ( ! function_exists( 'get_correct_categorie' ) ) {
 
-        if (!isset($groupes[$cle])) {
-            $groupes[$cle] = [
-                'date_debut_semaine' => $start->format('d/m/Y'),
-                'date_fin_semaine'   => $end->format('d/m/Y'),
-                'donnees'            => [],
-            ];
-        }
+    function get_correct_categorie( $saison_value, $cat ) {
 
-        // Ajouter données avec les champs ACF pour le tri
-        $groupes[$cle]['donnees'][] = [
-            'id'            => $post->ID,
-            'title'         => get_the_title($post),
-            'date'          => $date_raw,
-            'total_points'  => (int) get_field('total_points', $post->ID),
-            'paris_gagnes'  => (int) get_field('paris_gagnes', $post->ID),
-            'score_exact'   => (int) get_field('score_exact', $post->ID),
-        ];
-    }
+        if ( $saison_value === '2024-2025' ) {
 
-     // 🔎 Trier chaque semaine selon la logique
-    foreach ($groupes as &$semaine) {
-        usort($semaine['donnees'], function($a, $b) {
-            if ($a['total_points'] === $b['total_points']) {
-                if ($a['paris_gagnes'] === $b['paris_gagnes']) {
-                    return $b['score_exact'] <=> $a['score_exact'];
-                }
-                return $b['paris_gagnes'] <=> $a['paris_gagnes'];
+            switch ( $cat ) {
+
+                case '-65':
+                    return '-66';
+
+                case '-75':
+                    return '-73';
+
+                case '-85':
+                    return '-81';
+
+                case '-95':
+                    return '-90';
+
+                case '+95':
+                    return '+90';
+
+                default:
+                    return $cat;
             }
-            return $b['total_points'] <=> $a['total_points'];
-        });
-    }
-    unset($semaine); // bonne pratique
-
-    return $groupes;
-}
-
-
-$semaines = get_champs_groupes_par_semaine();
-/*
-echo "nom,prenom,pseudo,email,rang,debut semaine, fin semaine<br>";
-foreach ($semaines as $semaine) : 
-    $rang=1;
-    foreach ($semaine['donnees'] as $donnee) : 
-        if($rang>=4){
-            continue;
         }
-        $points = get_field('points', $donnee['id']);
-        $bonus_utilises = get_field('bonus_utilises', $donnee['id']);
-        $user_id = get_field('user_id', $donnee['id']);
-        $nom = get_field('nom', $donnee['id']);
-        $prenom = get_field('prenom', $donnee['id']);
-        $user = get_user_by('id', $user_id);
-        $email = $user->user_email;
-        $pseudo = get_field('pseudo', 'user_'.$user_id) ?: $user->display_name;
-        $paris_gagnes = get_field('paris_gagnes', $donnee['id']);
-        $score_exacts = get_field('score_exacts', $donnee['id']);
-        $serie_en_cours = get_field('serie_en_cours', $donnee['id']);
-        $bonus_utilises = get_field('bonus_utilises', $donnee['id']);
- 
-echo "$nom,$prenom,$pseudo,$email,$rang,{$semaine['date_debut_semaine']},{$semaine['date_fin_semaine']}";
-echo "<br>";
 
-        $rang+=1;
-    endforeach;
-endforeach;                              
-*/
-?>
-<?php
-
-function email_to_pseudo($email) {
-    // Partie avant @
-    $pseudo = explode('@', $email)[0];
-
-    // Remplacer les points par des espaces
-    $pseudo = str_replace('.', ' ', $pseudo);
-
-    // Limiter à 30 caractères
-    if(mb_strlen($pseudo) > 15){
-        $pseudo = mb_substr($pseudo, 0, 15) . '...';
+        return $cat;
     }
-
-    return $pseudo;
 }
 
-function display_joueurs() {
-    global $wpdb;
-    $all_users = $wpdb->get_results("
-        SELECT u.ID, 
-            um_points.meta_value AS total_points,
-            um_pseudo.meta_value AS pseudo,
-            um_classement.meta_value AS classement
-        FROM {$wpdb->users} u
-        INNER JOIN {$wpdb->usermeta} m2 
-            ON u.ID = m2.user_id AND m2.meta_key = '{$wpdb->prefix}capabilities'
-        LEFT JOIN {$wpdb->usermeta} um_points 
-            ON u.ID = um_points.user_id AND um_points.meta_key = 'total_de_points'
-        LEFT JOIN {$wpdb->usermeta} um_pseudo 
-            ON u.ID = um_pseudo.user_id AND um_pseudo.meta_key = 'pseudo'
-        LEFT JOIN {$wpdb->usermeta} um_classement 
-            ON u.ID = um_classement.user_id AND um_classement.meta_key = 'classement'
-        WHERE m2.meta_value LIKE '%joueur_jpl%'
-        ORDER BY 
-            CASE WHEN um_classement.meta_value IS NULL THEN 1 ELSE 0 END ASC,
-            CAST(um_classement.meta_value AS UNSIGNED) ASC,
-            CAST(um_points.meta_value AS UNSIGNED) DESC,
-            COALESCE(um_pseudo.meta_value, u.display_name) ASC
-       
-    ");?>
+/* =========================================================
+ * MENU ÉQUIPE
+ * ========================================================= */
 
-    Rang,
-    Joueur,
-    email,
-    Victoires / Pronos,
-    Score exact,
-    Meilleure série,
-    Points,<br>
+$menu_items = array(
 
-    <?php foreach ( $all_users as $user ):
-                                    
-        $user_id = $user->ID;
-        $prenom  = get_user_meta($user_id, 'first_name', true);
-        $nom     = get_user_meta($user_id, 'last_name', true);
-        $user_data = get_user_by('id', $user_id);
-        $pseudo = get_field('pseudo', 'user_'.$user_id) ?: $user_data->display_name;
-        $email = $user_data->user_email;
-        if (empty($prenom) && empty($nom)) {
-            // Si vide, assigner un pseudo
-            $pseudo = email_to_pseudo($pseudo);   // Mettre un pseudo par défaut si nécessaire
-        }else {
-            // Sinon, concaténer prénom et nom
-            $pseudo = $prenom . ' ' . $nom;
+    'infos' => array(
+        'label' => 'Infos générales',
+        'url'   => $team_permalink,
+    ),
+
+    'actus' => array(
+        'label' => 'Actualités',
+        'url'   => $team_permalink . 'actus/',
+    ),
+
+    'photos' => array(
+        'label' => 'Photos',
+        'url'   => $team_permalink . 'photos/',
+    ),
+
+    'videos' => array(
+        'label' => 'Vidéos',
+        'url'   => $team_permalink . 'videos/',
+    ),
+
+    'calendrier_resultats' => array(
+        'label' => 'Calendrier / Résultats',
+        'url'   => $team_permalink . 'calendrier_resultats/',
+    ),
+
+    'judokas' => array(
+        'label' => 'Judokas',
+        'url'   => $team_permalink . 'judokas/',
+    ),
+);
+
+/* =========================================================
+ * RÉCUPÉRATION DES JUDOKAS
+ * ========================================================= */
+
+global $wpdb;
+
+$ids = $wpdb->get_col(
+    $wpdb->prepare(
+        "
+        SELECT DISTINCT equipe.post_id
+
+        FROM {$wpdb->postmeta} AS equipe
+
+        INNER JOIN {$wpdb->postmeta} AS saison
+            ON saison.post_id = equipe.post_id
+
+        INNER JOIN {$wpdb->posts} AS p
+            ON p.ID = equipe.post_id
+
+        WHERE p.post_type = 'judoka'
+
+        AND equipe.meta_key LIKE
+            'equipes_par_saisons_%%_equipe_judoka'
+
+        AND saison.meta_key LIKE
+            'equipes_par_saisons_%%_saisons'
+
+        AND equipe.meta_key REGEXP
+            '^equipes_par_saisons_[0-9]+_equipe_judoka$'
+
+        AND saison.meta_key = CONCAT(
+            SUBSTRING_INDEX(
+                equipe.meta_key,
+                '_equipe_judoka',
+                1
+            ),
+            '_saisons'
+        )
+
+        AND equipe.meta_value LIKE %s
+
+        AND saison.meta_value = %s
+
+        ORDER BY RAND()
+        ",
+        '%' . $team_id . '%',
+        $saison_value
+    )
+);
+
+$judokas = array();
+
+if ( ! empty( $ids ) ) {
+
+    foreach ( $ids as $id ) {
+
+        $judokas[] = array(
+            'sexe'   => get_field( 'sexe', $id ),
+            'prenom' => get_field( 'prenom_judoka', $id ),
+            'nom'    => get_field( 'nom_judoka', $id ),
+            'post'   => get_post( $id ),
+        );
+    }
+}
+
+/* =========================================================
+ * TRI DES JUDOKAS
+ * ========================================================= */
+
+usort(
+    $judokas,
+    function ( $a, $b ) {
+
+        $sexe_compare = strcasecmp(
+            (string) $a['sexe'],
+            (string) $b['sexe']
+        );
+
+        if ( $sexe_compare !== 0 ) {
+            return $sexe_compare;
         }
-        $current_points = (int) get_field('total_de_points', 'user_' . $user_id);
-        $score_exact = (int) get_field('score_exact', 'user_' . $user_id);
-        $classement = (int) get_field('classement', 'user_' . $user_id);
-        $paris_effectues = (int) get_field('paris_effectues', 'user_' . $user_id);
-        $series_jouees = (int) get_field('series_jouees', 'user_' . $user_id);
-        $meilleure_serie = (int) get_field('meilleure_serie', 'user_' . $user_id);
-        $paris_gagnes = (int) get_field('paris_gagnes', 'user_' . $user_id);
 
-        $ratio = $paris_effectues > 0  ? ceil($paris_gagnes *100 / $paris_effectues)  : 0;
-        $permalink = esc_url( site_url('/module-de-paris-joueur/?user_id=' . $user_id) );
-    ?>
+        $prenom_compare = strcasecmp(
+            (string) $a['prenom'],
+            (string) $b['prenom']
+        );
 
-        
-            <?php echo ($all_ranking_null)?1:$classement;?>,
-        
-        
-            <?php echo $pseudo;?>,
+        if ( $prenom_compare !== 0 ) {
+            return $prenom_compare;
+        }
 
-             <?php echo $email;?>,
-        
-        
-            <?php echo $paris_gagnes;?>/<?php echo $paris_effectues;?> - <?php echo $ratio;?> %,
-        
-        
-            <?php echo $score_exact;?>,
-        
-        
-            <?php echo $meilleure_serie;?>,
-        
-        
-            <?php echo $current_points;?>,
-            <?php echo "<br>";?>
-       
+        return strcasecmp(
+            (string) $a['nom'],
+            (string) $b['nom']
+        );
+    }
+);
 
-<?php endforeach; 
-}
-
-//display_joueurs();
 ?>
 
+<!-- =========================================================
+     PAGE
+========================================================= -->
 
+<article
+    id="post-<?php the_ID(); ?>"
+    <?php post_class( 'jpl-team-page jpl-judokas-page' ); ?>
+    style="
+        --team-color-1: <?php echo esc_attr( $couleur1 ); ?>;
+        --team-color-2: <?php echo esc_attr( $couleur2 ); ?>;
+        --team-gradient: linear-gradient(
+            90deg,
+            <?php echo esc_attr( $couleur1 ); ?> 0%,
+            <?php echo esc_attr( $couleur2 ); ?> 100%
+        );
+    "
+>
+    <!-- =====================================================
+         HEADER ÉQUIPE
+    ====================================================== -->
 
+    <section
+        class="jpl-team-header"
+        style="
+            --team-color-1: <?php echo esc_attr( $couleur1 ); ?>;
+            --team-color-2: <?php echo esc_attr( $couleur2 ); ?>;
+        "
+    >
 
+        <div class="jpl-team-container">
 
+            <div class="jpl-team-identity">
 
+                <!-- LOGO -->
+                <div class="jpl-team-main-logo">
 
+                    <?php if ( $logo_principal_url ) : ?>
 
+                        <a
+                            href="<?php echo esc_url( $team_permalink ); ?>"
+                            class="jpl-team-logo-link"
+                        >
+                            <img
+                                src="<?php echo esc_url( $logo_principal_url ); ?>"
+                                alt="<?php echo esc_attr( $team_name ); ?>"
+                            >
+                        </a>
 
+                    <?php endif; ?>
 
-<script>
-        $(document).ready(function() {
-            $('#saison_value').change(function() {
-                $('.season-selector-form').submit();
-            });
-        });
-    </script>
+                </div>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> class="main-info-eq">
+                <!-- MENU ÉQUIPE -->
+                <nav
+                    class="jpl-team-menu"
+                    aria-label="Navigation <?php echo esc_attr( $team_name ); ?>"
+                >
 
+                    <?php foreach ( $menu_items as $key => $item ) : ?>
 
-
-
-
-
-
-
-
-
-
-<header class="nv.team-header">
-
-
-
-
-
-<section class="nv-header-nav" >
-
-    <div class="container">
-
-        <div class="nv-nav">
-            <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle'))?get_field('logo_circle'):get_the_post_thumbnail_url($post->ID)?>)"></div>
-
-            <div class="menu-eq">
-                <a href="<?php echo $team_permalink;?>infos" class="team-link " <?php echo $style_couleur2;?>>Infos générales</a>
-
-                <a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
-
-                <a href="<?php echo $team_permalink;?>photos" class="team-link" <?php echo $style_couleur2;?>>Photos</a>
-
-                <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
-
-                <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
-
-                <a href="<?php echo $team_permalink;?>judokas" class="team-link nvtl-active " <?php echo $style_couleur1;?>>Judokas</a>
+                        <a
+                            href="<?php echo esc_url( $item['url'] ); ?>"
+                            class="jpl-team-menu-link <?php echo ( 'judokas' === $key ) ? 'is-active' : ''; ?>"
+                            style="
+                                --menu-color: <?php echo esc_attr( 'judokas' === $key ? $couleur1 : $couleur2 ); ?>;
+                                --menu-color-hover: <?php echo esc_attr( 'judokas' === $key ? $couleur2 : $couleur1 ); ?>;
+                            "
+                        >
+                            <?php echo esc_html( $item['label'] ); ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
             </div>
-
         </div>
-        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title();?></a> > Judokas</span>
-
-    </div>
-
-</section>
-
-
-
-
-
-       
-
-
-
-
-
-	</header>
-
-
-
-
-
-		<div id="">
-
-
-
-
-
-			
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-	<div id="tabs-6">
-
-
-
-
-
-		<?php 
-
-            //au lieu de 
-            global $wpdb;
-
-            $equipe_id = get_the_ID();
-
-            $ids = $wpdb->get_col(
-                $wpdb->prepare(
-                    "
-                    SELECT DISTINCT equipe.post_id
-                    FROM {$wpdb->postmeta} AS equipe
-
-                    INNER JOIN {$wpdb->postmeta} AS saison
-                        ON saison.post_id = equipe.post_id
-
-                    INNER JOIN {$wpdb->posts} AS p
-                        ON p.ID = equipe.post_id
-
-                    WHERE p.post_type = 'judoka'
-
-                    AND equipe.meta_key LIKE 'equipes_par_saisons_%_equipe_judoka'
-                    AND saison.meta_key LIKE 'equipes_par_saisons_%_saisons'
-
-                    AND equipe.meta_key REGEXP
-                        '^equipes_par_saisons_[0-9]+_equipe_judoka$'
-
-                    AND saison.meta_key = CONCAT(
-                        SUBSTRING_INDEX(
-                            equipe.meta_key,
-                            '_equipe_judoka',
-                            1
-                        ),
-                        '_saisons'
-                    )
-
-                    AND equipe.meta_value LIKE %s
-                    AND saison.meta_value = %s
-                    ",
-                    '%' . $equipe_id . '%',
-                    $saison_value
-                )
-            );
-
-      
-            
-           $judokas = [];
-
-            foreach ($ids as $id) {
-                $judokas[] = [
-                    'sexe'   => get_field('sexe', $id),
-                    'prenom' => get_field('prenom_judoka', $id),
-                    'nom'    => get_field('nom_judoka', $id),
-                    'post'   => get_post($id),
-                ];
-            }
-
-            usort($judokas, function ($a, $b) {
-                return strcasecmp($a['sexe'], $b['sexe'])
-                    ?: strcasecmp($a['prenom'], $b['prenom'])
-                    ?: strcasecmp($a['nom'], $b['nom']);
-            });
-           
-
-
-
-
-
-	?>
-
-
-
-
-
-		<section class="nv-title-grade">
-        <div class="season-selector-box">
-			<form Method="GET" ACTION="" class="season-selector-form">
-                <select name="saison_value" id="saison_value" class="season-selector-select">
-                    <?php foreach ($saisons as $saison) {?>
-                        <option value="<?php echo $saison;?>" <?php echo ($saison_value==$saison)?"selected":"";?>><?php echo $saison;?></option>
-
-                    <?php }?>
-					
-				</select>
-			</form>
-		</div>
-
-
-
-
-
-		<div class="container section-page-jdks">
-
-
-
-
-
-			<div class="nv-title">
-
-
-
-
-
-				<h2 class="title-grade"><?php the_title(); ?> - JUDOKAS</h2>
-
-
-
-
-
-				<div class="nv-judokas">
-
-
-
-
-
-					<?php foreach ($judokas as $judoka_array):
-
-                        $judoka = $judoka_array['post'];
-
-
-
-
-                        if(get_field('masquer',$judoka->ID)){
-                            continue;
-                        }
-					
-
-
-
-
-
-					$nom=get_field('nom_judoka',$judoka->ID);
-
-
-
-
-
-					$prenom=get_field('prenom_judoka',$judoka->ID);
-
-
-
-
-
-					$cat_poids=get_field('categorie_de_poids',$judoka->ID);
-
-
-
-
-
-					$pays=get_field('pays',$judoka->ID);
-
-
-
-
-
-					$cat_age=get_field('categorie_dage',$judoka->ID);
-
-
-
-
-
-					$date_naissance=get_field('date_de_naissance',$judoka->ID);
-
-
-
-
-
-					$image=get_the_post_thumbnail_url($judoka->ID)?get_the_post_thumbnail_url ($judoka->ID):'/wp-content/uploads/2023/09/profil.jpg';
-
-
-
-
-
-					?>
-
-
-
-
-
-				
-
-
-
-
-
-                <div class="judoka">
-
-
-
-
-                <a  href="<?php echo get_the_permalink($judoka->ID);?> " >
-                    <div class="nv-img-judoka" style="background-image:url(<?php echo esc_url($image); ?>)">
-                            </div>
+    </section>
+    <!-- =====================================================
+         CONTENU
+    ====================================================== -->
+
+    <section class="jpl-judokas-content">
+
+        <div class="jpl-team-container">
+			<div class="jpl-team-topbar" style="max-width:1401px;margin:auto;">
+                <a
+                    href="<?php echo esc_url(home_url('/equipes-judo-pro-league/')); ?>"
+                    class="jpl-team-back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Retour aux équipes</span>
+                </a>
+				                <div class="jpl-team-breadcrumb">
+                    <a href="<?php echo esc_url(home_url('/equipes-judo-pro-league/')); ?>">
+                        Équipes
                     </a>
+                    <span>/</span>
+                    <a href="<?php echo esc_url($team_permalink . 'infos/'); ?>">
+                        <?php echo esc_html(get_the_title()); ?>
+                    </a>
+                    <span>/</span>
+                    <strong>Judokas</strong>
+                </div>	
+            </div>
+            <!-- =================================================
+                 HEADER PAGE
+            ================================================== -->
 
+            <div class="jpl-judokas-header">
 
+                <div>
 
+                    <span class="jpl-page-eyebrow">
+                        <?php echo esc_html( $team_name ); ?>
+                    </span>
 
-                    <div class="nv-info-judoka">
+                    <h1 class="jpl-page-title">
+                        Les judokas
+                    </h1>
 
-
-
-
-
-                        <h3 class="judoka-name"><?php echo $prenom.' '.$nom; ?></h3>
-
-
-
-
-
-                        <div class="sep_judoka"></div>
-
-
-
-
-
-                        <div class="nv-cat">
-
-
-
-
-
-                        <span>Catégorie : <?php echo get_correct_categorie($saison_value,$cat_poids);?>kg</span>
-
-
-
-
-
-
-                            <a href="<?php echo get_the_permalink($judoka->ID);?> "  class="btn-eq-clr" style="background: <?php echo $couleur1;?>; color: #fff !important;border-radius: 50px !important;
-    padding: 3px 20px;">Voir +</a>
-
-
-
-
-
-                        </div>
-
-
-
-
-
-                    </div>
-
-
-
-
+                    <p class="jpl-page-description">
+                        Découvrez les judokas de l'équipe pour la saison
+                        <?php echo esc_html( $saison_value ); ?>.
+                    </p>
 
                 </div>
 
 
+<!-- SÉLECTEUR SAISON -->
 
+<?php if ( ! empty( $saisons ) && is_array( $saisons ) ) : ?>
 
+    <form
+        method="GET"
+        action="<?php echo esc_url( $team_permalink . 'judokas/' ); ?>"
+        class="jpl-season-form"
+    >
 
-				<?php endforeach; ?>
+        <div class="jpl-season-select-wrap">
 
+            <select
+                name="saison_value"
+                id="saison_value"
+                class="season-selector-select"
+            >
 
+                <?php foreach ( $saisons as $saison ) : ?>
 
+                    <option
+                        value="<?php echo esc_attr( $saison ); ?>"
+                        <?php selected( $saison_value, $saison ); ?>
+                    >
+                        Saison <?php echo esc_html( $saison ); ?>
+                    </option>
 
+                <?php endforeach; ?>
 
-				</div>
+            </select>
 
+        </div>
 
+    </form>
 
+<?php endif; ?>
 
+            </div>
 
-			</div>
 
+            <!-- =================================================
+                 META
+            ================================================== -->
 
+            <div class="jpl-judokas-meta">
 
+                <span>
+                    <strong><?php echo count( $judokas ); ?></strong>
+                    judoka<?php echo count( $judokas ) > 1 ? 's' : ''; ?>
+                </span>
 
+                <span class="jpl-meta-dot"></span>
 
-		</div>
+                <span>
+                    Saison <?php echo esc_html( $saison_value ); ?>
+                </span>
 
+            </div>
 
 
+            <!-- =================================================
+                 GRID JUDOKAS
+            ================================================== -->
 
+            <?php if ( ! empty( $judokas ) ) : ?>
 
-	</section>
+                <div class="jpl-judokas-grid">
 
+                    <?php foreach ( $judokas as $judoka_array ) : ?>
 
+                        <?php
 
+                        $judoka = $judoka_array['post'];
 
+                        if ( ! $judoka ) {
+                            continue;
+                        }
 
-    
+                        if ( get_field( 'masquer', $judoka->ID ) ) {
+                            continue;
+                        }
 
+                        $nom = get_field(
+                            'nom_judoka',
+                            $judoka->ID
+                        );
 
+                        $prenom = get_field(
+                            'prenom_judoka',
+                            $judoka->ID
+                        );
 
+                        $cat_poids = get_field(
+                            'categorie_de_poids',
+                            $judoka->ID
+                        );
 
+                        $pays = get_field(
+                            'pays',
+                            $judoka->ID
+                        );
 
-  </div>
+                        $cat_age = get_field(
+                            'categorie_dage',
+                            $judoka->ID
+                        );
 
+                        $date_naissance = get_field(
+                            'date_de_naissance',
+                            $judoka->ID
+                        );
 
+                        $image = get_the_post_thumbnail_url(
+                            $judoka->ID,
+                            'large'
+                        );
 
+                        if ( ! $image ) {
+                            $image = home_url(
+                                '/wp-content/uploads/2023/09/profil.jpg'
+                            );
+                        }
 
+                        $judoka_url = get_permalink( $judoka->ID );
 
-	
+                        ?>
 
+                        <article class="jpl-judoka-card">
 
+                            <!-- PHOTO -->
 
+                            <a
+                                href="<?php echo esc_url( $judoka_url ); ?>"
+                                class="jpl-judoka-image-link"
+                            >
 
+                                <div class="jpl-judoka-image">
 
+                                    <img
+                                        src="<?php echo esc_url( $image ); ?>"
+                                        alt="<?php echo esc_attr( $prenom . ' ' . $nom ); ?>"
+                                        loading="lazy"
+                                    >
 
+                                </div>
 
+                            </a>
 
 
+                            <!-- INFORMATIONS -->
 
+                            <div class="jpl-judoka-card-content">
 
+                                <h2 class="jpl-judoka-name">
 
+                                    <?php echo esc_html( trim( $prenom . ' ' . $nom ) ); ?>
 
+                                </h2>
 
 
+                                <?php if ( $cat_poids ) : ?>
 
+                                    <div class="jpl-judoka-category">
 
-  </div>
+                                        <span>Catégorie</span>
 
+                                        <strong>
+                                            <?php
+                                            echo esc_html(
+                                                get_correct_categorie(
+                                                    $saison_value,
+                                                    $cat_poids
+                                                )
+                                            );
+                                            ?>kg
+                                        </strong>
 
+                                    </div>
 
+                                <?php endif; ?>
 
 
+                                <a
+                                    href="<?php echo esc_url( $judoka_url ); ?>"
+                                    class="jpl-judoka-link"
+                                >
 
+                                    <span>Voir la fiche</span>
 
+                                    <i class="fa-solid fa-arrow-right"></i>
 
+                                </a>
 
+                            </div>
 
+                        </article>
 
+                    <?php endforeach; ?>
 
+                </div>
 
+            <?php else : ?>
 
+                <div class="jpl-judokas-empty">
 
+                    <div class="jpl-empty-icon">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </div>
 
+                    <h2>
+                        Aucun judoka
+                    </h2>
 
+                    <p>
+                        Aucun judoka n'est disponible pour la saison
+                        <?php echo esc_html( $saison_value ); ?>.
+                    </p>
 
+                </div>
 
+            <?php endif; ?>
 
 
+        </div>
 
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </section>
 
 </article>
-<style>
-    .team-link:hover {
-        background: <?php echo esc_attr($couleur1); ?> !important;
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const select = document.getElementById('saison_value');
+    const form = document.querySelector('.jpl-season-form');
+
+    if (!select || !form) {
+        return;
     }
+
+    select.addEventListener('change', function () {
+        form.submit();
+    });
+
+});
+</script>
+
+<style>
+/* =========================================================
+   VARIABLES
+========================================================= */
+.jpl-judokas-page {
+    --team-gradient:
+        linear-gradient(
+            90deg,
+            var(--team-color-1),
+            var(--team-color-2)
+        );
+}
+/* =========================================================
+   CONTAINER
+========================================================= */
+.jpl-judokas-page .jpl-team-container {
+    width: min(1400px, calc(100% - 60px));
+    margin: 0 auto;
+}
+.jpl-judokas-content {
+    background: #f7f7f9;
+    padding: 28px 0 80px;
+}
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+.jpl-judokas-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 18px;
+}
+.jpl-page-eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--team-color-1);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+.jpl-page-title {
+    margin: 0;
+    color: #16161b;
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 800;
+    line-height: 1.05;
+}
+.jpl-page-description {
+    max-width: 620px;
+    margin: 14px 0 0;
+    color: #777780;
+    font-size: 15px;
+    line-height: 1.7;
+}
+/* =========================================================
+   META
+========================================================= */
+.jpl-judokas-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    color: #85858e;
+    font-size: 13px;
+}
+.jpl-judokas-meta strong {
+    color: #17171c;
+}
+.jpl-meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--team-color-1);
+}
+/* =========================================================
+   GRID
+========================================================= */
+.jpl-judokas-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 22px;
+}
+/* =========================================================
+   CARTE
+========================================================= */
+
+.jpl-judoka-card {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e8e8ed;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(20,20,40,.055);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+}
+
+.jpl-judoka-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--team-gradient);
+    z-index: 2;
+}
+
+.jpl-judoka-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 35px rgba(20,20,40,.10);
+    border-color: rgba(0,0,0,.08);
+}
+/* =========================================================
+   PHOTO
+========================================================= */
+.jpl-judoka-image-link {
+    display: block;
+    text-decoration: none !important;
+}
+.jpl-judoka-image {
+    width: 100%;
+    aspect-ratio: 1 / 1.08;
+    overflow: hidden;
+    background: #f0f0f3;
+}
+
+.jpl-judoka-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+.jpl-judoka-card:hover .jpl-judoka-image img {
+    transform: scale(1.04);
+}
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+.jpl-judoka-card-content {
+    padding: 20px;
+    min-height: 195px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.jpl-judoka-number {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--team-color-1);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.jpl-judoka-name {
+    margin: 0 0 18px;
+    color: #16161b;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+/* =========================================================
+   CATÉGORIE
+========================================================= */
+.jpl-judoka-category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 13px;
+    margin-bottom: 18px;
+    border-top: 1px solid #eeeeF1;
+    color: #85858e;
+    font-size: 18px;
+}
+
+.jpl-judoka-category strong {
+    padding: 6px 10px;
+    border-radius: 50px;
+    background: rgba(0,0,0,.04);
+    color: #17171c;
+    font-size: 18px;
+}
+/* =========================================================
+   BOUTON
+========================================================= */
+
+.jpl-judoka-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 14px;
+    border-radius: 10px;
+    background: var(--team-gradient);
+    color: #fff !important;
+    font-size: 21px;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.jpl-judoka-link i {
+    font-size: 11px;
+    transition: transform .25s ease;
+}
+
+.jpl-judoka-link:hover {
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(0,0,0,.12);
+}
+
+.jpl-judoka-link:hover i {
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.jpl-judokas-empty {
+    padding: 70px 30px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e7e7ec;
+    border-radius: 18px;
+}
+
+.jpl-empty-icon {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0,0,0,.04);
+    color: var(--team-color-1);
+    font-size: 20px;
+}
+
+.jpl-judokas-empty h2 {
+    margin: 0 0 8px;
+    color: #17171c;
+    font-size: 22px;
+}
+
+.jpl-judokas-empty p {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+}
+
 </style>

@@ -1230,3 +1230,33 @@ add_filter('map_meta_cap', function ($caps, $cap, $user_id, $args) {
 
 }, 10, 4);
 
+add_action('admin_menu', function () {
+
+    if (!current_user_can('gestionnaire_contenu')) {
+        return;
+    }
+
+    // Masquer le CPT "rencontre"
+    remove_menu_page('edit.php?post_type=rencontre');
+    remove_menu_page('edit.php?post_type=partenaires');
+    remove_menu_page('edit.php?post_type=judo_pro_league');
+    remove_menu_page('edit.php?post_type=video_youtube');
+    remove_menu_page('edit.php?post_type=ligue');
+    remove_menu_page('edit.php?post_type=demande');
+    remove_menu_page('edit.php?post_type=pari');
+    remove_menu_page('edit.php?post_type=serie_de_paris');
+    remove_menu_page('edit.php?post_type=status_ligue_joueur');
+    remove_menu_page('edit.php?post_type=champ_semaine');
+    remove_menu_page('edit.php?post_type=combat');
+    remove_menu_page('edit.php?post_type=semaine');
+    remove_menu_page('edit.php?post_type=ippon');
+     // Commentaires
+    remove_menu_page('edit-comments.php');
+
+    // Outils
+    remove_menu_page('tools.php');
+
+    // Yoast SEO
+    remove_menu_page('wpseo_page_academy');
+
+}, 999);

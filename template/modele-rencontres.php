@@ -16,7 +16,7 @@
 
 
 get_header();
-
+echo "test test test";
 
 $equipes = get_posts(array(
 

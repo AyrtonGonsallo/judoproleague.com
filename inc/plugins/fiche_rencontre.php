@@ -32,8 +32,8 @@ function fiche_rencontre($result,$post_id=null)
 
 				the_row();
 
-				$logo1=(get_field('logo_circle', $equipe1->ID))?get_field('logo_circle', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
-				$logo2=(get_field('logo_circle', $equipe2->ID))?get_field('logo_circle', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
+				$logo1=(get_field('logo_principal', $equipe1->ID))?get_field('logo_principal', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
+				$logo2=(get_field('logo_principal', $equipe2->ID))?get_field('logo_principal', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
 				$ncge1 = get_sub_field('nombre_de_combat_gagne_equipe_1' );
 				$pts_e1 = get_sub_field('points_equipe_1' );
 				$pts_e2 = get_sub_field('points_equipe_2' );
@@ -282,7 +282,7 @@ function fiche_rencontre($result,$post_id=null)
 
 							<div class="nv-equip-1">
 							<a class="nv-renc-equip-link" href="<?php echo get_the_permalink($equipe2->ID  );?>">
-								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?></span>
+								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?>ee</span>
 								<img src="<?php echo $logo2; ?>" class="logo-eqi">
 							</a>
 							</div>

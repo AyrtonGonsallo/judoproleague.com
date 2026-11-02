@@ -30,7 +30,7 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
     <h2 class="stat-title">STATISTIQUES</h2>
      <div class="bg-stat">
         <div class="col1-stat">
-            <h3 class="">ÉQUIPES</h3>
+            <h3 class="">ÉQUIPES dd</h3>
             
             <div class="flx-col1"><h4 class="">NOMBRE DE PTS MARQUÉS</h4> <h4 class="">IPPONS</h4></div>
                 <div class="col-flx-stat">
@@ -49,13 +49,13 @@ $classement_equipes=get_classement($rencontres,$saison_value,5);
                             ?>
                                 <div class="div-eq <?php if($i==0){echo "premier";}?>">
                                     <div class="titre-eq">
-                                        <?php echo $d[0]['nom'];?>
+                                        <?php echo $d[0]['abreviation'];?>
                                     </div>
                                     <div class="div-content-eq"> 
                                         <div class="div-num-conf">
                                             <img src="<?php echo $d[0]['image'];?>" alt="<?php echo $d[0]['image'];?>">
                                             <span class="conf-premier"><?php echo $d[0]['conference'];?></span>
-                                            <span class="nom-premier"><?php echo $d[0]['nom'];?></span>
+                                            <span class="nom-premier"><?php echo $d[0]['abreviation'];?></span>
                                         </div>
                                         <span class="num-eq"><?php echo $d[0]['points_marqués'];?></span>
                                     </div>

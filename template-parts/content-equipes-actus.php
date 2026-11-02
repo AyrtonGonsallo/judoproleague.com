@@ -1,563 +1,405 @@
 <?php
-
-
-
-
-
 /**
-
-
-
-
-
- * Template part for displaying posts
-
-
-
-
-
+ * Template part : Actualités équipe
  *
-
-
-
-
-
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
-
-
-
-
-
- *
-
-
-
-
-
  * @package pro-league
-
-
-
-
-
  */
 
+$site          = get_field('site_web');
+$description   = get_field('presentation');
+$directeur     = get_field('directeur');
 
+$couleur1 = get_field('couleur1');
+$couleur1 = $couleur1 ? $couleur1 : '#040b89';
 
+$couleur2 = get_field('couleur2');
+$couleur2 = $couleur2 ? $couleur2 : '#e00078';
 
+$image = get_field('logo_principal')
+    ? get_field('logo_principal')
+    : get_the_post_thumbnail_url($post->ID, 'thumbnail');
 
-$site = get_field('site_web');
-
-
-
-
-
-$description = get_field('presentation'); 
-
-
-
-
-
-$directeur = get_field('directeur'); 
-
-
-
-
-
-$couleur1 = get_field('couleur1'); 
-
-
-
-
-
-$style_couleur1=($couleur1)?'style="background: '.$couleur1.';"':'style="background: #e5332a;"';
-
-
-
-$image=get_field('logo_principal')?get_field('logo_principal'):get_the_post_thumbnail_url($post->ID,"thumbnail");
-
-$couleur2 = get_field('couleur2'); 
-
-
-
-
-
-$style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="background: #990021;"';
-
-
-
-
-
-$entraineur = get_field('entraineur'); 
-
-
-
-
-
-$date_creation = get_field('date_de_creation'); 
-
-
-
-
-
-$reseaux= get_field('reseaux_sociaux');
-
-
-
-
-
-$palmares = get_field('palmares');
-
-
-
-
-
+$entraineur    = get_field('entraineur');
+$date_creation = get_field('date_de_creation');
+$reseaux       = get_field('reseaux_sociaux');
+$palmares      = get_field('palmares');
 $galerie_photos = get_field('galerie_photos');
-
-
-
-
-
-$gender=  get_field('genre');
+$gender        = get_field('genre');
 
 $current_fp = get_query_var('fpage');
 
 $team_permalink = get_the_permalink($post->ID);
 
+$logo_circle = get_field('logo_circle')
+    ? get_field('logo_circle')
+    : get_the_post_thumbnail_url($post->ID);
 
+/* =========================================================
+ * DONNÉES ÉQUIPE
+ * ========================================================= */
+$title       = get_field('titre_de_la_page', $team_id);
+$description = get_field('presentation', $team_id);
+$directeur   = get_field('directeur', $team_id);
+$entraineur  = get_field('entraineur', $team_id);
+$partenaires = get_field('partenaires', $team_id);
+$reseaux     = get_field('reseaux_sociaux', $team_id);
 
-?>
+$couleur1 = get_field('couleur1', $team_id);
+$couleur2 = get_field('couleur2', $team_id);
 
+$couleur1 = $couleur1 ? $couleur1 : '#7c3aed';
+$couleur2 = $couleur2 ? $couleur2 : '#111111';
 
+$logo_principal = get_field('logo_principal', $team_id);
+$logo_circle    = get_field('logo_circle', $team_id);
 
+$logo_principal_url = $logo_principal
+    ? $logo_principal
+    : get_the_post_thumbnail_url($team_id, 'full');
 
+$logo_circle_url = $logo_circle
+    ? $logo_circle
+    : $logo_principal_url;
 
-
-
-
-
-
-
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-
-
-<header class="nv.team-header">
-
-
-
-
-
-<section class="nv-header-nav" >
-
-    <div class="container">
-
-        <div class="nv-nav">
-                    <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle'))?get_field('logo_circle'):get_the_post_thumbnail_url($post->ID)?>)"></div>
-
- <div class="menu-eq">
-            <a href="<?php echo $team_permalink;?>infos" class="team-link" <?php echo $style_couleur2;?>>Infos générales</a>
-
-            <a href="<?php echo $team_permalink;?>actus" class="team-link  nvtl-active " <?php echo $style_couleur1;?>>Actualités</a>
-
-            <a href="<?php echo $team_permalink;?>photos" class="team-link" <?php echo $style_couleur2;?>>Photos</a>
-
-            <a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
-
-            <a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
-
-            <a href="<?php echo $team_permalink;?>judokas" class="team-link" <?php echo $style_couleur2;?>>Judokas</a>
-            </div>
-
-        </div>
-        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title();?></a> > Actualités</span>
-
-    </div>
-
-</section>
-
-       
-
-	</header>
-
-		<div id="">
-
-			
-
-  
-
-
-
-	<div id="tabs-6">
-
-		<?php 
-
-$args=array(
-	'post_type'=> 'post',
-	'posts_per_page' => -1,
-	'orderby' => 'post_date', 
-	'order' => 'DESC',
-	'meta_query' => array(
-	'relation' => 'AND',
-		array(
-		'key' => 'equipes', // recherche sur le champ équipe de type relation
-		'value' => '"' . get_the_ID() . '"', // id de l'équipe
-		'compare' => 'LIKE'
-		)
-	),
+$team_permalink = trailingslashit(get_permalink($team_id));
+$team_name      = get_the_title($team_id);
+$photo_du_staff = get_field('photo_du_staff', $team_id);
+/* =========================================================
+ * MENU ÉQUIPE
+ * ========================================================= */
+$menu_items = array(
+    'infos' => array(
+        'label' => 'Infos générales',
+        'url'   => $team_permalink,
+    ),
+    'actus' => array(
+        'label' => 'Actualités',
+        'url'   => $team_permalink . 'actus/',
+    ),
+    'photos' => array(
+        'label' => 'Photos',
+        'url'   => $team_permalink . 'photos/',
+    ),
+    'videos' => array(
+        'label' => 'Vidéos',
+        'url'   => $team_permalink . 'videos/',
+    ),
+    'calendrier_resultats' => array(
+        'label' => 'Calendrier / Résultats',
+        'url'   => $team_permalink . 'calendrier_resultats/',
+    ),
+    'judokas' => array(
+        'label' => 'Judokas',
+        'url'   => $team_permalink . 'judokas/',
+    ),
 );
-$news=get_posts($args);
+
+
+
+
+
+
 
 ?>
 
 
+<article
+    id="post-<?php the_ID(); ?>"
+    <?php post_class('jpl-team-page'); ?>
+    style="
+        --team-color-1: <?php echo esc_attr($couleur1); ?>;
+        --team-color-2: <?php echo esc_attr($couleur2); ?>;
+        --team-gradient: linear-gradient(
+            90deg,
+            <?php echo esc_attr($couleur1); ?> 0%,
+            <?php echo esc_attr($couleur2); ?> 100%
+        );
+    "
+>
 
-       
 
-	<?php //var_dump($news);?>
+    <!-- =========================================================
+         HEADER ÉQUIPE
+    ========================================================== -->
+    <section class="jpl-team-header">
+        <div class="jpl-team-container">
+            <div class="jpl-team-identity">
+				<div class="menu-equipe">
+                <div class="jpl-team-main-logo">
+                    <?php if ($logo_principal_url): ?>
+                        <img
+                            src="<?php echo esc_url($logo_principal_url); ?>"
+                            alt="<?php echo esc_attr($team_name); ?>"
+                        >
+<!--                     <?php endif; ?>
+                </div>
+                <div class="jpl-team-identity-content">
+                    <span class="jpl-team-eyebrow">
+                        Judo Pro League
+                    </span>
 
-    <section class="section-bloc-articles">
+                    <?php if ($saison_value): ?>
+                        <span class="jpl-team-season">
+                            Saison <?php echo esc_html($saison_value); ?>
+                        </span>
+                    <?php endif; ?> -->
+                </div>
+            </div>
+			            <!-- MENU ÉQUIPE -->
+            <nav class="jpl-team-menu">
+                <?php foreach ($menu_items as $key => $item): ?>
+                    <a
+                        href="<?php echo esc_url($item['url']); ?>"
+                        class="jpl-team-menu-link <?php echo $key === 'actus' ? 'is-active' : ''; ?>"
+                        <?php if ($key === 'actus'): ?>
+                            style="
+                                --menu-color: <?php echo esc_attr($couleur1); ?>;
+                                --menu-color-hover: <?php echo esc_attr($couleur2); ?>;
+                            "
+                        <?php else: ?>
+                            style="
+                                --menu-color: <?php echo esc_attr($couleur2); ?>;
+                                --menu-color-hover: <?php echo esc_attr($couleur1); ?>;
+                            "
+                        <?php endif; ?>
+                    >
+                        <?php echo esc_html($item['label']); ?>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+		  </div>
+        </div>
+    </section>
+    <!-- =========================================================
+         CONTENU
+    ========================================================== -->
+    <div class="jpl-team-container">
+            <div class="jpl-team-topbar">
+                <a
+                    href="<?php echo esc_url(home_url('/equipes-judo-pro-league/')); ?>"
+                    class="jpl-team-back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Retour aux équipes</span>
+                </a>
+				                <div class="jpl-team-breadcrumb">
+                    <a href="<?php echo esc_url(home_url('/equipes-judo-pro-league/')); ?>">
+                        Équipes
+                    </a>
+                    <span>/</span>
+                    <a href="<?php echo esc_url($team_permalink . 'infos/'); ?>">
+                        <?php echo esc_html(get_the_title()); ?>
+                    </a>
+                    <span>/</span>
+                    <strong>Actualités</strong>
+                </div>	
+            </div>
+        <!-- =====================================================
+             HERO DE SECTION
+        ====================================================== -->
+        <section class="jpl-team-section-header">
+                <div>
 
-            <div class="news-2-col">
+                    <span class="jpl-page-eyebrow">
+                        <?php echo esc_html( $team_name ); ?>
+                    </span>
 
-            <?php 
+                    <h1 class="jpl-page-title">
+                        Actualités
+                    </h1>
 
-                if( $news ): 
+                    <p class="jpl-page-description">
+                        Découvrez les actualités de l'équipe.
+<!--                         <?php echo esc_html( $saison_value ); ?>. -->
+                    </p>
 
-                    foreach( $news as $my_post ): 
+                </div>
+        </section>
+        <!-- =====================================================
+             ACTUALITÉS
+        ====================================================== -->
+        <?php
 
-						$video   = get_field('videos_a_la_une');
+        $args = array(
+            'post_type'      => 'post',
+            'posts_per_page' => -1,
+            'orderby'        => 'post_date',
+            'order'          => 'DESC',
+            'meta_query'     => array(
+                'relation' => 'AND',
+                array(
+                    'key'     => 'equipes',
+                    'value'   => '"' . get_the_ID() . '"',
+                    'compare' => 'LIKE'
+                )
+            ),
+        );
 
-						$video = get_field( "videos_a_la_une", $my_post->ID );
+        $news = get_posts($args);
 
-                        $img= get_the_post_thumbnail_url($my_post->ID,'full');
+        ?>
 
-                        $url_externe=get_field('activer_lien_poule', $my_post->ID);
 
-                        if($url_externe=='Activer'){ 
+        <?php if ($news) : ?>
 
-                            $url=get_field('lien_classement', $my_post->ID);
+            <section class="jpl-news-grid">
 
-                        }
+                <?php foreach ($news as $my_post) : ?>
 
-                        else{
+                    <?php
 
-                            $url=get_permalink($my_post->ID);
+                    $video = get_field(
+                        'videos_a_la_une',
+                        $my_post->ID
+                    );
 
-                        }
+                    $img = get_the_post_thumbnail_url(
+                        $my_post->ID,
+                        'full'
+                    );
 
-                        $content = $my_post->post_content;
+                    $url_externe = get_field(
+                        'activer_lien_poule',
+                        $my_post->ID
+                    );
 
-                        $excerpt = substr($content, 0, 230);
+                    if ($url_externe === 'Activer') {
+
+                        $url = get_field(
+                            'lien_classement',
+                            $my_post->ID
+                        );
+
+                    } else {
+
+                        $url = get_permalink(
+                            $my_post->ID
+                        );
+
+                    }
+
+                    if (!$url) {
+                        $url = get_permalink($my_post->ID);
+                    }
 
                     ?>
 
-                    <div class="display-news-2-col">
 
-						<?php if($video==null){?><a href="<?= $url; ?>" class="news-link-2-col"><?php }?>
+                    <article class="jpl-news-card">
 
-                        <div class="news-img-2-col" style="background-image: url(<?= $img; ?>);">
+                        <a
+                            href="<?php echo esc_url($url); ?>"
+                            class="jpl-news-card-link"
+                        >
 
-							<?php
 
-							    if($video!=null){
+                            <!-- IMAGE -->
 
-									$id = explode('watch?v=', $video)[1];//https://www.youtube.com/watch?v=EBmDX7MNHSI
+                            <div class="jpl-news-image">
 
-									echo '<div class="video video-grande-taille">'.
+                                <?php if ($img) : ?>
 
-                    do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="640" height="480" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').
+                                    <img
+                                        src="<?php echo esc_url($img); ?>"
+                                        alt="<?php echo esc_attr(
+                                            $my_post->post_title
+                                        ); ?>"
+                                        loading="lazy"
+                                    >
 
-                '</div>';
+                                <?php else : ?>
 
-							echo '<div class="video video-mobile">'.
+                                    <div class="jpl-news-placeholder">
+                                        <i class="fa-solid fa-newspaper"></i>
+                                    </div>
 
-                    do_shortcode('[video_lightbox_youtube video_id="'.$id.'" width="300" height="160" anchor="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]').
+                                <?php endif; ?>
 
-                '</div>';?>
 
-								<?php
+                                <?php if ($video) : ?>
 
-								}
+                                    <span class="jpl-news-video-icon">
 
-							?>
+                                        <i class="fa-solid fa-play"></i>
 
-						</div>
+                                    </span>
 
-						<?php if($video==null){ ?></a><?php }?>
+                                <?php endif; ?>
 
-                        <div class="nv-right-content">
+                            </div>
 
-                            <a href="<?= $url; ?>" class="news-link-2-col"><h3 class="nv-title-news-3-col"><?= $my_post->post_title?></h3></a>
 
-                            <span style="color:<?php echo $couleur1;?>"><?php $date=get_the_date('j F Y', $my_post->ID ); echo $date; ?></span>
+                            <!-- CONTENU -->
 
-                        </div>
+                            <div class="jpl-news-content">
 
-                    </div>
+                                <span
+                                    class="jpl-news-date"
+                                    style="
+                                        color: <?php echo esc_attr($couleur1); ?>;
+                                    "
+                                >
+                                    <?php
+                                    echo esc_html(
+                                        get_the_date(
+                                            'j F Y',
+                                            $my_post->ID
+                                        )
+                                    );
+                                    ?>
+                                </span>
 
-<?php endforeach; ?>
 
-<?php endif; ?>        
+                                <h3>
 
-</div>
+                                    <?php
+                                    echo esc_html(
+                                        $my_post->post_title
+                                    );
+                                    ?>
 
-</section>
+                                </h3>
 
-  </div>
 
-	
+<!--                                 <span class="jpl-news-more">
 
+                                    Lire l'article
 
+                                    <i class="fa-solid fa-arrow-right"></i>
 
+                                </span>
+ -->
+                            </div>
 
+                        </a>
 
-  </div>
+                    </article>
 
 
+                <?php endforeach; ?>
 
+            </section>
 
 
+        <?php else : ?>
 
 
-		<?php
+            <section class="jpl-team-empty">
 
+                <div class="jpl-team-empty-icon">
 
+                    <i class="fa-solid fa-newspaper"></i>
 
+                </div>
 
+                <h2>
+                    Aucune actualité
+                </h2>
+                <p>
+                    Aucune actualité n'est actuellement disponible pour cette équipe.
+                </p>
+            </section>
+        <?php endif; ?>
 
-			if($palmares){
-
-
-
-
-
-		?>
-
-
-
-
-
-		<div class="palmares">
-
-
-
-
-
-            <h2>Palmarès</h2>
-
-
-
-
-
-            <?php 
-
-
-
-
-
-            foreach($palmares as $palma){
-
-
-
-
-
-                echo '<p class="p-palmares">'.$palma["championnat"].'</p>';
-
-
-
-
-
-            }}
-
-
-
-
-
-            ?>
-
-
-
-
-
-        </div>
-
-
-
-
-
-		
-
-
-
-	</div><!-- .entry-content -->
-
-
-
-
-
-	
-
-
-
-
-
-	<?php 
-
-
-
-
-
-		$args=array(
-
-
-
-
-
-			'post_type'=> 'equipes',
-
-
-
-
-
-			'posts_per_page' => -1
-
-
-
-
-
-		);
-
-
-
-
-
-		$liste_equipes=get_posts($args);
-
-
-
-
-
-	?>
-
-
-
-
-
-
-
-
-
-    <?php
-
-
-
-
-
-            while (have_rows('liste_des_partenaires'))
-
-
-
-
-
-    {
-
-
-
-
-
-        the_row();
-
-
-
-
-
-        $style=get_row_layout();
-
-
-
-
-
-        //site_debug("style=$style");
-
-
-
-
-
-        $section=false;
-
-
-
-
-
-        switch($style)
-
-
-
-
-
-        {    
-
-
-
-
-
-            case 'partenaires':
-
-
-
-
-
-            require_once (THEMEDIR.'inc/acf-blocs/bloc-partenaires.php');
-
-
-
-
-
-            $section=bloc_partenaires();
-
-
-
-
-
-            break;
-
-
-
-
-
-        }
-
-
-
-
-
-    }
-
-
-
-
-
-    ?>
-
-
-
-
-
-	
-
-
-
-
-
+    </div>
 </article>
-
-
-
-
-
-<style>
-    .team-link:hover {
-        background: <?php echo esc_attr($couleur1); ?> !important;
-    }
-</style>

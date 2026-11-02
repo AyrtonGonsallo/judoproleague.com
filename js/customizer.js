@@ -95,4 +95,13 @@ $(document).on('click', '.btn-telhd', function(e) {
 });
 
 
+jQuery(window).on('scroll', function () {
+    if (jQuery(window).scrollTop() > 50) {
+        jQuery('.jpl-team-header').addClass('scrolled');
+    } else {
+        jQuery('.jpl-team-header').removeClass('scrolled');
+    }
+});
+
+
 

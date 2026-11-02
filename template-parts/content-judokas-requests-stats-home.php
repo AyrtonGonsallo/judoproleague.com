@@ -112,8 +112,8 @@ function array_msort($array, $cols)
 					
 					//$club1=(get_field( 'club_actuel',$judoka1->ID ))?' ('.get_field( 'club_actuel',$judoka1->ID ).') ':'';
 					//$club2=(get_field( 'club_actuel',$judoka2->ID ))?' ('.get_field( 'club_actuel',$judoka2->ID ).') ':'';
-					$results['total'][$judoka1->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka1->ID ).' '.get_field( 'nom_judoka',$judoka1->ID ).''.$sigle_club1)];
-					$results['total'][$judoka2->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka2->ID ).' '.get_field( 'nom_judoka',$judoka2->ID ).''.$sigle_club2)];
+					$results['total'][$judoka1->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka1->ID ).' '.get_field( 'nom_judoka',$judoka1->ID ))];
+					$results['total'][$judoka2->post_title]=[array("nom"=>get_field( 'prenom_judoka',$judoka2->ID ).' '.get_field( 'nom_judoka',$judoka2->ID ))];
 					
 				}
 			}
@@ -400,7 +400,7 @@ function array_msort($array, $cols)
 				}
 			}
 			$club=($equipe->post_title)?' ('.get_field( 'abreviation',$equipe->ID ).') ':'';
-			$results2['total'][$judoka->post_title][0]["nom"]=get_field( 'prenom_judoka',$judoka->ID ).' '.get_field( 'nom_judoka',$judoka->ID ).''.$club;
+			$results2['total'][$judoka->post_title][0]["nom"]=get_field( 'prenom_judoka',$judoka->ID ).' '.get_field( 'nom_judoka',$judoka->ID );
 			$results2['total'][$judoka->post_title][0]["image"]=get_the_post_thumbnail_url($judoka->ID,'thumbnail')?get_the_post_thumbnail_url ($judoka->ID,'thumbnail'):'/wp-content/uploads/2023/09/profil.jpg';
 			$results2['total'][$judoka->post_title][0]["sexe"]=get_field('sexe',$judoka->ID);
 			if(get_field('date_de_naissance',$judoka->ID)){
@@ -433,8 +433,12 @@ function array_msort($array, $cols)
 			//prettyPrint($equipe1);exit(-1); 
 			$results[$equipe1->post_title]=[array("nom"=>$equipe1->post_title)];
 			$results[$equipe2->post_title]=[array("nom"=>$equipe2->post_title)];
-			$results[$equipe1->post_title][0]["image"]=get_field('logo_circle', $equipe1->ID);
-			$results[$equipe2->post_title][0]["image"]=get_field('logo_circle', $equipe2->ID);
+			$results[$equipe1->post_title][0]["image"]=get_field('logo_principal', $equipe1->ID);
+			$results[$equipe1->post_title][0]["image_circle"]=get_field('logo_circle', $equipe1->ID);	
+			$results[$equipe1->post_title][0]["abreviation"]=get_field( 'abreviation',$equipe1->ID );
+			$results[$equipe2->post_title][0]["abreviation"]=get_field( 'abreviation',$equipe2->ID );
+			$results[$equipe2->post_title][0]["image"]=get_field('logo_principal', $equipe2->ID);
+			$results[$equipe2->post_title][0]["image_circle"]=get_field('logo_circle', $equipe2->ID);	
 			$results[$equipe1->post_title][0]["points_marqués"]=0;
 			$results[$equipe2->post_title][0]["points_marqués"]=0;
 			$results[$equipe1->post_title][0]["ippons_marqués"]=0;
@@ -521,11 +525,13 @@ function array_msort($array, $cols)
 			$equipe2=get_field( 'equipe_2',$rencontre->ID )[0];
 			if($equipe1->ID){
 				$results[$equipe1->post_title][0]["id"]=$equipe1->ID;
-				$results[$equipe1->post_title][0]["image"]=get_field('logo_circle', $equipe1->ID);
+				$results[$equipe1->post_title][0]["image"]=get_field('logo_principal', $equipe1->ID);
+				$results[$equipe1->post_title][0]["image_circle"]=get_field('logo_circle', $equipe1->ID);
 			}
 			if($equipe2->ID){
 				$results[$equipe2->post_title][0]["id"]=$equipe2->ID;
-				$results[$equipe2->post_title][0]["image"]=get_field('logo_circle', $equipe2->ID);	
+				$results[$equipe2->post_title][0]["image"]=get_field('logo_principal', $equipe2->ID);
+				$results[$equipe2->post_title][0]["image_circle"]=get_field('logo_circle', $equipe2->ID);		
 			}
 					
 			$results[$equipe1->post_title][0]["points_marqués"]+=intval($matchs_liste[0]['points_equipe_1']);

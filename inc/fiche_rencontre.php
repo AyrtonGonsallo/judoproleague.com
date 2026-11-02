@@ -47,8 +47,8 @@ function fiche_rencontre($result,$post_id=null)
 
 				the_row();
 
-				$logo1=(get_field('logo_circle', $equipe1->ID))?get_field('logo_circle', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
-				$logo2=(get_field('logo_circle', $equipe2->ID))?get_field('logo_circle', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
+				$logo1=(get_field('logo_principal', $equipe1->ID))?get_field('logo_principal', $equipe1->ID):get_the_post_thumbnail_url($equipe1->ID);
+				$logo2=(get_field('logo_principal', $equipe2->ID))?get_field('logo_principal', $equipe2->ID):get_the_post_thumbnail_url($equipe2->ID);
 				$ncge1 = get_sub_field('nombre_de_combat_gagne_equipe_1' );
 				$pts_e1 = get_sub_field('points_equipe_1' );
 				$pts_e2 = get_sub_field('points_equipe_2' );
@@ -81,8 +81,9 @@ function fiche_rencontre($result,$post_id=null)
 							</div>
 							<div class="nv-equip-1">
 							<a class="nv-renc-equip-link <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>" href="<?php echo get_the_permalink($equipe2->ID  );?>">
-								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?></span>
 								<img src="<?php echo $logo2; ?>" class="logo-eqi">
+								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?></span>
+								
 							</a>
 							</div>
 						</div>
@@ -92,8 +93,8 @@ function fiche_rencontre($result,$post_id=null)
 									<span>
 										<?php echo $statut;?>
 									</span>
-								</div>
-								<!--
+									
+																	<!--
 								<div class="jr-rct-1">
 									<span class="jr-nv-1">
 										<?php //echo (get_field( "journee"))?(get_field( "journee")):'';?>
@@ -102,6 +103,10 @@ function fiche_rencontre($result,$post_id=null)
 									<span class="rct-nv-1"><?php //echo get_field( "lieu_rencontre");?></span>
 								</div>
 								-->
+									
+									
+								</div>
+
 							</div>
 
 						<div class="nv-result-eqju">
@@ -153,14 +158,14 @@ function fiche_rencontre($result,$post_id=null)
 									$judoka_gagnant = get_sub_field('judoka_gagnant');
 									
 									if($statut=='en cours'){
-										$style_duree='background-color: #dd01fb;';
+										
 										$duree_combat= get_sub_field('temps_restant' );
 									}else if($statut=='terminé'){
-										$style_duree='background-color: #aecd3f;';
+									
 										$duree_combat= $points_judoka_1.' - '.$points_judoka_2;
 									}
 									else if($statut=="à venir"){
-										$style_duree='background-color: #000a98;';
+										
 										$duree_combat= get_sub_field('duree_combat' );
 									}
 									//var_dump($judoka_equipe_1[0]);exit(-1);
@@ -305,8 +310,9 @@ function fiche_rencontre($result,$post_id=null)
 
 							<div class="nv-equip-1">
 							<a class="nv-renc-equip-link <?php if($equipe_gagnante=='équipe 1'){echo "beaten";}?>" href="<?php echo get_the_permalink($equipe2->ID  );?>">
-								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?></span>
 								<img src="<?php echo $logo2; ?>" class="logo-eqi">
+								<span class="nv-equip-name"><?php echo get_the_title($equipe2->ID ); ?></span>
+								
 							</a>
 							</div>
 						</div>
@@ -359,14 +365,14 @@ function fiche_rencontre($result,$post_id=null)
 										$judoka_gagnant = get_sub_field('judoka_gagnant');
 										
 										if($statut=='en cours'){
-											$style_duree='background-color: #dd01fb;';
+											
 											$duree_combat= get_sub_field('temps_restant' );
 										}else if($statut=='terminé'){
-											$style_duree='background-color: #aecd3f;';
+											
 											$duree_combat= $points_judoka_1.' - '.$points_judoka_2;
 										}
 										else if($statut=="à venir"){
-											$style_duree='background-color: #000a98;';
+											
 											$duree_combat= get_sub_field('duree_combat' );
 										}
 							?>

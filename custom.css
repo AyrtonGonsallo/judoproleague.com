@@ -39,6 +39,12 @@ Requires PHP: 5.6
 	 font-weight:400 !important;
 	font-display: swap;
 }
+@font-face { 
+    font-family: 'futuralight';  
+    src: url('./fonts/futuralight.ttf') format('opentype');
+	 font-weight:400 !important;
+	font-display: swap;
+}
  @font-face { 
     font-family: 'Futura-bold';  
     src: url('./fonts/Futura-bold.otf') format('opentype');
@@ -3832,7 +3838,6 @@ margin:0px 20px;
     align-items: center;
 }
 .copyright {
-	border-top: 1px solid #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10402,6 +10407,47 @@ li.participant-element.impair {
         line-height: 1.2 !important;}
 	  .flex-1-pari .sub-menu-element, .flex-1-pari {width: 100%; max-width: 100%;}
 	  .round-border-purple {padding: 16px 2px !important;}
+	/*footer*/	
+.jpl-team-logo img {box-shadow: 1px 1px 9px hsl(0deg 0% 0% / 7%);}
+.site-info {flex-direction: column;gap: 20px;}
+.footer-logo {display: flex;justify-content: center;align-items: center; width: 100%;}	
+.site-footer .flx-gap { margin-bottom: 0px; }
+.site-footer .footer-logo img { width: 115px;}
+.flx-gap {justify-content: flex-end;}	
+.site-footer .navbar-nav {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 1fr;
+    width: 100%;
+    gap: 3px 10px;
+    padding: 0px;
+    text-align: left;
+    font-size: 13px;
+}
+.site-footer .footer-parts {
+    width: 100% !important;
+    padding: 2px 37px;
+	
+    border-radius: 100px;
+    flex-direction: row;
+}	
+.nv-copyright {
+    flex-direction: column-reverse;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}	
+.site-footer {  padding: 2% 0 2% 0; }
+p.info-footer {
+    font-family: 'futura';
+    font-size: 11px;
+}
+.info-footer{font-size: 11px;}	
+.link-footer {text-decoration: underline !important;}	
+.copyright p{font-size: 13px;}	
+.site-footer .footer-rs a i { font-size: 14px; padding: 7px;width: 29px;}
+.jpl-team-logo { width: 32px; height: 32px; flex-basis: 31px; }
+.jpl-team-marquee { padding: 7px 0; }
+.footer-parts a .img-2 { width: 48px; margin-top: 6px; }	
 	
 }
 
@@ -10958,7 +11004,7 @@ h3.name-prfl{font-size:34px;text-align:center;font-family: 'Futura-bold' !import
 
 .profile .sub-menu-element span{font-family:'futura'!important;}
 /***************** header ****************/
-#menu-item-5199,#menu-item-5473{
+/* #menu-item-5199,#menu-item-5473{
     background-color: #C441FA !important;
     border-radius: 8px !important;
 	position: relative;
@@ -10975,7 +11021,7 @@ h3.name-prfl{font-size:34px;text-align:center;font-family: 'Futura-bold' !import
     background-color: #FFDB43 !important;
     border-radius: 8px !important;
     font-size: 15px !important;
-}
+} */
 .menu-web{padding-bottom:4%;}
 
 
@@ -11017,6 +11063,131 @@ body #tableau_classement_par_ligue .table-ranking td{
     font-size: 15px !important;
     font-weight: bolder;
 }
+/*********************************************** header et footer **************************************************/
+#navbar.inverse {
+    background: linear-gradient(90deg, rgba(34, 27, 59, 1) 20%, rgba(4, 11, 137, 1) 53%, rgba(102, 43, 102, 1) 70%, rgba(224, 0, 120, 1) 100%);
+}
+    #navbar-menu .navbar-nav > li > a {
+        display: block;
+        font-size: 19px;
+        padding: 0 !important;
+        transition: color 0.3s ease;
+        outline: 0;
+        font-family: 'Futura Condensed' !important;
+        font-weight: 600;
+        font-style: italic;
+        color: #fff !important;
+        border-bottom: 0px solid rgba(0, 0, 0, 0);
+        text-decoration: none !important;
+        text-transform: uppercase;
+    }
+
+body #menu-item-5199, body #menu-item-5473, body #menu-item-19572{
+    background-color: #E00078 !important;
+    border-radius: 5px !important;
+    padding: 1px 15px !important;
+    margin-right: 20px !important;
+}
+body #menu-item-5199:hover, body #menu-item-5473:hover, body #menu-item-19572:hover{background-color: #221B3B !important;}
+#menu-item-5199 a,#menu-item-5473 a,#menu-item-19572 a{font-size:20px !important;font-style:normal !important;text-transform:none !important;}
+#menu-item-5199 a:after,#menu-item-5473 a:after,#menu-item-19572 a:after{display:none !important;}
+.site-header #primary-menu .menu-item-5473, .site-header #primary-menu .menu-item-19572 {
+    display: none !important;
+}
+.site-header .trp-language-item-name {
+    font-size: 22px;
+    font-family: 'Futura Condensed';
+    font-weight: 800;
+    padding: 0px;
+    margin-right: 0px;
+}
+
+/*footer*/
+.site-footer { background-color: #221B3B;}
+.site-info{display:flex;flex-direction: row !important; justify-content: space-between !important;}
+.site-footer .navbar-nav{column-count: 3;    padding: 0px;}
+.site-footer .navbar-nav a{color: #fff !important;  font-family: 'futuralight';}
+.site-footer .navbar-nav .menu-item:hover a{color: #ff00b6 !important;}
+.site-footer .menu-item-1537{display:none;}
+.site-footer .footer-rs a i {
+    font-size: 18px;
+    border-radius: 76px;
+    background: hsl(0deg 0% 100% / 23%);
+    padding: 9px;
+    width: 37px;
+    margin-right: 8px;
+    color: #ffffff !important;
+	border:0px !important;
+}
+.site-footer .footer-rs a:hover i {
+    background: #E00078;
+    color: #fff !important;
+}
+.site-footer .footer-parts {
+    background: rgb(255 255 255 / 23%);
+    padding: 8px 37px;
+    display: flex;
+    gap: 20px;
+    width: auto;
+    border-radius: 11px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.jpl-team-logo img {box-shadow: 1px 1px 9px hsl(0deg 0% 0% / 7%);}
+.site-info {flex-direction: column;gap: 20px;}
+.footer-logo {display: flex;justify-content: center;align-items: center  !important; width: 100%;    flex-direction: column;}	
+.site-footer .flx-gap { margin-bottom: 0px; }
+.flx-gap {justify-content: flex-end  !important;}	
+.site-footer .navbar-nav {
+    column-count: 3;
+    padding: 0px;
+    text-align: left;
+    display: block;
+}	
+.footer-parts p {
+    color: #fff;
+    font-size: 25px;
+    font-family: 'futuralight';
+}
+.flx-gap {
+    margin-bottom: 39px;
+    display: flex;
+    flex-direction: row;
+}
+.nv-copyright {
+    flex-direction: column-reverse;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}	
+p.info-footer {
+    font-family: 'futura';
+    font-size: 11px;
+}
+.info-footer{font-size: 11px !important;}	
+.link-footer {text-decoration: underline !important;}	
+.copyright p{font-size: 13px !important;}	
+.site-footer .footer-rs a i { font-size: 14px !important; padding: 7px !important;width: 29px !important;}
+.jpl-team-logo { width: 32px; height: 32px !important; flex-basis: 31px !important; }
+.jpl-team-marquee { padding: 7px 0 !important; }
+.footer-parts a .img-2 {width: 74px !important;
+    margin-top: 0px !important;}	
+	.nv-copyright {
+    background-color: #221B3B !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+}
+.footer-logo{width: auto !important;}
+.footer-parts a .img-2 {
+    width: 74px;
+}
+
+
+
+
 /*************************** responsive page paris presentation **************************************/
 @media screen and (min-width: 498px) {
 .img-box.mobile{display:none !important;}
@@ -11285,5 +11456,858 @@ body #tableau_classement_par_ligue .table-ranking td{
     .width-site ul { list-style-type: disc;}
     .width-site p{font-family: 'futura' !important;}
 	
+
+/****************************************************************************************************/
+.site-footer {
+background-color: #221B3B;
+}
+
+.copyright a:hover {
+text-decoration:underline !important;
+}
+
+.site-info {
+max-width: 75%;
+    margin: 0 auto;
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-footer {
+font-family: "futuralight";
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+	margin: 0px;
+}
+
+.link-footer {
+color: #fff;
+	transition: 0.5s;
+}
+
+.link-footer:hover {
+text-decoration:underline;
+}
+
+.footer-h4 {
+font-family: "Futura Condensed";
+    font-size: 19px;
+    color: #fff;    
+	text-align: center;
+	font-weight: 400;
+	line-height: 22px;
+	margin-bottom: 10px;
+	margin-top: 0;
+}
+
+.footer-rs {
+text-align: center;
+}
+
+.footer-rs a {
+color: #060e95;
+}
+
+.footer-rs a i {
+font-size: 18px;
+    border: 3px solid #fff;
+    border-radius: 50px;
+    background: #fff;
+    padding: 9px;
+	width: 43px;
+	color: #051095 !important;
+}
+
+.footer-rs a:hover i {
+background: #051095;
+    color: #fff !important;
+    border-color: #051095;
+}
+
+.nv-copyright {
+justify-content: center;
+	padding:  0;
+}
+
+.footer-h4, .site-info p {
+font-size:25px; margin: 0px;
+}
+
+.footer-parts p {
+color: #fff;font-size:25px;font-family: "futuralight";
+}
+
+.footer-parts a .img-1 {
+width: 41px;
+}
+
+.footer-parts a .img-2 {
+width: 74px;
+}
+
+.footer-parts {
+background: #fff;
+    padding: 15px 20px;
+    display: flex;
+    width: 544px;
+    border-radius: 300px;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.copyright {
+display: flex;
+    justify-content: center;
+    align-items: center;
+	min-height: 45px;
+}
+
+.copyright p, .copyright a {
+font-family: "futuralight";
+	color: #fff;
+	margin: 0;
+	font-weight: 400;
+	font-size: 13px;
+}
+
+.page-id-2882 table.dataTable.no-footer {
+background-color: #4E156F;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 45px 45px 45px;
+    color: #fff !important;
+}
+
+table.dataTable.no-footer {
+background-color: #4E156F;
+    border-radius: 15px;
+    padding: 45px 45px;
+	color: #fff !important;
+}
+
+.infinite-scroll .posts-navigation,
+.infinite-scroll.neverending .site-footer {
+display: none;
+}
+
+.infinity-end.neverending .site-footer {
+display: block;
+}
+
+@media screen and (max-width: 1500px) {
+.site-info {
+max-width: 85%;
+}
+}
+
+@media screen and (max-width: 1200px) {
+.site-info {
+max-width: 90%;
+}
+}
+
+@media screen and (max-width: 768px) {
+.site-info {
+grid-template-columns: repeat(1,1fr);
+		text-align: center;
+}
+}
+
+@media screen and (max-width: 768px) {
+.footer-rs, .footer-h4 {
+text-align: center;
+}
+}
+
+@media screen and (max-width: 768px) {
+.site-footer {
+padding: 10% 0 20% 0;
+		position: relative;
+}
+}
+
+@media screen and (max-width: 768px) {
+.nv-copyright {
+position: absolute;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		padding-block: 10px;
+}
+}
+
+@media screen and (max-width: 768px) {
+.info-footer {
+padding-top: 0px;
+}
+}
+
+@media screen and (max-width:425px ) {
+.site-footer {
+padding: 3% 0 25% 0;
+}
+}
+
+.copyright p {
+margin-left: 0px !important;
+	margin-right: 10px !important;
+}
+
+@media only screen and (max-width:800px) {
+.site-footer {
+padding: 0% 0 6% 0 ;
+}
+}
+
+@media only screen and (max-width:800px) {
+.site-info {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@media only screen and (max-width:497px) {
+.site-info {
+grid-template-columns: repeat(1, 1fr);
+}
+}
+
+@media only screen and (max-width:497px) {
+.site-footer {
+padding: 5% 0 17% 0 ;
+}
+}
+
+@media only screen and (max-width:800px) {
+.footer-parts {
+width: 100%;
+}
+}
+
+@media only screen and (max-width:800px) {
+.page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer {
+padding: 0px 15px 15px 15px;
+}
+}
+
+@media only screen and (max-width:600px) {
+.copyright {
+flex-direction: column;
+}
+}
+
+@media only screen and (max-width:375px) {
+.copyright p {
+margin-top: 5px;
+}
+}
+
+@media only screen and (max-width:600px) {
+.site-footer {
+padding: 0% 0 19% 0;
+}
+}
+
+@media only screen and (max-width:497px) {
+.footer-h4, .site-info p {
+font-size: 20px;
+}
+}
+
+@media only screen and (max-width:497px) {
+.site-footer .flx-gap {
+margin-bottom: 39px;
+}
+}
+
+@media only screen and (max-width:375px) {
+.site-footer .flx-gap {
+margin-bottom: 63px;
+}
+}
+
+@media only screen and (max-width:320px) {
+.page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer {
+padding:1px 1px 3px 1px;
+}
+}
+
+@media screen and (max-width: 497px) {
+.footer-parts {
+padding: 6px 20px; width: 71%; margin: auto;
+}
+}
+
+@media screen and (max-width: 497px) {
+.footer-parts a .img-2 {
+width: 60px;
+}
+}
+
+@media screen and (max-width: 320px) {
+.site-footer {
+padding: 0% 0 29% 0;
+}
+}
+
+.nv-copyright {
+background-color: #221B3B;    
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+	padding-top:1% !important;
+}
+
+.site-info {
+display:flex;flex-direction: row;    justify-content: space-between;
+}
+
+.site-footer .navbar-nav {
+column-count: 3;    padding: 0px;
+}
+
+.site-footer .navbar-nav a {
+color: #fff !important;  font-family: "futuralight";
+}
+
+.site-footer .navbar-nav .menu-item:hover a {
+color: #ff00b6 !important;
+}
+
+.site-footer .menu-item-1537 {
+display:none;
+}
+
+.site-footer .footer-rs a i {
+font-size: 18px;
+    border-radius: 76px;
+    background: hsl(0deg 0% 100% / 23%);
+    padding: 9px;
+    width: 37px;
+    margin-right: 8px;
+    color: #ffffff !important;
+	border:0px !important;
+}
+
+.site-footer .footer-rs a:hover i {
+background: #E00078;
+    color: #fff !important;
+}
+
+.site-footer .footer-parts {
+background: rgb(255 255 255 / 23%);
+    padding: 8px 37px;
+    display: flex;
+    gap: 20px;
+    width: auto;
+    border-radius: 11px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 497px) {
+.site-info {
+flex-direction: column;gap: 20px;
+}
+}
+
+@media (max-width: 497px) {
+.footer-logo {
+display: flex;justify-content: center;align-items: center; width: 100%;
+}
+}
+
+@media (max-width: 497px) {
+.site-footer .flx-gap {
+margin-bottom: 0px;
+}
+}
+
+@media (max-width: 497px) {
+.site-footer .footer-logo img {
+width: 115px;
+}
+}
+
+@media (max-width: 497px) {
+.site-footer .navbar-nav {
+column-count: 3;
+    padding: 0px;
+    text-align: left;
+    font-size: 13px;
+}
+}
+
+@media (max-width: 497px) {
+.site-footer .footer-parts {
+width: 100% !important;
+    padding: 2px 37px;
+	
+    border-radius: 100px;
+    flex-direction: row;
+}
+}
+
+@media (max-width: 497px) {
+.nv-copyright {
+flex-direction: column-reverse;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+}
+
+@media (max-width: 497px) {
+.site-footer {
+padding: 2% 0 2% 0;
+}
+}
+
+@media (max-width: 497px) {
+p.info-footer {
+font-family: "futura";
+    font-size: 11px;
+}
+}
+
+@media (max-width: 497px) {
+.info-footer {
+font-size: 11px;
+}
+}
+
+@media (max-width: 497px) {
+.link-footer {
+text-decoration: underline !important;
+}
+}
+
+@media (max-width: 497px) {
+.copyright p {
+font-size: 13px;
+}
+}
+
+@media (max-width: 497px) {
+.site-footer .footer-rs a i {
+font-size: 14px; padding: 7px;width: 29px;
+}
+}
+
+@media (max-width: 497px) {
+.footer-parts a .img-2 {
+width: 48px; margin-top: 6px;
+}
+}
+
+.site-footer {
+background-color: #221B3B;
+padding-block: 1% 0%;
+}
+
+.copyright a:hover {
+text-decoration:underline !important;
+color: #fff !important;
+}
+
+.site-info {
+max-width: 75%;
+    margin: 0 auto;
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-footer {
+font-family: "futuralight";
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+	margin: 0px;
+}
+
+.link-footer {
+color: #fff;
+	transition: 0.5s;
+}
+
+.link-footer:hover {
+text-decoration:underline;
+}
+
+.footer-h4 {
+font-family: "Futura Condensed";
+    font-size: 19px;
+    color: #fff;    
+	text-align: center;
+	font-weight: 400;
+	line-height: 22px;
+	margin-bottom: 10px;
+	margin-top: 0;
+}
+
+.footer-rs {
+text-align: center;
+}
+
+.footer-rs a {
+color: #060e95;
+}
+
+.footer-rs a i {
+font-size: 18px;
+    border: 3px solid #fff;
+    border-radius: 50px;
+    background: #fff;
+    padding: 9px;
+	width: 43px;
+	color: #051095 !important;
+}
+
+.footer-rs a:hover i {
+background: #051095;
+    color: #fff !important;
+    border-color: #051095;
+}
+
+.nv-copyright {
+justify-content: center;
+}
+
+.footer-h4, .site-info p {
+font-size:25px; margin: 0px;
+}
+
+.footer-parts p {
+color: #fff;font-size:25px;font-family: "futuralight";
+}
+
+.footer-parts a .img-1 {
+width: 41px;
+}
+
+.footer-parts a .img-2 {
+width: 74px;
+}
+
+.footer-parts {
+background: #fff;
+    padding: 15px 20px;
+    display: flex;
+    width: 544px;
+    border-radius: 300px;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.copyright {
+display: flex;
+    justify-content: center;
+    align-items: center;
+	min-height: 45px;
+}
+
+.copyright p, .copyright a {
+font-family: "futuralight";
+	color: #fff;
+	margin: 0;
+	font-weight: 400;
+	font-size: 13px;
+}
+
+.page-id-2882 table.dataTable.no-footer {
+background-color: #4E156F;
+    border-radius: 0px 0px 15px 15px;
+    padding: 0px 45px 45px 45px;
+    color: #fff !important;
+}
+
+table.dataTable.no-footer {
+background-color: #4E156F;
+    border-radius: 15px;
+    padding: 45px 45px;
+	color: #fff !important;
+}
+
+.infinite-scroll .posts-navigation,
+.infinite-scroll.neverending .site-footer {
+display: none;
+}
+
+.infinity-end.neverending .site-footer {
+display: block;
+}
+
+@media screen and (max-width: 1500px) {
+.site-info {
+max-width: 85%;
+}
+}
+
+@media screen and (max-width: 1200px) {
+.site-info {
+max-width: 90%;
+}
+}
+
+@media screen and (max-width: 768px) {
+.site-info {
+grid-template-columns: repeat(1,1fr);
+		text-align: center;
+}
+}
+
+@media screen and (max-width: 768px) {
+.footer-rs, .footer-h4 {
+text-align: center;
+}
+}
+
+@media screen and (max-width: 768px) {
+.site-footer {
+padding: 10% 0 20% 0;
+		position: relative;
+}
+}
+
+@media screen and (max-width: 768px) {
+.nv-copyright {
+position: absolute;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		padding-block: 10px;
+}
+}
+
+@media screen and (max-width: 768px) {
+.info-footer {
+padding-top: 0px;
+}
+}
+
+@media screen and (max-width:425px ) {
+.site-footer {
+padding: 3% 0 25% 0;
+}
+}
+
+.copyright p {
+margin-left: 0px !important;
+	margin-right: 10px !important;
+}
+
+@media only screen and (max-width:800px) {
+.site-footer {
+padding: 0% 0 6% 0 ;
+}
+}
+
+@media only screen and (max-width:800px) {
+.site-info {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@media only screen and (max-width:497px) {
+.site-info {
+grid-template-columns: repeat(1, 1fr);
+}
+}
+
+@media only screen and (max-width:497px) {
+.site-footer {
+padding: 5% 0 17% 0 ;
+}
+}
+
+@media only screen and (max-width:800px) {
+.footer-parts {
+width: 100%;
+}
+}
+
+@media only screen and (max-width:800px) {
+.page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer {
+padding: 0px 15px 15px 15px;
+}
+}
+
+@media only screen and (max-width:600px) {
+.copyright {
+flex-direction: column;
+}
+}
+
+@media only screen and (max-width:375px) {
+.copyright p {
+margin-top: 5px;
+}
+.site-footer .navbar-nav { display: grid; grid-template-columns: 0.4fr 1fr 1fr;}
+
+
+}
+
+@media only screen and (max-width:600px) {
+.site-footer {
+padding: 0% 0 19% 0;
+}
+}
+
+@media only screen and (max-width:497px) {
+.footer-h4, .site-info p {
+font-size: 20px;
+}
+}
+
+@media only screen and (max-width:497px) {
+.site-footer .flx-gap {
+margin-bottom: 39px;
+}
+}
+
+@media only screen and (max-width:375px) {
+.site-footer .flx-gap {
+margin-bottom: 63px;
+}
+}
+
+@media only screen and (max-width:320px) {
+.page-id-2882 table.dataTable.no-footer, table.dataTable.no-footer {
+padding:1px 1px 3px 1px;
+}
+.site-footer .navbar-nav {grid-template-columns: 1fr 1fr; gap: 3px 23px;}
+}
+
+
+@media screen and (max-width: 497px) {
+.footer-parts a .img-2 {
+width: 60px;
+}
+.footer-parts {
+padding: 6px 20px; width: 71%; margin: auto;
+}
+.site-footer {
+padding: 0% 0 29% 0;
+}	
 	
 	
+}
+
+
+.nv-copyright {
+background-color: #221B3B;    
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.site-info {
+display:flex;flex-direction: row;    justify-content: space-between;
+}
+
+.site-footer .navbar-nav {
+column-count: 3;    padding: 0px;
+}
+
+.site-footer .navbar-nav a {
+color: #fff !important;  font-family: "futuralight";
+}
+
+.site-footer .navbar-nav .menu-item:hover a {
+color: #ff00b6 !important;
+}
+
+.site-footer .menu-item-1537 {
+display:none;
+}
+
+.site-footer .footer-rs a i {
+font-size: 18px;
+    border-radius: 76px;
+    background: hsl(0deg 0% 100% / 23%);
+    padding: 9px;
+    width: 37px;
+    margin-right: 8px;
+    color: #ffffff !important;
+	border:0px !important;
+}
+
+.site-footer .footer-rs a:hover i {
+background: #E00078;
+    color: #fff !important;
+}
+
+
+
+
+@media (max-width: 497px) {
+/** header**/
+	    #navbar.inverse {
+        background: #221B3B !important;
+        padding: 7px;
+    }
+/*footer*/	
+.jpl-team-logo img {box-shadow: 1px 1px 9px hsl(0deg 0% 0% / 7%);}
+.site-info {flex-direction: column !important;gap: 20px;}
+.footer-logo {display: flex;justify-content: center;align-items: center; width: 100%; flex-direction: row;  gap: 10px; }	
+.site-footer .flx-gap { margin-bottom: 0px; }
+.site-footer .footer-logo img { width: 115px;}
+.flx-gap {justify-content: flex-end;}	
+.site-footer .navbar-nav {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 1fr;
+    width: 100%;
+    gap: 3px 10px;
+    padding: 0px;
+    text-align: left;
+    font-size: 13px;
+}
+.site-footer .footer-parts {
+    width: 100% !important;
+    padding: 2px 37px;
+	
+    border-radius: 100px;
+    flex-direction: row;
+}	
+.nv-copyright {
+    flex-direction: column-reverse;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+	flex-direction: column !important;
+}	
+.site-footer {  padding: 2% 0 2% 0; }
+p.info-footer {
+    font-family: 'futura';
+    font-size: 11px;
+}
+.info-footer{font-size: 11px;}	
+.link-footer {text-decoration: underline !important;}	
+.copyright p{font-size: 13px;}	
+.site-footer .footer-rs a i { font-size: 14px; padding: 7px;width: 29px;}
+.jpl-team-logo { width: 32px; height: 32px; flex-basis: 31px; }
+.jpl-team-marquee { padding: 7px 0; }
+.footer-parts a .img-2 { width: 48px; margin-top: 6px; }
+}
+.sps.inverse .container { max-width: 75%;}
+
+
+
+
+
+
+

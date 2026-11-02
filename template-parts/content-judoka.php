@@ -1,76 +1,23 @@
 <?php
-
-
-
-
-
-
-
 /**
-
-
-
-
-
-
-
  * Template part for displaying posts
-
-
-
-
-
-
-
  *
-
-
-
-
-
-
-
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
-
-
-
-
-
-
-
  *
-
-
-
-
-
-
-
  * @package pro-league
-
-
-
-
-
-
-
  */
-
 function remplacer_judoka($texte) {
 		// Vérifie si le mot "judoka" est présent dans le texte et le remplace
 		if (preg_match('/^nom judoka\b/', $texte)) {
 			return 'judoka non présenté';
 		}
-		
 		// Utilisation de regex pour vérifier si "renom judokas" est présent
 		else if (preg_match('/\bprenom judoka\b/', $texte)) {
 			return '';
 		}else{
 			return $texte;
-		}
-		
+		}	
 	}
-
 function migrate_combats_from_rencontres() {
     // Récupérer toutes les rencontres
 	/*
@@ -186,21 +133,6 @@ if($post->ID==7001){
 	migrate_combats_from_rencontres();
 }
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function get_combats_by_judoka_and_saison($judoka_id, $saison_value) {
     if (empty($judoka_id) || empty($saison_value)) {
         return [];
@@ -296,66 +228,17 @@ $site = get_field('site_web',$equipe->ID);
 
 $team_permalink = get_the_permalink($equipe->ID);
 
-
 $reseaux= get_field('reseaux_sociaux',$equipe->ID);
-
-
-
 
 $couleur1 = get_field('couleur1',$equipe->ID); 
 
-
-
-
-
-
-
 $image=get_field('logo_principal',$equipe->ID)?get_field('logo_principal',$equipe->ID):get_the_post_thumbnail_url($equipe->ID,"thumbnail");
-
-
-
-
-
-
 
 $style_couleur1=($couleur1)?'style="background: '.$couleur1.';"':'style="background: #e5332a;"';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $couleur2 = get_field('couleur2',$equipe->ID); 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $style_couleur2=($couleur2)?'style="background: '.$couleur2.';"':'style="background: #990021;"';
-
-
-
-
-
 
 $args = array(
 	'post_type' => 'attachment', // Spécifiez le type de post comme étant des pièces jointes
@@ -414,7 +297,149 @@ function get_correct_categorie($saison_value,$cat){
 	}
 	return $cat;
 }
+/* =========================================================
+ * DONNÉES ÉQUIPE
+ * ========================================================= */
 
+/*
+ * $equipe vient de la relation du judoka avec son équipe
+ * pour la saison sélectionnée.
+ */
+if (!$equipe || !($equipe instanceof WP_Post)) {
+    echo '<p class="aucun-cmbt">Aucune équipe trouvée pour cette saison.</p>';
+    return;
+}
+
+$team_id = (int) $equipe->ID;
+
+/* =========================================================
+ * INFORMATIONS ÉQUIPE
+ * ========================================================= */
+
+$title       = get_field('titre_de_la_page', $team_id);
+$description = get_field('presentation', $team_id);
+$directeur   = get_field('directeur', $team_id);
+$entraineur  = get_field('entraineur', $team_id);
+$partenaires = get_field('partenaires', $team_id);
+$reseaux     = get_field('reseaux_sociaux', $team_id);
+
+$couleur1 = get_field('couleur1', $team_id);
+$couleur2 = get_field('couleur2', $team_id);
+
+/* Couleurs par défaut */
+$couleur1 = !empty($couleur1) ? $couleur1 : '#040b89';
+$couleur2 = !empty($couleur2) ? $couleur2 : '#e00078';
+
+/* =========================================================
+ * LOGO ÉQUIPE
+ * ========================================================= */
+
+/*
+ * logo_principal peut être :
+ * - une URL
+ * - un tableau ACF contenant ['url']
+ * - un ID d'image
+ */
+$logo_principal = get_field('logo_principal', $team_id);
+
+$logo_principal_url = '';
+
+if (is_array($logo_principal) && !empty($logo_principal['url'])) {
+
+    $logo_principal_url = $logo_principal['url'];
+
+} elseif (is_numeric($logo_principal)) {
+
+    $logo_principal_url = wp_get_attachment_image_url(
+        (int) $logo_principal,
+        'full'
+    );
+
+} elseif (is_string($logo_principal) && !empty($logo_principal)) {
+
+    $logo_principal_url = $logo_principal;
+}
+
+/*
+ * Fallback sur logo_miniature si logo_principal est vide.
+ */
+if (empty($logo_principal_url)) {
+
+    $logo_miniature = get_field('logo_miniature', $team_id);
+
+    if (is_array($logo_miniature) && !empty($logo_miniature['url'])) {
+
+        $logo_principal_url = $logo_miniature['url'];
+
+    } elseif (is_numeric($logo_miniature)) {
+
+        $logo_principal_url = wp_get_attachment_image_url(
+            (int) $logo_miniature,
+            'full'
+        );
+
+    } elseif (is_string($logo_miniature) && !empty($logo_miniature)) {
+
+        $logo_principal_url = $logo_miniature;
+    }
+}
+
+/*
+ * Dernier fallback : image mise en avant de L'ÉQUIPE.
+ * Surtout pas l'image du judoka.
+ */
+if (empty($logo_principal_url)) {
+    $logo_principal_url = get_the_post_thumbnail_url($team_id, 'full');
+}
+
+/* =========================================================
+ * URL ET NOM ÉQUIPE
+ * ========================================================= */
+
+$team_permalink = trailingslashit(
+    get_permalink($team_id)
+);
+
+$team_name = get_the_title($team_id);
+
+$photo_du_staff = get_field('photo_du_staff', $team_id);
+
+/* =========================================================
+ * STYLES ÉQUIPE
+ * ========================================================= */
+
+$style_couleur1 = 'background: ' . esc_attr($couleur1) . ';';
+$style_couleur2 = 'background: ' . esc_attr($couleur2) . ';';
+/* =========================================================
+ * MENU ÉQUIPE
+ * ========================================================= */
+
+$menu_items = array(
+    'infos' => array(
+        'label' => 'Infos générales',
+        'url'   => $team_permalink,
+    ),
+    'actus' => array(
+        'label' => 'Actualités',
+        'url'   => $team_permalink . 'actus/',
+    ),
+    'photos' => array(
+        'label' => 'Photos',
+        'url'   => $team_permalink . 'photos/',
+    ),
+    'videos' => array(
+        'label' => 'Vidéos',
+        'url'   => $team_permalink . 'videos/',
+    ),
+    'calendrier_resultats' => array(
+        'label' => 'Calendrier / Résultats',
+        'url'   => $team_permalink . 'calendrier_resultats/',
+    ),
+    'judokas' => array(
+        'label' => 'Judokas',
+        'url'   => $team_permalink . 'judokas/',
+    ),
+);
 
 
 
@@ -433,44 +458,82 @@ function get_correct_categorie($saison_value,$cat){
         });
     </script>
 
+<article classe="page-jdk-detail" id="post-<?php the_ID(); ?>" <?php post_class(); ?> style="
+        --team-color-1: <?php echo esc_attr( $couleur1 ); ?>;
+        --team-color-2: <?php echo esc_attr( $couleur2 ); ?>;
+        --team-gradient: linear-gradient(
+            90deg,
+            <?php echo esc_attr( $couleur1 ); ?> 0%,
+            <?php echo esc_attr( $couleur2 ); ?> 100%
+        );
+    ">
 
+<div class="page-jdk jpl-team-page" style="max-width: 100%;width: 100%;">
+<!-- =====================================================
+     HEADER ÉQUIPE
+====================================================== -->
 
+<section
+    class="jpl-team-header"
+    style="
+        --team-color-1: <?php echo esc_attr($couleur1); ?>;
+        --team-color-2: <?php echo esc_attr($couleur2); ?>;
+        --team-gradient: linear-gradient(
+            90deg,
+            <?php echo esc_attr($couleur1); ?> 0%,
+            <?php echo esc_attr($couleur2); ?> 100%
+        );
+    "
+>
+    <div class="jpl-team-container">
 
+        <div class="jpl-team-identity">
 
+            <div class="menu-equipe">
 
+                <!-- LOGO DE L'ÉQUIPE -->
+                <div class="jpl-team-main-logo">
 
+                    <?php if (!empty($logo_principal_url)): ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> >
+                        <img
+                            src="<?php echo esc_url($logo_principal_url); ?>"
+                            alt="<?php echo esc_attr($team_name); ?>"
+                        >
 
-<div class="page-jdk" style="max-width: 100%;width: 100%;">
+                    <?php endif; ?>
 
-<section class="nv-header-nav" >
+                </div>
 
-    <div class="container"  >
+            </div>
 
-        <div class="nv-nav">
+            <!-- MENU ÉQUIPE -->
+            <nav class="jpl-team-menu">
 
-            <div class="nv-logo-team-1" style="background-image:url(<?php echo (get_field('logo_circle',$equipe->ID))?get_field('logo_circle',$equipe->ID):get_the_post_thumbnail_url($equipe->ID)?>)"></div>
+                <?php foreach ($menu_items as $key => $item): ?>
 
-			<div class="menu-eq">
-				<a href="<?php echo $team_permalink;?>infos" class="team-link" <?php echo $style_couleur2;?>>Infos générales</a>
+                    <a
+                        href="<?php echo esc_url($item['url']); ?>"
+                        class="jpl-team-menu-link"
+                        style="
+                            --menu-color: <?php echo esc_attr(
+                                $key === 'infos' ? $couleur1 : $couleur2
+                            ); ?>;
+                            --menu-color-hover: <?php echo esc_attr(
+                                $key === 'infos' ? $couleur2 : $couleur1
+                            ); ?>;
+                        "
+                    >
+                        <?php echo esc_html($item['label']); ?>
+                    </a>
 
-				<a href="<?php echo $team_permalink;?>actus" class="team-link" <?php echo $style_couleur2;?>>Actualités</a>
+                <?php endforeach; ?>
 
-				<a href="<?php echo $team_permalink;?>photos" class="team-link" <?php echo $style_couleur2;?>>Photos</a>
+            </nav>
 
-				<a href="<?php echo $team_permalink;?>videos" class="team-link" <?php echo $style_couleur2;?>>Vidéos</a>
-
-				<a href="<?php echo $team_permalink;?>calendrier_resultats" class="team-link" <?php echo $style_couleur2;?>>Calendrier / Résultats</a>
-
-				<a href="<?php echo $team_permalink;?>judokas" class="team-link nvtl-active " <?php echo $style_couleur1;?>>Judokas</a>
-            
-			</div>
         </div>
-        <span><a href="/equipes-judo-pro-league/">Equipes</a> > <a href="<?php echo $team_permalink;?>infos"><?php echo get_the_title($equipe->ID);?></a> > <?php echo get_the_title();?> </span>
 
     </div>
-
 </section>
 
 <?php
@@ -503,7 +566,7 @@ function get_correct_categorie($saison_value,$cat){
 ?>
 
 </div>
-<section class="sec-jdk-detail" style="padding: 0% 2% 2%; background: #EEEEEF;    width: 100%;">
+<section class="sec-jdk-detail" style="padding: 2% 2% 2%; background: #EEEEEF;width: 100%;">
     <div class="container">
 <div class="season-selector-box">
     <form Method="GET" ACTION="" class="season-selector-form">
@@ -518,58 +581,43 @@ function get_correct_categorie($saison_value,$cat){
 </div>
 
 		<div class="div-jdk-detail">
-			<div>
+			<div class="jpl-team-card jdk-profile">
 				
 						<img src="<?php echo $image;?>" class="img-fiche-jdk">
-			</div>
-			<div class="jdk-div-ttl">
+							<div class="jdk-div-ttl">
 				<h2 class="title-grade"><?php echo $prenom.' '.$nom; ?></h2>
 				<div class="nv-info-judoka-1">
-
-						<div class="personal-info">
-
-							<div class="disp-grid">
-
-								<span class="titile-1">Catégorie de poids : </span>
-
-								<span class="info-1"><?php echo get_correct_categorie($saison_value,$cat_poids).' kg';?></span>
-
+						<div class="">
+							<div class="jpl-judoka-category">
+								<span class="">Catégorie de poids : </span>
+								<strong class=""><?php echo get_correct_categorie($saison_value,$cat_poids).' kg';?></strong>
 							</div>
-
-							
-
 								<?php if($club_actuel){?>
-									<div class="disp-grid">
-										<span class="titile-1">Club actuel</span>
+									<div class="jpl-judoka-category">
+										<span class="">Club actuel</span>
 
-										<span class="info-1"><?php echo $club_actuel;?></span>
+										<strong class=""><?php echo $club_actuel;?></strong>
 									</div>
 								<?php }?>
-
 							
-
-							
-
 								<?php if($sexe){?>
-									<div class="disp-grid">
-										<span class="titile-1">Sexe</span>
+									<div class="jpl-judoka-category">
+										<span class="">Sexe</span>
 
-										<span class="info-1"><?php echo $sexe;?></span>
+										<strong class=""><?php echo $sexe;?></strong>
 									</div>
 								<?php }?>
-
-							
 
 						</div>
 
-						<div class="personal-info">
+						<div class="">
 							<?php if($pays){
 								?>
-							<div class="disp-grid">
+							<div class="jpl-judoka-category">
 
-								<span class="titile-1">Pays : </span>
+								<span class="">Pays : </span>
 
-								<span class="info-1"><?php if($pays){ echo $pays;}else {echo 'France';}?></span>
+								<strong class=""><?php if($pays){ echo $pays;}else {echo 'France';}?></strong>
 
 							</div>
 							<?php 
@@ -577,21 +625,16 @@ function get_correct_categorie($saison_value,$cat){
 							?>
 							<?php if($date_naissance){?>
 							<div class="disp-grid">							
-
 								<span class="titile-1">Date de naissance : </span>
-
 								<span class="info-1"><?php echo $date_naissance;?></span>
-
 							</div>
 							<?php }?>
 						</div>
 
 					</div>
 			</div>
-			<div>
-			
-				
-
+			</div>
+			<div>	
 				<?php 
 					require_once (THEMEDIR.'template-parts/content-judokas-requests-total.php');
 					$classement_total=get_classement( $saison_value);
@@ -600,9 +643,9 @@ function get_correct_categorie($saison_value,$cat){
 						//prettyPrint($datas);exit(-1);?>
 					<div class="stat-infos">
 						<div class="results-cmba">
-							<div class="combat-judo">
-								<div class="header-tabl">
-									<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
+							<div class="combat-judo jpl-team-card">
+								<div class="jpl-section-heading">
+									<h2 class="" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
 								</div>
 								<div class="resultat-combat">
 									<div class="col-1">
@@ -631,21 +674,21 @@ function get_correct_categorie($saison_value,$cat){
 									</div>
 									<div>
 										
-							<div class="col-1 statistic">
+							<div class="col-1">
 								<div class="disp-grid-stat">
-									<span class="percent-stat"><?php echo round((($datas['matchs_v']*100)/$datas['matchs_joués']));?>%</span>
-									<span class="titile-percent">de combat(s)<br> gagné(s)</span>
-									<img src="/wp-content/uploads/2023/07/logo-jpl-1.png" class="logo-jpl">
+									<span class="percent-stat number-stat"><?php echo round((($datas['matchs_v']*100)/$datas['matchs_joués']));?>%</span>
+									<span class="titile-percent titile-stat">de combat(s)<br> gagné(s)</span>
+<!-- 									<img src="/wp-content/uploads/2023/07/logo-jpl-1.png" class="logo-jpl"> -->
 								</div>
 							</div>
 						</div>
 									
 								</div>
 							</div>
-							<div class="ippon-wazari">
+							<div class="ippon-wazari jpl-team-card">
 								<div class="ippon">
-									<div class="header-tabl">
-										<h2 class="title-stat" <?php echo $style_couleur1;?>>IPPON</h2>
+									<div class="jpl-team-card-heading" style="background: <?php echo esc_attr($couleur1); ?>;">
+										<span class="" <?php echo $style_couleur1;?>>IPPON</span>
 									</div>
 									<div class="resultat-ippon">
 										<div class="col-1">
@@ -663,8 +706,8 @@ function get_correct_categorie($saison_value,$cat){
 									</div>
 								</div>
 								<div class="ippon">
-									<div class="header-tabl">
-										<h2 class="title-stat" <?php echo $style_couleur1;?>>WAZARI</h2>
+									<div class="jpl-team-card-heading" style="background: <?php echo esc_attr($couleur1); ?>;">
+										<span class="" <?php echo $style_couleur1;?>>WAZA-ARI</span>
 									</div>
 									<div class="resultat-ippon">
 										<div class="col-1">
@@ -682,8 +725,8 @@ function get_correct_categorie($saison_value,$cat){
 									</div>
 								</div>						
 								<div class="ippon">
-									<div class="header-tabl">
-										<h2 class="title-stat" <?php echo $style_couleur1;?>>PÉNALITÉS</h2>
+									<div class="jpl-team-card-heading" style="background: <?php echo esc_attr($couleur1); ?>;">
+										<span class="" <?php echo $style_couleur1;?>>PÉNALITÉS</span>
 									</div>
 									<div class="resultat-ippon">
 										<div class="col-1">
@@ -707,9 +750,9 @@ function get_correct_categorie($saison_value,$cat){
 				<?php  }else{?>
 						<div class="stat-infos">
 						<div class="results-cmba">
-							<div class="combat-judo">
-								<div class="header-tabl">
-									<h2 class="title-stat" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
+							<div class="combat-judo jpl-team-card">
+								<div class="jpl-section-heading">
+									<h2 class="" <?php echo $style_couleur1;?>>COMBATS JUDO PRO LEAGUE  <?php echo $saison_value." (".(get_field("abreviation",$found_equipe->ID)?get_field("abreviation",$found_equipe->ID):"NON PARTICIPATION").")";?> </h2>
 								</div>
 								<div class="resultat-combat">
 									<div class="col-1">
@@ -736,19 +779,19 @@ function get_correct_categorie($saison_value,$cat){
 											<span class="titile-stat">perdu(s)</span>
 										</div>
 									</div>
-									<div class="col-1 statistic">
+									<div class="col-1">
 										<div class="disp-grid-stat">
-											<span class="percent-stat">0%</span>
-											<span class="titile-percent">de combat(s)<br> gagné(s)</span>
-											<img src="/wp-content/uploads/2023/07/logo-jpl-1.png" class="logo-jpl">
+											<span class="percent-stat number-stat">0%</span>
+											<span class="titile-percent titile-stat">de combat(s)<br> gagné(s)</span>
+<!-- 											<img src="/wp-content/uploads/2023/07/logo-jpl-1.png" class="logo-jpl"> -->
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="ippon-wazari">
+							<div class="ippon-wazari jpl-team-card">
 								<div class="ippon">
-									<div class="header-tabl">
-										<h2 class="title-stat" <?php echo $style_couleur1;?>>IPPON</h2>
+									<div class="jpl-team-card-heading" style="background: <?php echo esc_attr($couleur1); ?>;">
+										<span class="" <?php echo $style_couleur1;?>>IPPON</span>
 									</div>
 									<div class="resultat-ippon">
 										<div class="col-1">
@@ -766,8 +809,8 @@ function get_correct_categorie($saison_value,$cat){
 									</div>
 								</div>
 								<div class="ippon">
-									<div class="header-tabl">
-										<h2 class="title-stat" <?php echo $style_couleur1;?>>WAZARI</h2>
+									<div class="jpl-team-card-heading" style="background: <?php echo esc_attr($couleur1); ?>;">
+										<span class="" <?php echo $style_couleur1;?>>WAZA-ARI</span>
 									</div>
 									<div class="resultat-ippon">
 										<div class="col-1">
@@ -785,8 +828,8 @@ function get_correct_categorie($saison_value,$cat){
 									</div>
 								</div>						
 								<div class="ippon">
-									<div class="header-tabl">
-										<h2 class="title-stat" <?php echo $style_couleur1;?>>PÉNALITÉS</h2>
+									<div class="jpl-team-card-heading" style="background: <?php echo esc_attr($couleur1); ?>;">
+										<span class="" <?php echo $style_couleur1;?>>PÉNALITÉS</span>
 									</div>
 									<div class="resultat-ippon">
 										<div class="col-1">
@@ -820,15 +863,15 @@ function get_correct_categorie($saison_value,$cat){
 
 
 
-<section class="det-combts" >
-    <div class="container cont-det-cmbat">
+<section class="det-combts jpl-jdk-detail" >
+    <div class="container cont-det-cmbat jpl-section-heading">
 
         <?php
 
         $combats     = get_combats_by_judoka_and_saison($post->ID, $saison_value);
 
         if ($combats) {
-            echo "<h2>Détails des combats</h2>"; ?>
+            echo '<h2 style="margin-bottom:6%;">Détails des combats</h2>'; ?>
             <div class="nv-result-eqju">
                 <div class="container-iw">
                     <div> </div>
@@ -1032,7 +1075,27 @@ function get_correct_categorie($saison_value,$cat){
 </section>	
 
 
+<style>
+	.jpl-judokas-page .jpl-team-card {
+    background: #fff;
+    border: 1px solid var(--jpl-border);
+    border-radius: var(--jpl-card-radius);
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(17, 19, 24, .035);
+}
+.jpl-team-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--team-gradient);
+    z-index: 2;
+}
 
+	
+</style>
 
 
 	

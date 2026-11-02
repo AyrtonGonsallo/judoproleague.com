@@ -38,49 +38,64 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
 
 ?>
 <script>
-        $(document).ready(function() {
-            $('#saison_value').change(function() {
-                $('.season-selector-form').submit();
-            });
-            $('#equipe_value').change(function() {
-                $('.season-selector-form').submit();
-            });
+    $(document).ready(function() {
+        $('#saison_value').change(function() {
+            $('.season-selector-form').submit();
         });
-    </script>
-<main id="primary" class="blog site-main liste-videos vid-club-cat">
-    <div class="season-selector-box">
-        <form Method="GET" ACTION="" class="season-selector-form">
-            <select name="saison_value" id="saison_value" class="season-selector-select">
-                <option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
-                <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
-                <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
-                <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
-                <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
+        $('#equipe_value').change(function() {
+            $('.season-selector-form').submit();
+        });
+    });
+</script>
+
+<main id="primary" class="blog site-main liste-videos vid-club-cat jpl-team-page" style="padding:4% 2%;">
+
+    <section class="jpl-liste-equipe" style="max-width:1401px;margin:auto;">
+		<div class="jpl-teams-header">
+            <div class="jpl-teams-header-content">
+                <span class="jpl-stats-eyebrow">
+                    Judo Pro League
+                </span>
+
+                <h1 class="jpl-teams-title">
+                    Vidéos Judo Pro League <?php echo $saison_value;?>
+                </h1>
+
+                <p class="jpl-teams-description">
+                    Retrouvez toutes les vidéos de la Judo Pro League
+                    pour la saison <?php echo esc_html($saison_value); ?>.
+                </p>
+            </div>
+			    
+            <div class="season-selector-box">
+                <form Method="GET" ACTION="" class="season-selector-form">
+                    <select name="saison_value" id="saison_value" class="season-selector-select">
+                        <option value="2022-2023" <?php echo ($saison_value=="2022-2023")?"selected":"";?>>2022-2023</option>
+                        <option value="2023-2024" <?php echo ($saison_value=="2023-2024")?"selected":"";?>>2023-2024</option>
+                        <option value="2024-2025" <?php echo ($saison_value=="2024-2025")?"selected":"";?>>2024-2025</option>
+                        <option value="2025-2026" <?php echo ($saison_value=="2025-2026")?"selected":"";?>>2025-2026</option>
+                        <option value="2026-2027" <?php echo ($saison_value=="2026-2027")?"selected":"";?>>2026-2027</option>
 
 
-            </select>
-            <select name="equipe_value" id="equipe_value" class="team-selector-select">
-            <option value="0">Toutes les équipes</option>
+                    </select>
+                    <select name="equipe_value" id="equipe_value" class="season-selector-select">
+                    <option value="0">Toutes les équipes</option>
 
-            <?php foreach ($equipes as $equipe) {
-                $title=get_the_title($equipe->ID);
-                ?>
-                
-                        <option value="<?php echo $equipe->ID;?>" <?php echo ($equipe_value==$equipe->ID)?"selected":"";?>><?php echo $title;?></option>
+                    <?php foreach ($equipes as $equipe) {
+                        $title=get_the_title($equipe->ID);
+                        ?>
+                        
+                                <option value="<?php echo $equipe->ID;?>" <?php echo ($equipe_value==$equipe->ID)?"selected":"";?>><?php echo $title;?></option>
 
-                    <?php }?>
-                
-            </select>
-        </form>
-    </div>
-
-    
-    <section class="nv-liste-judoka pd-5">
-
-        <div class="container">
-        <h1 class="result-h1">Vidéos Judo Pro League <?php echo $saison_value;?></h1>
-        <div>
+                            <?php }?>
+                        
+                    </select>
+                </form>
+            </div>
+        </div>
+		
     </section>
+
             <?php //recuperer les dernieres series
                 if($equipe_value!=0){
                     query_posts(
@@ -180,17 +195,16 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
             <section> <!--//ta classe section a la une -->
                 <div class="container">
                     <div> <!--//ta classe pour ta grid 1x1 -->
-                    <?
-                    if($featured_query->have_posts()){
-                        while($featured_query->have_posts()){
-                            $featured_query->the_post();
-
-                            $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
+                        <?php
+                            if($featured_query->have_posts()){
+                                while($featured_query->have_posts()){
+                                    $featured_query->the_post();
+                                     $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
                             $image_url=($i==0)?str_replace("hq","maxres",$image_url):$image_url;
 
-                            ?>
+                        ?>
 
-                            <div class="videos-container-element">
+                            <div class="jpl-video-card vid-1" style="margin-bottom:3%;">
 
                                 <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
 
@@ -202,68 +216,65 @@ $img="/wp-content/uploads/2022/12/image00011.webp";
 
 
                                 </div>                        
-
-                                <h3 class="nv-title-news-3-col"><?php echo get_field('titre');?></h3>
-
+                                <div class="jpl-video-content">
+                                    <h3 class=""><?php echo get_field('titre');?></h3>
+                                </div>
                             </div>
 
                         <?php
-                            
-                        }
-                    }
-                    wp_reset_postdata();
-                    ?>
+                                    
+                                }
+                            }
+                            wp_reset_postdata();
+                        ?>
                     </div>
                 </div>
             </section>
 
           
                
-                <?
+                <?php
                 // 2) Groupes
                 foreach($categories as $cat){
                     $q = $category_queries[$cat];
                     if($q->have_posts()){
                         $first_post = $q->posts[0]; // ne change pas le pointeur interne
-        $acf_categorie = get_field('categorie', $first_post->ID);
+                    $acf_categorie = get_field('categorie', $first_post->ID);
                         ?>
-                        <section class="bg-gt"> <!--//ta classe section  -->
+                        <section class=""> <!--//ta classe section  -->
                             <div class="container main-info-eq">
                                 <div class="div-flx-nv">
                                     <? echo '<h2 class="nv-title-clsm">'.ucfirst($acf_categorie).'</h2>';?>
                                     <div style="text-align:center;margin-top:0px !important">
-                                        <a href="toutes-les-videos/?categorie=<?php echo get_key_categorie_video($acf_categorie);?>&saison_value=<?php echo $saison_value;?>" class="more-actu"><span>Toutes les vidéos</span><i class="fa-solid fa-arrow-right-long"></i></a>
+                                        <a href="toutes-les-videos/?categorie=<?php echo get_key_categorie_video($acf_categorie);?>&saison_value=<?php echo $saison_value;?>" class="jpl-section-link"><span>Toutes les vidéos</span><i class="fa-solid fa-arrow-right-long"></i></a>
                                     </div>
                                 </div>
                                 
                                
 
-                                <div class="col-vids"> <!--//ta classe pour tes grid 2x2 -->
+                                <div class="jpl-video-grid"> <!--//ta classe pour tes grid 2x2 -->
 
-                                <?  
+                                <?php 
                                 while($q->have_posts()){
                                     $q->the_post();
                                     
-                                    $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
+                                     $image_url=get_the_post_thumbnail_url()?get_the_post_thumbnail_url ():('https://i.ytimg.com/vi/'.get_field('id').'/hqdefault.jpg');
                                     $image_url=($i==0)?str_replace("hq","maxres",$image_url):$image_url;
 
                                 ?>
-                                        <div class="videos-container-element">
+                                        <div class="jpl-video-card">
 
-                                            <div class="video-preview" style="background-image: url(<?php echo $image_url;?>);">
-
+                                            <div class="jpl-video-image" style="background-image: url(<?php echo $image_url;?>);">
+                                              <div class="jpl-video-play">
                                                 <div class="button-play-video button-play-video-grande-taille" >
 
                                                     <?php echo do_shortcode('[video_popup url="https://youtu.be/'.get_field('id').'" w="640" h="480" img="'.get_site_url().'/wp-content/uploads/2022/11/play.webp"]') ?>
-
                                                 </div>
-
-                                              
-
+                                            </div>
                                             </div>                        
-
-                                            <h3 class="nv-title-news-3-col"><?php echo get_field('titre');?></h3>
-
+                                       <div class="jpl-video-content">
+                                            <h3 class=""><?php echo get_field('titre');?></h3>
+                                        </div>
                                         </div>
                                     
                                 <?php
